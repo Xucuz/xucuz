@@ -1,3 +1,7 @@
+## Ürün adı önerileri
+
+Ana sayfa aramasında 20 kategoride 500 editoryal ürün adı ve klavye ile seçilebilir otomatik öneri bulunur. `/urunler` tüm listeyi kategori ve sayfalama ile açar. Liste doğrulanmış Google sıralaması veya arama hacmi raporu değildir. Genel seçim notları ayrıntılı rehberden ayrı etiketlenir. [Kaynak, kapsam ve çalışma](docs/PRODUCT-SUGGESTIONS.md).
+
 # İhtiyaç odaklı alışveriş rehberi
 
 Güncel ana sayfa üç başlangıç sunar: **Ürün seç**, **Maliyetini hesapla**, **Rehberini oku**. Logo ve iki slogan korunur.

@@ -61,3 +61,11 @@ robots kuralları, görünür fiyat eşleşmesi, stok, ürün kimliği, belirsiz
 - Son tam Playwright koşusu: 58 geçti, masaüstü/mobil ve demo/canlı mod. İlk koşudaki bilinmeyen rehber testi HTTP 404 bekliyordu; Next.js streaming yanıtı 200 taşıyabildiğinden kullanıcıya görünen not-found ve noindex davranışı doğrulanacak şekilde düzeltildi. Son koşuda başarısız test yok.
 - Ek tarayıcı kontrolü: 320px ana sayfa, rehber listesi ve ürün seçim sonucu taşma yapmadı. 390px ana sayfanın tam ekran görüntüsü incelendi.
 - İçerikler ürün testi veya model sıralaması değildir. Kaynaklar Microsoft, Apple ve Ticaret Bakanlığı'nın belirtilen konularına bağlantı verir; laboratuvar ölçümü, güncel satıcı fiyatı ve en ucuz iddiası üretilmez.
+
+## 27 Ekim 2026 — 500 editoryal ürün adı
+
+- 20 kategoride 500 ad; normalizasyon sonrası isim ve kimlik benzersizliği doğrulandı.
+- Google'ın Türkiye ilk 500 ürün sıralaması veya arama hacmi raporu elde edilmedi. Liste editoryal olarak etiketlendi; fiyat, hacim ve sıralama uydurulmadı. Kaynak/sınır: docs/PRODUCT-SUGGESTIONS.md.
+- Lint, TypeScript ve production build geçti. Vitest: 63 geçti, DATABASE_URL sağlanmadığı için 1 PostgreSQL testi atlandı.
+- Tam Playwright koşusu: 74 geçti. Türkçe/büyük harf/eş anlamlı arama, klavye ve tıklamayla öneri seçimi, Escape, serbest arama, rehbersiz üründe genel notlar, kategori ve sayfalama, eski rehber/hesaplayıcı regresyonları masaüstü/mobil ve demo/canlı doğrulandı.
+- Ek ekran görüntüsü denemesi test sunucuları kapandıktan sonra bağlantı reddi aldı; ürün öneri ekranının ayrıca görsel incelemesi yapılmış sayılmaz. Mobil tarayıcı testleri geçti.

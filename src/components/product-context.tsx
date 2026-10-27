@@ -1,0 +1,3 @@
+import Link from 'next/link';
+import {productChecks,productTool,type Product} from '@/lib/products';
+export function ProductContext({product:p}:{product:Product}){return <section className="product-context"><div><span className="eyebrow">{p.groupLabel} · ÜRÜN TÜRÜ</span><h2>{p.name} için seçim notları</h2><p>Bunlar kategoriye ait genel kontrol noktalarıdır; belirli bir modelin testi, fiyatı veya tavsiyesi değildir.</p><ul>{productChecks(p).map(check=><li key={check}>{check}</li>)}</ul></div><div className="product-context-actions"><Link className="btn" href={`/${productTool(p)}`}>Maliyetini hesapla →</Link><Link className="text-link" href="/indirim-hesapla">Kampanyayı kontrol et →</Link></div></section>;}
