@@ -15,3 +15,7 @@
 Canlı üçüncü taraf API'leri, gerçek ticari teklifler, satın alma/rezervasyon akışı, gerçek DNS/HTTPS alan adı ve işletmeye özgü hukuki bilgiler test edilmiş / teslim edilmiş değildir. Bunlar yapılandırılmış erişimler gerektirir. Demo gerçek fiyat değildir.
 
 Başlangıç Turbopack build'i sandbox port bağlama kısıtı nedeniyle durdu; izinli ağ yürütmesinde başarılı build alındı. Başlangıçta yakalanan oturum imza biçimi ve boş maksimum fiyat filtresi hataları düzeltildi; testleri eklendi. Başarısız ilk denemeler nihai başarılı test sonucu yerine kullanılmadı.
+
+## Çiçek kategorisi güncellemesi
+
+Sekizinci kategori eklendi. Lint, tip kontrolü, production build ve çiçek kategorisi migration'ı geçti. 24 birim/PostgreSQL testi ve 16 masaüstü/mobil Playwright testi geçti. Çiçek türü/adedi, teslimat bölgesi/zamanı, teslimat dahil fiyat, farklı buket varyantlarının ayrımı ve yan yana karşılaştırma doğrulandı. Gerçek çiçekçi entegrasyonu yok; fiyatlar demodur.

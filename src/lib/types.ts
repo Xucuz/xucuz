@@ -1,6 +1,6 @@
 import {z} from 'zod';
 import type {Category} from './categories';
-export const categorySchema=z.enum(['otel','ucak','otobus','market','otomobil','elektronik','beyaz-esya']);
+export const categorySchema=z.enum(['otel','ucak','otobus','market','otomobil','elektronik','beyaz-esya','cicek']);
 const amount=z.number().int().nonnegative().max(100_000_000_000);
 export const offerSchema=z.object({
  id:z.string().regex(/^[a-zA-Z0-9_-]{1,100}$/),category:categorySchema,entityId:z.string().min(1).max(150),variantKey:z.string().min(1).max(300),title:z.string().min(1).max(200),providerId:z.string().regex(/^[a-z0-9-]{1,60}$/),provider:z.string().min(1).max(100),description:z.string().max(1000),
@@ -12,7 +12,7 @@ export type Offer=z.infer<typeof offerSchema>;
 const short=z.string().max(150).default('');
 const integer=(min:number,max:number,def:number)=>z.coerce.number().int().min(min).max(max).default(def);
 const searchObject=z.object({
- q:short,city:short,district:short,from:short,to:short,start:short,end:short,trip:z.enum(['oneway','return']).default('oneway'),adults:integer(1,9,2),children:integer(0,6,0),ages:short,rooms:integer(1,6,1),passengers:integer(1,9,1),cabin:z.enum(['Ekonomi','Business']).default('Ekonomi'),
+ flowerType:short,flowerCount:short,delivery:short,q:short,city:short,district:short,from:short,to:short,start:short,end:short,trip:z.enum(['oneway','return']).default('oneway'),adults:integer(1,9,2),children:integer(0,6,0),ages:short,rooms:integer(1,6,1),passengers:integer(1,9,1),cabin:z.enum(['Ekonomi','Business']).default('Ekonomi'),
  min:z.coerce.number().nonnegative().max(1e9).default(0),max:z.coerce.number().nonnegative().max(1e9).default(1e9),provider:short,feature:short,brand:short,model:short,condition:short,fuel:short,gear:short,year:short,km:short,stars:short,meal:short,cancel:short,stops:short,airline:short,time:short,duration:short,baggage:short,sort:z.enum(['price-asc','price-desc']).default('price-asc'),page:integer(1,1000,1),currency:z.enum(['TRY','EUR','USD']).default('TRY'),
 }).superRefine((s,ctx)=>{
  if(s.min>s.max)ctx.addIssue({code:'custom',message:'En düşük fiyat en yüksek fiyattan büyük olamaz.',path:['min']});

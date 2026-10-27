@@ -45,3 +45,7 @@ Kurulum sırasında kontrol edildi:
 - https://orm.drizzle.team/docs/get-started/postgresql-new
 
 Tam sürümler package-lock.json dosyasındadır. Yeni API adaptörünün resmî dokümantasyonunu ve doğrulanan örnek yanıtlarını ayrıca belgeleyin.
+
+## Çiçek
+
+Kategori `cicek`, tazelik 30 dakika. Çiçek türü, adet, renk, buket içeriği, vazo/sunum, teslimat bölgesi ve zamanı `attributes` içinde açık tutulur. Arama filtreleri: flowerType, flowerCount, delivery, city, district. Teslimat ücreti shipping alanında; bilinmiyorsa null. Farklı boy, adet, içerik ve teslimat koşulları ayrı varyantlardır. Gerçek çiçekçi API/feed bağlantısı kurulmamıştır. “En ucuz” yalnızca aynı kapsamda güncel, doğrulanmış ve toplam ücreti bilinen karşılaştırılmış teklifler için kullanılabilir.

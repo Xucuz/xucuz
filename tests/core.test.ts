@@ -7,7 +7,7 @@ import {clearCache,collect,filterOffers,searchOffers} from '../src/lib/providers
 import {hashPassword,verifyPassword,sessionToken,validSession,safeProviderUrl,rateLimit} from '../src/lib/security';
 import {validateImport} from '../src/lib/import';
 const search=(v={})=>searchSchema.parse(v);
-const first=demoOffers[0];
+const first=demoOffers.find(o=>o.id==='otel-1')!;
 describe('Türkçe arama ve kategoriler',()=>{
  it('hotel ve Türkçe eş anlamlıları eşler',()=>{for(const s of ['HOTEL','Otel','hotel','Konaklama'])expect(categoryFor(s)?.slug).toBe('otel');expect(categoryFor('UÇAK BİLETİ')?.slug).toBe('ucak');expect(normalize('İSTANBUL IĞDIR')).toBe('istanbul igdir');});
  it('tüm kategorilerde arar ve filtreler',async()=>{for(const c of ['otel','ucak','otobus','market','otomobil','elektronik','beyaz-esya'] as const){const r=await searchOffers(c,search(),{mode:'demo'});expect(r.total).toBeGreaterThan(0);expect(r.offers.every(o=>o.demo&&o.category===c)).toBe(true);expect(filterOffers(r.offers,search({provider:'ornek-a'})).every(o=>o.providerId==='ornek-a')).toBe(true);}});
@@ -19,7 +19,7 @@ describe('fiyat ve eşleştirme',()=>{
  it('tüm yolcuların zorunlu ücretini dahil eder',()=>{const o=demoOffers.find(o=>o.id==='ucak-1')!;expect(total(quote(o,search({passengers:3})))).toBe((o.price+20000)*3);expect(total(quote(o,search({passengers:2,trip:'return'})))).toBe((o.price+20000)*4);});
  it('bilinmeyen ücretleri toplam tamamlanmış saymaz',()=>{const o=demoOffers.find(o=>o.id==='market-1')!;expect(complete(o)).toBe(false);});
  it('litre, kg ve paket dönüşümleri tutarlıdır',()=>{expect(unitPrice(demoOffers.find(o=>o.id==='market-2')!)?.price).toBe(5380);expect(unitPrice(demoOffers.find(o=>o.id==='market-3')!)?.price).toBe(7995);});
- it('farklı gramaj, kapasite, kondisyon ve donanımları birleştirmez',()=>{for(const prefix of ['market','el','be','oto']){const a=demoOffers.find(o=>o.id===`${prefix}-1`)!;const b=demoOffers.find(o=>o.id===`${prefix}-2`)!;expect(matchKey(a)).not.toBe(matchKey(b));}expect(matchKey(first)).toBe(matchKey(demoOffers[1]));});
+ it('farklı gramaj, kapasite, kondisyon ve donanımları birleştirmez',()=>{for(const prefix of ['market','el','be','oto']){const a=demoOffers.find(o=>o.id===`${prefix}-1`)!;const b=demoOffers.find(o=>o.id===`${prefix}-2`)!;expect(matchKey(a)).not.toBe(matchKey(b));}expect(matchKey(first)).toBe(matchKey(demoOffers.find(o=>o.id==='otel-1-b')!));});
  it('para birimleri arasında sıralama yapmaz',()=>{expect(filterOffers([{...first,currency:'USD'}],search())).toHaveLength(0);});
 });
 describe('sağlayıcı motoru',()=>{
@@ -39,4 +39,10 @@ describe('güvenlik ve aktarım',()=>{
 describe('arama sınır durumları',()=>{
  it('boş sayısal filtre sınırsız varsayılanı korur',()=>{expect(search({min:'',max:''}).max).toBe(1e9);});
  it('takvim dışı günleri reddeder',()=>{expect(searchSchema.safeParse({start:'2026-02-31'}).success).toBe(false);});
+});
+
+describe('çiçek karşılaştırması',()=>{
+ it('Türkçe isimleri ve eş anlamlıları tanır',()=>{for(const q of ['ÇİÇEK','çiçekçi','buket','flower'])expect(categoryFor(q)?.slug).toBe('cicek');});
+ it('teslimat bölgesi, tür, adet ve zamanı filtreler; kargoyu dahil sıralar',async()=>{const r=await searchOffers('cicek',search({flowerType:'Gül',flowerCount:'11',city:'istanbul',district:'kadikoy',delivery:'Aynı gün'}),{mode:'demo'});expect(r.total).toBe(2);expect(total(r.offers[0])).toBe(84800);expect(r.offers[0].price).toBeLessThan(r.offers[1].price);expect(matchKey(demoOffers.find(o=>o.id==='cicek-1')!)).not.toBe(matchKey(demoOffers.find(o=>o.id==='cicek-2')!));});
+ it('canlı çiçek kaynağı yoksa demo teklifi göstermez',async()=>{expect((await searchOffers('cicek',search(),{mode:'live',adapters:[]})).offers).toEqual([]);});
 });

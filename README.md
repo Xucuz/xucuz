@@ -49,3 +49,5 @@ Doğrulama: lint, tip kontrolü, 21 birim/PostgreSQL testi, 14 masaüstü/mobil 
 Veri kaynağı sözleşmesi: [docs/PROVIDERS.md](docs/PROVIDERS.md). Yayına hazırlık ve Vercel 404 ayarları: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). Doğrulama sonuçları: [docs/VALIDATION.md](docs/VALIDATION.md).
 
 PostgreSQL entegrasyon testi için `DATABASE_URL=... npm test`. URL yoksa veritabanı testi açıkça atlanır. Fiyat geçmişi yalnızca kaydedilmiş gözlemlerden oluşur; demo seed geçmiş üretmez. Cache ve istek limiti tek süreçte çalışır; çoklu replica için paylaşımlı limit/cache veya edge limiti gerekir.
+
+Çiçek kategorisi: `/cicek`. Tür, adet, teslimat şehri/ilçesi ve zamanı filtreleri, teslimat dahil fiyat sıralaması ve yan yana buket karşılaştırması. Farklı adet/içerik/vazo koşulları ayrı kalır. Demo fiyatlar gerçek çiçekçi teklifi değildir.
