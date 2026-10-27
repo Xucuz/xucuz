@@ -1,3 +1,7 @@
+## Tüm ürünlerde alışveriş rehberi
+
+500 ürünün tamamı `/urunler/[id]` adresinde ürüne özel üç karşılaştırma ölçütü, kullanım soruları, olası maliyetler ve altı maddelik kontrol listesi sunar. Ürün adı listesindeki ve otomatik önerideki seçim doğrudan rehberi açar. Bunlar model testleri veya 500 bağımsız uzun araştırma yazısı değildir; yapılandırılmış seçim rehberleridir. Fiyat/stok üretilmez. [İçerik modeli ve kapsam](docs/PRODUCT-GUIDES.md).
+
 ## Ürün adı önerileri
 
 Ana sayfa aramasında 20 kategoride 500 editoryal ürün adı ve klavye ile seçilebilir otomatik öneri bulunur. `/urunler` tüm listeyi kategori ve sayfalama ile açar. Liste doğrulanmış Google sıralaması veya arama hacmi raporu değildir. Genel seçim notları ayrıntılı rehberden ayrı etiketlenir. [Kaynak, kapsam ve çalışma](docs/PRODUCT-SUGGESTIONS.md).

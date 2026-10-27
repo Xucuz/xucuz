@@ -49,3 +49,5 @@ input[type=checkbox],input[type=radio]{accent-color:#171717}
 @media(max-width:380px){.product-directory{grid-template-columns:1fr}}
 
 .buy-hero{overflow:visible;position:relative;z-index:3}
+.product-guide-criteria{display:flex;flex-direction:column;gap:13px;margin:22px 0}.product-guide-criteria>div{position:relative;border:1px solid var(--line);border-radius:10px;padding:20px 20px 18px 58px}.product-guide-criteria>div>span{position:absolute;left:18px;top:21px;font-size:11px;font-weight:700;color:#897519}.product-guide-criteria h3{font-size:18px;line-height:1.4;margin:0 0 9px}.product-guide-criteria p{font-size:12px!important;margin:0;line-height:1.8}
+@media(max-width:760px){.product-guide-criteria>div{padding:18px 17px 18px 47px}.product-guide-criteria>div>span{left:14px;top:20px}.product-guide-criteria h3{font-size:17px}}

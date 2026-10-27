@@ -1,0 +1,2502 @@
+{
+  "Akıllı telefon": [
+    "Depolama kapasitesi ve kullanılan alan",
+    "Yazılım güncelleme kapsamı",
+    "Pil değişimi ve servis erişimi"
+  ],
+  "Tuşlu telefon": [
+    "Tuş boyutu ve ekran okunabilirliği",
+    "Arama ve şebeke uyumu",
+    "Şarj bağlantısı ve pil değişimi"
+  ],
+  "Katlanabilir telefon": [
+    "Katlama mekanizması ve kullanım sınırları",
+    "İç ve dış ekranın kullanım biçimi",
+    "Ekran onarımı ve garanti kapsamı"
+  ],
+  "Tablet": [
+    "Ekran boyutu ve taşıma ağırlığı",
+    "Kullanılan uygulamalar ve işletim sistemi",
+    "Kalem ve klavyenin paket kapsamı"
+  ],
+  "E-kitap okuyucu": [
+    "Desteklenen kitap ve dosya biçimleri",
+    "Ekran aydınlatması ve yazı ayarları",
+    "Kütüphane ve mağaza hesabı uyumu"
+  ],
+  "Akıllı saat": [
+    "Telefon ve işletim sistemi uyumu",
+    "Bildirim ve uygulama desteği",
+    "Şarj aralığının ölçüm koşulları"
+  ],
+  "Akıllı bileklik": [
+    "Telefon eşleşmesi ve uygulama erişimi",
+    "Ekran ve kayış ölçüsü",
+    "Ölçüm özelliklerinin kullanım sınırları"
+  ],
+  "Kablosuz kulaklık": [
+    "Kulaklık biçimi ve oturuşu",
+    "Telefonla bağlantı ve kodek uyumu",
+    "Kutunun ve kulaklıkların pil kapsamı"
+  ],
+  "Kablolu kulaklık": [
+    "Bağlantı tipi ve cihaz uyumu",
+    "Kablo uzunluğu ve dayanıklılık koşulları",
+    "Mikrofon ve kumanda desteği"
+  ],
+  "Kulak üstü kulaklık": [
+    "Baş bandı ve kulak yastığı konforu",
+    "Kablolu veya kablosuz bağlantı",
+    "Yedek ped ve katlanma yapısı"
+  ],
+  "Bluetooth hoparlör": [
+    "Kullanım alanı ve taşınabilirlik",
+    "Girişler ve bağlantı desteği",
+    "Pil ve suya dayanıklılık koşulları"
+  ],
+  "Powerbank": [
+    "Kapasitenin belirtilme ve ölçüm koşulları",
+    "Çıkış gücü ve şarj protokolü",
+    "Boyut ve taşıma kuralları"
+  ],
+  "Telefon şarj adaptörü": [
+    "Cihazın desteklediği güç ve protokol",
+    "Çıkış sayısı ve birlikte kullanım gücü",
+    "Kablo dahil olup olmadığı"
+  ],
+  "Kablosuz şarj cihazı": [
+    "Telefonun kablosuz şarj uyumu",
+    "Kılıfla kullanım ve yerleşim",
+    "Güç adaptörünün paket kapsamı"
+  ],
+  "USB-C şarj kablosu": [
+    "Uç tipleri ve veri aktarım desteği",
+    "Desteklenen şarj gücü",
+    "Uzunluk ve kablo işaretlemeleri"
+  ],
+  "Telefon kılıfı": [
+    "Tam telefon modeliyle uyum",
+    "Tuş ve kamera açıklıkları",
+    "Malzeme ve kavrama yapısı"
+  ],
+  "Ekran koruyucu": [
+    "Tam model ve ekran biçimi",
+    "Kılıfla birlikte kenar uyumu",
+    "Montaj ve değişim koşulları"
+  ],
+  "Telefon tutucu": [
+    "Montaj yüzeyi ve tutuş mekanizması",
+    "Telefon ve kılıfın boyutu",
+    "Görüşü veya havalandırmayı engellememesi"
+  ],
+  "Selfie çubuğu": [
+    "Telefon ağırlığı ve kelepçe ölçüsü",
+    "Uzama ve katlanma boyutu",
+    "Kumandanın bağlantı uyumu"
+  ],
+  "Gimbal": [
+    "Telefon veya kamera ağırlık sınırı",
+    "Eksen ve uygulama uyumu",
+    "Kurulum ve dengeleme biçimi"
+  ],
+  "Araç içi telefon şarjı": [
+    "Araç prizinin elektrik özellikleri",
+    "Çıkış gücü ve telefon protokolü",
+    "Birden fazla cihazda toplam güç"
+  ],
+  "Tablet kalemi": [
+    "Tam tablet modeli ve nesli",
+    "Basınç ve avuç içi algılama desteği",
+    "Şarj ve yedek uç erişimi"
+  ],
+  "Tablet klavyesi": [
+    "Tablet işletim sistemi uyumu",
+    "Türkçe tuş dizilimi",
+    "Bağlantı ve taşıma biçimi"
+  ],
+  "Telefon kamera lensi": [
+    "Telefon kamera yerleşimiyle uyum",
+    "Montaj mekanizması",
+    "Vinyet ve odaklama koşulları"
+  ],
+  "Telefon soğutucu": [
+    "Telefon boyutu ve montaj yüzeyi",
+    "Harici güç gereksinimi",
+    "Ses ve üreticinin nem uyarıları"
+  ],
+  "Dizüstü bilgisayar": [
+    "Kullanılan programların gereksinimleri",
+    "Ekran ve klavye konforu",
+    "Taşıma ağırlığı ve adaptör"
+  ],
+  "Masaüstü bilgisayar": [
+    "İş yüküne uygun bileşen dengesi",
+    "Yükseltme ve parça erişimi",
+    "İşletim sistemi ve çevre birimleri"
+  ],
+  "Mini bilgisayar": [
+    "İş yükü ve bağlantı gereksinimi",
+    "Bellek ve depolama yükseltmesi",
+    "Adaptör ve ekran paket kapsamı"
+  ],
+  "Oyuncu bilgisayarı": [
+    "Oyunların önerilen sistem gereksinimi",
+    "Hedef çözünürlük ve ekran uyumu",
+    "Soğutma ve yükseltme koşulları"
+  ],
+  "Monitör": [
+    "Ekran boyutu ve çözünürlük",
+    "Bağlantı ve bilgisayar uyumu",
+    "Stand ayarı ve masa alanı"
+  ],
+  "Oyuncu monitörü": [
+    "Çözünürlük ve yenileme hızı",
+    "Ekran kartı ve bağlantı uyumu",
+    "Üreticinin tepki süresi ölçüm koşulları"
+  ],
+  "Mekanik klavye": [
+    "Anahtar tipi ve tuş hissi",
+    "Türkçe dizilim ve tuş boyutu",
+    "Kablo ve anahtar değişimi"
+  ],
+  "Kablosuz klavye": [
+    "Bağlantı türü ve cihaz eşleşmesi",
+    "Tuş dizilimi ve boyut",
+    "Pil veya şarj biçimi"
+  ],
+  "Oyuncu faresi": [
+    "El boyutu ve kavrama biçimi",
+    "Sensör ayarları ve yazılım desteği",
+    "Tuş yerleşimi ve ağırlık"
+  ],
+  "Kablosuz fare": [
+    "El boyutu ve günlük kullanım",
+    "Bağlantı ve çoklu cihaz desteği",
+    "Pil veya şarj biçimi"
+  ],
+  "Mouse pad": [
+    "Masa ve fare hareket alanı",
+    "Yüzey ve taban tutuşu",
+    "Temizleme ve kenar yapısı"
+  ],
+  "Web kamera": [
+    "Görüntü çözünürlüğü ve kare hızı",
+    "Bağlantı ve uygulama uyumu",
+    "Montaj ve gizlilik kapağı"
+  ],
+  "USB mikrofon": [
+    "Kayıt ortamı ve yön seçimi",
+    "Bağlantı ve ses izleme desteği",
+    "Stand veya kol paket kapsamı"
+  ],
+  "Bilgisayar hoparlörü": [
+    "Masa alanı ve bağlantı",
+    "Güç beslemesi",
+    "Ses kontrolü ve kablo yerleşimi"
+  ],
+  "USB çoklayıcı": [
+    "Port tipleri ve bilgisayar desteği",
+    "Güç ve veri paylaşımı",
+    "Harici besleme gereksinimi"
+  ],
+  "Dock istasyonu": [
+    "Bilgisayarın görüntü ve veri desteği",
+    "Ekran sayısı ve desteklenen modlar",
+    "Güç adaptörünün kapsamı"
+  ],
+  "Laptop standı": [
+    "Laptop boyutu ve taşıma sınırı",
+    "Yükseklik ve açı ayarı",
+    "Havalandırma açıklıkları"
+  ],
+  "Laptop soğutucu": [
+    "Laptop alt yüzeyi ve fan konumu",
+    "Boyut ve güç bağlantısı",
+    "Fan sesi ve kullanım alanı"
+  ],
+  "Grafik tablet": [
+    "Çizim alanı ve masa düzeni",
+    "Kalem ve uygulama uyumu",
+    "Bağlantı ve sürücü desteği"
+  ],
+  "Yazıcı": [
+    "Aylık kullanım ve baskı türü",
+    "Kartuş veya toner maliyeti",
+    "Bağlantı ve çift taraflı baskı"
+  ],
+  "Lazer yazıcı": [
+    "Siyah beyaz veya renkli baskı",
+    "Toner ve drum erişimi",
+    "Aylık baskı kapasitesinin koşulları"
+  ],
+  "Mürekkep tanklı yazıcı": [
+    "Mürekkep dolum süreci",
+    "Baskı sıklığı ve bakım koşulları",
+    "Tarama ve bağlantı desteği"
+  ],
+  "Tarayıcı": [
+    "Belge ve fotoğraf boyutu",
+    "Otomatik besleme gereksinimi",
+    "Sürücü ve dosya biçimi"
+  ],
+  "Projeksiyon cihazı": [
+    "Oda ve perde yerleşimi",
+    "Girişler ve kaynak cihaz uyumu",
+    "Lamba veya ışık kaynağı bakım koşulları"
+  ],
+  "Kesintisiz güç kaynağı": [
+    "Bağlanacak cihazların güç ihtiyacı",
+    "Yedekleme süresinin yük koşulları",
+    "Akü değişimi ve bağlantı koruması"
+  ],
+  "İşlemci": [
+    "Anakart soketi ve destek listesi",
+    "BIOS sürümü gereksinimi",
+    "Soğutucu ve güç gereksinimi"
+  ],
+  "Ekran kartı": [
+    "Kasa içi uzunluk ve kalınlık",
+    "Güç kaynağı ve bağlantıları",
+    "Ekran ve iş yükü uyumu"
+  ],
+  "Anakart": [
+    "İşlemci ve bellek desteği",
+    "Kasa boyutu ve bağlantılar",
+    "Genişleme ve depolama yuvaları"
+  ],
+  "RAM bellek": [
+    "Anakartın bellek türü desteği",
+    "Modül kapasitesi ve yuva sayısı",
+    "Üretici uyumluluk ve hız koşulları"
+  ],
+  "SSD": [
+    "Arayüz ve fiziksel boyut",
+    "Anakart veya cihaz desteği",
+    "Kapasite ve yazma dayanımı koşulları"
+  ],
+  "Harici SSD": [
+    "Bağlantı standardı ve gerçek cihaz desteği",
+    "Kapasite ve taşınabilirlik",
+    "Kablo ve güç ihtiyacı"
+  ],
+  "Harici hard disk": [
+    "Kapasite ve dosya sistemi uyumu",
+    "Harici güç gereksinimi",
+    "Darbe ve taşıma koşulları"
+  ],
+  "USB bellek": [
+    "USB bağlantı tipi",
+    "Kapasite ve yazma koşulları",
+    "Güvenlik ve cihaz uyumu"
+  ],
+  "Hafıza kartı": [
+    "Cihazın desteklediği kart türü",
+    "Video veya fotoğraf için hız sınıfı",
+    "Adaptör ve garanti kapsamı"
+  ],
+  "Bilgisayar kasası": [
+    "Anakart ve ekran kartı boyutu",
+    "Soğutma ve hava akışı yerleşimi",
+    "Ön panel bağlantıları"
+  ],
+  "Güç kaynağı": [
+    "Bileşenlerin güç ve konektör ihtiyacı",
+    "Fiziksel boyut ve kasa uyumu",
+    "Koruma ve garanti bilgisi"
+  ],
+  "İşlemci soğutucu": [
+    "İşlemci soketi ve montaj kiti",
+    "Kasa yüksekliği sınırı",
+    "Bellek ve çevre bileşen boşluğu"
+  ],
+  "Sıvı soğutma sistemi": [
+    "Radyatör boyutu ve kasa montajı",
+    "Soket ve fan bağlantıları",
+    "Bakım ve garanti koşulları"
+  ],
+  "Kasa fanı": [
+    "Fan ölçüsü ve montaj delikleri",
+    "Konektör ve hız kontrolü",
+    "Kasa hava akışı düzeni"
+  ],
+  "Termal macun": [
+    "Uygulama ve temizleme talimatı",
+    "Yüzey ve malzeme uyumu",
+    "Paket miktarı ve saklama koşulları"
+  ],
+  "Wi-Fi modem": [
+    "İnternet bağlantı türü ve servis uyumu",
+    "Kablosuz kapsama ihtiyacı",
+    "Portlar ve güncelleme desteği"
+  ],
+  "Router": [
+    "Mevcut modem ve ağ topolojisi",
+    "Kablosuz bant ve istemci uyumu",
+    "Port hızı ve yönetim özellikleri"
+  ],
+  "Mesh Wi-Fi sistemi": [
+    "Ev planı ve düğüm yerleşimi",
+    "Kablolu veya kablosuz omurga",
+    "Ek cihaz ve üretici ekosistemi"
+  ],
+  "Wi-Fi menzil genişletici": [
+    "Mevcut yönlendirici uyumu",
+    "Yerleşim ve sinyal ihtiyacı",
+    "Çalışma modu ve kablolu port"
+  ],
+  "Ağ anahtarı": [
+    "Port sayısı ve hızları",
+    "PoE gereksinimi ve bütçesi",
+    "Yönetilebilirlik ve güç adaptörü"
+  ],
+  "Ethernet kablosu": [
+    "Bağlantı hızı için kablo standardı",
+    "Uzunluk ve güzergah",
+    "Konektör ve dış ortam koşulları"
+  ],
+  "Wi-Fi adaptörü": [
+    "Bilgisayar bağlantı yuvası",
+    "İşletim sistemi ve sürücü",
+    "Anten ve bant desteği"
+  ],
+  "Bluetooth adaptörü": [
+    "İşletim sistemi ve sürücü",
+    "Bağlanacak cihaz profilleri",
+    "Bağlantı sürümü ve menzil koşulları"
+  ],
+  "NAS depolama": [
+    "Disk yuvası ve disk uyumluluğu",
+    "Yedekleme ve erişim planı",
+    "Disklerin pakete dahil olup olmadığı"
+  ],
+  "Video yakalama kartı": [
+    "Kaynak ve kayıt bilgisayarı uyumu",
+    "Giriş çıkış çözünürlüğü",
+    "Kayıt yazılımı ve bağlantı ihtiyacı"
+  ],
+  "Televizyon": [
+    "Oturma mesafesi ve ekran boyutu",
+    "Kaynak cihazların bağlantıları",
+    "Kurulum ve işletim sistemi desteği"
+  ],
+  "OLED televizyon": [
+    "Ekran kullanım biçimi ve üretici uyarıları",
+    "Oda ışığı ve yansıma",
+    "Garanti kapsamı ve bağlantılar"
+  ],
+  "QLED televizyon": [
+    "Panel ve arka aydınlatma açıklaması",
+    "Kullanım ortamı ve ekran boyutu",
+    "Bağlantı ve güncelleme desteği"
+  ],
+  "Akıllı TV kutusu": [
+    "Televizyon bağlantısı ve çözünürlük",
+    "Uygulama ve yayın hizmeti uyumu",
+    "Güç ve uzaktan kumanda kapsamı"
+  ],
+  "Uydu alıcısı": [
+    "Uydu veya yayın standardı",
+    "Çıkış ve televizyon uyumu",
+    "Kurulum ve kanal özellikleri"
+  ],
+  "Soundbar": [
+    "TV ile ses bağlantısı",
+    "Oda ve yerleşim",
+    "Subwoofer ve arka hoparlör kapsamı"
+  ],
+  "Ev sinema sistemi": [
+    "Hoparlör sayısı ve yerleşim alanı",
+    "Alıcı ve kaynak bağlantıları",
+    "Kablo ve kurulum giderleri"
+  ],
+  "Oyun konsolu": [
+    "Oyun kütüphanesi ve sürüm",
+    "Depolama ve ek kontrolcü",
+    "Abonelik ve çevrim içi hizmet giderleri"
+  ],
+  "Taşınabilir oyun konsolu": [
+    "Oyun ve işletim sistemi uyumu",
+    "Pil koşulları ve taşınabilirlik",
+    "Kontrol ve ekran biçimi"
+  ],
+  "Oyun kumandası": [
+    "Konsol veya bilgisayar uyumu",
+    "Bağlantı ve pil",
+    "Tuş düzeni ve garanti"
+  ],
+  "Direksiyon seti": [
+    "Platform ve oyun uyumu",
+    "Masa montajı ve pedal alanı",
+    "Güç beslemesi ve paket içeriği"
+  ],
+  "Sanal gerçeklik gözlüğü": [
+    "Bağımsız veya bilgisayara bağlı kullanım",
+    "Görüş ve oda alanı koşulları",
+    "Uygulama ve aksesuar giderleri"
+  ],
+  "Oyuncu kulaklığı": [
+    "Platform ve ses bağlantısı",
+    "Mikrofon ve kullanım konforu",
+    "Yedek ped ve pil koşulları"
+  ],
+  "Fotoğraf makinesi": [
+    "Çekim amacı ve lens sistemi",
+    "Elde tutuş ve bağlantılar",
+    "Pil ve hafıza kartı kapsamı"
+  ],
+  "Aynasız fotoğraf makinesi": [
+    "Lens yuvası ve ekosistem",
+    "Çekim ve video gereksinimi",
+    "Pil ve aksesuar maliyeti"
+  ],
+  "Aksiyon kamera": [
+    "Montaj ve çekim ortamı",
+    "Pil ve kart gereksinimi",
+    "Suya dayanıklılık ve garanti sınırları"
+  ],
+  "Şipşak fotoğraf makinesi": [
+    "Kullanılan film türü",
+    "Baskı başına film maliyeti",
+    "Pil ve saklama koşulları"
+  ],
+  "Kamera lensi": [
+    "Gövde yuvası ve sensör kapsamı",
+    "Çekim amacı ve odak uzaklığı",
+    "Filtre çapı ve taşıma ağırlığı"
+  ],
+  "Tripod": [
+    "Kamera ve lensin taşıma sınırı",
+    "Kapalı boy ve çalışma yüksekliği",
+    "Kafa ve montaj plakası"
+  ],
+  "Video kamera": [
+    "Kayıt ortamı ve çekim süresi",
+    "Ses girişleri ve bağlantılar",
+    "Pil ve depolama giderleri"
+  ],
+  "Drone": [
+    "Kullanım amacı ve yerel uçuş kuralları",
+    "Pil ve kontrolcü kapsamı",
+    "Parça ve servis erişimi"
+  ],
+  "Dijital fotoğraf çerçevesi": [
+    "Ekran boyutu ve yerleşim",
+    "Dosya ve bağlantı desteği",
+    "Uygulama hesabı ve gizlilik"
+  ],
+  "Pikap": [
+    "Plak ve hız desteği",
+    "Ses çıkışı ve harici donanım ihtiyacı",
+    "İğne ve kartuş erişimi"
+  ],
+  "Karaoke mikrofonu": [
+    "Hoparlör ve bağlantı uyumu",
+    "Mikrofon sayısı ve kumanda",
+    "Pil ve şarj kapsamı"
+  ],
+  "Projeksiyon perdesi": [
+    "Oda ölçüsü ve projeksiyon oranı",
+    "Duvar veya tavan montajı",
+    "Yüzey ve ekran biçimi"
+  ],
+  "Buzdolabı": [
+    "Net hacim ve iç raf yerleşimi",
+    "Kapı açılma ve havalandırma alanı",
+    "Etiket tüketimi ve teslimat kapsamı"
+  ],
+  "Mini buzdolabı": [
+    "Net hacim ve konulacak ürünler",
+    "Yerleşim ve havalandırma boşluğu",
+    "Gürültü ve etiket tüketimi"
+  ],
+  "Derin dondurucu": [
+    "Dikey veya sandık kullanım biçimi",
+    "Çekmece ve depolama alanı",
+    "Etiket tüketimi ve kurulum koşulları"
+  ],
+  "Çamaşır makinesi": [
+    "Çamaşır miktarı ve programlar",
+    "Yerleşim ve su bağlantısı",
+    "Etiket tüketimi ve servis koşulları"
+  ],
+  "Kurutma makinesi": [
+    "Kurutulacak tekstiller ve kapasite",
+    "Su tahliyesi ve kurulum alanı",
+    "Filtre bakımı ve etiket tüketimi"
+  ],
+  "Kurutmalı çamaşır makinesi": [
+    "Yıkama ve kurutma kapasitesi farkı",
+    "Birleşik programın koşulları",
+    "Yerleşim ve bakım gereksinimi"
+  ],
+  "Bulaşık makinesi": [
+    "Sepet düzeni ve kapasite",
+    "Su bağlantısı ve montaj ölçüsü",
+    "Program ve etiket tüketimi"
+  ],
+  "Ankastre fırın": [
+    "Dolap montaj ölçüsü",
+    "Elektrik bağlantısı gereksinimi",
+    "Tepsi ve temizleme koşulları"
+  ],
+  "Solo fırın": [
+    "Yerleşim ve elektrik veya gaz bağlantısı",
+    "Fırın ve ocak kapsamı",
+    "Teslimat ve kurulum giderleri"
+  ],
+  "Set üstü ocak": [
+    "Tezgah alanı ve cihaz yerleşimi",
+    "Gaz veya elektrik bağlantısı",
+    "Tencere boyutu ve güvenlik talimatı"
+  ],
+  "Ankastre ocak": [
+    "Tezgah kesim ölçüsü",
+    "Enerji türü ve kurulum koşulları",
+    "Kontroller ve tencere yerleşimi"
+  ],
+  "İndüksiyon ocak": [
+    "Tencere tabanının uyumu",
+    "Elektrik altyapısı ve kurulum",
+    "Ocak alanı ve güç paylaşımı"
+  ],
+  "Davlumbaz": [
+    "Ocak ve baca yerleşimi",
+    "Kanal veya karbon filtre biçimi",
+    "Filtre değişimi ve kurulum gideri"
+  ],
+  "Aspiratör": [
+    "Dolap montaj ölçüsü",
+    "Baca bağlantısı ve filtre türü",
+    "Gürültü ve bakım koşulları"
+  ],
+  "Mikrodalga fırın": [
+    "İç hacim ve kap ölçüsü",
+    "Kullanılabilir programlar",
+    "Uygun kap ve güvenlik talimatı"
+  ],
+  "Mini fırın": [
+    "Tezgah alanı ve havalandırma",
+    "Tepsi ve iç hacim",
+    "Elektrik bağlantısı ve temizleme"
+  ],
+  "Şarap soğutucu": [
+    "Şişe adedi ve raf biçimi",
+    "Kurulum ve ortam koşulları",
+    "Sıcaklık bölgeleri ve bakım"
+  ],
+  "Buz makinesi": [
+    "Üretim ve depolama koşulları",
+    "Su doldurma veya tesisat gereksinimi",
+    "Temizleme ve sarf giderleri"
+  ],
+  "Su sebili": [
+    "Damacana veya tesisat bağlantısı",
+    "Yerleşim ve hazne temizliği",
+    "Su ve bakım giderleri"
+  ],
+  "Su arıtma cihazı": [
+    "Su kaynağı ve kurulum uygunluğu",
+    "Filtre türü ve değişim planı",
+    "Filtre ve servis giderleri"
+  ],
+  "Elektrikli termosifon": [
+    "Sıcak su ihtiyacı ve kapasite",
+    "Elektrik ve su altyapısı",
+    "Montaj ve bakım koşulları"
+  ],
+  "Şofben": [
+    "Enerji ve havalandırma gereksinimi",
+    "Su debisi ve bağlantı koşulları",
+    "Yetkili kurulum ve bakım"
+  ],
+  "Kombi": [
+    "Bina ve tesisat uygunluğu",
+    "Kurulum ve baca koşulları",
+    "Bakım ve servis giderleri"
+  ],
+  "Çamaşır makinesi üstü kurutma rafı": [
+    "Makine ölçüsü ve raf montajı",
+    "Taşıma ve sabitleme talimatı",
+    "Nem ve bakım koşulları"
+  ],
+  "Kompakt bulaşık makinesi": [
+    "Tezgah veya dolap ölçüsü",
+    "Su ve elektrik bağlantısı",
+    "Sepet kapasitesi ve programlar"
+  ],
+  "Airfryer": [
+    "Haznenin kullanılabilir alanı",
+    "Sepet veya tepsi temizleme biçimi",
+    "Yerleşim ve havalandırma koşulları"
+  ],
+  "Türk kahvesi makinesi": [
+    "Fincan kapasitesi ve taşma uyarıları",
+    "Hazne temizliği",
+    "Su ve kahve ölçüm biçimi"
+  ],
+  "Filtre kahve makinesi": [
+    "Sürahi ve filtre türü",
+    "Demleme miktarı ve yerleşim",
+    "Filtre ve bakım giderleri"
+  ],
+  "Espresso makinesi": [
+    "Kahve ve öğütücü uyumu",
+    "Süt hazırlama ve temizleme",
+    "Bakım malzemesi ve aksesuar kapsamı"
+  ],
+  "Kapsül kahve makinesi": [
+    "Kapsül sistemi ve bulunabilirliği",
+    "Porsiyon ve içecek seçenekleri",
+    "Kapsül başına maliyet ve atık"
+  ],
+  "Kahve öğütücü": [
+    "Öğütme ayarı ve kahve yöntemi",
+    "Hazne ve temizleme",
+    "Parça ve servis erişimi"
+  ],
+  "Çay makinesi": [
+    "Demlik ve su haznesi kapasitesi",
+    "Malzeme ve temizleme",
+    "Yerleşim ve güvenlik talimatı"
+  ],
+  "Su ısıtıcısı": [
+    "Su kapasitesi ve minimum dolum",
+    "Ağız yapısı ve kullanım konforu",
+    "Kireç temizliği ve kapak yapısı"
+  ],
+  "Tost makinesi": [
+    "Pişirme alanı ve kapak hareketi",
+    "Plakaların çıkması ve temizliği",
+    "Tezgah alanı ve kablo"
+  ],
+  "Ekmek kızartma makinesi": [
+    "Dilim boyutu ve göz sayısı",
+    "Kırıntı haznesi temizliği",
+    "Isı ayarı ve kullanım uyarıları"
+  ],
+  "Blender": [
+    "Hazne ve işlenecek miktar",
+    "Bıçak ve kap malzemesi",
+    "Temizleme ve yedek parça"
+  ],
+  "El blenderi": [
+    "Sap tutuşu ve işlem kabı",
+    "Başlık ve bağlantı yapısı",
+    "Temizleme ve çalışma koşulları"
+  ],
+  "Mutfak robotu": [
+    "Hazne ve aparat kapsamı",
+    "Kullanılacak işlemler",
+    "Saklama ve temizleme alanı"
+  ],
+  "Stand mikser": [
+    "Kase kapasitesi ve hamur ihtiyacı",
+    "Aparatlar ve sabitleme",
+    "Tezgah alanı ve bakım"
+  ],
+  "El mikseri": [
+    "Ağırlık ve tutuş",
+    "Hız ayarları ve başlıklar",
+    "Temizleme ve çalışma sınırları"
+  ],
+  "Narenciye sıkacağı": [
+    "Narenciye boyutu ve sıkma ucu",
+    "Süzgeç ve hazne",
+    "Temizleme ve malzeme"
+  ],
+  "Katı meyve sıkacağı": [
+    "Giriş ağzı ve posa haznesi",
+    "İşlenecek gıda talimatı",
+    "Sökme ve temizleme"
+  ],
+  "Yavaş sıkım meyve sıkacağı": [
+    "Sıkma mekanizması ve gıda uyumu",
+    "Posa ve meyve suyu haznesi",
+    "Parça temizliği ve erişimi"
+  ],
+  "Waffle makinesi": [
+    "Plaka biçimi ve porsiyon",
+    "Isı kontrolü",
+    "Plaka temizliği ve saklama"
+  ],
+  "Ekmek yapma makinesi": [
+    "Ekmek ve hamur kapasitesi",
+    "Program ve un koşulları",
+    "Hazne ve karıştırıcı temizliği"
+  ],
+  "Yoğurt yapma makinesi": [
+    "Kap ve porsiyon boyutu",
+    "Süre ve sıcaklık kontrolü",
+    "Kapların temizliği ve yedeği"
+  ],
+  "Dondurma makinesi": [
+    "Hazne ön soğutma gereksinimi",
+    "Porsiyon ve hazırlama süresi",
+    "Temizleme ve saklama"
+  ],
+  "Elektrikli düdüklü tencere": [
+    "Basınç ve kapak güvenlik talimatı",
+    "Program ve kullanılabilir hacim",
+    "Conta değişimi ve temizlik"
+  ],
+  "Elektrikli ızgara": [
+    "Pişirme alanı ve yerleşim",
+    "Yağ toplama ve plaka yapısı",
+    "Açık veya kapalı alan kullanım talimatı"
+  ],
+  "Yumurta pişirme makinesi": [
+    "Yumurta adedi ve boyut",
+    "Su ölçüsü ve pişirme ayarı",
+    "Delici ve sıcak yüzey uyarıları"
+  ],
+  "Süpürge": [
+    "Zemin ve temizlik alanı",
+    "Başlık ve saklama alanı",
+    "Filtre veya torba giderleri"
+  ],
+  "Robot süpürge": [
+    "Eşik ve mobilya altı ölçüsü",
+    "İstasyon ve harita koşulları",
+    "Fırça ve filtre giderleri"
+  ],
+  "Dikey süpürge": [
+    "Tutuş ve taşıma ağırlığı",
+    "Zemin başlığı ve saklama",
+    "Toz haznesi temizliği"
+  ],
+  "Şarjlı süpürge": [
+    "Güç moduna göre çalışma koşulu",
+    "Pil değişimi ve şarj alanı",
+    "Başlık ve filtre bakımı"
+  ],
+  "Torbalı elektrikli süpürge": [
+    "Torba tipi ve hacmi",
+    "Zemin başlıkları",
+    "Torba ve filtre bulunabilirliği"
+  ],
+  "Torbasız elektrikli süpürge": [
+    "Hazne boşaltma ve temizleme",
+    "Filtre bakım talimatı",
+    "Başlık ve bağlantı kapsamı"
+  ],
+  "Islak kuru süpürge": [
+    "İzin verilen sıvı ve atık türü",
+    "Islak ve kuru filtre koşulları",
+    "Hazne ve boşaltma biçimi"
+  ],
+  "Halı yıkama makinesi": [
+    "Halı türü ve üretici kullanım talimatı",
+    "Temiz ve kirli su haznesi",
+    "Deterjan ve temizlik gideri"
+  ],
+  "Koltuk yıkama makinesi": [
+    "Kumaş uygunluğu ve uygulama talimatı",
+    "Hortum ve başlık kapsamı",
+    "Hazne boşaltma ve bakım"
+  ],
+  "Buharlı temizleyici": [
+    "Yüzeyin buhara uygunluğu",
+    "Su ve basınç güvenlik talimatı",
+    "Başlık ve kireç bakımı"
+  ],
+  "Cam temizleme robotu": [
+    "Cam kalınlığı ve çerçeve koşulları",
+    "Emniyet bağlantısı talimatı",
+    "Bez ve temizleme sıvısı"
+  ],
+  "Şarjlı cam temizleyici": [
+    "Cam ve yüzey uygunluğu",
+    "Su haznesi ve çekçek ölçüsü",
+    "Pil ve yedek lastik erişimi"
+  ],
+  "Mop seti": [
+    "Sap boyu ve başlık ölçüsü",
+    "Bez çıkarma ve yıkama",
+    "Yedek bez giderleri"
+  ],
+  "Döner başlıklı temizlik seti": [
+    "Sıkma mekanizması ve kova ölçüsü",
+    "Başlık hareketi ve sap",
+    "Yedek başlık erişimi"
+  ],
+  "Ütü": [
+    "Taban ve buhar kontrolü",
+    "Su doldurma ve kireç bakımı",
+    "Kablo ve kullanım güvenliği"
+  ],
+  "Kazanlı ütü": [
+    "Hazne ve yerleşim alanı",
+    "Buhar ve kumaş kullanım koşulları",
+    "Kireç temizliği ve servis"
+  ],
+  "Buharlı düzleştirici": [
+    "Kumaş uygunluğu ve kullanım biçimi",
+    "Su haznesi ve ısınma koşulu",
+    "Başlık ve kireç bakımı"
+  ],
+  "Ütü masası": [
+    "Tabla ölçüsü ve yükseklik",
+    "Ayak sabitleme mekanizması",
+    "Kılıf ve ütü koyma alanı"
+  ],
+  "Çamaşır kurutmalığı": [
+    "Açık ve kapalı ölçüler",
+    "Taşıma sınırı ve denge",
+    "İç veya dış ortam uygunluğu"
+  ],
+  "Tüy toplama makinesi": [
+    "Kumaş kullanım talimatı",
+    "Bıçak koruması ve başlık",
+    "Güç ve temizleme biçimi"
+  ],
+  "Vakumlu saklama poşeti": [
+    "Torba ölçüsü ve saklama alanı",
+    "Valf ve pompa uyumu",
+    "Tekrar kullanım ve malzeme"
+  ],
+  "Çöp kovası": [
+    "Hacim ve kullanım alanı",
+    "Kapak mekanizması",
+    "Temizleme ve poşet ölçüsü"
+  ],
+  "Çamaşır sepeti": [
+    "Hacim ve yerleşim",
+    "Hava dolaşımı ve malzeme",
+    "Taşıma ve temizleme"
+  ],
+  "Robot süpürge filtresi": [
+    "Tam robot modeline uyum",
+    "Filtre türü ve bakım talimatı",
+    "Paket adedi ve değişim maliyeti"
+  ],
+  "Elektrikli süpürge torbası": [
+    "Tam süpürge modeline uyum",
+    "Torba bağlantısı ve hacmi",
+    "Paket adedi ve birim maliyet"
+  ],
+  "Klima": [
+    "Oda ve bina koşullarının değerlendirilmesi",
+    "Montaj alanı ve altyapı",
+    "Etiket tüketimi ve servis gideri"
+  ],
+  "Mobil klima": [
+    "Hava tahliye güzergahı",
+    "Pencere bağlantısı ve kurulum",
+    "Su tahliyesi ve kullanım sesi"
+  ],
+  "Vantilatör": [
+    "Oda ve hava yönlendirme ihtiyacı",
+    "Ayak dengesi ve yerleşim",
+    "Temizleme ve güvenlik talimatı"
+  ],
+  "Kule tipi vantilatör": [
+    "Yerleşim alanı ve hava yönü",
+    "Hız ve kontrol biçimi",
+    "Filtre veya gövde temizliği"
+  ],
+  "Tavan vantilatörü": [
+    "Tavan yüksekliği ve montaj uygunluğu",
+    "Kanat açıklığı ve taşıyıcı yapı",
+    "Elektrik bağlantısı ve kumanda"
+  ],
+  "Hava temizleyici": [
+    "Oda ve filtre kullanım koşulları",
+    "Filtre türü ve değiştirme planı",
+    "Yedek filtre maliyeti"
+  ],
+  "Hava nemlendirici": [
+    "Oda koşulları ve hedef kullanım",
+    "Su ve temizlik talimatı",
+    "Hazne ve filtre bakımı"
+  ],
+  "Nem alma cihazı": [
+    "Oda ve çalışma koşulları",
+    "Su haznesi ve sürekli tahliye",
+    "Filtre ve tüketim bilgisi"
+  ],
+  "Elektrikli soba": [
+    "Elektrik altyapısı ve yerleşim",
+    "Güvenlik ve yüzey mesafeleri",
+    "Üretici tüketim koşulları"
+  ],
+  "Yağlı radyatör": [
+    "Boyut ve taşıma biçimi",
+    "Elektrik ve güvenli yerleşim",
+    "Sıcaklık kontrolü"
+  ],
+  "Konvektör ısıtıcı": [
+    "Duvar veya ayak montajı",
+    "Güç ve elektrik altyapısı",
+    "Güvenlik mesafeleri"
+  ],
+  "Fanlı ısıtıcı": [
+    "Yerleşim ve devrilme koşulları",
+    "Isı ve hız kontrolü",
+    "Temizlik ve kullanım uyarıları"
+  ],
+  "İnfrared ısıtıcı": [
+    "İç veya dış ortam talimatı",
+    "Montaj ve yüzey mesafeleri",
+    "Elektrik beslemesi"
+  ],
+  "Elektrikli battaniye": [
+    "Ölçü ve kullanım amacı",
+    "Yıkama ve katlama talimatı",
+    "Kablo ve güvenlik uyarıları"
+  ],
+  "Oda termostatı": [
+    "Kombi ve tesisat uyumluluğu",
+    "Kablolu veya kablosuz bağlantı",
+    "Kontrol ve kurulum biçimi"
+  ],
+  "Akıllı termostat": [
+    "Isıtma sistemi ve bağlantı uyumu",
+    "Uygulama ve ağ gereksinimi",
+    "Veri ve uzaktan erişim ayarları"
+  ],
+  "Dijital termometre": [
+    "Ölçüm aralığı ve kullanım ortamı",
+    "Gösterge okunabilirliği",
+    "Pil ve ölçüm doğruluğu koşulları"
+  ],
+  "Higrometre": [
+    "Ölçüm aralığı ve ortam koşulları",
+    "Yerleşim ve okuma biçimi",
+    "Pil ve bakım talimatı"
+  ],
+  "Karbonmonoksit dedektörü": [
+    "Kullanım standardı ve üretici beyanı",
+    "Yerleşim ve test talimatı",
+    "Sensör ömrü ve pil değişimi"
+  ],
+  "Duman dedektörü": [
+    "Sensör ve kullanım standardı",
+    "Montaj ve test talimatı",
+    "Pil ve değiştirme koşulları"
+  ],
+  "Hava kalitesi ölçer": [
+    "Ölçülen parametreler ve birimler",
+    "Kalibrasyon ve kullanım koşulları",
+    "Sensör bakım ve ömür bilgisi"
+  ],
+  "Pencere izolasyon bandı": [
+    "Pencere boşluğu ve bant ölçüsü",
+    "Yüzey ve yapıştırıcı uyumu",
+    "Sökme ve kullanım koşulları"
+  ],
+  "Kapı altı rüzgarlık": [
+    "Kapı genişliği ve zemin boşluğu",
+    "Açılıp kapanmaya engel olmaması",
+    "Montaj ve yüzey uyumu"
+  ],
+  "Petek hava yönlendirici": [
+    "Petek ve pencere yerleşimi",
+    "Montaj ve malzeme uygunluğu",
+    "Üreticinin mesafe talimatı"
+  ],
+  "Şarjlı el vantilatörü": [
+    "Taşıma boyutu ve ağırlık",
+    "Pil ve şarj koşulları",
+    "Pervane koruması ve temizleme"
+  ],
+  "Saç kurutma makinesi": [
+    "Saç ve kullanım alışkanlığı",
+    "Isı ve hız kontrolü",
+    "Başlık ve filtre temizliği"
+  ],
+  "Saç düzleştirici": [
+    "Plaka boyutu ve kullanım talimatı",
+    "Isı ayarı ve saç uygunluğu",
+    "Kablo ve saklama güvenliği"
+  ],
+  "Saç maşası": [
+    "Maşa çapı ve şekillendirme amacı",
+    "Isı ayarı ve kullanım süresi",
+    "Sıcak yüzey ve saklama uyarısı"
+  ],
+  "Saç şekillendirici": [
+    "Saç türüne uygun başlıklar",
+    "Isı ve hava ayarları",
+    "Başlık temizliği ve kapsam"
+  ],
+  "Tıraş makinesi": [
+    "Kesim sistemi ve kullanım biçimi",
+    "Islak veya kuru kullanım talimatı",
+    "Başlık ve pil değişim gideri"
+  ],
+  "Sakal düzeltici": [
+    "Uzunluk aralığı ve taraklar",
+    "Tutuş ve detay başlığı",
+    "Bıçak bakımı ve şarj"
+  ],
+  "Saç kesme makinesi": [
+    "Kesim uzunluğu ve taraklar",
+    "Kablolu veya şarjlı kullanım",
+    "Bıçak temizliği ve yedeği"
+  ],
+  "Epilasyon cihazı": [
+    "Üreticinin cilt ve bölge kullanım sınırları",
+    "Başlık ve temizleme",
+    "Güç ve yedek parça erişimi"
+  ],
+  "IPL cihazı": [
+    "Cilt ve kıl tipi için üretici uygunluk koşulları",
+    "Göz güvenliği ve kullanım uyarıları",
+    "Başlık ve cihaz ömrü koşulları"
+  ],
+  "Elektrikli diş fırçası": [
+    "Başlık tipi ve uygulama biçimi",
+    "Yedek başlık maliyeti",
+    "Şarj ve temizlik talimatı"
+  ],
+  "Ağız duşu": [
+    "Kullanım ve ağız sağlığı uyarıları",
+    "Basınç ayarları ve hazne",
+    "Uç ve temizleme giderleri"
+  ],
+  "Dijital tartı": [
+    "Ölçüm koşulları ve taşıma sınırı",
+    "Ekran okunabilirliği",
+    "Pil ve zemin kullanım talimatı"
+  ],
+  "Vücut analiz baskülü": [
+    "Ölçümlerin kullanım sınırları",
+    "Uygulama ve kişisel veri ayarları",
+    "Zemin ve ölçüm koşulları"
+  ],
+  "Manikür seti": [
+    "Parça kapsamı ve kişisel kullanım",
+    "Malzeme ve temizleme talimatı",
+    "Saklama ve taşıma"
+  ],
+  "Elektrikli törpü": [
+    "Başlık ve kullanım amacı",
+    "Hız ayarı ve güvenlik uyarıları",
+    "Uç değişimi ve temizleme"
+  ],
+  "Makyaj aynası": [
+    "Ayna boyutu ve büyütme",
+    "Aydınlatma ve güç beslemesi",
+    "Montaj ve masa alanı"
+  ],
+  "Yüz temizleme cihazı": [
+    "Cilt ve başlık uygunluk talimatı",
+    "Kullanım ve temizleme sıklığı",
+    "Yedek başlık gideri"
+  ],
+  "Saç fırçası": [
+    "Saç ve kullanım amacı",
+    "Kıl ve gövde malzemesi",
+    "Temizleme ve tutuş"
+  ],
+  "Güneş kremi": [
+    "Üreticinin kullanım ve yenileme talimatı",
+    "İçerik ve ambalaj bütünlüğü",
+    "Hacim ve son kullanım bilgisi"
+  ],
+  "Nemlendirici krem": [
+    "İçerik ve kullanım bölgesi",
+    "Ambalaj ve ürün miktarı",
+    "Üreticinin cilt uyarıları"
+  ],
+  "Yüz temizleme jeli": [
+    "İçerik ve kullanım talimatı",
+    "Ambalaj ve hacim",
+    "Üreticinin cilt uyarıları"
+  ],
+  "Şampuan": [
+    "Saç ve saç derisi için kullanım açıklaması",
+    "Hacim ve paket adedi",
+    "İçerik ve uyarılar"
+  ],
+  "Saç kremi": [
+    "Saç türü ve uygulama biçimi",
+    "Hacim ve paket adedi",
+    "Durulama ve kullanım talimatı"
+  ],
+  "Deodorant": [
+    "Uygulama türü ve ürün miktarı",
+    "İçerik ve kullanım uyarıları",
+    "Ambalaj ve son kullanım bilgisi"
+  ],
+  "Parfüm": [
+    "Ürün türü ve yoğunluk açıklaması",
+    "Hacim ve ambalaj bütünlüğü",
+    "Satıcı ve ürün doğrulama bilgisi"
+  ],
+  "Tencere seti": [
+    "Tencere boyutları ve kapak kapsamı",
+    "Ocak türüyle uyumluluk",
+    "Malzeme ve bakım talimatı"
+  ],
+  "Düdüklü tencere": [
+    "Hacim ve güvenli dolum sınırı",
+    "Kapak ve basınç güvenlik talimatı",
+    "Conta ve servis erişimi"
+  ],
+  "Döküm tencere": [
+    "Boyut ve taşıma ağırlığı",
+    "Ocak ve fırın kullanım koşulları",
+    "Bakım ve yüzey koruma talimatı"
+  ],
+  "Çelik tencere": [
+    "Malzeme ve taban yapısı",
+    "Ocak türü ve çap uyumu",
+    "Sap ve yıkama koşulları"
+  ],
+  "Tava seti": [
+    "Tava çapları ve parça kapsamı",
+    "Ocak ve fırın uygunluğu",
+    "Kaplama ve bakım talimatı"
+  ],
+  "Döküm tava": [
+    "Çap ve kullanım ağırlığı",
+    "Ocak ve fırın uygunluğu",
+    "Bakım ve saklama"
+  ],
+  "Wok tava": [
+    "Ocak yüzeyi ve taban biçimi",
+    "Çap ve sap kullanımı",
+    "Kaplama ve temizleme"
+  ],
+  "Sahan seti": [
+    "Parça ve kapak kapsamı",
+    "Ocak uygunluğu ve çap",
+    "Sap ve bakım koşulları"
+  ],
+  "Bıçak seti": [
+    "Kullanılan bıçak türleri",
+    "Sap tutuşu ve saklama",
+    "Bileme ve yıkama talimatı"
+  ],
+  "Şef bıçağı": [
+    "Kesim amacı ve bıçak boyu",
+    "Sap tutuşu ve denge",
+    "Bileme ve bakım"
+  ],
+  "Kesme tahtası": [
+    "Malzeme ve yüzey ölçüsü",
+    "Kayma ve yerleşim",
+    "Temizleme ve değiştirme koşulları"
+  ],
+  "Yemek takımı": [
+    "Kişi ve parça sayısı",
+    "Malzeme ve paket kapsamı",
+    "Yıkama ve kullanım koşulları"
+  ],
+  "Kahvaltı takımı": [
+    "Kişi ve servis parçası sayısı",
+    "Masa ve saklama alanı",
+    "Malzeme ve yıkama talimatı"
+  ],
+  "Çatal kaşık bıçak takımı": [
+    "Kişi ve parça kapsamı",
+    "Malzeme ve elde tutuş",
+    "Yıkama ve saklama koşulları"
+  ],
+  "Bardak seti": [
+    "Bardak türleri ve hacimleri",
+    "Malzeme ve sıcaklık talimatı",
+    "Paket adedi ve bakım"
+  ],
+  "Termos": [
+    "Hacim ve taşıma biçimi",
+    "Sızdırmazlık kullanım koşulları",
+    "İç yüzey ve temizleme"
+  ],
+  "Termos bardak": [
+    "Hacim ve araç tutucu ölçüsü",
+    "Kapak mekanizması",
+    "Sıcak içecek ve bakım uyarıları"
+  ],
+  "Matara": [
+    "Hacim ve taşıma ihtiyacı",
+    "İçme ağzı ve malzeme",
+    "Temizleme ve kullanım koşulları"
+  ],
+  "Saklama kabı": [
+    "Hacim ve paket adedi",
+    "Gıda ve sıcaklık uygunluğu",
+    "Kapak ve istifleme"
+  ],
+  "Baharatlık seti": [
+    "Kavanoz hacmi ve parça sayısı",
+    "Kapak ve nem koşulları",
+    "Etiketleme ve temizleme"
+  ],
+  "Mutfak tartısı": [
+    "Kapasite ve ölçüm hassasiyeti",
+    "Dara ve birim seçenekleri",
+    "Pil ve temizleme koşulları"
+  ],
+  "Mutfak termometresi": [
+    "Ölçüm aralığı ve prob biçimi",
+    "Gıdaya kullanım talimatı",
+    "Temizleme ve pil"
+  ],
+  "Fırın kabı": [
+    "Fırın içi ölçü ve kap hacmi",
+    "Sıcaklık ve kullanım koşulları",
+    "Malzeme ve temizleme"
+  ],
+  "Kek kalıbı": [
+    "Kalıp boyutu ve biçimi",
+    "Malzeme ve sıcaklık talimatı",
+    "Yağlama ve temizleme"
+  ],
+  "Bulaşıklık": [
+    "Tezgah ölçüsü ve su tahliyesi",
+    "Parça ve tabak yerleşimi",
+    "Malzeme ve temizleme"
+  ],
+  "Koltuk takımı": [
+    "Oda ve kapı geçiş ölçüleri",
+    "Oturum ve kullanım biçimi",
+    "Döşeme bakım ve teslimat koşulları"
+  ],
+  "Köşe koltuk": [
+    "Köşe yönü ve oda yerleşimi",
+    "Modül ve geçiş ölçüleri",
+    "Kumaş ve montaj koşulları"
+  ],
+  "Çekyat": [
+    "Açık ve kapalı ölçüler",
+    "Yatak mekanizması ve kullanım",
+    "Döşeme ve teslimat kapsamı"
+  ],
+  "Berjer": [
+    "Oturum boyutu ve yerleşim",
+    "Kumaş ve bakım koşulları",
+    "Ayak ve denge"
+  ],
+  "Yemek masası": [
+    "Kapalı ve açık masa ölçüsü",
+    "Oturulacak kişi ve sandalye alanı",
+    "Malzeme ve bakım"
+  ],
+  "Yemek sandalyesi": [
+    "Masa yüksekliği ve oturum ölçüsü",
+    "Malzeme ve döşeme bakımı",
+    "Taşıma sınırı ve denge"
+  ],
+  "Çalışma masası": [
+    "Oda ve çalışma yüzeyi ölçüsü",
+    "Monitör ve kablo yerleşimi",
+    "Yükseklik ve malzeme"
+  ],
+  "Çalışma koltuğu": [
+    "Oturum ve sırt ayarları",
+    "Kullanıcı boyutu ve üretici yük sınırı",
+    "Tekerlek ve zemin uyumu"
+  ],
+  "Oyuncu koltuğu": [
+    "Oturum ve sırt ayarları",
+    "Masa ve kullanıcı ölçüsü",
+    "Döşeme ve parça erişimi"
+  ],
+  "Kitaplık": [
+    "Duvar ve raf ölçüleri",
+    "Üreticinin raf yük sınırı",
+    "Sabitleme ve montaj talimatı"
+  ],
+  "TV ünitesi": [
+    "Televizyon ölçüsü ve yerleşim",
+    "Kablo ve havalandırma boşluğu",
+    "Duvara sabitleme koşulları"
+  ],
+  "Orta sehpa": [
+    "Oturma grubuyla yerleşim",
+    "Yüzey ve kenar yapısı",
+    "Malzeme ve temizleme"
+  ],
+  "Zigon sehpa": [
+    "İç içe ve ayrı kullanım ölçüleri",
+    "Ayak ve denge",
+    "Yüzey ve bakım koşulları"
+  ],
+  "Gardırop": [
+    "Kapı açılma ve oda ölçüsü",
+    "İç raf ve askı düzeni",
+    "Montaj ve duvar sabitleme"
+  ],
+  "Şifonyer": [
+    "Çekmece ölçüsü ve kullanım alanı",
+    "Ray ve malzeme",
+    "Sabitleme ve güvenlik talimatı"
+  ],
+  "Komodin": [
+    "Yatak yüksekliği ve yerleşim",
+    "Çekmece ve saklama ihtiyacı",
+    "Malzeme ve bakım"
+  ],
+  "Yatak": [
+    "Boyut ve kullanılan baza uyumu",
+    "Kişisel deneme ve yatış ihtiyacı",
+    "Deneme ve iade koşulları"
+  ],
+  "Baza": [
+    "Yatak ölçüsü ve yerleşim",
+    "Açma mekanizması ve saklama",
+    "Montaj ve güvenlik talimatı"
+  ],
+  "Yatak başlığı": [
+    "Yatak ve baza ölçüsü",
+    "Duvar ve priz yerleşimi",
+    "Kaplama ve montaj"
+  ],
+  "Ranza": [
+    "Tavan yüksekliği ve yatak ölçüsü",
+    "Yaş ve yük kullanım sınırları",
+    "Korkuluk ve montaj güvenliği"
+  ],
+  "Portmanto": [
+    "Giriş alanı ve kapı hareketi",
+    "Askı ve saklama ihtiyacı",
+    "Sabitleme ve montaj"
+  ],
+  "Ayakkabılık": [
+    "Ayakkabı ve raf ölçüleri",
+    "Havalandırma ve temizlik",
+    "Kapak hareketi ve sabitleme"
+  ],
+  "Balkon takımı": [
+    "Balkon ve kapı geçiş ölçüsü",
+    "Dış ortam kullanım koşulları",
+    "Katlama ve saklama"
+  ],
+  "Bahçe masası": [
+    "Kişi sayısı ve yerleşim",
+    "Malzemenin dış ortam koşulları",
+    "Bakım ve mevsimlik saklama"
+  ],
+  "Katlanır sandalye": [
+    "Açık ve katlı ölçü",
+    "Kilitleme ve yük sınırı",
+    "Zemin ve kullanım koşulları"
+  ],
+  "Nevresim takımı": [
+    "Yorgan ve yatak ölçüsü",
+    "Kumaş içeriği ve dokusu",
+    "Parça kapsamı ve yıkama"
+  ],
+  "Yorgan": [
+    "Yatak ölçüsü ve kullanım mevsimi",
+    "Dolgu ve dış kumaş",
+    "Yıkama ve saklama"
+  ],
+  "Yastık": [
+    "Boyut ve kişisel yatış tercihi",
+    "Dolgu ve kılıf yapısı",
+    "Bakım ve değiştirme koşulları"
+  ],
+  "Yatak alezi": [
+    "Yatak ölçüsü ve kenar yüksekliği",
+    "Malzeme ve koruma kapsamı",
+    "Yıkama ve kurutma"
+  ],
+  "Battaniye": [
+    "Boyut ve kullanım alanı",
+    "Malzeme ve doku",
+    "Yıkama ve bakım"
+  ],
+  "Pike takımı": [
+    "Yatak ölçüsü ve parça sayısı",
+    "Malzeme ve kullanım mevsimi",
+    "Yıkama ve kurutma"
+  ],
+  "Çarşaf": [
+    "Yatak ölçüsü ve derinliği",
+    "Lastikli veya düz kullanım",
+    "Kumaş ve yıkama"
+  ],
+  "Yatak örtüsü": [
+    "Yatak ve sarkma ölçüsü",
+    "Parça ve kırlent kapsamı",
+    "Malzeme ve temizleme"
+  ],
+  "Havlu seti": [
+    "Havlu boyutları ve adet",
+    "Malzeme ve doku",
+    "Yıkama ve kurutma"
+  ],
+  "Bornoz": [
+    "Beden ve kullanım uzunluğu",
+    "Malzeme ve dokusu",
+    "Yıkama ve kurutma"
+  ],
+  "Banyo paspası": [
+    "Banyo ölçüsü ve yerleşim",
+    "Tabanın zemine uygunluğu",
+    "Yıkama ve kurutma"
+  ],
+  "Halı": [
+    "Oda ve mobilya yerleşimi",
+    "Hav ve malzeme yapısı",
+    "Temizleme ve bakım"
+  ],
+  "Yolluk": [
+    "Koridor ölçüsü ve kapı açıklığı",
+    "Taban ve zemin uyumu",
+    "Temizleme ve malzeme"
+  ],
+  "Perde": [
+    "Pencere ve korniş ölçüsü",
+    "Işık geçirgenliği ve kumaş",
+    "Montaj ve yıkama"
+  ],
+  "Stor perde": [
+    "Pencere ölçüsü ve montaj biçimi",
+    "Işık kontrolü ve kumaş",
+    "Mekanizma ve temizlik"
+  ],
+  "Tül perde": [
+    "Pencere genişliği ve yükseklik",
+    "Kumaş ve pile düzeni",
+    "Yıkama ve montaj"
+  ],
+  "Kırlent": [
+    "Kullanılacak koltuk ve boyut",
+    "Dolgu ve kılıf kapsamı",
+    "Yıkama ve bakım"
+  ],
+  "Kırlent kılıfı": [
+    "Kırlent ölçüsü ve kapanış",
+    "Kumaş ve desen",
+    "Yıkama ve çekme koşulları"
+  ],
+  "Masa örtüsü": [
+    "Masa ölçüsü ve sarkma",
+    "Kumaş ve yüzey kullanımı",
+    "Yıkama ve ütü"
+  ],
+  "Amerikan servis": [
+    "Masa ve tabak yerleşimi",
+    "Malzeme ve ısı kullanım koşulları",
+    "Temizleme ve paket adedi"
+  ],
+  "Duvar saati": [
+    "Duvar ve görünürlük",
+    "Sessiz çalışma açıklaması",
+    "Pil ve montaj"
+  ],
+  "Dekoratif ayna": [
+    "Duvar alanı ve ölçü",
+    "Montaj ve ağırlık",
+    "Çerçeve ve temizleme"
+  ],
+  "Vazo": [
+    "İç hacim ve ağız ölçüsü",
+    "Malzeme ve su kullanım koşulları",
+    "Denge ve temizleme"
+  ],
+  "Çerçeve": [
+    "Fotoğraf ve dış ölçü",
+    "Duvar veya masa montajı",
+    "Koruyucu yüzey ve malzeme"
+  ],
+  "Oda kokusu": [
+    "Hacim ve uygulama biçimi",
+    "İçerik ve güvenlik uyarıları",
+    "Yedek dolum ve maliyet"
+  ],
+  "LED ampul": [
+    "Duy tipi ve armatür uyumu",
+    "Işık akısı ve renk sıcaklığı",
+    "Dimmer ve kullanım koşulları"
+  ],
+  "Akıllı ampul": [
+    "Duy ve ağ protokolü",
+    "Uygulama ve merkezi sistem uyumu",
+    "Güç kesilince davranış ayarı"
+  ],
+  "Avize": [
+    "Tavan ve oda ölçüsü",
+    "Ampul duyları ve kapsam",
+    "Montaj ve elektrik bağlantısı"
+  ],
+  "Lambader": [
+    "Yerleşim ve ışık yönü",
+    "Denge ve kablo güzergahı",
+    "Ampul ve temizleme"
+  ],
+  "Masa lambası": [
+    "Masa alanı ve ışık yönlendirme",
+    "Parlama ve kontrol biçimi",
+    "Güç ve ampul kapsamı"
+  ],
+  "Gece lambası": [
+    "Işık şiddeti ve kontrol biçimi",
+    "Priz veya pil kullanımı",
+    "Yerleşim ve güvenlik talimatı"
+  ],
+  "Şerit LED": [
+    "Uzunluk ve besleme gereksinimi",
+    "Kesim ve bağlantı koşulları",
+    "Montaj yüzeyi ve kontrolcü"
+  ],
+  "Bahçe aydınlatması": [
+    "Dış ortam koruma koşulları",
+    "Kablo ve güç altyapısı",
+    "Montaj ve bakım"
+  ],
+  "Sensörlü lamba": [
+    "Sensör konumu ve algılama koşulları",
+    "Güç ve ışık ayarı",
+    "İç veya dış ortam uygunluğu"
+  ],
+  "Güneş enerjili lamba": [
+    "Panelin güneş alma konumu",
+    "Pil değişimi ve çalışma koşulları",
+    "Dış ortam koruma beyanı"
+  ],
+  "Akıllı priz": [
+    "Bağlanacak yük ve kullanım sınırı",
+    "Priz ve ağ uyumu",
+    "Uygulama ve güvenlik güncellemeleri"
+  ],
+  "Zaman ayarlı priz": [
+    "Kullanılacak yük ve priz türü",
+    "Zamanlama ve güç kesintisi ayarı",
+    "İç veya dış ortam uygunluğu"
+  ],
+  "Akıllı ev merkezi": [
+    "Cihazların haberleşme protokolü",
+    "Üretici ekosistemi uyumu",
+    "Yerel kontrol ve hesap gereksinimi"
+  ],
+  "Akıllı kapı kilidi": [
+    "Kapı ve silindir ölçüsü",
+    "Manuel açma ve pil koşulları",
+    "Kurulum ve erişim ayarları"
+  ],
+  "Görüntülü kapı zili": [
+    "Kapı yerleşimi ve bağlantı",
+    "Güç beslemesi ve ağ",
+    "Kayıt depolama ve abonelik"
+  ],
+  "Güvenlik kamerası": [
+    "Kullanım alanı ve görüş",
+    "Güç ve ağ bağlantısı",
+    "Yerel veya bulut kayıt koşulları"
+  ],
+  "Bebek kamerası": [
+    "Yerleşim ve montaj",
+    "Güç ve bağlantı koşulları",
+    "Görüntü erişimi ve gizlilik"
+  ],
+  "Kapı pencere sensörü": [
+    "Pencere veya kapı montaj boşluğu",
+    "Ağ ve merkezi sistem uyumu",
+    "Pil ve bildirim ayarları"
+  ],
+  "Su baskını sensörü": [
+    "Yerleşim ve temas algılama koşulları",
+    "Merkez ve bildirim bağlantısı",
+    "Pil ve test talimatı"
+  ],
+  "Hareket sensörü": [
+    "Montaj ve algılama alanı",
+    "Merkezi sistem uyumu",
+    "Pil ve otomasyon ayarları"
+  ],
+  "Akıllı perde motoru": [
+    "Perde ölçüsü ve mekanizma uyumu",
+    "Güç ve montaj gereksinimi",
+    "Kontrol protokolü ve manuel kullanım"
+  ],
+  "Akıllı kumanda": [
+    "Kontrol edilecek cihaz protokolü",
+    "Görüş ve yerleşim koşulları",
+    "Uygulama ve hesap gereksinimi"
+  ],
+  "Akıllı hoparlör": [
+    "Desteklenen dil ve hizmetler",
+    "Cihaz ekosistemi uyumu",
+    "Mikrofon ve gizlilik ayarları"
+  ],
+  "Uzatma kablosu": [
+    "Kablo uzunluğu ve kesit bilgisi",
+    "Bağlanacak yükün sınırları",
+    "Yerleşim ve kullanım uyarıları"
+  ],
+  "Akım korumalı priz": [
+    "Koruma özelliklerinin üretici beyanı",
+    "Yük ve priz gereksinimi",
+    "Garanti ve kullanım sınırları"
+  ],
+  "Tişört": [
+    "Beden tablosu ve kalıp",
+    "Kumaş içeriği ve doku",
+    "Yıkama ve çekme koşulları"
+  ],
+  "Gömlek": [
+    "Yaka ve kol ölçüsü",
+    "Kalıp ve kumaş",
+    "Ütü ve yıkama talimatı"
+  ],
+  "Sweatshirt": [
+    "Beden ve katmanlı kullanım",
+    "Kumaş ve iç yüzey",
+    "Yıkama ve kurutma"
+  ],
+  "Kazak": [
+    "Kalıp ve kullanım mevsimi",
+    "Lif içeriği",
+    "Bakım ve saklama"
+  ],
+  "Hırka": [
+    "Beden ve katmanlı kullanım",
+    "Örgü ve kapanış biçimi",
+    "Yıkama ve kurutma"
+  ],
+  "Pantolon": [
+    "Bel ve iç bacak ölçüsü",
+    "Kalıp ve hareket alanı",
+    "Kumaş ve bakım"
+  ],
+  "Kot pantolon": [
+    "Bel ve paça ölçüsü",
+    "Kesim ve kumaş esnekliği",
+    "Yıkama ve renk bakım talimatı"
+  ],
+  "Eşofman takımı": [
+    "Alt ve üst beden uyumu",
+    "Kumaş ve kullanım amacı",
+    "Paket kapsamı ve bakım"
+  ],
+  "Şort": [
+    "Bel ve uzunluk ölçüsü",
+    "Hareket alanı ve kullanım",
+    "Kumaş ve yıkama"
+  ],
+  "Elbise": [
+    "Beden ve boy ölçüsü",
+    "Kalıp ve astar kapsamı",
+    "Bakım ve tadilat ihtiyacı"
+  ],
+  "Etek": [
+    "Bel ve boy ölçüsü",
+    "Kesim ve hareket alanı",
+    "Malzeme ve bakım"
+  ],
+  "Ceket": [
+    "Omuz ve kol ölçüsü",
+    "Astar ve kullanım mevsimi",
+    "Temizleme ve tadilat"
+  ],
+  "Mont": [
+    "Beden ve katmanlı kullanım",
+    "Dolgu ve dış kumaş",
+    "Yıkama ve üretici hava koşulu beyanı"
+  ],
+  "Kaban": [
+    "Omuz ve boy ölçüsü",
+    "Lif içeriği ve astar",
+    "Temizleme ve saklama"
+  ],
+  "Yağmurluk": [
+    "Beden ve kapüşon uyumu",
+    "Üreticinin su koruma koşulları",
+    "Dikiş ve bakım"
+  ],
+  "Yelek": [
+    "Beden ve katmanlı kullanım",
+    "Dolgu ve kullanım mevsimi",
+    "Yıkama ve saklama"
+  ],
+  "Takım elbise": [
+    "Ceket ve pantolon ölçüsü",
+    "Kumaş ve kullanım sıklığı",
+    "Tadilat ve temizleme"
+  ],
+  "Pijama takımı": [
+    "Beden ve hareket rahatlığı",
+    "Kumaş ve mevsim",
+    "Parça kapsamı ve yıkama"
+  ],
+  "İçlik": [
+    "Beden ve katman uyumu",
+    "Malzeme ve kullanım amacı",
+    "Yıkama ve kurutma"
+  ],
+  "Çorap": [
+    "Numara ve uzunluk",
+    "Malzeme ve dikiş yapısı",
+    "Paket adedi ve birim fiyat"
+  ],
+  "Atkı": [
+    "Uzunluk ve genişlik",
+    "Lif ve cilt teması",
+    "Yıkama ve saklama"
+  ],
+  "Bere": [
+    "Baş ölçüsü ve kalıp",
+    "Malzeme ve kullanım mevsimi",
+    "Yıkama ve bakım"
+  ],
+  "Eldiven": [
+    "El ve parmak ölçüsü",
+    "Kullanım amacı ve kavrama",
+    "Malzeme ve bakım"
+  ],
+  "Kemer": [
+    "Bel ölçüsü ve uzunluk",
+    "Tokanın kullanım biçimi",
+    "Malzeme ve bakım"
+  ],
+  "Güneş gözlüğü": [
+    "Yüz uyumu ve çerçeve ölçüsü",
+    "Üreticinin UV koruma beyanı",
+    "Cam bakımı ve ürün belgesi"
+  ],
+  "Spor ayakkabı": [
+    "Ayak ölçüsü ve kalıp",
+    "Kullanım amacı ve zemin",
+    "Malzeme ve iade koşulları"
+  ],
+  "Koşu ayakkabısı": [
+    "Ayak ölçüsü ve koşu kullanım biçimi",
+    "Zemin ve üretici kullanım açıklaması",
+    "Deneme ve değişim koşulları"
+  ],
+  "Yürüyüş ayakkabısı": [
+    "Ayak ölçüsü ve kalıp",
+    "Yürüyüş zemini ve kullanım",
+    "Malzeme ve bakım"
+  ],
+  "Basketbol ayakkabısı": [
+    "Ayak ölçüsü ve tutuş",
+    "Salon veya dış zemin kullanımı",
+    "Taban ve üretici kullanım koşulları"
+  ],
+  "Futbol ayakkabısı": [
+    "Ayak ölçüsü ve kalıp",
+    "Saha zemini için taban türü",
+    "Bakım ve değişim koşulları"
+  ],
+  "Trekking ayakkabısı": [
+    "Ayak ölçüsü ve çorapla deneme",
+    "Arazi ve hava kullanım koşulları",
+    "Taban ve bakım talimatı"
+  ],
+  "Bot": [
+    "Ayak ölçüsü ve bilek biçimi",
+    "Zemin ve kullanım mevsimi",
+    "Malzeme ve bakım"
+  ],
+  "Çizme": [
+    "Ayak ve baldır ölçüsü",
+    "Topuk ve taban biçimi",
+    "Malzeme ve saklama"
+  ],
+  "Loafer": [
+    "Ayak ölçüsü ve kalıp",
+    "Taban ve kullanım alanı",
+    "Malzeme ve bakım"
+  ],
+  "Klasik ayakkabı": [
+    "Ayak ölçüsü ve kalıp",
+    "Taban ve kullanım sıklığı",
+    "Bakım ve deneme"
+  ],
+  "Topuklu ayakkabı": [
+    "Ayak ölçüsü ve denge",
+    "Topuk biçimi ve kullanım alanı",
+    "Malzeme ve değişim koşulları"
+  ],
+  "Sandalet": [
+    "Ayak ölçüsü ve kayış uyumu",
+    "Taban ve zemin kullanımı",
+    "Malzeme ve bakım"
+  ],
+  "Terlik": [
+    "Numara ve ayak biçimi",
+    "Islak veya kuru alan kullanımı",
+    "Taban ve temizleme"
+  ],
+  "Ev ayakkabısı": [
+    "Ayak ölçüsü ve kullanım alanı",
+    "Taban ve iç malzeme",
+    "Yıkama ve bakım"
+  ],
+  "Çocuk ayakkabısı": [
+    "Çocuğun güncel ayak ölçüsü",
+    "Kapanış ve giyme kolaylığı",
+    "Kullanım alanı ve değişim koşulları"
+  ],
+  "Sırt çantası": [
+    "Hacim ve taşınacak eşyalar",
+    "Askı ayarı ve sırt yerleşimi",
+    "Malzeme ve temizleme"
+  ],
+  "Laptop çantası": [
+    "Laptopun gerçek dış ölçüsü",
+    "Bölme ve aksesuar alanı",
+    "Askı ve koruma koşulları"
+  ],
+  "Omuz çantası": [
+    "Boyut ve eşya düzeni",
+    "Askı uzunluğu ve kullanım",
+    "Kapanış ve malzeme"
+  ],
+  "El çantası": [
+    "Boyut ve taşıma ihtiyacı",
+    "Sap ve askı kapsamı",
+    "Malzeme ve bakım"
+  ],
+  "Bel çantası": [
+    "Bel ayarı ve cep düzeni",
+    "Kullanım alanı ve hacim",
+    "Fermuar ve malzeme"
+  ],
+  "Spor çantası": [
+    "Ekipman ve kıyafet hacmi",
+    "Bölme ve taşıma biçimi",
+    "Malzeme ve temizleme"
+  ],
+  "Okul çantası": [
+    "Kitap ve cihaz ölçüleri",
+    "Askı ayarı ve taşıma rahatlığı",
+    "Bölme ve malzeme"
+  ],
+  "Kabin boy valiz": [
+    "Havayolunun güncel boyut ve ağırlık kuralı",
+    "Tekerlek dahil dış ölçü",
+    "Kilit ve onarım erişimi"
+  ],
+  "Büyük boy valiz": [
+    "Seyahat ve hacim ihtiyacı",
+    "Boş ağırlık ve dış ölçü",
+    "Tekerlek ve servis erişimi"
+  ],
+  "Cüzdan": [
+    "Kart ve para bölmesi ihtiyacı",
+    "Boyut ve taşıma biçimi",
+    "Malzeme ve kapanış"
+  ],
+  "Bebek arabası": [
+    "Yaş ve üreticinin ağırlık sınırı",
+    "Katlanmış ölçü ve taşıma",
+    "Kemer ve kullanım talimatı"
+  ],
+  "Oto koltuğu": [
+    "Çocuğun boy ve kilo uygunluğu",
+    "Araç ve bağlantı sistemi uyumu",
+    "Montaj ve güvenlik belgesi"
+  ],
+  "Ana kucağı": [
+    "Yaş ve ağırlık kullanım sınırı",
+    "Kemer ve yerleşim talimatı",
+    "Kılıf ve temizleme"
+  ],
+  "Beşik": [
+    "Yatak ve gövde ölçüsü",
+    "Üreticinin montaj ve güvenlik koşulları",
+    "Malzeme ve kullanım sınırı"
+  ],
+  "Park yatak": [
+    "Açık ve katlı ölçüler",
+    "Yaş ve yük kullanım sınırı",
+    "Kilit ve montaj talimatı"
+  ],
+  "Mama sandalyesi": [
+    "Yaş ve oturma kullanım koşulları",
+    "Kemer ve denge",
+    "Tepsi ve temizleme"
+  ],
+  "Bebek yatağı": [
+    "Beşik veya karyola iç ölçüsü",
+    "Üreticinin kullanım ve güvenlik talimatı",
+    "Kılıf ve bakım"
+  ],
+  "Bebek uyku tulumu": [
+    "Beden ve kullanım ortamı",
+    "Üreticinin sıcaklık ve giyim talimatı",
+    "Kapanış ve yıkama"
+  ],
+  "Bebek taşıma kangurusu": [
+    "Yaş ve ağırlık aralığı",
+    "Üreticinin taşıma pozisyonu talimatı",
+    "Kemer ayarı ve temizleme"
+  ],
+  "Biberon": [
+    "Hacim ve akış seçenekleri",
+    "Malzeme ve yaş kullanım talimatı",
+    "Temizleme ve parça değişimi"
+  ],
+  "Biberon sterilizatörü": [
+    "Biberon ve parça uyumu",
+    "Sterilizasyon ve güvenlik talimatı",
+    "Temizleme ve kireç bakımı"
+  ],
+  "Biberon ısıtıcısı": [
+    "Biberon ve hazne ölçüsü",
+    "Isıtma ve sıcaklık kontrolü",
+    "Kullanım ve temizleme talimatı"
+  ],
+  "Emzik": [
+    "Yaş aralığı ve boyut",
+    "Malzeme ve kontrol talimatı",
+    "Değiştirme ve temizleme"
+  ],
+  "Göğüs pompası": [
+    "Kullanım biçimi ve başlık uyumu",
+    "Temizlenebilir parçalar",
+    "Parça ve sarf erişimi"
+  ],
+  "Bebek telsizi": [
+    "Ses veya görüntü gereksinimi",
+    "Bağlantı ve üretici menzil koşulları",
+    "Pil ve mahremiyet ayarları"
+  ],
+  "Bebek ateş ölçeri": [
+    "Ölçüm yöntemi ve kullanım sınırları",
+    "Üreticinin yaş ve uygulama talimatı",
+    "Temizleme ve pil"
+  ],
+  "Bebek bezi": [
+    "Üreticinin kilo ve beden aralığı",
+    "Paket adedi ve birim fiyat",
+    "İçerik ve cilt kullanım uyarıları"
+  ],
+  "Islak mendil": [
+    "Paket adedi ve yaprak boyutu",
+    "İçerik ve kullanım uyarıları",
+    "Kapak ve saklama"
+  ],
+  "Bebek bakım çantası": [
+    "Taşınacak eşya ve hacim",
+    "Bölme ve askı düzeni",
+    "Yıkanabilir yüzeyler"
+  ],
+  "Bebek küveti": [
+    "Yaş ve destek kullanım sınırı",
+    "Yerleşim ve kayma uyarıları",
+    "Temizleme ve depolama"
+  ],
+  "Tuvalet adaptörü": [
+    "Klozet ölçüsü ve sabitleme",
+    "Yaş ve kullanım talimatı",
+    "Temizleme ve tutuş"
+  ],
+  "Oyun halısı": [
+    "Yaş ve kullanım alanı",
+    "Küçük parça ve malzeme uyarıları",
+    "Yıkama ve saklama"
+  ],
+  "Ahşap oyuncak": [
+    "Yaş etiketi ve küçük parçalar",
+    "Yüzey ve boya bilgisi",
+    "Temizleme ve kullanım talimatı"
+  ],
+  "Yapı blokları": [
+    "Yaş ve parça boyutu",
+    "Setin diğer parçalarla uyumu",
+    "Paket kapsamı ve güvenlik uyarıları"
+  ],
+  "Çocuk bisikleti": [
+    "Çocuğun boyuna uygun ölçü",
+    "Fren ve denge kullanımı",
+    "Koruyucu ekipman ve montaj"
+  ],
+  "Bisiklet": [
+    "Kadro ve kullanıcı ölçüsü",
+    "Sürüş zemini ve kullanım biçimi",
+    "Montaj ve bakım gideri"
+  ],
+  "Elektrikli bisiklet": [
+    "Kadro ve kullanım alanı",
+    "Pil ve motorun kullanım koşulları",
+    "Servis ve yerel kullanım kuralları"
+  ],
+  "Elektrikli scooter": [
+    "Kullanıcı ve üretici yük sınırı",
+    "Sürüş zemini ve fren",
+    "Pil ve yerel kullanım koşulları"
+  ],
+  "Scooter": [
+    "Kullanıcı boyutu ve yaş aralığı",
+    "Tekerlek ve zemin",
+    "Katlama ve güvenlik talimatı"
+  ],
+  "Bisiklet kaskı": [
+    "Baş ölçüsü ve oturuş",
+    "Üreticinin güvenlik standardı beyanı",
+    "Bağlama ve değiştirme talimatı"
+  ],
+  "Paten": [
+    "Ayak ölçüsü ve kalıp",
+    "Kullanım zemini ve tekerlek",
+    "Koruyucu ekipman ve fren"
+  ],
+  "Kaykay": [
+    "Kullanım biçimi ve tahta ölçüsü",
+    "Tekerlek ve aks yapısı",
+    "Koruyucu ekipman ve bakım"
+  ],
+  "Koşu bandı": [
+    "Kullanıcı ve taşıma sınırı",
+    "Açık ve katlı alan",
+    "Kurulum ve bakım koşulları"
+  ],
+  "Kondisyon bisikleti": [
+    "Oturum ve kullanıcı ayarları",
+    "Direnç biçimi ve kullanım",
+    "Yerleşim ve bakım"
+  ],
+  "Eliptik bisiklet": [
+    "Kullanıcı ölçüsü ve adım hareketi",
+    "Yerleşim ve taşıma sınırı",
+    "Direnç ve bakım koşulları"
+  ],
+  "Dambıl seti": [
+    "Ağırlıklar ve parça kapsamı",
+    "Tutuş ve sabitleme",
+    "Saklama ve güvenli kullanım"
+  ],
+  "Kettlebell": [
+    "Ağırlık ve deneyim düzeyi",
+    "Sap ve malzeme",
+    "Zemin ve kullanım güvenliği"
+  ],
+  "Pilates matı": [
+    "Boyut ve uygulama alanı",
+    "Yüzey ve zemin tutuşu",
+    "Malzeme ve temizleme"
+  ],
+  "Direnç bandı": [
+    "Direnç düzeyi ve boy",
+    "Bağlantı ve kullanım talimatı",
+    "Yıpranma kontrolü ve saklama"
+  ],
+  "Atlama ipi": [
+    "Kullanıcıya göre uzunluk ayarı",
+    "Sap ve zemin",
+    "Güvenli hareket alanı"
+  ],
+  "Futbol topu": [
+    "Yaş ve oyun için top boyutu",
+    "Zemin ve malzeme",
+    "Basınç ve bakım talimatı"
+  ],
+  "Basketbol topu": [
+    "Yaş ve kullanım için top boyutu",
+    "Salon veya dış zemin",
+    "Basınç ve bakım"
+  ],
+  "Voleybol topu": [
+    "Top boyutu ve kullanım alanı",
+    "Malzeme ve yüzey",
+    "Basınç ve bakım"
+  ],
+  "Tenis raketi": [
+    "Kavrama ölçüsü ve kullanım düzeyi",
+    "Kordaj ve paket kapsamı",
+    "Ağırlık ve deneme"
+  ],
+  "Badminton seti": [
+    "Oyuncu ve alan ihtiyacı",
+    "Raket ve tüy top kapsamı",
+    "Taşıma ve yedek parça"
+  ],
+  "Yüzücü gözlüğü": [
+    "Yüze uyum ve kayış ayarı",
+    "Lensin ortam kullanım açıklaması",
+    "Temizleme ve koruma"
+  ],
+  "Kamp çadırı": [
+    "Kişi kapasitesi ve iç ölçü",
+    "Mevsim ve hava koşulu beyanı",
+    "Kurulum ve taşıma ağırlığı"
+  ],
+  "Uyku tulumu": [
+    "Boy ve kullanım ortamı",
+    "Üreticinin sıcaklık derecelendirmesi",
+    "Paket hacmi ve bakım"
+  ],
+  "Kamp sandalyesi": [
+    "Oturum ve yük sınırı",
+    "Katlı boyut ve taşıma",
+    "Malzeme ve zemin dengesi"
+  ],
+  "Kamp ocağı": [
+    "Yakıt veya kartuş uyumu",
+    "Açık alan ve havalandırma talimatı",
+    "Kurulum ve yedek parça"
+  ],
+  "Şarjlı matkap": [
+    "Yapılacak iş ve malzeme",
+    "Akü ve şarj ekosistemi",
+    "Mandren ve uç kapsamı"
+  ],
+  "Darbeli matkap": [
+    "Malzemeye uygun çalışma modu",
+    "Uç bağlantısı ve güç koşulları",
+    "Koruyucu ekipman ve kullanım"
+  ],
+  "Vidalama makinesi": [
+    "Vidalama işi ve uç tipi",
+    "Akü ve şarj kapsamı",
+    "Tork ayarı ve tutuş"
+  ],
+  "Kırıcı delici": [
+    "Yapılacak iş ve malzeme",
+    "Uç bağlantı sistemi",
+    "Güvenlik ve bakım talimatı"
+  ],
+  "Avuç taşlama": [
+    "Disk ölçüsü ve kullanım devri",
+    "Malzemeye uygun disk",
+    "Koruma siperi ve güvenli kullanım"
+  ],
+  "Dekupaj testere": [
+    "Kesilecek malzeme ve bıçak türü",
+    "Kesim alanı ve sabitleme",
+    "Koruyucu ekipman ve toz kontrolü"
+  ],
+  "Daire testere": [
+    "Malzeme ve disk uyumu",
+    "Kesim derinliği ve yönlendirme",
+    "Koruma ve güvenli montaj"
+  ],
+  "Zımpara makinesi": [
+    "Zımpara biçimi ve çalışma yüzeyi",
+    "Kağıt veya disk ölçüsü",
+    "Toz toplama ve koruyucu ekipman"
+  ],
+  "Silikon tabancası": [
+    "Kartuş ve uygulama uyumu",
+    "Güç veya mekanik çalışma",
+    "Temizleme ve saklama"
+  ],
+  "Lehim istasyonu": [
+    "Yapılacak lehim işi",
+    "Sıcaklık kontrolü ve uç uyumu",
+    "Havalandırma ve güvenlik talimatı"
+  ],
+  "Multimetre": [
+    "Ölçülecek elektriksel büyüklük",
+    "Üreticinin ölçüm sınıfı ve sınırları",
+    "Prob ve güvenli kullanım"
+  ],
+  "Lazer metre": [
+    "Ölçüm mesafesi ve ortam",
+    "Üreticinin hassasiyet koşulları",
+    "Ekran ve pil"
+  ],
+  "Takım çantası": [
+    "El aletlerinin ölçüsü ve yükü",
+    "Bölme ve kilit yapısı",
+    "Taşıma ve malzeme"
+  ],
+  "Lokma takımı": [
+    "Ölçü ve bağlantı standardı",
+    "Setin parça kapsamı",
+    "Malzeme ve kullanım talimatı"
+  ],
+  "Tornavida seti": [
+    "Uç tipleri ve ölçüler",
+    "Sap ve tutuş",
+    "Elektrikli işlerde uygunluk beyanı"
+  ],
+  "Merdiven": [
+    "Çalışma yüksekliği ve yük sınırı",
+    "Zemin ve kilit mekanizması",
+    "Kullanım standardı ve talimatı"
+  ],
+  "Basınçlı yıkama makinesi": [
+    "Temizlenecek yüzeyin uygunluğu",
+    "Basınç ve su bağlantısı koşulları",
+    "Nozul ve bakım"
+  ],
+  "Çim biçme makinesi": [
+    "Alan ve zemin yapısı",
+    "Enerji veya akü ihtiyacı",
+    "Bıçak ve güvenli kullanım"
+  ],
+  "Çit budama makinesi": [
+    "Bitki ve dal kullanım sınırları",
+    "Bıçak uzunluğu ve taşıma",
+    "Koruyucu ekipman ve bakım"
+  ],
+  "Bahçe hortumu": [
+    "Uzunluk ve bağlantı ölçüsü",
+    "Basınç ve kullanım ortamı",
+    "Saklama ve sarma"
+  ],
+  "Sulama zamanlayıcısı": [
+    "Musluk ve bağlantı uyumu",
+    "Zamanlama ve su basıncı koşulları",
+    "Pil ve dış ortam kullanımı"
+  ],
+  "Saksı": [
+    "Bitki ve kök alanı",
+    "Drenaj ve tabak kapsamı",
+    "Malzeme ve yerleşim"
+  ],
+  "Dikiş makinesi": [
+    "Dikilecek kumaş ve işlem",
+    "Dikiş ve aksesuar kapsamı",
+    "İğne ve servis erişimi"
+  ],
+  "3D yazıcı": [
+    "Malzeme ve baskı yöntemi",
+    "Baskı alanı ve yerleşim",
+    "Havalandırma ve sarf giderleri"
+  ],
+  "Hobi kesim makinesi": [
+    "Kesilecek malzeme ve boyut",
+    "Yazılım ve cihaz uyumu",
+    "Bıçak ve mat giderleri"
+  ],
+  "Türk kahvesi": [
+    "Net miktar ve paket sayısı",
+    "Öğütüm ve hazırlama yöntemi",
+    "Saklama ve tarih bilgisi"
+  ],
+  "Filtre kahve": [
+    "Net miktar ve öğütüm",
+    "Demleme ekipmanına uygunluk",
+    "Saklama ve tarih bilgisi"
+  ],
+  "Çekirdek kahve": [
+    "Çekirdek miktarı ve paket",
+    "Öğütücü ve demleme yöntemi",
+    "Saklama ve tarih bilgisi"
+  ],
+  "Çay": [
+    "Net miktar ve paket türü",
+    "Demleme ve içerik açıklaması",
+    "Saklama ve tarih bilgisi"
+  ],
+  "Zeytinyağı": [
+    "Net hacim ve ambalaj",
+    "Etiketteki ürün sınıfı",
+    "Saklama ve tarih bilgisi"
+  ],
+  "Ayçiçek yağı": [
+    "Net hacim ve paket adedi",
+    "İçerik ve kullanım açıklaması",
+    "Saklama ve tarih bilgisi"
+  ],
+  "Pirinç": [
+    "Net ağırlık ve paket",
+    "Pirinç türü ve kullanım amacı",
+    "Menşe ve saklama bilgisi"
+  ],
+  "Bulgur": [
+    "Net ağırlık ve paket",
+    "Tane boyutu ve kullanım amacı",
+    "İçerik ve saklama"
+  ],
+  "Makarna": [
+    "Net ağırlık ve paket sayısı",
+    "İçerik ve alerjen bilgisi",
+    "Pişirme ve saklama"
+  ],
+  "Un": [
+    "Net ağırlık ve paket",
+    "Un türü ve kullanım amacı",
+    "Alerjen ve saklama"
+  ],
+  "Toz şeker": [
+    "Net ağırlık ve paket",
+    "Ürün biçimi ve kullanım",
+    "Saklama ve ambalaj"
+  ],
+  "Bal": [
+    "Net ağırlık ve ürün türü",
+    "Etiket ve üretici bilgisi",
+    "Saklama koşulları"
+  ],
+  "Peynir": [
+    "Net ağırlık ve süzme koşulları",
+    "Peynir türü ve içerik",
+    "Soğuk saklama ve tarih"
+  ],
+  "Yoğurt": [
+    "Net ağırlık ve kap",
+    "İçerik ve ürün türü",
+    "Soğuk saklama ve tarih"
+  ],
+  "Süt": [
+    "Net hacim ve paket adedi",
+    "Ürün türü ve saklama biçimi",
+    "Açılış sonrası kullanım talimatı"
+  ],
+  "Yumurta": [
+    "Adet ve boy sınıfı",
+    "Üretim ve tarih bilgisi",
+    "Saklama ve ambalaj"
+  ],
+  "Çikolata": [
+    "Net ağırlık ve paket sayısı",
+    "İçerik ve alerjen bilgisi",
+    "Saklama ve tarih"
+  ],
+  "Kuruyemiş": [
+    "Net ağırlık ve karışım içeriği",
+    "Tuz ve işlem açıklaması",
+    "Alerjen ve saklama"
+  ],
+  "Çamaşır deterjanı": [
+    "Paket miktarı ve doz talimatı",
+    "Ürünün kullanım ve kumaş kapsamı",
+    "Yıkama başına maliyet koşulları"
+  ],
+  "Yumuşatıcı": [
+    "Hacim ve doz talimatı",
+    "Kumaş ve kullanım uyarıları",
+    "Uygulama başına miktar"
+  ],
+  "Bulaşık deterjanı": [
+    "Hacim ve paket sayısı",
+    "Elde veya makinede kullanım",
+    "Doz ve güvenlik talimatı"
+  ],
+  "Yüzey temizleyici": [
+    "Hacim ve yüzey uygunluğu",
+    "Seyreltme ve uygulama talimatı",
+    "Güvenlik ve saklama"
+  ],
+  "Tuvalet kağıdı": [
+    "Rulo sayısı ve yaprak adedi",
+    "Yaprak ölçüsü ve kat sayısı",
+    "Birim fiyatın karşılaştırma kapsamı"
+  ],
+  "Kağıt havlu": [
+    "Rulo veya paket adedi",
+    "Yaprak ölçüsü ve sayısı",
+    "Kat ve kullanım biçimi"
+  ],
+  "Çöp torbası": [
+    "Poşet adedi ve hacmi",
+    "Kova ölçüsü ve malzeme",
+    "Paket başına birim maliyet"
+  ],
+  "Otomobil lastiği": [
+    "Aracın izin verdiği ebat ve sınıf",
+    "Yük ve hız endeksi uygunluğu",
+    "Üretim ve montaj koşulları"
+  ],
+  "Kış lastiği": [
+    "Araç için ebat ve endeksler",
+    "Üreticinin mevsim kullanım beyanı",
+    "Montaj ve yerel kullanım kuralları"
+  ],
+  "Motor yağı": [
+    "Araç üreticisinin onay ve viskozitesi",
+    "Net hacim ve paket",
+    "Bakım ve servis talimatı"
+  ],
+  "Araç aküsü": [
+    "Araç ölçü ve bağlantı uyumu",
+    "Kapasite ve üretici teknik onayı",
+    "Montaj ve garanti"
+  ],
+  "Araç içi kamera": [
+    "Araç ve montaj alanı",
+    "Güç ve hafıza kartı",
+    "Kayıt ve mahremiyet kuralları"
+  ],
+  "Araç süpürgesi": [
+    "Araç içi yüzey ve başlıklar",
+    "Güç bağlantısı ve kullanım süresi",
+    "Filtre ve hazne temizliği"
+  ],
+  "Lastik şişirme kompresörü": [
+    "Lastik ve bağlantı uyumu",
+    "Üreticinin çalışma ve basınç sınırları",
+    "Güç ve güvenli kullanım"
+  ],
+  "Akü takviye cihazı": [
+    "Araç elektrik sistemi uyumu",
+    "Üreticinin çalıştırma sınırları",
+    "Bağlantı ve saklama güvenliği"
+  ],
+  "Araç paspası": [
+    "Araç modeli ve zemin ölçüsü",
+    "Pedal hareketine engel olmaması",
+    "Malzeme ve temizleme"
+  ],
+  "Bagaj havuzu": [
+    "Tam araç modeli ve bagaj ölçüsü",
+    "Bagaj sabitleme noktaları",
+    "Malzeme ve bakım"
+  ],
+  "Oto koltuk kılıfı": [
+    "Araç koltuğu ve hava yastığı uyumu",
+    "Montaj ve güvenlik talimatı",
+    "Malzeme ve temizleme"
+  ],
+  "Port bagaj": [
+    "Tavan ve taşıyıcı sistem uyumu",
+    "Araç üreticisinin yük sınırı",
+    "Montaj ve kullanım talimatı"
+  ],
+  "Bisiklet taşıyıcı": [
+    "Araç bağlantısı ve bisiklet ölçüsü",
+    "Taşıma sınırı ve sabitleme",
+    "Görüş ve yerel trafik kuralları"
+  ],
+  "Oto silecek": [
+    "Araç modeli ve bağlantı tipi",
+    "Silecek uzunluğu",
+    "Montaj ve bakım"
+  ],
+  "Araç bakım seti": [
+    "İçerik ve yüzey uyumu",
+    "Paket hacmi ve kapsamı",
+    "Uygulama ve güvenlik talimatı"
+  ],
+  "Kedi maması": [
+    "Hayvanın yaş ve beslenme koşulları",
+    "İçerik ve üretici kullanım açıklaması",
+    "Net ağırlık ve saklama"
+  ],
+  "Köpek maması": [
+    "Hayvanın yaş ve beslenme koşulları",
+    "İçerik ve üretici kullanım açıklaması",
+    "Net ağırlık ve saklama"
+  ],
+  "Kedi kumu": [
+    "Net ağırlık veya hacim",
+    "Malzeme ve kullanım talimatı",
+    "Paket ve değiştirme koşulları"
+  ],
+  "Kedi tuvaleti": [
+    "Hayvanın boyutu ve giriş",
+    "Yerleşim ve temizleme",
+    "Kapalı veya açık kullanım"
+  ],
+  "Kedi tırmalama tahtası": [
+    "Hayvanın boyutu ve hareket alanı",
+    "Denge ve sabitleme",
+    "Malzeme ve yedek parça"
+  ],
+  "Evcil hayvan taşıma çantası": [
+    "Hayvanın boyut ve ağırlığı",
+    "Taşıma ve ulaşım şirketi kuralları",
+    "Havalandırma ve kapanış"
+  ],
+  "Otomatik mama kabı": [
+    "Porsiyon ve mama türü uyumu",
+    "Güç ve kontrol biçimi",
+    "Hazne temizliği ve yedekler"
+  ],
+  "Evcil hayvan su pınarı": [
+    "Hazne ve yerleşim",
+    "Filtre ve temizlik planı",
+    "Pompa ve filtre giderleri"
+  ],
+  "Köpek tasması": [
+    "Boyun ve göğüs ölçüsü",
+    "Bağlantı ve kullanım biçimi",
+    "Malzeme ve aşınma kontrolü"
+  ],
+  "Akvaryum filtresi": [
+    "Akvaryum hacmi ve üretici uyumu",
+    "Filtrasyon ve yerleşim",
+    "Filtre malzemesi ve bakım"
+  ]
+}

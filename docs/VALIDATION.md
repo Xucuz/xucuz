@@ -69,3 +69,13 @@ robots kuralları, görünür fiyat eşleşmesi, stok, ürün kimliği, belirsiz
 - Lint, TypeScript ve production build geçti. Vitest: 63 geçti, DATABASE_URL sağlanmadığı için 1 PostgreSQL testi atlandı.
 - Tam Playwright koşusu: 74 geçti. Türkçe/büyük harf/eş anlamlı arama, klavye ve tıklamayla öneri seçimi, Escape, serbest arama, rehbersiz üründe genel notlar, kategori ve sayfalama, eski rehber/hesaplayıcı regresyonları masaüstü/mobil ve demo/canlı doğrulandı.
 - Ek ekran görüntüsü denemesi test sunucuları kapandıktan sonra bağlantı reddi aldı; ürün öneri ekranının ayrıca görsel incelemesi yapılmış sayılmaz. Mobil tarayıcı testleri geçti.
+
+## 27 Ekim 2026 — tüm 500 ürüne alışveriş rehberi
+
+- Katalogdaki her ürün için `/urunler/[id]` sayfası: üç ürün türüne özel ölçüt, kullanım soruları, kategoriye ait üç olası gider, altı maddelik kontrol listesi ve maliyet aracı bağlantısı.
+- Özellik verisi: 500 üründe toplam 1500 ölçüt kaydı. Model testi, fiyat veya bağımsız araştırma iddiası yok; içerik modeli docs/PRODUCT-GUIDES.md içinde.
+- Ana öneriler ve ürün listesi doğrudan rehbere gider. Serbest arama çözümlenen üründen rehbere bağlantı verir; katalog ürünleri için rehber yok boş durumu kaldırıldı.
+- Lint, TypeScript ve production build geçti.
+- Vitest: 67 geçti; DATABASE_URL sağlanmadığı için 1 PostgreSQL testi atlandı.
+- Tam Playwright: 75 geçti. Bu sayıya, canlı moddaki uygulamadan 500 rehber adresini 10'arlı gruplarla gerçekten isteyen kapsam testi dahil; tüm yanıtlar 200 ve ürüne ait başlık/ölçüt/kontrol listesi içerdi. Sunucu kapsamı testi 3,6 saniyede tamamlandı.
+- Masaüstü/mobil öneri seçimi, altı maddelik kontrol listesi, maliyet bağlantısı, kategori/sayfalama ve önceki hesaplayıcı/rehber akışları geçti. Kamp çadırı rehberi mobilde taşma yapmadı.
