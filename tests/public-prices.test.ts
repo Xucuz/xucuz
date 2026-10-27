@@ -17,3 +17,7 @@ describe('robots erişim kuralları',()=>{
  it('yasak yolları engeller, uzun eşleşme ve allow önceliğini uygular',()=>{const rules='User-agent: *\nDisallow: /private\nAllow: /private/open$\nDisallow: /*?q=';expect(robotsAllowed(rules,'/private/x').allowed).toBe(false);expect(robotsAllowed(rules,'/private/open').allowed).toBe(true);expect(robotsAllowed(rules,'/private/open/more').allowed).toBe(false);expect(robotsAllowed(rules,'/search?q=a').allowed).toBe(false);});
  it('özel bot grubunu ve crawl-delay değerini korur',()=>{const rules='User-agent: *\nAllow: /\nUser-agent: XucuzPriceBot\nDisallow: /\nCrawl-delay: 7';expect(robotsAllowed(rules,'/')).toEqual({allowed:false,delaySeconds:7});});
 });
+
+describe('satıcıdan veri beklemeyen kaynak incelemesi',()=>{
+ it('erişilebilir aday raporunu fiyat entegrasyonu veya fiyat yayını saymaz',async()=>{const {discoverySchema}=await import('../src/lib/public-prices/discovery');const report={version:1,generatedAt:new Date().toISOString(),pricesPublished:false,results:[{category:'market',name:'Aday mağaza',origin:'https://example.com',checkedAt:new Date().toISOString(),status:'candidate',reason:'Ürün ve fiyat doğrulanmadı.'}]};expect(discoverySchema.parse(report).results[0].status).toBe('candidate');expect(discoverySchema.safeParse({...report,pricesPublished:true}).success).toBe(false);});
+});

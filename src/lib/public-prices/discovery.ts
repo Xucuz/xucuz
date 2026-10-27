@@ -1,0 +1,4 @@
+import {z} from 'zod';
+import {categorySchema} from '../types';
+export const discoverySchema=z.object({version:z.literal(1),generatedAt:z.iso.datetime(),pricesPublished:z.literal(false),results:z.array(z.object({category:categorySchema,name:z.string().max(100),origin:z.url().startsWith('https://'),checkedAt:z.iso.datetime(),status:z.enum(['blocked','unverified','deferred','unavailable','candidate']),hasStructuredProduct:z.boolean().optional(),reason:z.string().max(500)})).max(50)});
+export async function loadDiscoveryReport(){try{const r=await fetch('https://raw.githubusercontent.com/Xucuz/xucuz/price-data/source-probes.json',{cache:'no-store',redirect:'error',signal:AbortSignal.timeout(2500)});if(!r.ok)return null;const raw=await r.text();if(raw.length>100000)return null;return discoverySchema.parse(JSON.parse(raw));}catch{return null;}}

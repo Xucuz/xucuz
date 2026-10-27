@@ -30,3 +30,7 @@ GitHub, public repo etkinliği uzun süre olmadığında schedule'ı durdurabili
 ## Son gerçek çalışma sonucu
 
 GitHub otomatik sunucusu ilk kaynaklarda ve yeni Çiçek Market denemesinde erişim reddi aldı; engel aşılmadı. İncehesap ve Taze Çiçek devre dışı bırakıldı. Çiçek Market normal erişimde Windows-1254 kodlamasıyla iki ürün için görünür/yapılandırılmış fiyat eşleşmesi verdi; 27 Ekim 2026 17:12 UTC gözlemleri özgün zamanlarıyla yayımlandı. Bu kayıtlar tek satıcının iki farklı buketidir; aynı ürünün çok satıcılı fiyat karşılaştırması değildir. Saatlik workflow kurulmuş olsa da otomatik fiyat akışı başarılı değildir; başarısızlık gizlenmez. Kaynak tazeliği bir saat dolunca fiyatlar gizlenir.
+
+## Satıcı girdisine bağımlı olmayan kaynak keşfi
+
+Satıcıların dosya göndermesi veya fiyat girmesi ön koşul değildir. Public source discovery işi, sekiz kategoride 18 yeni site adayında robots ve sıradan HTML erişimini düşük hızda denetler; sonuçları price-data/source-probes.json içine yazar. Sadece kök sayfanın açılması fiyat entegrasyonu değildir. 301 yönlendirmeler engel aşma yoluyla takip edilmez; canonical adres ayrıca incelenir. Erişim reddi, ağ hatası ve belirsiz kapsam ayrı raporlanır. Bu keşif işi mevcut fiyatları değiştirmez ve hiçbir fiyat üretmez. Son rapor /veri-kaynaklari ekranında aday olarak gösterilir. Ürün kimliği, varyant ve geçerli fiyat koşulları doğrulanmadan adaylar aktif kaynak olmaz.

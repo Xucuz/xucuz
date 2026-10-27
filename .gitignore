@@ -6,3 +6,6 @@ node_modules/
 playwright-report/
 test-results/
 coverage/
+
+# Source diagnostics are generated and published separately on price-data.
+data/source-probes.json
