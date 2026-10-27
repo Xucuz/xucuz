@@ -32,7 +32,7 @@ export function filterOffers(offers:Offer[],s:Search){return offers.filter(o=>{
 export async function searchOffers(category:Category,s:Search,options?:{mode?:'demo'|'live';adapters?:ProviderAdapter[]}):Promise<SearchResult>{
  const current=options?.mode??mode();let offers:Offer[]=[];let warnings:string[]=[];
  if(current==='demo')offers=demoOffers.filter(o=>o.category===category).filter(o=>o.category!=='otel'||Number(o.attributes['Azami kişi'])>=Math.ceil((s.adults+s.children)/s.rooms)).map(o=>quote(o,s));
- else {const adapters=options?.adapters??(await import('./imported')).importedAdapters;const result=await collect(adapters,category,s);offers=result.offers.filter(o=>matchesScope(o,s));warnings=result.warnings;if(!adapters.length)warnings.push('Henüz doğrulanmış canlı sağlayıcı yapılandırılmadı.');}
+ else {const adapters=options?.adapters??[...(await import('./imported')).importedAdapters,...(process.env.PUBLIC_PRICES_ENABLED==='0'?[]:(await import('../public-prices/read')).publicPageAdapters)];const result=await collect(adapters,category,s);offers=result.offers.filter(o=>matchesScope(o,s));warnings=result.warnings;if(!options?.adapters&&['elektronik','cicek'].includes(category)&&process.env.PUBLIC_PRICES_ENABLED!=='0')warnings.push('Kapsam seçili herkese açık ürün sayfalarıyla sınırlıdır. API kullanılmaz; teslimat ve bölge koşulları sağlayıcıda doğrulanmalıdır.');if(!adapters.length)warnings.push('Henüz doğrulanmış canlı sağlayıcı yapılandırılmadı.');}
  const providers=[...new Set(offers.map(o=>o.providerId))];
  offers=filterOffers(offers,s);
  // Exact variant only; different vehicles remain independent listings.

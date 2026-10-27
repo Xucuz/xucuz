@@ -12,4 +12,4 @@ export type Category = typeof categories[number]['slug'];
 export function normalize(value:string) { return value.toLocaleLowerCase('tr-TR').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ı/g,'i').replace(/[^a-z0-9]+/g,' ').trim(); }
 export function categoryFor(value:string) { const q=normalize(value); return categories.find(c=>[c.slug,c.name,...c.aliases].some(a=>normalize(a)===q)); }
 export const isProduct=(c:Category)=>['market','elektronik','beyaz-esya','cicek'].includes(c);
-export const freshness:Record<Category,number>={otel:900,ucak:300,otobus:300,market:21600,otomobil:3600,elektronik:3600,'beyaz-esya':3600,cicek:1800};
+export const freshness:Record<Category,number>={otel:900,ucak:300,otobus:300,market:21600,otomobil:3600,elektronik:3600,'beyaz-esya':3600,cicek:3600};

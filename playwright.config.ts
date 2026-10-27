@@ -6,5 +6,5 @@ export default defineConfig({testDir:'./tests/e2e',fullyParallel:false,workers:1
  {name:'live-mobile',testMatch:'live.spec.ts',use:{...devices['iPhone 13'],defaultBrowserType:'chromium',baseURL:'http://localhost:3001'}}
 ],webServer:[
  {command:'npm run start',url:'http://localhost:3000',env:{DATA_MODE:'demo',VERCEL:'',PORT:'3000'},reuseExistingServer:false,timeout:60000},
- {command:'npm run start',url:'http://localhost:3001',env:{DATA_MODE:'demo',VERCEL:'1',DATABASE_URL:'',PORT:'3001'},reuseExistingServer:false,timeout:60000}
+ {command:'npm run start',url:'http://localhost:3001',env:{PUBLIC_PRICES_ENABLED:'0',DATA_MODE:'demo',VERCEL:'1',DATABASE_URL:'',PORT:'3001'},reuseExistingServer:false,timeout:60000}
 ]});

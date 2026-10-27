@@ -1,0 +1,62 @@
+name: Hourly public-page prices
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: public-price-collection
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/xucuz-platform
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Restore recorded observations
+        shell: bash
+        run: |
+          if git ls-remote --exit-code --heads origin price-data >/dev/null 2>&1; then
+            git fetch origin price-data
+            git show origin/price-data:price-history.json > data/price-history.json
+          fi
+      - name: Collect ordinary public HTML (no provider API)
+        id: collect
+        continue-on-error: true
+        run: npm run prices:collect
+      - name: Publish observed snapshots
+        if: always() && steps.collect.outcome != 'skipped'
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f data/public-offers.json
+          test -f data/price-history.json
+          mkdir -p /tmp/xucuz-published
+          cp data/public-offers.json data/price-history.json /tmp/xucuz-published/
+          if git ls-remote --exit-code --heads origin price-data >/dev/null 2>&1; then
+            git fetch origin price-data
+            git switch --discard-changes --force-create price-data origin/price-data
+          else
+            git reset --hard HEAD
+            git switch --orphan price-data
+            git rm -rf .
+          fi
+          cp /tmp/xucuz-published/*.json .
+          printf '{"ignoreCommand":"exit 0"}\n' > vercel.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public-offers.json price-history.json vercel.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'chore: refresh observed public prices'
+          git push origin HEAD:price-data
+      - name: Report incomplete collection
+        if: steps.collect.outcome == 'failure'
+        run: exit 1
