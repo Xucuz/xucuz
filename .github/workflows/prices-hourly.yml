@@ -47,7 +47,6 @@ jobs:
           else
             git reset --hard HEAD
             git switch --orphan price-data
-            git rm -rf .
           fi
           cp /tmp/xucuz-published/*.json .
           printf '{"ignoreCommand":"exit 0"}\n' > vercel.json
