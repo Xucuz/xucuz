@@ -51,3 +51,13 @@ robots kuralları, görünür fiyat eşleşmesi, stok, ürün kimliği, belirsiz
 - İlk tarayıcı koşusunda hata testi Next.js route-announcer öğesini de seçtiği için 4 proje başarısızdı. Seçici hesaplama formundaki hata mesajıyla sınırlandı; son tam koşuda 42/42 geçti.
 - 390px ana sayfa ve 320px birim fiyat sayfası ek tarayıcı kontrolünde taşma yapmadı; mobil ekran görüntüsü incelendi.
 - Hesaplama araçları satıcı fiyatı veya gerçekleşmiş fiyat gözlemi üretmez; kullanıcı girdileriyle yerel hesap yapar. Veritabanı/haricî servis gerektirmez.
+
+## 27 Ekim 2026 — ihtiyaç odaklı rehber tasarımı
+
+- Yeni ana sayfa: büyük rehber araması, ürün seç/maliyet hesabı/rehber girişleri, ihtiyaç senaryoları ve altı özgün rehber. Mevcut hesaplama araçları ve marka sloganları korundu.
+- Rehberlerde Türkçe arama, URL konu filtresi, ürün türü/öncelik formu, ilgili rehber ve hesaplama bağlantıları, işaretlenebilir kontrol listeleri doğrulandı.
+- Lint ve TypeScript geçti; production Next.js build geçti.
+- Vitest: 58 geçti; yerel DATABASE_URL sağlanmadığı için 1 veritabanı testi atlandı.
+- Son tam Playwright koşusu: 58 geçti, masaüstü/mobil ve demo/canlı mod. İlk koşudaki bilinmeyen rehber testi HTTP 404 bekliyordu; Next.js streaming yanıtı 200 taşıyabildiğinden kullanıcıya görünen not-found ve noindex davranışı doğrulanacak şekilde düzeltildi. Son koşuda başarısız test yok.
+- Ek tarayıcı kontrolü: 320px ana sayfa, rehber listesi ve ürün seçim sonucu taşma yapmadı. 390px ana sayfanın tam ekran görüntüsü incelendi.
+- İçerikler ürün testi veya model sıralaması değildir. Kaynaklar Microsoft, Apple ve Ticaret Bakanlığı'nın belirtilen konularına bağlantı verir; laboratuvar ölçümü, güncel satıcı fiyatı ve en ucuz iddiası üretilmez.

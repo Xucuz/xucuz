@@ -1,3 +1,14 @@
+# İhtiyaç odaklı alışveriş rehberi
+
+Güncel ana sayfa üç başlangıç sunar: **Ürün seç**, **Maliyetini hesapla**, **Rehberini oku**. Logo ve iki slogan korunur.
+
+- `/urun-sec`: ürün türü ve öncelikle ilgili rehber ve kontrol listesi. Model tavsiyesi veya bütçeye uygunluk garantisi üretmez.
+- `/rehberler`: Türkçe arama ve konu filtresi; durum URL üzerinden korunur.
+- `/rehberler/[slug]`: altı özgün rehber, kapsamı belirtilmiş resmî kaynak bağlantıları, sayfa açıkken tutulan kontrol listesi ve hesaplama aracı bağlantısı.
+- Özgün içerik `src/lib/guides.ts` içindedir. Yeni rehber aynı sözleşmeyle eklenir; sayfası ve sitemap kaydı otomatik oluşur. Kaynaksız test sonucu, güncel fiyat veya en ucuz iddiası eklenmemelidir.
+
+Hesaplama araçları aşağıdaki gibi çalışmaya devam eder. Satıcı verisi, hesap veya veritabanı yeni rehber hizmetinin ön koşulu değildir.
+
 # Xucuz.com — Almadan önce gerçek maliyeti öğren
 
 Logo tamamlayıcısı: **Etikete değil, gerçek maliyete bak.**
