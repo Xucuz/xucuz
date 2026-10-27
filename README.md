@@ -13,7 +13,7 @@ DATABASE_URL=postgres://xucuz:local-development-only@localhost:5432/xucuz npm ru
 npm run dev
 ```
 
-Node.js 24 kullanın. Demo arayüzü veritabanı olmadan da çalışır. Migration/seed komutlarına DATABASE_URL ayrıca verilir; Next.js .env.local dosyasını okur.
+Node.js 24 kullanın. Veri kaynağı olmayan canlı arayüz veritabanı olmadan da açılır; teklif göstermez. Yerel demo için ayrıca DATA_MODE=demo seçilmelidir. Migration/seed komutlarına DATABASE_URL ayrıca verilir; Next.js .env.local dosyasını okur.
 
 ## Test
 
@@ -32,13 +32,13 @@ Varsayılan hesap yoktur. `npm run admin:hash -- 'en-az-14-karakter-parola'` ile
 
 ## Veri modu
 
-DATA_MODE=demo: tüm fiyatlar ve sağlayıcılar kurgusal, her sayfada bildirim var; arama motorlarına kapalı; gerçek satıcıya yönlendirme yok.
+Yalnızca yerel geliştirmede DATA_MODE=demo: tüm fiyatlar ve sağlayıcılar kurgusal, her sayfada bildirim var; arama motorlarına kapalı; gerçek satıcıya yönlendirme yok.
 
 DATA_MODE=live: yalnızca doğrulanmış, etkin ve güncel izinli feed kayıtları. Canlı üçüncü taraf API entegrasyonu henüz yoktur. Veri yoksa demo veriye dönülmez.
 
 ## Dağıtım
 
-Vercel: Next.js framework seçin, Node 24, build `npm run build`, bağlı dal `feat/xucuz-platform`. Demo için ek servis gerekmez; DATA_MODE=demo ve NEXT_PUBLIC_SITE_URL değerini ayarlayın. Canlı ve yönetim için PostgreSQL DATABASE_URL, ADMIN_PASSWORD_HASH, SESSION_SECRET gereklidir. Migration deploy öncesi güvenli ortamda çalıştırılır. Runtime modu sunucuda okunur.
+Vercel: Next.js framework seçin, Node 24, build `npm run build`, bağlı dal `feat/xucuz-platform`. Vercel her zaman canlı mod kullanır; NEXT_PUBLIC_SITE_URL değerini ayarlayın. Veri kaynağı yoksa boş durum gösterilir. Canlı ve yönetim için PostgreSQL DATABASE_URL, ADMIN_PASSWORD_HASH, SESSION_SECRET gereklidir. Migration deploy öncesi güvenli ortamda çalıştırılır. Runtime modu sunucuda okunur.
 
 Docker: `docker compose --profile app up -d --build`. Compose .env okur; .env.local dosyasını otomatik okumaz. Production veritabanı parolasını değiştirin. HTTPS ters proxy ve yedekleme sağlayın. Ücretli hizmet otomatik açılmaz.
 
@@ -51,3 +51,7 @@ Veri kaynağı sözleşmesi: [docs/PROVIDERS.md](docs/PROVIDERS.md). Yayına haz
 PostgreSQL entegrasyon testi için `DATABASE_URL=... npm test`. URL yoksa veritabanı testi açıkça atlanır. Fiyat geçmişi yalnızca kaydedilmiş gözlemlerden oluşur; demo seed geçmiş üretmez. Cache ve istek limiti tek süreçte çalışır; çoklu replica için paylaşımlı limit/cache veya edge limiti gerekir.
 
 Çiçek kategorisi: `/cicek`. Tür, adet, teslimat şehri/ilçesi ve zamanı filtreleri, teslimat dahil fiyat sıralaması ve yan yana buket karşılaştırması. Farklı adet/içerik/vazo koşulları ayrı kalır. Demo fiyatlar gerçek çiçekçi teklifi değildir.
+
+## Güncel yayın politikası: yalnızca gerçek fiyat
+
+Varsayılan DATA_MODE=live. Vercel üzerinde eski DATA_MODE=demo ayarı bulunsa bile yalnızca canlı mod çalışır. Doğrulanmış kaynak bağlı değilse teklif yoktur; örnek fiyat üretilmez. Eski demo favorileri ve karşılaştırma kayıtları canlı modda gösterilmez. Demo yalnızca yerel geliştirme/test için açıkça DATA_MODE=demo seçilerek kullanılabilir. Playwright iki ayrı sunucuda yerel demo ve Vercel canlı davranışını test eder. Kaynak araştırması ve gerekli erişimler: [docs/LIVE-SOURCES.md](docs/LIVE-SOURCES.md).

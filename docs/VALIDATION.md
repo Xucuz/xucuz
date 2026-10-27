@@ -19,3 +19,9 @@ Başlangıç Turbopack build'i sandbox port bağlama kısıtı nedeniyle durdu; 
 ## Çiçek kategorisi güncellemesi
 
 Sekizinci kategori eklendi. Lint, tip kontrolü, production build ve çiçek kategorisi migration'ı geçti. 24 birim/PostgreSQL testi ve 16 masaüstü/mobil Playwright testi geçti. Çiçek türü/adedi, teslimat bölgesi/zamanı, teslimat dahil fiyat, farklı buket varyantlarının ayrımı ve yan yana karşılaştırma doğrulandı. Gerçek çiçekçi entegrasyonu yok; fiyatlar demodur.
+
+## Yayında demo fiyatların kaldırılması
+
+Kullanıcı gerçek fiyat istediği ve henüz sağlayıcı anlaşması olmadığı için yayın varsayılanı canlı yapıldı. Vercel eski DATA_MODE=demo ayarıyla dahi canlı mod kullanır. Eski demo favori ve karşılaştırma kayıtları canlı listelerden gizlenir. Doğrulanmış kaynak gelmeden fiyat gösterilmez. Gerçek bir entegrasyonun tamamlandığı iddia edilmez.
+
+Lint, tip kontrolü ve production build geçti; 25 birim/PostgreSQL testi ve iki modda 20 masaüstü/mobil tarayıcı testi geçti. Canlı testler sekiz kategori, demo detay erişimi ve eski demo yerel kayıtlarının gizlenmesini kontrol eder. Sağlayıcı araştırması ve erişim gereksinimleri LIVE-SOURCES.md içinde.

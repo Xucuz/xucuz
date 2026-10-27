@@ -1,8 +1,9 @@
+import {resolveDataMode} from '../data-mode';
 import {categories,freshness,normalize,type Category} from '../categories';
 import {demoOffers} from '../demo';
 import {offerSchema,type Offer,type ProviderAdapter,type Search,type SearchResult} from '../types';
 import {quote,total,matchKey} from '../pricing';
-export function mode():'demo'|'live'{const value=process.env.DATA_MODE??'demo';if(value!=='demo'&&value!=='live')throw new Error('DATA_MODE must be demo or live');return value;}
+export const mode=()=>resolveDataMode({DATA_MODE:process.env.DATA_MODE,VERCEL:process.env.VERCEL});
 const cache=new Map<string,{expires:number;offers:Offer[]}>();
 export function clearCache(){cache.clear();}
 export async function collect(adapters:ProviderAdapter[],category:Category,search:Search){

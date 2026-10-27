@@ -46,3 +46,7 @@ describe('çiçek karşılaştırması',()=>{
  it('teslimat bölgesi, tür, adet ve zamanı filtreler; kargoyu dahil sıralar',async()=>{const r=await searchOffers('cicek',search({flowerType:'Gül',flowerCount:'11',city:'istanbul',district:'kadikoy',delivery:'Aynı gün'}),{mode:'demo'});expect(r.total).toBe(2);expect(total(r.offers[0])).toBe(84800);expect(r.offers[0].price).toBeLessThan(r.offers[1].price);expect(matchKey(demoOffers.find(o=>o.id==='cicek-1')!)).not.toBe(matchKey(demoOffers.find(o=>o.id==='cicek-2')!));});
  it('canlı çiçek kaynağı yoksa demo teklifi göstermez',async()=>{expect((await searchOffers('cicek',search(),{mode:'live',adapters:[]})).offers).toEqual([]);});
 });
+
+describe('canlı yayın varsayılanları',()=>{
+ it('varsayılan canlıdır ve Vercel üzerinde eski demo ayarı fiyat üretemez',async()=>{const {resolveDataMode}=await import('../src/lib/data-mode');expect(resolveDataMode({})).toBe('live');expect(resolveDataMode({DATA_MODE:'demo',VERCEL:'1'})).toBe('live');expect(resolveDataMode({DATA_MODE:'demo'})).toBe('demo');expect(()=>resolveDataMode({DATA_MODE:'invalid'})).toThrow();});
+});
