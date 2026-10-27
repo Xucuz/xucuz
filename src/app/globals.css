@@ -24,3 +24,8 @@ input[type=checkbox],input[type=radio]{accent-color:#171717}
 .brand-wordmark{width:238px;height:auto;object-fit:contain}
 @media(max-width:760px){.brand-wordmark{width:205px;height:auto}}
 @media(max-width:380px){.brand-wordmark{width:175px;height:auto}}
+
+.focus-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.launch-status{margin-top:18px;padding:17px 19px;border:1px solid #dec56b;border-radius:10px;background:#fffdf4;color:var(--ink);position:relative;z-index:2}
+.launch-status strong{font-size:14px}.launch-status p{font-size:12px;margin:5px 0 9px;max-width:800px}.launch-status a{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;text-decoration:underline}
+@media(max-width:420px){.focus-grid{grid-template-columns:1fr}.focus-grid .category-card:last-child{min-height:135px}}

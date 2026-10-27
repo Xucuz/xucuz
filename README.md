@@ -1,3 +1,5 @@
+> **İlk yayın kapsamı:** Elektronik ve beyaz eşya. Gerçek fiyat kaynakları henüz hazır değil; site hazırlık durumunu açıkça gösterir. Diğer kategoriler canlı aramaya kapalıdır. Yerel demo ve eski kategori sözleşmeleri geliştirme/test için korunur. [Yayın kapsamı ve kabul ölçütleri](docs/LAUNCH-SCOPE.md).
+
 # xucuz
 
 Türkçe, mobil öncelikli fiyat karşılaştırma sitesi. Next.js 16, React 19, TypeScript, Tailwind 4, PostgreSQL 17, Drizzle, Zod, Vitest, Playwright.
@@ -50,7 +52,7 @@ Veri kaynağı sözleşmesi: [docs/PROVIDERS.md](docs/PROVIDERS.md). Yayına haz
 
 PostgreSQL entegrasyon testi için `DATABASE_URL=... npm test`. URL yoksa veritabanı testi açıkça atlanır. Fiyat geçmişi yalnızca kaydedilmiş gözlemlerden oluşur; demo seed geçmiş üretmez. Cache ve istek limiti tek süreçte çalışır; çoklu replica için paylaşımlı limit/cache veya edge limiti gerekir.
 
-Çiçek kategorisi: `/cicek`. Tür, adet, teslimat şehri/ilçesi ve zamanı filtreleri, teslimat dahil fiyat sıralaması ve yan yana buket karşılaştırması. Farklı adet/içerik/vazo koşulları ayrı kalır. Demo fiyatlar gerçek çiçekçi teklifi değildir.
+Yerel demo kapsamındaki çiçek kategorisi: `/cicek` (canlı ilk yayında sunulmaz). Tür, adet, teslimat şehri/ilçesi ve zamanı filtreleri, teslimat dahil fiyat sıralaması ve yan yana buket karşılaştırması. Farklı adet/içerik/vazo koşulları ayrı kalır. Demo fiyatlar gerçek çiçekçi teklifi değildir.
 
 ## Güncel yayın politikası: yalnızca gerçek fiyat
 
@@ -58,7 +60,7 @@ Varsayılan DATA_MODE=live. Vercel üzerinde eski DATA_MODE=demo ayarı bulunsa 
 
 ## API kullanmadan fiyat okuma
 
-Seçili sıradan HTML ürün sayfaları için robots kurallarını izleyen toplayıcı eklendi. İlk gerçek yayın, Çiçek Market’ten iki farklı buketin özgün gözlemleridir; çok satıcılı karşılaştırma ve diğer kategoriler henüz tamamlanmadı. GitHub saatlik işi mevcut, ancak kaynaklar otomatik sunucudan erişimi reddettiği için düzenli otomatik yenileme çalışıyor sayılmaz. Taze olmayan fiyatlar gizlenir. [Kapsam ve sonuçlar](docs/PUBLIC-PRICES.md).
+Seçili sıradan HTML ürün sayfaları için robots kurallarını izleyen toplayıcı eklendi. Geçmişte Çiçek Market’ten iki farklı buketin özgün gözlemleri yayımlandı; bu kayıtlar güncel fiyat değildir. Yeniden yayın incelemesi tamamlanmış aktif kaynak bulunmadığından gerçek fiyatlar şu anda yayımlanmıyor; çok satıcılı karşılaştırma henüz tamamlanmadı. GitHub saatlik işi mevcut, ancak kaynaklar otomatik sunucudan erişimi reddettiği için düzenli otomatik yenileme çalışıyor sayılmaz. Taze olmayan fiyatlar gizlenir. [Kapsam ve sonuçlar](docs/PUBLIC-PRICES.md).
 
 ## Satıcıdan veri beklemeyen çalışma modeli
 

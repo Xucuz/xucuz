@@ -31,3 +31,12 @@ Lint, tip kontrolü ve production build geçti; 25 birim/PostgreSQL testi ve iki
 robots kuralları, görünür fiyat eşleşmesi, stok, ürün kimliği, belirsiz fiyat reddi ve tazelik için 8 ek birim testi geçti. GitHub CI 3761d3d için lint, tip, 33 birim/PostgreSQL testi, build ve 20 tarayıcı testi başarılı tamamlandı. Yerelde ağ izinli olmayan denemede veritabanı testi EPERM ile başarısız oldu; izinsiz build de başarısız oldu. Bu başarısız denemeler geçti diye raporlanmadı; başarılı CI kanıtı Actions run 40545042756 içindedir.
 
 İlk saatlik yayın adımı git orphan sonrası gereksiz git rm nedeniyle başarısızdı; düzeltildi. Sonraki iş snapshot dosyasını yayımladı fakat kaynaklara erişim reddi nedeniyle sıfır fiyat üretti ve başarısız sonuçlandı. Saatlik otomatik fiyat yenilemesi çalışır olarak doğrulanmadı. Normal erişimde iki gerçek Çiçek Market fiyatı okunup özgün gözlem zamanıyla price-data dalına yayımlandı; canlı /api/search?category=cicek yanıtında iki kayıt ve demo:false doğrulandı.
+
+## 27 Ekim 2026 — iki kategorili ilk yayın kapsamı
+
+- Lint ve TypeScript: geçti.
+- Vitest: 34 geçti, DATABASE_URL sağlanmadığı için 1 PostgreSQL entegrasyon testi atlandı.
+- Production `next build`: geçti.
+- Playwright: 22 geçti; masaüstü/mobil demo ve canlı mod. Canlı testlerde `PUBLIC_PRICES_ENABLED=0` ile kaynak bulunmayan durum deterministik doğrulandı; bu testler çalışan gerçek sağlayıcı entegrasyonu kanıtı değildir.
+- Yeni kontroller: canlı ana sayfada iki kategori, hazırlık bildirimi, kapsam dışı adreslerde açıklama, kategori kelimesiyle kapsam dışına çıkmama, sitemap kapsamı ve mobil yatay taşma.
+- Gerçek fiyat kaynakları, iki satıcılı eş ürün karşılaştırması ve 20–50 ürün kataloğu tamamlanmadı.
