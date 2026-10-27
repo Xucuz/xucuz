@@ -2,7 +2,9 @@
 
 ## Uygulanan kapsam
 
-İlk aktif kaynaklar İncehesap ve Taze Çiçek'in seçili herkese açık ürün sayfalarıdır. API anahtarı, gizli JSON endpoint'i, hesap, cookie veya CAPTCHA aşma kullanılmaz. Bu kapsam elektronik ve çiçekte az sayıda üründür; tüm kategori ve tüm satıcılar taranmış değildir. Kaynak isimleri ticari ortaklık veya resmî entegrasyon iddiası değildir.
+Kaynaklar `catalog.ts` içinde aday olarak tutulur. Erişim açıklığı ve robots izni tek başına yeniden yayın onayı değildir. `canPublishSource` hem etkinlik hem `publicationReview.status=approved` gerektirir; incelemesi eksik veya koşulları kısıtlayıcı kaynaklardan fiyat toplanmaz/yayımlanmaz. Bu denetim snapshot okumasında da çalışır: eski veri dalındaki kayıtlar yayın kapısını aşamaz.
+
+27 Ekim 2026 incelemesinde Gaming.Gen.TR `/sartlar-ve-kosullar/` madde 2.2 bilgilerin izinsiz kopyalanmasını, yayımlanmasını ve başka sitede kullanımını kısıtlıyor. Kaynak `restricted` olarak kapatıldı. Diğer mevcut adayların yeniden yayın incelemesi tamamlanmadığından şu anda onaylı kamu kaynağı yoktur. Bu durum uygulamada açıkça gösterilir; demo fiyatla doldurulmaz. Satıcıdan dosya veya fiyat girişi beklenmez; yeniden kullanım koşulları uygun başka kamusal kaynakların incelemesi sürdürülebilir.
 
 Uçuş, otobüs ve otelde tarih/yolcu/oda koşullarıyla eşleşen kesin fiyat veren erişim henüz doğrulanmadı. Obilet robots kuralları /seferler ve /ucuslar gibi sonuç yollarını engelliyor; ETS tarihli arama/otel fiyat yollarını engelliyor. Sahibinden erişim kontrolünde HTTP 429 döndü; koruma aşılmadı. Market/otomobil/beyaz eşya toplayıcıları henüz etkin değil. Bu kategorilerde fiyat uydurulmaz. Yeni kategori ancak olağan HTML yanıtından doğru kapsam ve fiyat okunabildiğinde eklenir.
 
@@ -34,3 +36,11 @@ GitHub otomatik sunucusu ilk kaynaklarda ve yeni Çiçek Market denemesinde eri�
 ## Satıcı girdisine bağımlı olmayan kaynak keşfi
 
 Satıcıların dosya göndermesi veya fiyat girmesi ön koşul değildir. Public source discovery işi, sekiz kategoride 18 yeni site adayında robots ve sıradan HTML erişimini düşük hızda denetler; sonuçları price-data/source-probes.json içine yazar. Sadece kök sayfanın açılması fiyat entegrasyonu değildir. 301 yönlendirmeler engel aşma yoluyla takip edilmez; canonical adres ayrıca incelenir. Erişim reddi, ağ hatası ve belirsiz kapsam ayrı raporlanır. Bu keşif işi mevcut fiyatları değiştirmez ve hiçbir fiyat üretmez. Son rapor /veri-kaynaklari ekranında aday olarak gösterilir. Ürün kimliği, varyant ve geçerli fiyat koşulları doğrulanmadan adaylar aktif kaynak olmaz.
+
+## Yeniden yayın için kaynak kabul kontrolü
+
+1. Gerçek kaynak ve kullanım koşulu/lisans URL'sini, inceleme tarihini ve yeniden kullanım gerekçesini kaydedin. Belirsizlikte kaynağı `pending`, açık kısıtta `restricted` tutun. `approved` teknik erişim testiyle otomatik verilmez; somut bir yeniden kullanım dayanağı gerektirir. Bu kayıt hukuki uygunluk garantisi değildir.
+2. robots kurallarını her fiyat toplamada tekrar kontrol edin. Oturum, CAPTCHA veya erişim engeli aşmayın; 401/403/429 durumunda durun. Makul hız ve kaynak sınırlı ürün listesi kullanın.
+3. Yalnızca gerekli ürün kimliği, varyantı, fiyatı, para birimi, koşulları, kaynak URL'si ve gözlem zamanını kaydedin. Satıcının fotoğraf, açıklama, yorum veya tüm kataloğunu kopyalamayın. Sistem kendi kısa açıklamasını üretir.
+4. Görünür fiyat/stok eşleşmesini ve ücret belirsizliğini doğrulayın; kapsamı ve gözlem zamanını gösterin. Güncellik süresi dolunca gizleyin. Saatlik yenileme canlı stok/fiyat garantisi değildir.
+5. Kaynak kuralı değişirse `enabled=false` ile toplama ve yayını kapatın. Kaynak bağlantısı ticari ortaklık veya yetkili entegrasyon olarak sunulmaz.

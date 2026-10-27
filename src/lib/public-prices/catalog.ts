@@ -1,6 +1,6 @@
 import type {Category} from '../categories';
 export type PublicPage={id:string;url:string;category:Category;expectedName:string;attributes:Record<string,string|number|boolean>};
-export type PublicSource={id:string;name:string;origin:string;encoding?:string;enabled?:boolean;pages:PublicPage[]};
+export type PublicSource={id:string;name:string;origin:string;encoding?:string;enabled?:boolean;publicationReview?:{status:'approved'|'pending'|'restricted';checkedAt:string;termsUrl?:string;reason:string};pages:PublicPage[]};
 // Reviewed ordinary HTML pages. No credentials, hidden JSON endpoints, cookies or search-result prices.
 export const publicSources:PublicSource[]=[{
  id:'tazecicek-public',enabled:false,name:'Taze Çiçek',origin:'https://www.tazecicek.com',pages:[
@@ -15,8 +15,11 @@ export const publicSources:PublicSource[]=[{
 },{id:'cicekmarket-public',name:'Çiçek Market',encoding:'windows-1254',origin:'https://www.cicekmarket.com',pages:[
  {id:'cm-21-red',url:'https://www.cicekmarket.com/cicek/21-kirmizi-gul/',category:'cicek',expectedName:'21 Kırmızı Gül',attributes:{'Çiçek türü':'Gül','Çiçek adedi':21,'Renk':'Kırmızı','Sunum':'Buket','Teslimat':'Bölge ve saat sağlayıcıda doğrulanmalı'}},
  {id:'cm-11-red',url:'https://www.cicekmarket.com/cicek/sedefli-ambalajli-11-adet-kirmizi-gul-buketi-cm1358/',category:'cicek',expectedName:'Sedefli',attributes:{'Çiçek türü':'Gül','Çiçek adedi':11,'Renk':'Kırmızı','Sunum':'Sedefli ambalajlı buket','Teslimat':'Bölge ve saat sağlayıcıda doğrulanmalı'}}
- ]},{id:'gaming-public',name:'Gaming.Gen.TR',origin:'https://www.gaming.gen.tr',pages:[
+ ]},{id:'gaming-public',publicationReview:{status:'restricted',checkedAt:'2026-10-27',termsUrl:'https://www.gaming.gen.tr/sartlar-ve-kosullar/',reason:'Madde 2.2 izinsiz yeniden yayını kısıtlıyor; fiyat yayını kapalı.'},name:'Gaming.Gen.TR',origin:'https://www.gaming.gen.tr',pages:[
  {id:'gaming-nv3-1tb',url:'https://www.gaming.gen.tr/urun/508757/kingston-nv3-1tb-nvme-pcie-4-0-okuma-6000mb-yazma-4000mb-m-2-ssd-snv3s-1000g/',category:'elektronik',expectedName:'SNV3S/1000G',attributes:{'Marka':'Kingston','Model':'NV3','Model kodu':'SNV3S/1000G','Kapasite':'1 TB','Bağlantı':'NVMe PCIe 4.0 M.2','Garanti':'Standart paket; sağlayıcıda doğrulanmalı'}}
  ]}];
 export const pageById=(id:string)=>publicSources.flatMap(source=>source.pages.map(page=>({source,page}))).find(v=>v.page.id===id);
 export const SNAPSHOT_URL='https://raw.githubusercontent.com/Xucuz/xucuz/price-data/public-offers.json';
+
+// Public accessibility and robots permission alone do not approve republication.
+export function canPublishSource(source:PublicSource){return source.enabled!==false&&source.publicationReview?.status==='approved';}
