@@ -19,3 +19,8 @@ input[type=checkbox],input[type=radio]{accent-color:#171717}
 .brand-wordmark{display:block;width:207px;height:60px;max-width:100%;overflow:visible}
 @media(max-width:760px){.brand-wordmark{width:180px;height:53px}}
 @media(max-width:360px){.brand-wordmark{width:155px;height:45px}}
+
+/* Approved concept 03: black dynamic X, red Ucuz.com. */
+.brand-wordmark{width:238px;height:auto;object-fit:contain}
+@media(max-width:760px){.brand-wordmark{width:205px;height:auto}}
+@media(max-width:380px){.brand-wordmark{width:175px;height:auto}}
