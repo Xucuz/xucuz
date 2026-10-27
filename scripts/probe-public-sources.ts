@@ -5,6 +5,8 @@ const candidates=[
  ['elektronik','Inventus','https://www.inventus.com.tr'],
  ['elektronik','Sinerji','https://www.sinerji.gen.tr'],
  ['elektronik','Gaming.Gen.TR','https://www.gaming.gen.tr'],
+ ['beyaz-esya','Arçelik','https://www.arcelik.com.tr'],
+ ['beyaz-esya','Vestel','https://www.vestel.com.tr'],
  ['market','CarrefourSA','https://www.carrefoursa.com'],
  ['market','BİM','https://www.bim.com.tr'],
  ['market','A101','https://www.a101.com.tr'],
