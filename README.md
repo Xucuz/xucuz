@@ -59,3 +59,7 @@ Varsayılan DATA_MODE=live. Vercel üzerinde eski DATA_MODE=demo ayarı bulunsa 
 ## API kullanmadan fiyat okuma
 
 Seçili sıradan HTML ürün sayfaları için robots kurallarını izleyen toplayıcı eklendi. İlk gerçek yayın, Çiçek Market’ten iki farklı buketin özgün gözlemleridir; çok satıcılı karşılaştırma ve diğer kategoriler henüz tamamlanmadı. GitHub saatlik işi mevcut, ancak kaynaklar otomatik sunucudan erişimi reddettiği için düzenli otomatik yenileme çalışıyor sayılmaz. Taze olmayan fiyatlar gizlenir. [Kapsam ve sonuçlar](docs/PUBLIC-PRICES.md).
+
+## Satıcıdan veri beklemeyen çalışma modeli
+
+Satıcıların fiyat göndermesi veya panel kullanması işletim ön koşulu değildir. İncelenen herkese açık sayfalar birinci veri kaynağıdır. `npm run sources:probe` yeni kaynak adaylarının robots ve normal HTML erişimini düşük hızda denetler; aday bulmak çalışan entegrasyon sayılmaz ve probe hiçbir fiyat yayımlamaz. GitHub Public source discovery işi aynı denetimi üretimde kullanılan otomatik sunucu üzerinden yapar. Rapor price-data dalında source-probes.json dosyasına yazılır. Mevcut fiyat snapshot’ı bu iş tarafından değiştirilmez. Ürün kimliği/koşullar/varyant/fiyat doğrulaması tamamlanmadan aday site aktif kataloğa alınmaz.
