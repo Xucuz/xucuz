@@ -1,6 +1,6 @@
 import type {Category} from '../categories';
 export type PublicPage={id:string;url:string;category:Category;expectedName:string;attributes:Record<string,string|number|boolean>};
-export type PublicSource={id:string;name:string;origin:string;enabled?:boolean;pages:PublicPage[]};
+export type PublicSource={id:string;name:string;origin:string;encoding?:string;enabled?:boolean;pages:PublicPage[]};
 // Reviewed ordinary HTML pages. No credentials, hidden JSON endpoints, cookies or search-result prices.
 export const publicSources:PublicSource[]=[{
  id:'tazecicek-public',enabled:false,name:'Taze Çiçek',origin:'https://www.tazecicek.com',pages:[
@@ -12,7 +12,7 @@ export const publicSources:PublicSource[]=[{
  {id:'ince-honor-x8b-256',url:'https://www.incehesap.com/honor-pad-x8b-6gb-256gb-11-gri-tablet-fiyati-90039/',category:'elektronik',expectedName:'Honor',attributes:{'Marka':'Honor','Model':'Pad X8B','Depolama':'256 GB','Bellek':'6 GB','Renk':'Gri','Paket':'Çanta hediyeli; farklı paketler ayrı değerlendirilir','Garanti':'Sağlayıcıda kontrol edilmeli'}},
  {id:'ince-lg-32g620b',url:'https://www.incehesap.com/lg-ultragear-32g620b-b-31-5-200hz-1ms-2k-adaptive-sync-hdr10-pivot-destegi-qhd-ips-gaming-monitor-fiyati-93496/',category:'elektronik',expectedName:'32G620B',attributes:{'Marka':'LG','Model':'32G620B-B','Model kodu':'32G620B-B','Ekran':'31.5 inç','Garanti':'Sağlayıcıda kontrol edilmeli'}}
  ]
-},{id:'cicekmarket-public',name:'Çiçek Market',origin:'https://www.cicekmarket.com',pages:[
+},{id:'cicekmarket-public',name:'Çiçek Market',encoding:'windows-1254',origin:'https://www.cicekmarket.com',pages:[
  {id:'cm-21-red',url:'https://www.cicekmarket.com/cicek/21-kirmizi-gul/',category:'cicek',expectedName:'21 Kırmızı Gül',attributes:{'Çiçek türü':'Gül','Çiçek adedi':21,'Renk':'Kırmızı','Sunum':'Buket','Teslimat':'Bölge ve saat sağlayıcıda doğrulanmalı'}},
  {id:'cm-11-red',url:'https://www.cicekmarket.com/cicek/sedefli-ambalajli-11-adet-kirmizi-gul-buketi-cm1358/',category:'cicek',expectedName:'Sedefli',attributes:{'Çiçek türü':'Gül','Çiçek adedi':11,'Renk':'Kırmızı','Sunum':'Sedefli ambalajlı buket','Teslimat':'Bölge ve saat sağlayıcıda doğrulanmalı'}}
  ]}];

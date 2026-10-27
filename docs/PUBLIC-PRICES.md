@@ -26,3 +26,7 @@ GitHub zamanlanmış işlerin çalışması için workflow dosyası varsayılan 
 Yayın tazeliği elektronik/çiçek için en fazla 1 saat; daha eski kayıt gizlenir. Uçuş/otobüs 5 dakika, otel 15 dakika politikasını korur: saatlik gözlemler bu kategoriler için güncel kesin fiyatı tek başına sağlamaz. Fiyat gözlem zamanı her kartta yer alır. Veri kaynakları ve sonuç durumu /veri-kaynaklari sayfasındadır.
 
 GitHub, public repo etkinliği uzun süre olmadığında schedule'ı durdurabilir; Actions durumunu takip edin. Kaynakların robots/koşulları değişirse ilgili kaynak kapatılmalı veya izinli feed'e geçilmelidir.
+
+## Son gerçek çalışma sonucu
+
+GitHub otomatik sunucusu ilk kaynaklarda ve yeni Çiçek Market denemesinde erişim reddi aldı; engel aşılmadı. İncehesap ve Taze Çiçek devre dışı bırakıldı. Çiçek Market normal erişimde Windows-1254 kodlamasıyla iki ürün için görünür/yapılandırılmış fiyat eşleşmesi verdi; 27 Ekim 2026 17:12 UTC gözlemleri özgün zamanlarıyla yayımlandı. Bu kayıtlar tek satıcının iki farklı buketidir; aynı ürünün çok satıcılı fiyat karşılaştırması değildir. Saatlik workflow kurulmuş olsa da otomatik fiyat akışı başarılı değildir; başarısızlık gizlenmez. Kaynak tazeliği bir saat dolunca fiyatlar gizlenir.

@@ -55,3 +55,7 @@ PostgreSQL entegrasyon testi için `DATABASE_URL=... npm test`. URL yoksa verita
 ## Güncel yayın politikası: yalnızca gerçek fiyat
 
 Varsayılan DATA_MODE=live. Vercel üzerinde eski DATA_MODE=demo ayarı bulunsa bile yalnızca canlı mod çalışır. Doğrulanmış kaynak bağlı değilse teklif yoktur; örnek fiyat üretilmez. Eski demo favorileri ve karşılaştırma kayıtları canlı modda gösterilmez. Demo yalnızca yerel geliştirme/test için açıkça DATA_MODE=demo seçilerek kullanılabilir. Playwright iki ayrı sunucuda yerel demo ve Vercel canlı davranışını test eder. Kaynak araştırması ve gerekli erişimler: [docs/LIVE-SOURCES.md](docs/LIVE-SOURCES.md).
+
+## API kullanmadan fiyat okuma
+
+Seçili sıradan HTML ürün sayfaları için robots kurallarını izleyen toplayıcı eklendi. İlk gerçek yayın, Çiçek Market’ten iki farklı buketin özgün gözlemleridir; çok satıcılı karşılaştırma ve diğer kategoriler henüz tamamlanmadı. GitHub saatlik işi mevcut, ancak kaynaklar otomatik sunucudan erişimi reddettiği için düzenli otomatik yenileme çalışıyor sayılmaz. Taze olmayan fiyatlar gizlenir. [Kapsam ve sonuçlar](docs/PUBLIC-PRICES.md).

@@ -25,3 +25,9 @@ Sekizinci kategori eklendi. Lint, tip kontrolü, production build ve çiçek kat
 Kullanıcı gerçek fiyat istediği ve henüz sağlayıcı anlaşması olmadığı için yayın varsayılanı canlı yapıldı. Vercel eski DATA_MODE=demo ayarıyla dahi canlı mod kullanır. Eski demo favori ve karşılaştırma kayıtları canlı listelerden gizlenir. Doğrulanmış kaynak gelmeden fiyat gösterilmez. Gerçek bir entegrasyonun tamamlandığı iddia edilmez.
 
 Lint, tip kontrolü ve production build geçti; 25 birim/PostgreSQL testi ve iki modda 20 masaüstü/mobil tarayıcı testi geçti. Canlı testler sekiz kategori, demo detay erişimi ve eski demo yerel kayıtlarının gizlenmesini kontrol eder. Sağlayıcı araştırması ve erişim gereksinimleri LIVE-SOURCES.md içinde.
+
+## API’siz toplayıcı
+
+robots kuralları, görünür fiyat eşleşmesi, stok, ürün kimliği, belirsiz fiyat reddi ve tazelik için 8 ek birim testi geçti. GitHub CI 3761d3d için lint, tip, 33 birim/PostgreSQL testi, build ve 20 tarayıcı testi başarılı tamamlandı. Yerelde ağ izinli olmayan denemede veritabanı testi EPERM ile başarısız oldu; izinsiz build de başarısız oldu. Bu başarısız denemeler geçti diye raporlanmadı; başarılı CI kanıtı Actions run 40545042756 içindedir.
+
+İlk saatlik yayın adımı git orphan sonrası gereksiz git rm nedeniyle başarısızdı; düzeltildi. Sonraki iş snapshot dosyasını yayımladı fakat kaynaklara erişim reddi nedeniyle sıfır fiyat üretti ve başarısız sonuçlandı. Saatlik otomatik fiyat yenilemesi çalışır olarak doğrulanmadı. Normal erişimde iki gerçek Çiçek Market fiyatı okunup özgün gözlem zamanıyla price-data dalına yayımlandı; canlı /api/search?category=cicek yanıtında iki kayıt ve demo:false doğrulandı.

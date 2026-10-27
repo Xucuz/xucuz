@@ -22,5 +22,23 @@
     "price": 1199900,
     "currency": "TRY",
     "observedAt": "2026-10-27T12:52:15.181Z"
+  },
+  {
+    "offerId": "cm-11-red",
+    "price": 83900,
+    "currency": "TRY",
+    "observedAt": "2026-10-27T17:04:01.273Z"
+  },
+  {
+    "offerId": "cm-21-red",
+    "price": 114900,
+    "currency": "TRY",
+    "observedAt": "2026-10-27T17:12:49.209Z"
+  },
+  {
+    "offerId": "cm-11-red",
+    "price": 83900,
+    "currency": "TRY",
+    "observedAt": "2026-10-27T17:12:50.331Z"
   }
 ]
