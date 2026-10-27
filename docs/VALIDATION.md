@@ -40,3 +40,14 @@ robots kuralları, görünür fiyat eşleşmesi, stok, ürün kimliği, belirsiz
 - Playwright: 22 geçti; masaüstü/mobil demo ve canlı mod. Canlı testlerde `PUBLIC_PRICES_ENABLED=0` ile kaynak bulunmayan durum deterministik doğrulandı; bu testler çalışan gerçek sağlayıcı entegrasyonu kanıtı değildir.
 - Yeni kontroller: canlı ana sayfada iki kategori, hazırlık bildirimi, kapsam dışı adreslerde açıklama, kategori kelimesiyle kapsam dışına çıkmama, sitemap kapsamı ve mobil yatay taşma.
 - Gerçek fiyat kaynakları, iki satıcılı eş ürün karşılaştırması ve 20–50 ürün kataloğu tamamlanmadı.
+
+## 27 Ekim 2026 — alışveriş maliyeti araçları ve logo tamamlayıcısı
+
+- Ana slogan: Almadan önce gerçek maliyeti öğren.
+- Logo devamı: — Etikete değil, gerçek maliyete bak.
+- TypeScript, lint ve production Next.js build geçti.
+- Vitest: 55 geçti; yerel DATABASE_URL sağlanmadığı için 1 PostgreSQL testi atlandı.
+- Playwright son koşu: 42 geçti (masaüstü/mobil, demo/canlı). Birim hesap, kampanya toplamı, taksit, URL üzerinden tekrar hesaplama, geçersiz ölçü hatası, sıfırlama, üç aracın erişimi ve eski altyapı regresyonları doğrulandı.
+- İlk tarayıcı koşusunda hata testi Next.js route-announcer öğesini de seçtiği için 4 proje başarısızdı. Seçici hesaplama formundaki hata mesajıyla sınırlandı; son tam koşuda 42/42 geçti.
+- 390px ana sayfa ve 320px birim fiyat sayfası ek tarayıcı kontrolünde taşma yapmadı; mobil ekran görüntüsü incelendi.
+- Hesaplama araçları satıcı fiyatı veya gerçekleşmiş fiyat gözlemi üretmez; kullanıcı girdileriyle yerel hesap yapar. Veritabanı/haricî servis gerektirmez.

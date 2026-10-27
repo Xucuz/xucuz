@@ -1,0 +1,4 @@
+import Link from 'next/link';
+import {Calculator} from './calculator';
+import {tools,type ToolKind} from '@/lib/calculators';
+export async function ToolPage({kind,searchParams}:{kind:ToolKind;searchParams:Promise<Record<string,string|string[]|undefined>>}){const tool=tools.find(t=>t.kind===kind)!;const initial=Object.fromEntries(Object.entries(await searchParams).filter((entry):entry is [string,string]=>typeof entry[1]==='string'));return <div className="wrap tool-page"><nav className="breadcrumb" aria-label="İçerik yolu"><Link href="/">Ana sayfa</Link> / {tool.label}</nav><div className="tool-intro"><span className="eyebrow">ALMADAN ÖNCE GERÇEK MALİYETİ ÖĞREN</span><h1>{tool.title}</h1><p>{tool.description}</p></div><Calculator kind={kind} initial={initial}/><nav className="other-tools" aria-label="Diğer hesaplama araçları">{tools.filter(t=>t.kind!==kind).map(t=><Link key={t.slug} href={`/${t.slug}`}>{t.label} →</Link>)}</nav></div>;}

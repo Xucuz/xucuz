@@ -1,3 +1,19 @@
+# Xucuz.com — Almadan önce gerçek maliyeti öğren
+
+Logo tamamlayıcısı: **Etikete değil, gerçek maliyete bak.**
+
+Güncel ana sayfa üç ücretsiz ve üyelik gerektirmeyen hesaplama aracı sunar:
+
+- `/birim-fiyat`: paket toplamı, gram/kg, ml/litre ve adet üzerinden birim maliyet karşılaştırması.
+- `/indirim-hesapla`: N al M öde, ikinci ürüne indirim, yüzde indirimi ardından kupon.
+- `/taksit-mi-pesin-mi`: peşin fiyat ve taksit toplamı; ek ücret açıkça girilir.
+
+Araçlar mağazalardan fiyat çekmez; kullanıcının kendi girdileriyle tarayıcıda hesaplar. Fiyatlar boş başlar. Doğrulama ve hesaplar `src/lib/calculators/index.ts` içindedir. Paylaşılabilir URL'ler tutarları içerir, indekslenmez ve bağlantı açıldığında teknik sunucu kayıtlarına girebilir. Gizli bilgi girilmemelidir. Kurulum için Node 24, `npm ci`, `npm run dev`; araçlar veritabanı veya satıcı servisi gerektirmez.
+
+## Önceki fiyat karşılaştırma altyapısı
+
+Aşağıdaki kurulum ve adaptör belgeleri geçmiş kapsam içindir. Gerçek fiyat karşılaştırmasının tamamlandığı iddia edilmez; ana hizmet artık hesaplama araçlarıdır.
+
 > **İlk yayın kapsamı:** Elektronik ve beyaz eşya. Gerçek fiyat kaynakları henüz hazır değil; site hazırlık durumunu açıkça gösterir. Diğer kategoriler canlı aramaya kapalıdır. Yerel demo ve eski kategori sözleşmeleri geliştirme/test için korunur. [Yayın kapsamı ve kabul ölçütleri](docs/LAUNCH-SCOPE.md).
 
 # xucuz
