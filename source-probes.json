@@ -1,0 +1,160 @@
+{
+  "version": 1,
+  "generatedAt": "2026-10-27T17:33:12.486Z",
+  "pricesPublished": false,
+  "results": [
+    {
+      "category": "elektronik",
+      "name": "Inventus",
+      "origin": "https://www.inventus.com.tr",
+      "checkedAt": "2026-10-27T17:32:56.780Z",
+      "status": "unavailable",
+      "reason": "robots.txt HTTP 301; yönlendirme/erişim ayrıca incelenmeli"
+    },
+    {
+      "category": "elektronik",
+      "name": "Sinerji",
+      "origin": "https://www.sinerji.gen.tr",
+      "checkedAt": "2026-10-27T17:32:56.803Z",
+      "status": "blocked",
+      "reason": "robots.txt HTTP 403; yönlendirme/erişim ayrıca incelenmeli"
+    },
+    {
+      "category": "elektronik",
+      "name": "Gaming.Gen.TR",
+      "origin": "https://www.gaming.gen.tr",
+      "checkedAt": "2026-10-27T17:32:56.803Z",
+      "status": "candidate",
+      "hasStructuredProduct": false,
+      "reason": "Ana sayfa okunabildi. Ürün/tarih/fiyat kapsamı henüz doğrulanmadı; canlı kaynak değildir."
+    },
+    {
+      "category": "beyaz-esya",
+      "name": "Arçelik",
+      "origin": "https://www.arcelik.com.tr",
+      "checkedAt": "2026-10-27T17:32:58.102Z",
+      "status": "blocked",
+      "reason": "robots.txt HTTP 403; yönlendirme/erişim ayrıca incelenmeli"
+    },
+    {
+      "category": "beyaz-esya",
+      "name": "Vestel",
+      "origin": "https://www.vestel.com.tr",
+      "checkedAt": "2026-10-27T17:32:58.103Z",
+      "status": "candidate",
+      "hasStructuredProduct": false,
+      "reason": "Ana sayfa okunabildi. Ürün/tarih/fiyat kapsamı henüz doğrulanmadı; canlı kaynak değildir."
+    },
+    {
+      "category": "market",
+      "name": "CarrefourSA",
+      "origin": "https://www.carrefoursa.com",
+      "checkedAt": "2026-10-27T17:32:58.104Z",
+      "status": "blocked",
+      "reason": "robots.txt HTTP 403; yönlendirme/erişim ayrıca incelenmeli"
+    },
+    {
+      "category": "market",
+      "name": "BİM",
+      "origin": "https://www.bim.com.tr",
+      "checkedAt": "2026-10-27T17:33:00.109Z",
+      "status": "candidate",
+      "hasStructuredProduct": false,
+      "reason": "Ana sayfa okunabildi. Ürün/tarih/fiyat kapsamı henüz doğrulanmadı; canlı kaynak değildir."
+    },
+    {
+      "category": "market",
+      "name": "A101",
+      "origin": "https://www.a101.com.tr",
+      "checkedAt": "2026-10-27T17:33:00.110Z",
+      "status": "unavailable",
+      "reason": "Ana sayfa HTTP 403; tekrar deneme yapılmadı"
+    },
+    {
+      "category": "market",
+      "name": "Şok",
+      "origin": "https://www.sokmarket.com.tr",
+      "checkedAt": "2026-10-27T17:33:00.111Z",
+      "status": "candidate",
+      "hasStructuredProduct": false,
+      "reason": "Ana sayfa okunabildi. Ürün/tarih/fiyat kapsamı henüz doğrulanmadı; canlı kaynak değildir."
+    },
+    {
+      "category": "cicek",
+      "name": "Çiçek Filosu",
+      "origin": "https://www.cicekfilosu.com",
+      "checkedAt": "2026-10-27T17:33:01.877Z",
+      "status": "candidate",
+      "hasStructuredProduct": false,
+      "reason": "Ana sayfa okunabildi. Ürün/tarih/fiyat kapsamı henüz doğrulanmadı; canlı kaynak değildir."
+    },
+    {
+      "category": "otomobil",
+      "name": "Toyota Türkiye",
+      "origin": "https://www.toyota.com.tr",
+      "checkedAt": "2026-10-27T17:33:01.878Z",
+      "status": "candidate",
+      "hasStructuredProduct": false,
+      "reason": "Ana sayfa okunabildi. Ürün/tarih/fiyat kapsamı henüz doğrulanmadı; canlı kaynak değildir."
+    },
+    {
+      "category": "otomobil",
+      "name": "Škoda Türkiye",
+      "origin": "https://www.skoda.com.tr",
+      "checkedAt": "2026-10-27T17:33:01.878Z",
+      "status": "candidate",
+      "hasStructuredProduct": false,
+      "reason": "Ana sayfa okunabildi. Ürün/tarih/fiyat kapsamı henüz doğrulanmadı; canlı kaynak değildir."
+    },
+    {
+      "category": "ucak",
+      "name": "Türk Hava Yolları",
+      "origin": "https://www.turkishairlines.com",
+      "checkedAt": "2026-10-27T17:33:03.496Z",
+      "status": "unavailable",
+      "reason": "Ağ/zaman aşımı; fiyat üretilmedi"
+    },
+    {
+      "category": "ucak",
+      "name": "Pegasus",
+      "origin": "https://www.flypgs.com",
+      "checkedAt": "2026-10-27T17:33:03.496Z",
+      "status": "unavailable",
+      "reason": "Ana sayfa HTTP 403; tekrar deneme yapılmadı"
+    },
+    {
+      "category": "otobus",
+      "name": "Kamil Koç",
+      "origin": "https://www.kamilkoc.com.tr",
+      "checkedAt": "2026-10-27T17:33:03.497Z",
+      "status": "unavailable",
+      "reason": "robots.txt HTTP 301; yönlendirme/erişim ayrıca incelenmeli"
+    },
+    {
+      "category": "otobus",
+      "name": "Pamukkale",
+      "origin": "https://www.pamukkale.com.tr",
+      "checkedAt": "2026-10-27T17:33:11.496Z",
+      "status": "candidate",
+      "hasStructuredProduct": false,
+      "reason": "Ana sayfa okunabildi. Ürün/tarih/fiyat kapsamı henüz doğrulanmadı; canlı kaynak değildir."
+    },
+    {
+      "category": "otel",
+      "name": "Jolly",
+      "origin": "https://www.jollytur.com",
+      "checkedAt": "2026-10-27T17:33:11.497Z",
+      "status": "candidate",
+      "hasStructuredProduct": false,
+      "reason": "Ana sayfa okunabildi. Ürün/tarih/fiyat kapsamı henüz doğrulanmadı; canlı kaynak değildir."
+    },
+    {
+      "category": "otel",
+      "name": "TatilBudur",
+      "origin": "https://www.tatilbudur.com",
+      "checkedAt": "2026-10-27T17:33:11.498Z",
+      "status": "blocked",
+      "reason": "robots.txt HTTP 403; yönlendirme/erişim ayrıca incelenmeli"
+    }
+  ]
+}
