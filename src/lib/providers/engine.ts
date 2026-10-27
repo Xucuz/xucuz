@@ -2,7 +2,7 @@ import {categories,freshness,normalize,type Category} from '../categories';
 import {demoOffers} from '../demo';
 import {offerSchema,type Offer,type ProviderAdapter,type Search,type SearchResult} from '../types';
 import {quote,total,matchKey} from '../pricing';
-export const mode=():'demo'|'live'=>process.env.DATA_MODE==='live'?'live':'demo';
+export function mode():'demo'|'live'{const value=process.env.DATA_MODE??'demo';if(value!=='demo'&&value!=='live')throw new Error('DATA_MODE must be demo or live');return value;}
 const cache=new Map<string,{expires:number;offers:Offer[]}>();
 export function clearCache(){cache.clear();}
 export async function collect(adapters:ProviderAdapter[],category:Category,search:Search){
@@ -31,7 +31,7 @@ export function filterOffers(offers:Offer[],s:Search){return offers.filter(o=>{
 export async function searchOffers(category:Category,s:Search,options?:{mode?:'demo'|'live';adapters?:ProviderAdapter[]}):Promise<SearchResult>{
  const current=options?.mode??mode();let offers:Offer[]=[];let warnings:string[]=[];
  if(current==='demo')offers=demoOffers.filter(o=>o.category===category).filter(o=>o.category!=='otel'||Number(o.attributes['Azami kişi'])>=Math.ceil((s.adults+s.children)/s.rooms)).map(o=>quote(o,s));
- else {const adapters=options?.adapters??(await import('./imported')).importedAdapters;const result=await collect(adapters,category,s);offers=result.offers;warnings=result.warnings;if(!adapters.length)warnings.push('Henüz doğrulanmış canlı sağlayıcı yapılandırılmadı.');}
+ else {const adapters=options?.adapters??(await import('./imported')).importedAdapters;const result=await collect(adapters,category,s);offers=result.offers.filter(o=>matchesScope(o,s));warnings=result.warnings;if(!adapters.length)warnings.push('Henüz doğrulanmış canlı sağlayıcı yapılandırılmadı.');}
  const providers=[...new Set(offers.map(o=>o.providerId))];
  offers=filterOffers(offers,s);
  // Exact variant only; different vehicles remain independent listings.
@@ -39,3 +39,11 @@ export async function searchOffers(category:Category,s:Search,options?:{mode?:'d
  const count=offers.length;return {offers:offers.slice((s.page-1)*12,s.page*12),total:count,page:s.page,pages:Math.ceil(count/12),warnings:[...new Set(warnings)],mode:current,providers};
 }
 export const allCategories=categories.map(c=>c.slug);
+
+// Live travel prices are already quoted totals; never multiply a live base fare.
+export function matchesScope(o:Offer,s:Search){
+ const a=o.attributes;
+ if(o.category==='otel')return !!s.start&&!!s.end&&a['Giriş']===s.start&&a['Çıkış']===s.end&&Number(a['Oda'])===s.rooms&&Number(a['Yetişkin'])===s.adults&&Number(a['Çocuk'])===s.children&&String(a['Çocuk yaşları']??'')===s.ages;
+ if(o.category==='ucak'||o.category==='otobus')return !!s.start&&a['Gidiş']===s.start&&Number(a['Yolcu'])===s.passengers&&(o.category!=='ucak'||(a['Kabin']===s.cabin&&a['Seyahat']===(s.trip==='return'?'Gidiş-dönüş':'Tek yön')&&(s.trip!=='return'||a['Dönüş']===s.end)));
+ return true;
+}

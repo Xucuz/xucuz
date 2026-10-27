@@ -35,3 +35,8 @@ describe('güvenlik ve aktarım',()=>{
  it('istekleri sınırlar',()=>{expect(rateLimit('test',1)).toBe(true);expect(rateLimit('test',1)).toBe(false);});
  it('içe aktarma demo, dış URL ve mükerrer kimliği reddeder',()=>{expect(validateImport(JSON.stringify([first]),'json',[]).errors.length).toBe(1);const valid={...first,demo:false,providerId:'authorized-feed',url:'https://shop.example.com/item',updatedAt:new Date().toISOString()};expect(validateImport(JSON.stringify([valid]),'json',['shop.example.com']).valid).toHaveLength(1);expect(validateImport(JSON.stringify([valid,valid]),'json',['shop.example.com']).errors).toHaveLength(1);});
 });
+
+describe('arama sınır durumları',()=>{
+ it('boş sayısal filtre sınırsız varsayılanı korur',()=>{expect(search({min:'',max:''}).max).toBe(1e9);});
+ it('takvim dışı günleri reddeder',()=>{expect(searchSchema.safeParse({start:'2026-02-31'}).success).toBe(false);});
+});

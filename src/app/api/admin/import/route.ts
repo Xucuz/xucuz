@@ -1,12 +1,12 @@
 import {NextResponse} from 'next/server';
 import {isAdmin} from '@/lib/auth';
-import {sameOrigin,rateLimit} from '@/lib/security';
+import {sameOrigin,rateLimit,boundedBody} from '@/lib/security';
 import {validateImport} from '@/lib/import';
 import {clearCache} from '@/lib/providers/engine';
 export async function POST(request:Request){
  if(!await isAdmin())return NextResponse.json({error:'Yetkisiz erişim.'},{status:401});if(!sameOrigin(request)||!rateLimit('admin-import',10))return NextResponse.json({error:'İstek reddedildi.'},{status:403});
  if(Number(request.headers.get('content-length'))>2000000)return NextResponse.json({error:'Dosya 2 MB sınırını aşıyor.'},{status:413});
- const body=await request.text();if(body.length>2000000)return NextResponse.json({error:'Dosya çok büyük.'},{status:413});
+ let body:string;try{body=await boundedBody(request);}catch{return NextResponse.json({error:'Dosya çok büyük.'},{status:413});}
  try{const {db}=await import('@/db');const t=await import('@/db/schema');const {eq}=await import('drizzle-orm');const [provider]=await db.select().from(t.providers).where(eq(t.providers.id,'authorized-feed'));if(!provider?.verifiedAt)return NextResponse.json({error:'Önce izinli sağlayıcıyı doğrulayın.'},{status:400});
  const format=new URL(request.url).searchParams.get('format')==='csv'?'csv':'json';const report=validateImport(body,format,provider.allowedHosts);
  await db.transaction(async tx=>{const [run]=await tx.insert(t.importRuns).values({providerId:provider.id,status:report.errors.length?'rejected':'complete',rowCount:report.valid.length,report:{errors:report.errors}}).returning();

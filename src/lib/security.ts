@@ -7,3 +7,8 @@ export function sessionToken(now=Date.now()){const secret=process.env.SESSION_SE
 export function validSession(token:string|undefined,now=Date.now()){if(!token||!process.env.SESSION_SECRET||process.env.SESSION_SECRET.length<32)return false;try{const [exp,sig]=token.split('.');if(!/^[a-f0-9]{64}$/.test(sig)||!/^\d+$/.test(exp)||Number(exp)<now||Number(exp)>now+8*3600000)return false;const actual=Buffer.from(sig,'hex');const expected=createHmac('sha256',process.env.SESSION_SECRET).update(exp).digest();return actual.length===expected.length&&timingSafeEqual(actual,expected);}catch{return false;}}
 export function safeProviderUrl(value:string,hosts:string[]){try{const u=new URL(value);if(u.protocol!=='https:'||u.username||u.password||u.port||!hosts.includes(u.hostname.toLowerCase()))return null;if(/^(localhost|.*\.local|\d+\.\d+\.\d+\.\d+|\[.*\])$/i.test(u.hostname))return null;return u.toString();}catch{return null;}}
 export function sameOrigin(request:Request){const origin=request.headers.get('origin');return origin===new URL(request.url).origin;}
+export async function boundedBody(request:Request,max=2_000_000){
+ const reader=request.body?.getReader();if(!reader)return '';const chunks:Uint8Array[]=[];let bytes=0;
+ while(true){const {done,value}=await reader.read();if(done)break;bytes+=value.byteLength;if(bytes>max){await reader.cancel();throw new Error('body too large');}chunks.push(value);}
+ return Buffer.concat(chunks).toString('utf8');
+}

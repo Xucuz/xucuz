@@ -44,4 +44,8 @@ Docker: `docker compose --profile app up -d --build`. Compose .env okur; .env.lo
 
 Henüz hosting/DNS dağıtımı yapılmadı. İşletme unvanı, adresi, iletişim e-postası ve veri sorumlusu bilgileri yayından önce sağlanmalıdır. CONTACT_EMAIL, BUSINESS_NAME ve BUSINESS_ADDRESS sunucuda yapılandırılabilir. Gönderim servisi yokken iletişim formu başarı mesajı üretmez.
 
-Geliştirme devam ediyor; tam kabul testlerinin nihai durumu teslim raporunda belirtilecektir.
+Doğrulama: lint, tip kontrolü, 21 birim/PostgreSQL testi, 14 masaüstü/mobil Playwright testi ve production build geçti. GitHub Actions aynı kontrolleri çalıştırır. Vercel önizlemesi oturum korumalıdır; detaylı sonuçlar docs/VALIDATION.md dosyasında.
+
+Veri kaynağı sözleşmesi: [docs/PROVIDERS.md](docs/PROVIDERS.md). Yayına hazırlık ve Vercel 404 ayarları: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). Doğrulama sonuçları: [docs/VALIDATION.md](docs/VALIDATION.md).
+
+PostgreSQL entegrasyon testi için `DATABASE_URL=... npm test`. URL yoksa veritabanı testi açıkça atlanır. Fiyat geçmişi yalnızca kaydedilmiş gözlemlerden oluşur; demo seed geçmiş üretmez. Cache ve istek limiti tek süreçte çalışır; çoklu replica için paylaşımlı limit/cache veya edge limiti gerekir.
