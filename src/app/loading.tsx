@@ -1,0 +1,1 @@
+export default function Loading(){return <div className="wrap section" role="status" aria-label="Teklifler yükleniyor"><p>Teklifler yükleniyor…</p>{[1,2,3].map(n=><div className="loading-pulse" key={n}/>)}</div>;}

@@ -1,0 +1,6 @@
+import {NextResponse} from 'next/server';
+import {mode} from '@/lib/providers/engine';
+import {safeProviderUrl,rateLimit} from '@/lib/security';
+import {offerSchema} from '@/lib/types';
+import {freshness} from '@/lib/categories';
+export async function GET(request:Request,{params}:{params:Promise<{id:string}>}){if(!rateLimit('redirect',120))return new NextResponse('Çok fazla istek.',{status:429});if(mode()!=='live')return new NextResponse('Demo teklifleri gerçek satıcıya yönlendirilmez.',{status:410});const {id}=await params;try{const {db}=await import('@/db');const {offers,providers}=await import('@/db/schema');const {eq}=await import('drizzle-orm');const [row]=await db.select({payload:offers.payload,hosts:providers.allowedHosts,enabled:providers.enabled,verified:providers.verifiedAt}).from(offers).innerJoin(providers,eq(offers.providerId,providers.id)).where(eq(offers.id,id));if(!row||!row.enabled||!row.verified)return new NextResponse('Teklif yok.',{status:404});const o=offerSchema.parse(row.payload);const url=o.url&&safeProviderUrl(o.url,row.hosts);if(o.demo||!url||Date.now()-Date.parse(o.updatedAt)>freshness[o.category]*1000)return new NextResponse('Teklifin süresi doldu veya adres doğrulanamadı.',{status:410});return NextResponse.redirect(url,302);}catch{return new NextResponse('Teklif şu anda kullanılamıyor.',{status:503});}}
