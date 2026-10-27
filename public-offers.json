@@ -1,69 +1,35 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-27T17:40:27.400Z",
-  "offers": [
-    {
-      "id": "gaming-nv3-1tb",
-      "category": "elektronik",
-      "entityId": "gaming-public:740617344790",
-      "variantKey": "{\"Marka\":\"Kingston\",\"Model\":\"NV3\",\"Model kodu\":\"SNV3S/1000G\",\"Kapasite\":\"1 TB\",\"Bağlantı\":\"NVMe PCIe 4.0 M.2\",\"Garanti\":\"Standart paket; sağlayıcıda doğrulanmalı\"}",
-      "title": "Kingston NV3 1TB NVMe PCIe 4.0 Okuma 6000MB – Yazma 4000MB M.2 SSD (SNV3S/1000G)",
-      "providerId": "gaming-public",
-      "provider": "Gaming.Gen.TR",
-      "description": "Sağlayıcının herkese açık ürün sayfasında gözlenen fiyat. Teslimat/kargo, adres bazlı stok ve ek ücretler doğrulanmadı. Farklı ürün veya buketleri aynı ürünün teklifleri gibi değerlendirmeyin.",
-      "price": 869900,
-      "shipping": null,
-      "mandatoryFees": null,
-      "currency": "TRY",
-      "available": true,
-      "url": "https://www.gaming.gen.tr/urun/508757/kingston-nv3-1tb-nvme-pcie-4-0-okuma-6000mb-yazma-4000mb-m-2-ssd-snv3s-1000g/",
-      "source": "Gaming.Gen.TR · herkese açık HTML",
-      "updatedAt": "2026-10-27T17:40:27.369Z",
-      "demo": false,
-      "sponsored": false,
-      "affiliate": false,
-      "attributes": {
-        "Marka": "Kingston",
-        "Model": "NV3",
-        "Model kodu": "SNV3S/1000G",
-        "Kapasite": "1 TB",
-        "Bağlantı": "NVMe PCIe 4.0 M.2",
-        "Garanti": "Standart paket; sağlayıcıda doğrulanmalı",
-        "Kapsam": "Herkese açık ürün sayfası; adres/üyelik seçilmedi",
-        "Stok bilgisi": "Sayfada stokta; adres bazlı uygunluk doğrulanmadı",
-        "Kaynak ürün kodu": "115104",
-        "Barkod": "740617344790"
-      }
-    }
-  ],
+  "generatedAt": "2026-10-27T17:42:59.261Z",
+  "offers": [],
   "statuses": [
     {
       "id": "tazecicek-public",
-      "checkedAt": "2026-10-27T17:40:26.583Z",
+      "checkedAt": "2026-10-27T17:42:59.261Z",
       "success": 0,
       "failed": 0,
-      "message": "Otomatik sunucu erişimi reddedildiği için kaynak devre dışı."
+      "message": "Kaynak erişim kısıtı nedeniyle devre dışı."
     },
     {
       "id": "incehesap-public",
-      "checkedAt": "2026-10-27T17:40:26.583Z",
+      "checkedAt": "2026-10-27T17:42:59.261Z",
       "success": 0,
       "failed": 0,
-      "message": "Otomatik sunucu erişimi reddedildiği için kaynak devre dışı."
+      "message": "Kaynak erişim kısıtı nedeniyle devre dışı."
     },
     {
       "id": "cicekmarket-public",
-      "checkedAt": "2026-10-27T17:40:27.009Z",
+      "checkedAt": "2026-10-27T17:42:59.261Z",
       "success": 0,
-      "failed": 1,
-      "message": "Kaynak erişimi sınırladı; tekrar denemeden durduruldu."
+      "failed": 0,
+      "message": "Yeniden yayın koşulları incelemesi tamamlanmadı; fiyat toplama ve yayın kapalı."
     },
     {
       "id": "gaming-public",
-      "checkedAt": "2026-10-27T17:40:27.400Z",
-      "success": 1,
+      "checkedAt": "2026-10-27T17:42:59.261Z",
+      "success": 0,
       "failed": 0,
-      "message": "Herkese açık sayfalardan doğrulandı."
+      "message": "Madde 2.2 izinsiz yeniden yayını kısıtlıyor; fiyat yayını kapalı."
     }
   ]
 }
