@@ -1,1 +1,2 @@
-export function Logo(){return <><span className="logo-x" aria-hidden="true">X</span><span className="logo-name" aria-hidden="true">Ucuz</span></>;}
+export function Logo(){return <svg className="brand-wordmark" viewBox="0 0 276 80" width="207" height="60" aria-hidden="true" focusable="false"><path fill="#111" d="M4 4h19l16 24L55 4h19L49 40l26 36H55L39 51 22 76H2l27-36Z"/>
+<g fill="none" stroke="#c82025" strokeWidth="13" strokeLinejoin="round"><path d="M87 21v32q0 17 17 17t17-17V21"/><path d="M171 39q-6-5-14-5c-12 0-19 7-19 18s7 18 19 18q8 0 14-5"/><path d="M187 35v21q0 14 13 14t13-14V35"/></g><path fill="#c82025" d="M230 29h40v11l-24 24h24v12h-42V65l25-24h-23Z"/></svg>;}

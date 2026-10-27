@@ -13,3 +13,9 @@
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,textarea:focus-visible{outline-color:#9c7300}
 input[type=checkbox],input[type=radio]{accent-color:#171717}
 @media(max-width:760px){.logo-x{font-size:45px}.logo-name{font-size:30px}}
+
+/* Geometric vector lettering keeps the heavy logo identical on every device. */
+.logo{align-items:center;flex-shrink:0}
+.brand-wordmark{display:block;width:207px;height:60px;max-width:100%;overflow:visible}
+@media(max-width:760px){.brand-wordmark{width:180px;height:53px}}
+@media(max-width:360px){.brand-wordmark{width:155px;height:45px}}
