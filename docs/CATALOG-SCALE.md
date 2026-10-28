@@ -1,6 +1,6 @@
 # Ürün türleri, gerçek modeller ve 50.000 kayıt kapasitesi
 
-Mevcut içerik: **525 genel ürün türü + 5 kaynaklı gerçek model = 530 kayıt**. Henüz 50.000 gerçek ürün/model yüklenmedi. Google sıralaması, satıcı stok listesi veya fiyat verisi iddiası yoktur. 25 müzik aleti türü, saz/bağlama eş anlamlıları ve özgün seçim ölçütleri eklendi.
+Mevcut içerik: **625 genel ürün türü + 5 kaynaklı gerçek model = 630 kayıt**. Henüz 50.000 gerçek ürün/model yüklenmedi. Google sıralaması, satıcı stok listesi veya fiyat verisi iddiası yoktur. 25 müzik aleti türü, saz/bağlama eş anlamlıları ve özgün seçim ölçütleri eklendi.
 
 Gerçek modeller: Kingston SNV3S/1000G ve Yamaha C70, C40II, C40MII, CX40. Kaynak bağlantıları ve kontrol tarihleri models.json içindedir ve model sayfasında gösterilir. Yamaha'nın bölgesel üretici dokümanı model kimliğini doğrular; Türkiye'de satış, renk, satıcı paketi veya garanti koşulu doğrulaması değildir. Model tanımı, canlı teklif entegrasyonu veya fiyat geçmişi anlamına gelmez.
 
