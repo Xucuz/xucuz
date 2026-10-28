@@ -32,7 +32,7 @@ export default function RootLayout({children}:{children:React.ReactNode}){
    <div><Link href="/" className="logo" aria-label="xucuz ana sayfa"><Logo/></Link><p>Almadan önce gerçek maliyeti öğren.</p><p className="small">Kendi fiyatlarınla hesapla,<br/>alışverişini bilerek yap.</p></div>
    <div><strong>xucuz’u keşfet</strong><Link href="/market-rehberi">Haftalık market rehberi</Link><Link href="/urun-sec">İhtiyacına göre ürün seç</Link><Link href="/rehberler">Alışveriş rehberleri</Link><Link href="/hakkimizda">Hakkımızda</Link><Link href="/iletisim">İletişim <ArrowUpRight size={13}/></Link><Link href="/affiliate">Affiliate ve sponsorlu içerik</Link></div>
    <div><strong>Bilgilendirme</strong><Link href="/gizlilik">Gizlilik ve çerezler</Link><Link href="/kullanim-kosullari">Kullanım koşulları</Link><Link href="/gecmis-fiyat">Geçmiş teklif kayıtları</Link><Link href="/birim-fiyat">Birim fiyat karşılaştır</Link><Link href="/indirim-hesapla">İndirim hesapla</Link><Link href="/taksit-mi-pesin-mi">Taksit ve peşin karşılaştır</Link></div>
-  </div><div className="wrap footer-bottom"><span>© {new Date().getFullYear()} Xucuz. Tüm hakları saklıdır.</span><span>Türkçe · Türkiye · TRY</span><span>Ödeme veya rezervasyon almayız.</span></div></footer>
+  </div><div className="wrap footer-bottom"><span>© {new Date().getFullYear()} Xucuz.com. Tüm hakları saklıdır.</span><span>Türkçe · Türkiye · TRY</span><span>Ödeme veya rezervasyon almayız.</span></div></footer>
  </div><Analytics/></body></html>;
 }
 
