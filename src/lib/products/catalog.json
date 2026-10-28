@@ -638,5 +638,37 @@
       "Köpek tasması",
       "Akvaryum filtresi"
     ]
+  },
+  {
+    "slug": "muzik",
+    "label": "Müzik aletleri",
+    "topic": "alisveris",
+    "names": [
+      "Gitar",
+      "Klasik gitar",
+      "Akustik gitar",
+      "Elektro gitar",
+      "Bas gitar",
+      "Saz",
+      "Kısa sap bağlama",
+      "Uzun sap bağlama",
+      "Cura",
+      "Ud",
+      "Keman",
+      "Viyola",
+      "Çello",
+      "Kontrbas",
+      "Dijital piyano",
+      "Akustik piyano",
+      "Org",
+      "MIDI klavye",
+      "Ney",
+      "Yan flüt",
+      "Klarnet",
+      "Saksafon",
+      "Akustik davul seti",
+      "Elektronik davul seti",
+      "Darbuka"
+    ]
   }
 ]

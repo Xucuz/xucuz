@@ -15,7 +15,8 @@
     "db:seed": "tsx scripts/seed.ts",
     "admin:hash": "tsx scripts/hash-password.ts",
     "prices:collect": "tsx scripts/collect-public-prices.ts",
-    "sources:probe": "tsx scripts/probe-public-sources.ts"
+    "sources:probe": "tsx scripts/probe-public-sources.ts",
+    "catalog:import": "node --import tsx scripts/import-product-models.ts"
   },
   "dependencies": {
     "next": "^16.0.0",
