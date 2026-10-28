@@ -1,3 +1,7 @@
+## Model bazında geçmiş fiyat
+
+`/gecmis-fiyat` bir takvim ayı önceki gün ile son 30 günün en düşük gözlenen teklifini ayrı hesaplar. 500 genel ürün adı, 500 kesin model değildir. Şu an bir doğrulanmış model tanımı ve sıfır uygun geçmiş fiyat kaydı vardır; fiyat uydurulmaz. [Kapsam ve veri kaydı](docs/PRICE-HISTORY.md).
+
 ## Tüm ürünlerde alışveriş rehberi
 
 500 ürünün tamamı `/urunler/[id]` adresinde ürüne özel üç karşılaştırma ölçütü, kullanım soruları, olası maliyetler ve altı maddelik kontrol listesi sunar. Ürün adı listesindeki ve otomatik önerideki seçim doğrudan rehberi açar. Bunlar model testleri veya 500 bağımsız uzun araştırma yazısı değildir; yapılandırılmış seçim rehberleridir. Fiyat/stok üretilmez. [İçerik modeli ve kapsam](docs/PRODUCT-GUIDES.md).

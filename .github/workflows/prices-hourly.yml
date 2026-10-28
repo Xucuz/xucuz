@@ -27,6 +27,9 @@ jobs:
           if git ls-remote --exit-code --heads origin price-data >/dev/null 2>&1; then
             git fetch origin price-data
             git show origin/price-data:price-history.json > data/price-history.json
+            if git cat-file -e origin/price-data:model-history 2>/dev/null; then
+              git archive origin/price-data model-history | tar -x -C data
+            fi
           fi
       - name: Collect ordinary public HTML (no provider API)
         id: collect
@@ -41,6 +44,7 @@ jobs:
           test -f data/price-history.json
           mkdir -p /tmp/xucuz-published
           cp data/public-offers.json data/price-history.json /tmp/xucuz-published/
+          cp -R data/model-history /tmp/xucuz-published/model-history
           if git ls-remote --exit-code --heads origin price-data >/dev/null 2>&1; then
             git fetch origin price-data
             git switch --discard-changes --force-create price-data origin/price-data
@@ -49,10 +53,13 @@ jobs:
             git switch --orphan price-data
           fi
           cp /tmp/xucuz-published/*.json .
+          rm -rf model-history
+          cp -R /tmp/xucuz-published/model-history ./model-history
+          find model-history -type f -name '*.tmp' -delete
           printf '{"ignoreCommand":"exit 0"}\n' > vercel.json
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add public-offers.json price-history.json vercel.json
+          git add public-offers.json price-history.json model-history vercel.json
           if git diff --cached --quiet; then exit 0; fi
           git commit -m 'chore: refresh observed public prices'
           git push origin HEAD:price-data

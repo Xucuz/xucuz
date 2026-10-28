@@ -79,3 +79,7 @@ robots kuralları, görünür fiyat eşleşmesi, stok, ürün kimliği, belirsiz
 - Vitest: 67 geçti; DATABASE_URL sağlanmadığı için 1 PostgreSQL testi atlandı.
 - Tam Playwright: 75 geçti. Bu sayıya, canlı moddaki uygulamadan 500 rehber adresini 10'arlı gruplarla gerçekten isteyen kapsam testi dahil; tüm yanıtlar 200 ve ürüne ait başlık/ölçüt/kontrol listesi içerdi. Sunucu kapsamı testi 3,6 saniyede tamamlandı.
 - Masaüstü/mobil öneri seçimi, altı maddelik kontrol listesi, maliyet bağlantısı, kategori/sayfalama ve önceki hesaplayıcı/rehber akışları geçti. Kamp çadırı rehberi mobilde taşma yapmadı.
+
+## 2026-10-28 — Model history
+
+77 unit tests passed; 1 PostgreSQL integration test skipped (no database). ESLint passed. Local production build was blocked by runtime port restrictions (Turbopack); webpack fallback could not parse TypeScript showConfig in this runtime. Production build and browser verification require CI/deployment confirmation. No verified historical price observations exist; this change does not backfill prices.
