@@ -3,6 +3,8 @@
 import {Music2,VolumeX} from 'lucide-react';
 import {useEffect,useRef,useState} from 'react';
 
+type MobileAudioWindow=Window&{webkitAudioContext?:typeof AudioContext};
+
 const melody=[523.25,659.25,783.99,880,783.99,659.25,587.33,698.46,783.99,987.77,880,783.99,659.25,587.33,523.25,392];
 const bass=[130.81,146.83,98,130.81];
 
@@ -39,7 +41,8 @@ export function PianoToggle(){
  }
 
  async function start(){
-  const AudioContextClass=window.AudioContext;
+  // Older Safari/iOS versions expose Web Audio under the prefixed name.
+  const AudioContextClass=window.AudioContext??(window as MobileAudioWindow).webkitAudioContext;
   if(!AudioContextClass){setUnavailable(true);return;}
   try{
    const context=new AudioContextClass();
@@ -48,8 +51,8 @@ export function PianoToggle(){
    let step=0;
    const play=()=>{
     const now=context.currentTime+.04;
-    playPianoTone(context,melody[step%melody.length],now,.075);
-    if(step%4===0)playPianoTone(context,bass[Math.floor(step/4)%bass.length],now,.035);
+    playPianoTone(context,melody[step%melody.length],now,.17);
+    if(step%4===0)playPianoTone(context,bass[Math.floor(step/4)%bass.length],now,.08);
     step++;
    };
    play();
