@@ -5,6 +5,35 @@ test('Google benzeri arama ve 81 il listesi mobilde taşmadan görünür',async(
  await page.goto('/fiyat-ekle');await expect(page.locator('input[name="productName"]')).toBeVisible();await expect(page.locator('select[name="city"] option')).toHaveCount(82);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
 
+test('Xucina sohbet penceresi yazılı soruya yanıt verir',async({page})=>{
+ await page.goto('/');await page.getByRole('button',{name:/Xucina’ya sor|Ask Xucina|Спросить Ксучину/i}).click();
+ const dialog=page.getByRole('dialog',{name:'Xucina'});await expect(dialog).toBeVisible();await expect(dialog.locator('.xucina-avatar img')).toBeVisible();const avatar=await dialog.locator('.xucina-avatar').boundingBox();expect(avatar?.width).toBeLessThanOrEqual(44);expect(avatar?.height).toBeLessThanOrEqual(44);
+ await page.getByLabel('Sorunu yaz…').fill('Birim fiyatı nasıl karşılaştırırım?');await page.getByRole('button',{name:'Soruyu gönder'}).click();
+ await expect(dialog.getByText(/Birim fiyat için ürünün fiyatını net miktarına böl/)).toBeVisible();
+});
+
+test('Xucina fiyat sorusunda kayıtsız fiyat üretmez',async({request})=>{
+ const response=await request.post('/api/qa',{data:{question:'QzxvQzxv adı verilen hayali ürünün fiyatı kaç TL?'}});expect(response.ok()).toBeTruthy();
+ const reply=await response.json() as {text:string};expect(reply.text).toMatch(/güncel ve yönetici onaylı|fiyat kayıtlarına şu anda erişemiyorum/);expect(reply.text).not.toMatch(/\d+[,.]\d{2}\s?(₺|TL)/);
+});
+
+test('Xucina sohbeti telefonda görünür ve yatay taşma oluşturmaz',async({page})=>{
+ await page.goto('/');await page.getByRole('button',{name:/Xucina’ya sor|Ask Xucina|Спросить Ксучину/i}).click();const dialog=page.getByRole('dialog',{name:'Xucina'});await expect(dialog).toBeVisible();
+ const box=await dialog.boundingBox();expect(box).not.toBeNull();expect(box!.width).toBeLessThanOrEqual((page.viewportSize()?.width??0));expect(box!.x).toBeGreaterThanOrEqual(0);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBeTruthy();
+ await page.getByLabel('Sorunu yaz…').fill('Birim fiyatı nasıl karşılaştırırım?');await page.getByRole('button',{name:'Soruyu gönder'}).click();await expect(dialog.getByText(/Birim fiyat için ürünün fiyatını net miktarına böl/)).toBeVisible();
+});
+
+test('Xucina desteklenen tarayıcı seslerini seçilen dile göre kullanır',async({page})=>{
+ await page.addInitScript(()=>{const scope=window as Window;class MockUtterance{lang='';rate=1;pitch=1;voice:SpeechSynthesisVoice|null=null;onerror:((event:SpeechSynthesisErrorEvent)=>void)|null=null;constructor(public text:string){}}const voices=['tr-TR','en-US','ru-RU'].map(lang=>({lang,name:'Samantha',voiceURI:lang,default:false,localService:true} as SpeechSynthesisVoice));const synthesis:{__xucinaSpoken?:string;cancel:()=>void;getVoices:()=>SpeechSynthesisVoice[];speak:(utterance:MockUtterance)=>void}={cancel:()=>{},getVoices:()=>voices,speak:(utterance)=>{synthesis.__xucinaSpoken=utterance.lang;}};Object.defineProperty(scope,'SpeechSynthesisUtterance',{configurable:true,value:MockUtterance});Object.defineProperty(scope,'speechSynthesis',{configurable:true,value:synthesis});});
+ await page.goto('/');await page.getByRole('button',{name:/Xucina’ya sor|Ask Xucina|Спросить Ксучину/i}).click();
+ const expected={tr:'tr-TR',en:'en-US',ru:'ru-RU'};for(const [language,locale] of Object.entries(expected)){await page.locator('.language-select select').first().selectOption(language);await page.getByRole('button',{name:/Yanıtı sesli oku|Read answer aloud|Прочитать ответ/i}).first().click();await expect.poll(()=>page.evaluate(()=>((window.speechSynthesis as SpeechSynthesis&{__xucinaSpoken?:string}).__xucinaSpoken))).toBe(locale);}
+});
+
+test('Xucina mikrofon desteği olmadığında yazılı soruya yönlendirir',async({page})=>{
+ await page.addInitScript(()=>{Object.defineProperty(window,'SpeechRecognition',{configurable:true,value:undefined});Object.defineProperty(window,'webkitSpeechRecognition',{configurable:true,value:undefined});});
+ await page.goto('/');await page.getByRole('button',{name:/Xucina’ya sor|Ask Xucina|Спросить Ксучину/i}).click();await page.getByRole('button',{name:'Sesle yaz'}).click();await expect(page.getByText('Bu tarayıcı mikrofonla ses tanımayı desteklemiyor. Sorunu yazarak iletebilirsin.')).toBeVisible();
+});
+
 test('ana fiyat araması ürün önerilerini klavyeyle seçebilir',async({page})=>{
  await page.goto('/');const input=page.locator('.community-hero input[type="search"]');await input.fill('Buzdolabı');await expect(page.getByRole('listbox',{name:'Ürün önerileri'})).toBeVisible();await input.press('ArrowDown');await input.press('Enter');await expect(input).toHaveValue(/buzdolabı/i);await expect(page.getByRole('listbox')).toHaveCount(0);
 });
