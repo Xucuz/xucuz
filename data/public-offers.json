@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "generatedAt": "2026-10-27T17:12:50.332Z",
+  "offers": [
+    {
+      "id": "cm-21-red",
+      "category": "cicek",
+      "entityId": "cicekmarket-public:CM305",
+      "variantKey": "{\"Çiçek türü\":\"Gül\",\"Çiçek adedi\":21,\"Renk\":\"Kırmızı\",\"Sunum\":\"Buket\",\"Teslimat\":\"Bölge ve saat sağlayıcıda doğrulanmalı\"}",
+      "title": "21 Kırmızı Gül",
+      "providerId": "cicekmarket-public",
+      "provider": "Çiçek Market",
+      "description": "Sağlayıcının herkese açık ürün sayfasında gözlenen fiyat. Teslimat/kargo, adres bazlı stok ve ek ücretler doğrulanmadı. Farklı ürün veya buketleri aynı ürünün teklifleri gibi değerlendirmeyin.",
+      "price": 114900,
+      "shipping": null,
+      "mandatoryFees": null,
+      "currency": "TRY",
+      "available": true,
+      "url": "https://www.cicekmarket.com/cicek/21-kirmizi-gul/",
+      "source": "Çiçek Market · herkese açık HTML",
+      "updatedAt": "2026-10-27T17:12:49.209Z",
+      "demo": false,
+      "sponsored": false,
+      "affiliate": false,
+      "attributes": {
+        "Çiçek türü": "Gül",
+        "Çiçek adedi": 21,
+        "Renk": "Kırmızı",
+        "Sunum": "Buket",
+        "Teslimat": "Bölge ve saat sağlayıcıda doğrulanmalı",
+        "Kapsam": "Herkese açık ürün sayfası; adres/üyelik seçilmedi",
+        "Stok bilgisi": "Sayfada stokta; adres bazlı uygunluk doğrulanmadı",
+        "Kaynak ürün kodu": "CM305"
+      }
+    },
+    {
+      "id": "cm-11-red",
+      "category": "cicek",
+      "entityId": "cicekmarket-public:CM1358",
+      "variantKey": "{\"Çiçek türü\":\"Gül\",\"Çiçek adedi\":11,\"Renk\":\"Kırmızı\",\"Sunum\":\"Sedefli ambalajlı buket\",\"Teslimat\":\"Bölge ve saat sağlayıcıda doğrulanmalı\"}",
+      "title": "Sedefli Ambalajlı 11 Adet Kırmızı Gül Buketi",
+      "providerId": "cicekmarket-public",
+      "provider": "Çiçek Market",
+      "description": "Sağlayıcının herkese açık ürün sayfasında gözlenen fiyat. Teslimat/kargo, adres bazlı stok ve ek ücretler doğrulanmadı. Farklı ürün veya buketleri aynı ürünün teklifleri gibi değerlendirmeyin.",
+      "price": 83900,
+      "shipping": null,
+      "mandatoryFees": null,
+      "currency": "TRY",
+      "available": true,
+      "url": "https://www.cicekmarket.com/cicek/sedefli-ambalajli-11-adet-kirmizi-gul-buketi-cm1358/",
+      "source": "Çiçek Market · herkese açık HTML",
+      "updatedAt": "2026-10-27T17:12:50.331Z",
+      "demo": false,
+      "sponsored": false,
+      "affiliate": false,
+      "attributes": {
+        "Çiçek türü": "Gül",
+        "Çiçek adedi": 11,
+        "Renk": "Kırmızı",
+        "Sunum": "Sedefli ambalajlı buket",
+        "Teslimat": "Bölge ve saat sağlayıcıda doğrulanmalı",
+        "Kapsam": "Herkese açık ürün sayfası; adres/üyelik seçilmedi",
+        "Stok bilgisi": "Sayfada stokta; adres bazlı uygunluk doğrulanmadı",
+        "Kaynak ürün kodu": "CM1358"
+      }
+    }
+  ],
+  "statuses": [
+    {
+      "id": "tazecicek-public",
+      "checkedAt": "2026-10-27T17:12:48.551Z",
+      "success": 0,
+      "failed": 0,
+      "message": "Otomatik sunucu erişimi reddedildiği için kaynak devre dışı."
+    },
+    {
+      "id": "incehesap-public",
+      "checkedAt": "2026-10-27T17:12:48.551Z",
+      "success": 0,
+      "failed": 0,
+      "message": "Otomatik sunucu erişimi reddedildiği için kaynak devre dışı."
+    },
+    {
+      "id": "cicekmarket-public",
+      "checkedAt": "2026-10-27T17:12:50.332Z",
+      "success": 2,
+      "failed": 0,
+      "message": "Herkese açık sayfalardan doğrulandı."
+    }
+  ]
+}

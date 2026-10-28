@@ -1,0 +1,14 @@
+import {createHmac,timingSafeEqual,scryptSync,randomBytes} from 'node:crypto';
+const buckets=new Map<string,{count:number;reset:number}>();
+export function rateLimit(key:string,limit=60,window=60000){const now=Date.now();if(buckets.size>10000)for(const [k,v]of buckets)if(v.reset<now)buckets.delete(k);const b=buckets.get(key);if(!b||b.reset<now){if(buckets.size>=10000)return false;buckets.set(key,{count:1,reset:now+window});return true;}return ++b.count<=limit;}
+export function hashPassword(password:string){const salt=randomBytes(16).toString('hex');return `${salt}:${scryptSync(password,salt,64).toString('hex')}`;}
+export function verifyPassword(password:string,stored:string){try{const [salt,hex]=stored.split(':');const target=Buffer.from(hex,'hex');const actual=scryptSync(password,salt,64);return target.length===actual.length&&timingSafeEqual(target,actual);}catch{return false;}}
+export function sessionToken(now=Date.now()){const secret=process.env.SESSION_SECRET;if(!secret||secret.length<32)throw new Error('Session not configured');const expires=String(now+8*3600000);return `${expires}.${createHmac('sha256',secret).update(expires).digest('hex')}`;}
+export function validSession(token:string|undefined,now=Date.now()){if(!token||!process.env.SESSION_SECRET||process.env.SESSION_SECRET.length<32)return false;try{const [exp,sig]=token.split('.');if(!/^[a-f0-9]{64}$/.test(sig)||!/^\d+$/.test(exp)||Number(exp)<now||Number(exp)>now+8*3600000)return false;const actual=Buffer.from(sig,'hex');const expected=createHmac('sha256',process.env.SESSION_SECRET).update(exp).digest();return actual.length===expected.length&&timingSafeEqual(actual,expected);}catch{return false;}}
+export function safeProviderUrl(value:string,hosts:string[]){try{const u=new URL(value);if(u.protocol!=='https:'||u.username||u.password||u.port||!hosts.includes(u.hostname.toLowerCase()))return null;if(/^(localhost|.*\.local|\d+\.\d+\.\d+\.\d+|\[.*\])$/i.test(u.hostname))return null;return u.toString();}catch{return null;}}
+export function sameOrigin(request:Request){const origin=request.headers.get('origin');return origin===new URL(request.url).origin;}
+export async function boundedBody(request:Request,max=2_000_000){
+ const reader=request.body?.getReader();if(!reader)return '';const chunks:Uint8Array[]=[];let bytes=0;
+ while(true){const {done,value}=await reader.read();if(done)break;bytes+=value.byteLength;if(bytes>max){await reader.cancel();throw new Error('body too large');}chunks.push(value);}
+ return Buffer.concat(chunks).toString('utf8');
+}

@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: xucuz
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-local-development-only}
+      POSTGRES_DB: xucuz
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U xucuz -d xucuz"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+  web:
+    profiles: [app]
+    build: .
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      DATA_MODE: ${DATA_MODE:-live}
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
+      DATABASE_URL: postgres://xucuz:${POSTGRES_PASSWORD:-local-development-only}@db:5432/xucuz
+      ADMIN_PASSWORD_HASH: ${ADMIN_PASSWORD_HASH:-}
+      SESSION_SECRET: ${SESSION_SECRET:-}
+      CONTACT_EMAIL: ${CONTACT_EMAIL:-}
+      BUSINESS_NAME: ${BUSINESS_NAME:-}
+      BUSINESS_ADDRESS: ${BUSINESS_ADDRESS:-}
+    depends_on:
+      db:
+        condition: service_healthy
+volumes:
+  postgres_data:

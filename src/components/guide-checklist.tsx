@@ -1,0 +1,3 @@
+'use client';
+import {useState} from 'react';
+export function GuideChecklist({items}:{items:string[]}){const [checked,setChecked]=useState<string[]>([]);return <section className="guide-checklist"><span className="eyebrow">SATIN ALMADAN ÖNCE</span><h2>Son kontrol listen</h2><p>Bu listedeki işaretler yalnızca bu sayfa açıkken tutulur.</p>{items.map((item,i)=><label key={item}><input type="checkbox" checked={checked.includes(item)} onChange={e=>setChecked(v=>e.target.checked?[...v,item]:v.filter(x=>x!==item))}/><span>{i+1}. {item}</span></label>)}<p role="status">{checked.length} / {items.length} madde kontrol edildi.</p></section>;}

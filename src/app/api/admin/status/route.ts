@@ -1,0 +1,3 @@
+import {NextResponse} from 'next/server';
+import {isAdmin} from '@/lib/auth';
+export async function GET(){if(!await isAdmin())return NextResponse.json({error:'Yetkisiz erişim.'},{status:401});try{const {db}=await import('@/db');const {providers,importRuns,matchingIssues}=await import('@/db/schema');const {desc}=await import('drizzle-orm');return NextResponse.json({providers:await db.select().from(providers),imports:await db.select().from(importRuns).orderBy(desc(importRuns.id)).limit(30),issues:await db.select().from(matchingIssues).orderBy(desc(matchingIssues.id)).limit(100)});}catch{return NextResponse.json({error:'Veritabanı hazır değil. Migration ve bağlantıyı kontrol edin.'},{status:503});}}
