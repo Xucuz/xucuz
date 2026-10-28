@@ -187,6 +187,7 @@ input[type=checkbox],input[type=radio]{accent-color:#000000}
 
 @media(min-width:761px){.header{height:152px}.header-ad-slot{width:240px;height:135px;flex:0 0 240px;margin-right:20px}.header-genie-full-logo{display:block;width:240px;height:135px;object-fit:contain}}
 @media(max-width:760px){.header{height:112px}.header-ad-slot{width:160px;min-width:0;height:90px;flex:0 0 160px;margin-right:8px}.header-genie-full-logo{display:block;width:160px;height:90px;object-fit:contain}}
-.header{background:#fff0c8}
+.header{position:relative;isolation:isolate;background:transparent}
+.header::before{content:"";position:absolute;z-index:-1;left:calc((100% - 100vw)/2);right:calc((100% - 100vw)/2);top:0;bottom:0;background:radial-gradient(ellipse at 14% 78%,rgba(238,190,91,.36) 0,rgba(238,190,91,0) 36%),radial-gradient(ellipse at 42% 8%,rgba(255,250,228,.92) 0,rgba(255,250,228,0) 39%),radial-gradient(ellipse at 78% 93%,rgba(241,198,112,.42) 0,rgba(241,198,112,0) 37%),radial-gradient(ellipse at 97% 20%,rgba(255,248,218,.9) 0,rgba(255,248,218,0) 35%),linear-gradient(112deg,#f9e7b5 0%,#fff3d3 45%,#fce9b9 73%,#fff3d2 100%)}
 
 
