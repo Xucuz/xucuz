@@ -1,3 +1,3 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './fixtures';
 import {products} from '../../src/lib/products';
 test('katalogdaki rehberlerin tamamı canlı modda gerçekten açılır',async({request})=>{test.setTimeout(120000);for(let offset=0;offset<products.length;offset+=10){await Promise.all(products.slice(offset,offset+10).map(async p=>{const response=await request.get(`/urunler/${p.id}`);expect(response.status(),p.id).toBe(200);const html=(await response.text()).replace(/<!--[\s\S]*?-->/g,'');expect(html,p.id).toContain(`<h1>${p.name} alışveriş rehberi</h1>`);expect(html,p.id).toContain('product-guide-criteria');expect(html,p.id).toContain('Son kontrol listen');}));}});

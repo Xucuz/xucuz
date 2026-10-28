@@ -1,3 +1,7 @@
+## Üç saniyelik marka açılışı
+
+Onaylanan ürün simgeli X görseli ilk sekme ziyaretinde üç saniye gösterilir, ardından site açılır. Aynı sekmedeki gezinti ve yenilemelerde tekrar gösterilmez; Siteye geç/Escape ile erken kapatılır. JavaScript kapalıysa CSS üç saniyede ekranı kaldırır. [Davranış ve testler](docs/BRAND-INTRO.md).
+
 ## Şarküteri, manav, gıda ve bakliyat
 
 Dört yeni grupta 100 ürün türü ve gıdaya uygun karşılaştırma/etiket/miktar kontrol listeleri eklendi. Yeni toplam 625 tür + 5 kaynaklı model = 630 kayıt. Tümü birim fiyat aracına bağlanır; bunlar canlı market teklifleri değildir. [Kapsam](docs/FOOD-GUIDES.md). Aşağıdaki 530 kayıt bilgisi önceki genişletmenin notudur.
