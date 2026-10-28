@@ -5,6 +5,7 @@ import {products,productGroups} from '@/lib/products';
 import {tools} from '@/lib/calculators';
 import {ProductSearch} from '@/components/product-search';
 import {MarketOfferSection} from '@/components/market-offer-section';
+import {BrandFilm} from '@/components/brand-film';
 
 export const metadata:Metadata={title:'Haftalık market rehberi ve birim fiyat hesabı',description:'Market ürünlerini aynı ölçüde karşılaştır. Kaynağı, geçerlilik zamanı ve kampanya koşulları açıklanan haftalık alışveriş rehberi.',alternates:{canonical:'/'}};
 
@@ -30,6 +31,8 @@ export default function Home(){return <>
    </aside>
   </div>
  </section>
+
+ <BrandFilm/>
 
  <MarketOfferSection/>
 
