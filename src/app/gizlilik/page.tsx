@@ -7,6 +7,8 @@ export default function Page(){return <article className="wrap content-page">
  <p>Hesaplama araçları tutarları tarayıcıda işler. Hesapla düğmesi, girilen değerleri içeren bağlantıyı adres çubuğuna yazar. Bu bağlantıyı açtığınızda URL değerleri sunucuya iletilebilir ve teknik erişim kayıtlarına girebilir. Kişisel veya gizli bilgi girmeyin. Temizle düğmesi formu ve güncel URL parametrelerini kaldırır; daha önce paylaşılmış bağlantıları veya barındırma kayıtlarını silmez.</p>
  <h2>Tarayıcıda saklanan bilgiler</h2>
  <p>Favoriler ve karşılaştırma listeniz bu tarayıcının yerel depolamasında tutulur. Hesap oluşturmanız gerekmez. Tarayıcı verilerini temizleyerek bu listeleri silebilirsiniz.</p>
+ <h2>Topluluk fiyat gözlemleri ve fotoğraflar</h2>
+ <p>Fiyat bildirirken ürün adı, mağaza, il/ilçe, gözlem tarihi, fiyat ve isteğe bağlı paket/kampanya bilgileri sunucuya gönderilir. Fiş, raf etiketi veya ürün fotoğrafları yönetici incelemesine kadar özel veritabanı saklamasında tutulur; herkese açık görsel olarak yayınlanmaz. İnceleme tamamlandığında kanıt fotoğrafları silinir. Onaylanan fiyat gözlemi mağaza teklifi değildir ve en geç yedi gün sonra aramadan kalkar. Gönderim sırasında fişteki ad, telefon, ödeme/kart bilgisi ve diğer kişisel verileri kapatın. Uygulama gönderiyle birlikte kullanıcı hesabı veya e-posta toplamaz.</p>
  <p>Açılış görselinin sekme oturumunda bir kez gösterildiğini hatırlamak için sessionStorage içinde bir gösterim işareti saklanır. Kişisel veri veya ziyaretçi kimliği içermez; sekme oturumu sona erdiğinde kaldırılır.</p>
  <h2>Yönetici oturumu</h2>
  <p>Yalnızca yönetici girişi yapıldığında güvenli, HttpOnly ve SameSite=Strict özellikli oturum çerezi kullanılır. Oturum en fazla 8 saat geçerlidir.</p>

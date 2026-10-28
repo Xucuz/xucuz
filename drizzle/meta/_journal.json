@@ -29,6 +29,13 @@
       "when": 1793164000000,
       "tag": "0003_yearly-visitors",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1793211000000,
+      "tag": "0004_community-prices",
+      "breakpoints": true
     }
   ]
 }

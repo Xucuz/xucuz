@@ -1,4 +1,18 @@
-## Güncel tasarım: haftalık market rehberi
+## Topluluk fiyat platformu — geliştirme aşaması
+
+Geliştirme dalı `feat/community-price-platform`. Bu dal `main` üzerinde yayınlanmadı; canlı dağıtım için kullanıcı onayı beklenir. Plan ve depo incelemesi [`docs/COMMUNITY-PLATFORM-PLAN.md`](docs/COMMUNITY-PLATFORM-PLAN.md) içindedir.
+
+- Google benzeri, mobil öncelikli arama; lacivert, beyaz ve yeşil arayüz.
+- Türkiye'nin 81 ili için ürün/bölge araması: `/fiyatlar?q=süt&city=İstanbul`. URL arama ve filtreleri taşır.
+- `/fiyat-ekle` fiş, raf etiketi veya ürün fotoğrafıyla market fiyat gözlemi kabul eder. Tarayıcı görselleri yeniden boyutlandırıp metadata'sız WebP'ye dönüştürür; en çok üç fotoğraf, her biri 1,3 MB, istek toplamı 4 MB.
+- Gönderiler varsayılan `pending` durumundadır. Yönetici `/admin` içinden kanıtları görür ve onaylar/reddeder. Kanıt görüntüleri inceleme tamamlanınca silinir; yönetici dışındaki istekler görüntüye erişemez. Yalnızca onaylı kayıtlar yayımlanır ve fiyat gözlemi yedi gün sonra aramadan kalkar.
+- Topluluk kayıtları satıcı teklifi değildir; sağlayıcıya yönlendirme veya stok garantisi yapılmaz. Kaynak ve gözlem zamanı görünür, fiyat yoksa sayı uydurulmaz. Şu an ilk aşamada yalnızca market fiyat gözlemi alınır; diğer kategorilerin adaptörleri ve veri modeli korunur.
+- Türkçe, İngilizce ve Rusça dil seçimi; arama, bildirim, sonuç ve Xucina arayüzü yerelleştirilmiştir. Xucina ürün rehberi yanıtlarını metinle verir; Web Speech API destekleniyorsa isteğe bağlı sesle yazma ve sesli okuma sağlar. Bu bir insan destek hattı veya yapay zekâ tarafından canlı fiyat araması değildir.
+- PWA manifesti, çevrimdışı açıklama sayfası ve `public/sw.js` navigasyon fallback'i vardır. Çevrimdışıyken fiyat önbellekten sunulmaz.
+
+Kanıt fotoğrafları PostgreSQL `bytea` alanlarında kısa süreli moderasyon amacıyla tutulur; üretim ortamında veritabanı kapasitesi, yedekleme ve geçerli veri sorumlusu/aydınlatma metni yayına geçmeden değerlendirilmelidir. Rate limit tek runtime belleğindedir; yatay ölçeklemede edge veya paylaşımlı sayaç gerekir. Yönetici hesabı varsayılan üretilmez. Migration `npm run db:migrate` ile uygulanır. Canlı dağıtım yapılmadı.
+
+## Önceki tasarım ve rehber kapsamı
 
 Ana sayfa, Xucuz’un siyah-sarı marka diliyle haftalık market rehberi ve birim fiyat hesabına odaklanır. `/market-rehberi` kaynak, kontrol zamanı, ürün miktarı ve kampanya koşulunu birlikte açıklayan özgün içerik sunar. Yalnızca yeniden yayımlama koşulu onaylanmış, güncel teklifler gösterilir; market kaydı yoksa fiyat uydurulmaz ve boş durum açıklanır. Ürün araması mevcut editoryal rehberlere, hesaplama araçları kullanıcının girdiği değerlere gider. Katalog görselleri ve metinleri kopyalanmaz; affiliate veya sponsorlu yerleşimler açıkça etiketlenir.
 

@@ -9,7 +9,19 @@ const stopWords=new Set(['bir','ve','ile','icin','için','nasil','nasıl','ne','
 
 function terms(value:string){return normalize(value).split(' ').filter(word=>word.length>2&&!stopWords.has(word));}
 
-export function answerQuestion(question:string):QaReply{
+export function answerQuestion(question:string,language:'tr'|'en'|'ru'='tr'):QaReply{
+ if(language==='en'){
+  const q=question.toLocaleLowerCase('en-US');
+  if(/unit price|per kg|per litre|per liter|gram|quantity/.test(q))return {text:'Divide the total pack price by its net quantity, then convert grams or millilitres to kilograms or litres. Compare like-for-like products and check multipack terms separately. I do not fetch live store prices.',href:'/birim-fiyat',label:'Open unit price calculator'};
+  if(/price|cheapest|offer|deal|store|observation/.test(q))return {text:'Xucuz shows only recent community price observations with evidence that have been reviewed by a moderator. They are not live store offers; check the store, location and observed date. If no result appears, there is no current approved observation. I never invent a price.',href:'/fiyatlar',label:'Search price observations'};
+  return {text:'I can help with unit price, total cost and product-selection guides. The detailed shopping guides are currently in Turkish. I do not provide live prices or human support.',href:'/rehberler',label:'Browse shopping guides'};
+ }
+ if(language==='ru'){
+  const q=question.toLocaleLowerCase('ru-RU');
+  if(/цена за|кг|литр|грамм|количеств/.test(q))return {text:'Разделите цену всей упаковки на её массу или объём. Переведите граммы в килограммы, а миллилитры в литры; условия нескольких упаковок учитывайте отдельно. Актуальные цены магазинов я не получаю.',href:'/birim-fiyat',label:'Открыть расчёт цены за единицу'};
+  if(/цен|дешев|предложен|магазин|наблюден/.test(q))return {text:'Xucuz показывает только свежие наблюдения сообщества с фото, проверенные модератором. Это не актуальное предложение магазина: проверьте магазин, регион и дату наблюдения. Если результата нет, одобренного наблюдения сейчас нет. Я не придумываю цены.',href:'/fiyatlar',label:'Искать наблюдения цен'};
+  return {text:'Я могу помочь с ценой за единицу, полной стоимостью и руководствами по выбору товара. Подробные руководства пока доступны на турецком. Актуальные цены и человеческая поддержка здесь недоступны.',href:'/rehberler',label:'Открыть руководства'};
+ }
  const q=normalize(question.slice(0,300));
  if(!q)return {text:'Bir soru yazarsan yardımcı olayım. Örneğin: “Birim fiyatı nasıl karşılaştırırım?”'};
  if(/insan|temsilci|canli gorus|canli destek/.test(q))return {text:'Bu pencere otomatik rehber yanıtları verir; şu anda insan temsilciye bağlı değil. Bize yazmak için İletişim sayfasını kullanabilirsin.',href:'/iletisim',label:'İletişim sayfası'};

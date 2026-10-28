@@ -1,3 +1,2 @@
 import Image from 'next/image';
-
-export function Logo(){return <span className="brand-lockup"><Image className="brand-symbol" src="/xucuz-logo.svg" width={76} height={76} alt="Xucuz.com siyah X logosu" unoptimized/><span className="brand-tagline">Etikete değil gerçek maliyete bak</span></span>;}
+export function Logo(){return <span className="community-footer-brand"><span className="community-footer-lockup"><Image src="/xucina-brand.jpg" alt="" width={44} height={44} className="community-logo-mascot"/><b><i>x</i>ucuz<span>.</span></b></span><small>Etikete değil, gerçek gözleme bak.</small></span>;}
