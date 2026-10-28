@@ -48,7 +48,7 @@ export function LiveQA(){
 
  return <div className="live-qa-root">
   {open&&<section className="live-qa-panel" aria-label="Xucuz soru cevap">
-  <header className="live-qa-head"><div className="xucina-avatar" aria-hidden="true"><Image src="/xucina-brand.jpg" alt="" fill sizes="40px"/></div><div><strong>Xucina</strong><span>{t('online')}</span></div><button type="button" className="live-qa-close" onClick={()=>setOpen(false)} aria-label="Sohbeti kapat"><X size={20}/></button></header>
+  <header className="live-qa-head"><div className="xucina-avatar" aria-hidden="true"><Image src="/xucina-icon-192.png" alt="" fill sizes="40px"/></div><div><strong>Xucina</strong><span>{t('online')}</span></div><button type="button" className="live-qa-close" onClick={()=>setOpen(false)} aria-label="Sohbeti kapat"><X size={20}/></button></header>
    <div className="live-qa-messages" ref={list} aria-live="polite" aria-relevant="additions text">
     {messages.map(message=><div className={`live-qa-message ${message.from}`} key={message.id}><p>{message.id===0?welcomes[language]:message.reply.text}</p>{message.from==='assistant'&&<button className="xucina-speak" type="button" onClick={()=>speak(message.reply.text)} aria-label={t('speak')}><Volume2 size={14}/>{t('speak')}</button>}{message.reply.href&&message.reply.label&&<Link href={message.reply.href} onClick={()=>setOpen(false)}>{message.reply.label} →</Link>}</div>)}
     {busy&&<div className="live-qa-message assistant" aria-label="Yanıt hazırlanıyor"><p className="live-qa-typing">•••</p></div>}

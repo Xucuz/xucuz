@@ -13,3 +13,12 @@ Xucina, Xucuz.com'un resmi kadın cin maskotudur. Onaylanan görsel referans `pu
 Yeni kullanımda yüz, saç rengi ve uzunluğu, ten tonu ve genel görünüm korunur. Görsel üstüne gelişigüzel yazı veya yeni logo bindirilmez; Xucuz marka yazısı ayrı, gerçek metin olarak kullanılır. Küçük avatar kırpımları aynı kaynak görselin sol tarafını kullanır.
 
 Xucina sohbet asistanıdır; gerçek zamanlı insan desteği veya güncel fiyat sağlayıcısı olduğunu iddia etmez. Fiyat uydurmaz, sadece rehberlere ve onaylanmış topluluk gözlemlerine dayanır.
+
+## Web varlıkları
+
+- `public/xucina-brand.jpg`: Kullanıcının verdiği değiştirilmemiş ana referans.
+- `public/xucina-home.webp`: Ana sayfa için 900×600 WebP; yalnızca ölçek ve görsel sıkıştırması uygulanmıştır.
+- `public/xucina-icon-192.png`, `public/xucina-icon-512.png`: Tam çizimden kırpılmış, karakter piksel görünümü korunarak hazırlanmış uygulama/avatar simgeleri.
+- `public/xucina-logo.svg`: Maskot simgesiyle Xucuz.com yazı kilidi.
+
+Uygulama manifesti PNG simgelerini bildirir. Ana sayfada Xucina masaüstünde aramanın yanında, mobilde arama alanının altında gösterilir.

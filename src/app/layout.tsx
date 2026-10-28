@@ -14,7 +14,7 @@ import {PwaRegister} from '@/components/pwa-register';
 import './globals.css';
 
 const siteUrl=process.env.NEXT_PUBLIC_SITE_URL??'https://xucuz.com';
-export const metadata:Metadata={metadataBase:new URL(siteUrl),title:{default:'Xucuz.com — Toplulukla güncel fiyat gözlemleri',template:'%s | xucuz'},description:'81 ilde ürün fiyatlarını ara, topluluk gözlemlerini karşılaştır ve fiş ya da raf etiketiyle katkıda bulun. Onaylanmayan fiyat gösterilmez.',applicationName:'Xucuz',manifest:'/manifest.webmanifest',other:{'google-adsense-account':'ca-pub-9203233526232260'},openGraph:{type:'website',locale:'tr_TR',url:siteUrl,siteName:'Xucuz.com',title:'Xucuz.com — Toplulukla güncel fiyat gözlemleri',description:'Türkiye genelinde fotoğrafla bildirilen ve incelenen fiyat gözlemleri.'},twitter:{card:'summary',title:'Xucuz.com — Topluluk fiyat rehberi',description:'Türkiye genelinde fotoğrafla bildirilen ve incelenen fiyat gözlemleri.'},robots:mode()==='demo'?{index:false,follow:false}:{index:true,follow:true}};
+export const metadata:Metadata={metadataBase:new URL(siteUrl),title:{default:'Xucuz.com — Toplulukla güncel fiyat gözlemleri',template:'%s | xucuz'},description:'81 ilde ürün fiyatlarını ara, topluluk gözlemlerini karşılaştır ve fiş ya da raf etiketiyle katkıda bulun. Onaylanmayan fiyat gösterilmez.',applicationName:'Xucuz',manifest:'/manifest.webmanifest',icons:{icon:[{url:'/xucina-icon-192.png',sizes:'192x192',type:'image/png'},{url:'/xucina-icon-512.png',sizes:'512x512',type:'image/png'}],apple:{url:'/xucina-icon-192.png',sizes:'192x192',type:'image/png'}},other:{'google-adsense-account':'ca-pub-9203233526232260'},openGraph:{type:'website',locale:'tr_TR',url:siteUrl,siteName:'Xucuz.com',title:'Xucuz.com — Toplulukla güncel fiyat gözlemleri',description:'Türkiye genelinde fotoğrafla bildirilen ve incelenen fiyat gözlemleri.'},twitter:{card:'summary',title:'Xucuz.com — Topluluk fiyat rehberi',description:'Türkiye genelinde fotoğrafla bildirilen ve incelenen fiyat gözlemleri.'},robots:mode()==='demo'?{index:false,follow:false}:{index:true,follow:true}};
 
 export default function RootLayout({children}:{children:React.ReactNode}){
  return <RootDocument>{children}</RootDocument>;
@@ -24,7 +24,7 @@ async function RootDocument({children}:{children:React.ReactNode}){const savedLa
   <a className="skip" href="#main">İçeriğe geç</a>
   {mode()==='demo'&&<div className="mode-bar"><span className="dot"/> Demo veriler — gerçek teklif değildir</div>}
   <header className="community-header wrap">
-   <Link href="/" className="community-header-logo" aria-label="Xucuz.com ana sayfa"><Image src="/xucina-brand.jpg" alt="" width={40} height={40} className="community-header-mascot"/><span className="community-header-x">x</span>ucuz<span className="community-wordmark-dot">.</span></Link>
+   <Link href="/" className="community-header-logo" aria-label="Xucuz.com ana sayfa"><Image src="/xucina-icon-192.png" alt="" width={40} height={40} className="community-header-mascot"/><span className="community-header-x">x</span>ucuz<span className="community-wordmark-dot">.</span></Link>
    <nav aria-label="Ana menü"><Link href="/fiyatlar">Fiyat ara</Link><Link href="/fiyat-ekle">Fiyat bildir</Link><Link href="/rehberler">Rehberler</Link><Link href="/hakkimizda">Hakkımızda</Link><LanguageSelect/></nav>
   </header>
   <main id="main" tabIndex={-1}>{children}</main>
