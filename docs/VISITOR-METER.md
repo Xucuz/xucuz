@@ -1,3 +1,5 @@
+> Sayaç arayüzü kaldırıldı ve üst marka görseliyle değiştirildi. Aşağıdaki bilgiler önceki sayım altyapısının teknik arşividir; mevcut site arayüzü sayım yapmaz. Veritabanı kayıtları/migration dosyaları silinmemiştir.
+
 # Gerçek yıllık ziyaretçi sayacı
 
 Siyah/beyaz sayaç /api/visitors üzerinden PostgreSQL toplu sayısını okur. Sayı tahmini veya örnek veri yoktur; bağlantı yoksa yalnızca açıkça etiketlenmiş 1.453 başlangıç değeri gösterilir. Yıllık sayı, yalnızca sayıma açıkça katılan tarayıcıları ifade eder; kesin kişi sayısı değildir. Üçüncü taraf analitik eklenmez.
