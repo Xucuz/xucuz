@@ -2498,5 +2498,130 @@
     "Akvaryum hacmi ve üretici uyumu",
     "Filtrasyon ve yerleşim",
     "Filtre malzemesi ve bakım"
+  ],
+  "Gitar": [
+    "Gitar türü ve çalınacak müzik için uygunluk",
+    "Gövde boyutu, sap rahatlığı ve tel yüksekliği",
+    "Akort düzeni, tel türü ve bakım imkânı"
+  ],
+  "Klasik gitar": [
+    "Gövde ölçüsü ve kullanıcının fiziksel rahatlığı",
+    "Naylon tel, sap genişliği ve tel yüksekliği",
+    "Perde işçiliği, akort kararlılığı ve köprü durumu"
+  ],
+  "Akustik gitar": [
+    "Gövde şekli, ölçüsü ve çalım rahatlığı",
+    "Tel kalınlığı, sap ayarı ve perde işçiliği",
+    "Varsa manyetik sistemi ve çıkış bağlantısı"
+  ],
+  "Elektro gitar": [
+    "Manyetik dizilimi ve çalınacak tarz",
+    "Sap profili, perde sayısı ve tel yüksekliği",
+    "Köprü türü, akort kararlılığı ve amfi ihtiyacı"
+  ],
+  "Bas gitar": [
+    "Tel sayısı, mensur ve sap rahatlığı",
+    "Manyetik düzeni ve aktif/pasif elektronik",
+    "Ağırlık, denge ve uygun amfi bağlantısı"
+  ],
+  "Saz": [
+    "Kısa veya uzun sap ve kullanılacak akort düzeni",
+    "Tekne boyutu, sap rahatlığı ve tel yüksekliği",
+    "Perde bağları, burgular ve işçilik kontrolü"
+  ],
+  "Kısa sap bağlama": [
+    "Tekne boyutu, mensur ve çalım rahatlığı",
+    "Kullanılacak akort düzenine uygun tel takımı",
+    "Perde yerleşimi, tel yüksekliği ve burgu kararlılığı"
+  ],
+  "Uzun sap bağlama": [
+    "Sap uzunluğu, perde düzeni ve çalım alışkanlığı",
+    "Tekne ölçüsü ve enstrümanın fiziksel dengesi",
+    "Tel takımı, akort düzeni ve işçilik kontrolü"
+  ],
+  "Cura": [
+    "Boyut, mensur ve elde tutuş rahatlığı",
+    "Akort düzeni ve uygun tel takımı",
+    "Perde yerleşimi, burgu ve tekne işçiliği"
+  ],
+  "Ud": [
+    "Mensur, gövde boyutu ve oturuş rahatlığı",
+    "Tel sayısı, tel takımı ve kullanılan akort düzeni",
+    "Sap açısı, tel yüksekliği ve burgu tutuşu"
+  ],
+  "Keman": [
+    "Kullanıcıya uygun enstrüman ölçüsü",
+    "Köprü, eşik, can direği ve kurulum kontrolü",
+    "Yay, reçine, kutu ve tel takımının kapsamı"
+  ],
+  "Viyola": [
+    "Gövde uzunluğu ve kullanıcının rahat erişimi",
+    "Köprü, tel yüksekliği ve kurulum durumu",
+    "Yay, kutu ve uygun tel takımı kapsamı"
+  ],
+  "Çello": [
+    "Kullanıcıya uygun ölçü ve oturuş rahatlığı",
+    "Köprü, eşik, sap ve tel yüksekliği kontrolü",
+    "Yay, kılıf, endpin ve taşıma gereksinimleri"
+  ],
+  "Kontrbas": [
+    "Gövde ölçüsü, mensur ve çalım pozisyonu",
+    "Yayla veya parmakla kullanıma uygun kurulum",
+    "Taşıma alanı, kılıf ve köprü/akort mekanizması"
+  ],
+  "Dijital piyano": [
+    "Tuş sayısı, mekanizması ve dokunma hissi",
+    "Pedal desteği, ses çıkışı ve kulaklık bağlantısı",
+    "Stant, tabure ve pedalın paket kapsamında olması"
+  ],
+  "Akustik piyano": [
+    "Dikey veya kuyruklu yapı ve yerleşim alanı",
+    "Tuş, mekanizma, teller ve ses tahtası durumu",
+    "Uzman kontrolü, akort, taşıma ve bakım gideri"
+  ],
+  "Org": [
+    "Tuş sayısı, boyutu ve tuşe hassasiyeti",
+    "Ritim, eşlik ve kayıt işlevlerinin ihtiyaca uygunluğu",
+    "Hoparlör, adaptör, pedal ve bağlantı kapsamı"
+  ],
+  "MIDI klavye": [
+    "Tuş sayısı, boyutu ve çalım mekanizması",
+    "Bilgisayar, yazılım ve bağlantı uyumluluğu",
+    "Pad, kontrol düğmeleri ve güç gereksinimi"
+  ],
+  "Ney": [
+    "Akort türü, boyu ve kullanıcının erişimi",
+    "Başpare ölçüsü ve üfleme rahatlığı",
+    "Malzeme, delik işçiliği ve bakım koşulları"
+  ],
+  "Yan flüt": [
+    "Tuş sistemi ve kullanıcının düzeyine uygunluk",
+    "Ped sızdırmazlığı, mekanizma ve akort kontrolü",
+    "Ağızlık, gövde malzemesi ve servis erişimi"
+  ],
+  "Klarnet": [
+    "Akort türü, sistem ve kullanılacak repertuvar",
+    "Tuş mekanizması, pedler ve sızdırmazlık kontrolü",
+    "Bek, kamış, bilezik ve kutunun paket kapsamı"
+  ],
+  "Saksafon": [
+    "Enstrüman türü ve kullanılacak akort ailesi",
+    "Tuş ergonomisi, ped sızdırmazlığı ve mekanizma",
+    "Bek, kamış, askı ve kutunun paket kapsamı"
+  ],
+  "Akustik davul seti": [
+    "Davul ölçüleri ve yerleşim alanı",
+    "Zil, sehpa, pedal ve taburenin paket kapsamı",
+    "Deriler, akort mekanizması ve ortamın ses koşulları"
+  ],
+  "Elektronik davul seti": [
+    "Pad türü, vuruş alanları ve tepki hissi",
+    "Modül bağlantıları, pedal uyumu ve ses çıkışı",
+    "Kulaklık, amfi, tabure ve zemin titreşimi ihtiyacı"
+  ],
+  "Darbuka": [
+    "Gövde ölçüsü, ağırlığı ve elde tutuş rahatlığı",
+    "Deri türü, akort mekanizması ve yedek deri erişimi",
+    "Gövde malzemesi, kenar işçiliği ve taşıma kılıfı"
   ]
 }

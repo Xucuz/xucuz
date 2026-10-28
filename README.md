@@ -1,3 +1,7 @@
+## Genişleyen ürün ve model kataloğu
+
+Güncel katalog 21 grupta 525 ürün türü ve 5 üretici kaynaklı model içerir: toplam 530 kayıt. Müzik aletleri (gitar, saz, bağlama, piyano vb.) rehberleri eklendi. Sunucuda arama, büyük listede sayfalama ve 50.000 toplam kayıt sınırıyla doğrulanan model içe aktarma hazırdır; 50.000 gerçek kayıt henüz yüklenmemiştir. [Kapsam, kaynaklar ve model ekleme](docs/CATALOG-SCALE.md). Aşağıdaki 500 ürün bölümleri ilk sürümün kapsamını anlatır.
+
 ## Model bazında geçmiş fiyat
 
 `/gecmis-fiyat` bir takvim ayı önceki gün ile son 30 günün en düşük gözlenen teklifini ayrı hesaplar. 500 genel ürün adı, 500 kesin model değildir. Şu an bir doğrulanmış model tanımı ve sıfır uygun geçmiş fiyat kaydı vardır; fiyat uydurulmaz. [Kapsam ve veri kaydı](docs/PRICE-HISTORY.md).

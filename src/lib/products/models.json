@@ -1,0 +1,122 @@
+[
+  {
+    "id": "kingston-nv3-1tb-snv3s-1000g",
+    "name": "Kingston NV3 1 TB SSD (SNV3S/1000G)",
+    "productTypeId": "ssd",
+    "brand": "Kingston",
+    "modelCode": "SNV3S/1000G",
+    "variant": "1 TB · M.2 2280",
+    "sourceUrl": "https://www.kingston.com/tr/memory/search?partid=SNV3S%2F1000G",
+    "verifiedOn": "2026-10-27",
+    "features": [
+      {
+        "label": "Kapasite",
+        "value": "1 TB"
+      },
+      {
+        "label": "Bağlantı",
+        "value": "PCIe 4.0 NVMe"
+      },
+      {
+        "label": "Biçim",
+        "value": "M.2 2280"
+      }
+    ]
+  },
+  {
+    "id": "yamaha-c70",
+    "name": "Yamaha C70 klasik gitar",
+    "productTypeId": "klasik-gitar",
+    "brand": "Yamaha",
+    "modelCode": "C70",
+    "variant": "Üretici standart modeli · renk ve satıcı paketi belirtilmemiş",
+    "sourceUrl": "https://sg.yamaha.com/en/musical-instruments/guitars-basses-amps/products/classical-nylon-guitars/c-cx/specs.html",
+    "verifiedOn": "2026-10-28",
+    "features": [
+      {
+        "label": "Mensur",
+        "value": "650 mm"
+      },
+      {
+        "label": "Üst eşik genişliği",
+        "value": "52 mm"
+      },
+      {
+        "label": "Gövde biçimi",
+        "value": "Klasik gitar"
+      }
+    ]
+  },
+  {
+    "id": "yamaha-c40ii",
+    "name": "Yamaha C40II klasik gitar",
+    "productTypeId": "klasik-gitar",
+    "brand": "Yamaha",
+    "modelCode": "C40II",
+    "variant": "Üretici standart modeli · renk ve satıcı paketi belirtilmemiş",
+    "sourceUrl": "https://sg.yamaha.com/en/musical-instruments/guitars-basses-amps/products/classical-nylon-guitars/c-cx/specs.html",
+    "verifiedOn": "2026-10-28",
+    "features": [
+      {
+        "label": "Mensur",
+        "value": "650 mm"
+      },
+      {
+        "label": "Üst eşik genişliği",
+        "value": "52 mm"
+      },
+      {
+        "label": "Gövde biçimi",
+        "value": "Klasik gitar"
+      }
+    ]
+  },
+  {
+    "id": "yamaha-c40mii",
+    "name": "Yamaha C40MII klasik gitar",
+    "productTypeId": "klasik-gitar",
+    "brand": "Yamaha",
+    "modelCode": "C40MII",
+    "variant": "Üretici standart modeli · renk ve satıcı paketi belirtilmemiş",
+    "sourceUrl": "https://sg.yamaha.com/en/musical-instruments/guitars-basses-amps/products/classical-nylon-guitars/c-cx/specs.html",
+    "verifiedOn": "2026-10-28",
+    "features": [
+      {
+        "label": "Mensur",
+        "value": "650 mm"
+      },
+      {
+        "label": "Üst eşik genişliği",
+        "value": "52 mm"
+      },
+      {
+        "label": "Gövde biçimi",
+        "value": "Klasik gitar"
+      }
+    ]
+  },
+  {
+    "id": "yamaha-cx40",
+    "name": "Yamaha CX40 klasik gitar",
+    "productTypeId": "klasik-gitar",
+    "brand": "Yamaha",
+    "modelCode": "CX40",
+    "variant": "Üretici standart modeli · renk ve satıcı paketi belirtilmemiş",
+    "sourceUrl": "https://sg.yamaha.com/en/musical-instruments/guitars-basses-amps/products/classical-nylon-guitars/c-cx/specs.html",
+    "verifiedOn": "2026-10-28",
+    "features": [
+      {
+        "label": "Mensur",
+        "value": "650 mm"
+      },
+      {
+        "label": "Üst eşik genişliği",
+        "value": "52 mm"
+      },
+      {
+        "label": "Gövde biçimi",
+        "value": "Klasik gitar"
+      }
+    ]
+  }
+]

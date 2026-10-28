@@ -1,0 +1,7 @@
+import {z} from 'zod';
+import catalog from './catalog.json';
+import {normalize} from '../categories';
+const typeIds=new Set(catalog.flatMap(g=>g.names.map(n=>normalize(n).replaceAll(' ','-'))));
+export const verifiedModelSchema=z.object({id:z.string().regex(/^[a-z0-9-]{1,160}$/),name:z.string().min(3).max(200),productTypeId:z.string().refine(id=>typeIds.has(id),'Bilinmeyen ürün türü'),brand:z.string().min(1).max(100),modelCode:z.string().min(1).max(100),variant:z.string().min(1).max(200),sourceUrl:z.url().refine(v=>{const u=new URL(v);return u.protocol==='https:'&&!u.username&&!u.password;},'HTTPS kaynak gerekli'),verifiedOn:z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine(v=>{const t=Date.parse(v);return Number.isFinite(t)&&new Date(t).toISOString().slice(0,10)===v&&t<=Date.now();},'Geçerli doğrulama tarihi gerekli'),features:z.array(z.object({label:z.string().min(1).max(100),value:z.string().min(1).max(300)}).strict()).min(1).max(20)}).strict();
+export type VerifiedModel=z.infer<typeof verifiedModelSchema>;
+export const modelCatalogSchema=z.array(verifiedModelSchema).max(50_000-typeIds.size).superRefine((rows,ctx)=>{const ids=new Set(typeIds);const identities=new Set<string>();rows.forEach((r,i)=>{const key=[r.brand,r.modelCode,r.variant].map(normalize).join('|');if(ids.has(r.id))ctx.addIssue({code:'custom',path:[i,'id'],message:'Tekrarlanan ürün kimliği'});if(identities.has(key))ctx.addIssue({code:'custom',path:[i,'modelCode'],message:'Aynı marka, model ve varyant yineleniyor'});ids.add(r.id);identities.add(key);});});
