@@ -4,6 +4,7 @@ import Link from 'next/link';
 import {Calculator,ArrowUpRight} from 'lucide-react';
 import {mode} from '@/lib/providers/engine';
 import './globals.css';
+import {Logo} from '@/components/logo';
 import {TopBrandBanner} from '@/components/top-brand-banner';
 import {BrandIntro} from '@/components/brand-intro';
 export const metadata:Metadata={metadataBase:new URL(process.env.NEXT_PUBLIC_SITE_URL??'http://localhost:3000'),title:{default:'Xucuz.com — Almadan önce gerçek maliyeti öğren',template:'%s | xucuz'},description:'İhtiyacına göre ürün seçme rehberleri, satın alma kontrol listeleri ve ücretsiz maliyet hesaplama araçları. Almadan önce gerçek maliyeti öğren.',robots:mode()==='demo'?{index:false,follow:false}:{index:true,follow:true}};
