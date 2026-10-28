@@ -1,9 +1,63 @@
-import {products} from '@/lib/products';
+import type {Metadata} from 'next';
 import Link from 'next/link';
-import {ArrowRight,Compass,BookOpen,Scale,Tags,CreditCard,Check,ShieldCheck} from 'lucide-react';
+import {ArrowDown,ArrowRight,Check,Scale,ShieldCheck,Tag} from 'lucide-react';
+import {products,productGroups} from '@/lib/products';
 import {tools} from '@/lib/calculators';
-import {guides} from '@/lib/guides';
 import {ProductSearch} from '@/components/product-search';
-import {GuideCard} from '@/components/guide-card';
-const toolIcons=[Scale,Tags,CreditCard];
-export default function Home(){return <><section className="buy-hero"><div className="wrap buy-hero-inner"><div className="buy-hero-copy"><span className="eyebrow"><span className="mini-line"/> DAHA BİLİNÇLİ ALIŞVERİŞ, DAHA NET KARARLAR</span><h1>Almadan önce<br/><span>gerçek maliyeti öğren.</span></h1><p>Önce ihtiyacına uygun özellikleri bul.<br/>Sonra etiketin arkasındaki hesabı gör.</p><ProductSearch total={products.length}/><div className="search-chips"><span>Bir yerden başla:</span>{[['Süpürge','süpürge'],['Telefon','telefon'],['Buzdolabı','buzdolabı'],['İndirim hesabı','indirim'],['Şarküteri','şarküteri'],['Manav','manav'],['Bakliyat','bakliyat']].map(([label,q])=><Link href={`/rehberler?q=${encodeURIComponent(q)}`} key={q}>{label} ↗</Link>)}</div></div><div className="decision-art" aria-hidden="true"><div className="decision-orbit"/><span className="decision-star">✳</span><div className="decision-label">DAHA FAZLA ÖZELLİK ≠ DAHA DOĞRU SEÇİM</div><div className="decision-card"><span className="decision-card-icon"><Compass size={30}/></span><small>ALIŞVERİŞTEN ÖNCE</small><strong>İhtiyacın net.<br/>Kararın sana ait.</strong><div><Check size={16}/> Kullanımına uygun mu?</div><div><Check size={16}/> Koşulları açık mı?</div><div><Check size={16}/> Toplam maliyeti ne?</div></div><div className="decision-stamp"><ShieldCheck size={21}/><span>Önce bilgi.<br/><b>Sonra alışveriş.</b></span></div></div></div></section><section className="wrap entry-section" aria-label="Nereden başlamak istersin?"><Link href="/urun-sec" className="entry-card"><Compass size={28}/><div><h2>Ürün seç</h2><p>İhtiyacını ve önceliklerini netleştir.</p></div><ArrowRight size={20}/></Link><Link href="#araclar" className="entry-card"><Scale size={28}/><div><h2>Maliyetini hesapla</h2><p>Etiketi, indirimi ve toplamı karşılaştır.</p></div><ArrowRight size={20}/></Link><Link href="/rehberler" className="entry-card"><BookOpen size={28}/><div><h2>Rehberini oku</h2><p>Satın almadan önce neye bakacağını öğren.</p></div><ArrowRight size={20}/></Link></section><section className="wrap section"><div className="editorial-section-head"><div><span className="eyebrow">ÖZELLİK LİSTESİNDEN ÖNCE İHTİYACIN</span><h2>Hayatına göre seç.</h2><p>Ürün sıralaması yerine, kararına yardımcı sorular.</p></div><Link href="/rehberler" className="text-link">Tüm rehberler <ArrowRight size={17}/></Link></div><div className="guide-grid">{guides.slice(0,4).map(g=><GuideCard key={g.slug} guide={g}/>)}</div></section><section className="scenario-section"><div className="wrap"><div className="editorial-section-head"><div><span className="eyebrow">SENİN GÜNLÜK HAYATIN</span><h2>İhtiyacından başla.</h2></div></div><div className="scenario-grid">{[{title:'Küçük bir evde yaşıyorum',text:'Ölçü, saklama alanı ve kullanım kolaylığı.',href:'/urun-sec?urun=supurge&oncelik=alan',tag:'EV VE YAŞAM'},{title:'Ders ve iş için bilgisayar arıyorum',text:'Programlar, taşıma ve uzun kullanım.',href:'/rehberler/ogrenci-icin-bilgisayar-secimi',tag:'ÖĞRENCİ VE ÇALIŞMA'},{title:'Ailem için buzdolabı bakıyorum',text:'Hacim, yerleşim ve teslimat kontrolü.',href:'/urun-sec?urun=buzdolabi&oncelik=omur',tag:'MUTFAK VE AİLE'}].map(s=><Link key={s.title} href={s.href} className="scenario-card"><span>{s.tag}</span><h3>{s.title}</h3><p>{s.text}</p><ArrowRight size={21}/></Link>)}</div></div></section><section id="araclar" className="wrap section"><div className="editorial-section-head"><div><span className="eyebrow">FİYATLARI SEN GİR, HESABI XUCUZ YAPSIN</span><h2>Etikete değil, gerçek maliyete bak.</h2><p>Ücretsiz hesaplama araçları. Üyelik ve satıcı bağlantısı gerekmez.</p></div></div><div className="tools-grid">{tools.map((t,i)=>{const Icon=toolIcons[i];return <Link key={t.slug} href={`/${t.slug}`} className="tool-card"><span className="tool-number">0{i+1}</span><span className="category-icon"><Icon size={29}/></span><span className="eyebrow">{t.label}</span><h3>{t.title}</h3><p>{t.description}</p><span className="text-link">Hesaplamaya başla <ArrowRight size={17}/></span></Link>;})}</div></section><section className="reading-section"><div className="wrap"><div className="editorial-section-head"><div><span className="eyebrow">AKILLI ALIŞVERİŞ NOTLARI</span><h2>Küçük yazıları birlikte okuyalım.</h2></div></div><div className="guide-grid">{guides.slice(4).map(g=><GuideCard key={g.slug} guide={g}/>)}</div></div></section><section className="wrap transparency"><div><span className="eyebrow">KARARIN SENDE</span><h2>Ne bildiğimizi de,<br/>neyi ölçmediğimizi de söyleriz.</h2></div><div><p>Rehberlerimiz ihtiyaç belirlemeye yardımcı olur. Ürünleri test etmiş gibi puanlamaz, güncel fiyat olmadan “en ucuz” iddiası kullanmayız. Hesaplama araçları senin girdiğin tutarlarla çalışır.</p><Link href="/hakkimizda" className="text-link">Xucuz nasıl çalışır? <ArrowRight size={16}/></Link></div></section></>;}
+import {MarketOfferSection} from '@/components/market-offer-section';
+
+export const metadata:Metadata={title:'Haftalık market rehberi ve birim fiyat hesabı',description:'Market ürünlerini aynı ölçüde karşılaştır. Kaynağı, geçerlilik zamanı ve kampanya koşulları açıklanan haftalık alışveriş rehberi.',alternates:{canonical:'/'}};
+
+const marketGroups=productGroups.filter(group=>['market','manav','sarkuteri','bakliyat','gida'].includes(group.slug));
+
+export default function Home(){return <>
+ <section className="market-home-hero">
+  <div className="wrap market-home-grid">
+   <div className="market-home-copy">
+    <span className="market-kicker"><span/> ALMADAN ÖNCE GERÇEK MALİYETİ ÖĞREN</span>
+    <h1>Etikete değil,<br/><em>birim fiyata bak.</em></h1>
+    <p>Gramajı eşitle. Kampanya koşulunu oku. Gerçekten neye para verdiğini gör.</p>
+    <ProductSearch total={products.length}/>
+    <div className="market-home-actions"><Link href="/market-rehberi" className="btn">Haftalık market rehberi <ArrowRight size={17}/></Link><Link href="/birim-fiyat" className="market-text-link">Birim fiyatı hesapla <ArrowDown size={15}/></Link></div>
+    <span className="market-search-caption">Ürün türü veya marka/model adı yaz; sana uygun alışveriş rehberini bul.</span>
+   </div>
+   <aside className="market-visual" aria-label="Fiyat karşılaştırma adımları">
+    <div className="market-visual-top"><span>KIYASLAMADAN ÖNCE</span><span className="market-visual-mark"><Scale size={18}/></span></div>
+    <div className="market-visual-row"><span className="market-visual-index">01</span><div><small>ÜRÜNÜ EŞLEŞTİR</small><strong>Aynı içerik mi?</strong></div><Check size={18}/></div>
+    <div className="market-visual-row market-visual-focus"><span className="market-visual-index">02</span><div><small>MİKTARI EŞİTLE</small><strong>Kg · litre · adet</strong></div><span className="market-equals">=</span></div>
+    <div className="market-visual-row"><span className="market-visual-index">03</span><div><small>KOŞULU KONTROL ET</small><strong>Hangi tarihte, nerede?</strong></div><Check size={18}/></div>
+    <div className="market-visual-note"><Tag size={15}/> Fiyat kadar paket ve kampanya şartı da önemli.</div>
+   </aside>
+  </div>
+ </section>
+
+ <MarketOfferSection/>
+
+ <section className="market-method-band">
+  <div className="wrap market-method-inner">
+   <div><span className="market-kicker"><span/> XUCUZ NASIL KIYASLAR?</span><h2>Önce aynı ürünü,<br/>sonra aynı ölçüyü karşılaştır.</h2><p>Farklı gramajı, içeriği veya kampanya koşulunu eşdeğer gibi göstermeyiz.</p></div>
+   <div className="market-method-steps">
+    <article><b>1</b><div><h3>Kaynağı göster</h3><p>Fiyatın geldiği sayfa ve son kontrol zamanı görünür.</p></div></article>
+    <article><b>2</b><div><h3>Paketleri eşitle</h3><p>Gramaj, litre, adet ve paket sayısını ayrı değerlendir.</p></div></article>
+    <article><b>3</b><div><h3>Koşulları açıkla</h3><p>Üyelik, çoklu alım, şehir ve tarih şartlarını belirt.</p></div></article>
+   </div>
+  </div>
+ </section>
+
+ <section className="wrap market-category-section">
+  <div className="market-section-heading"><div><span className="market-kicker"><span/> İHTİYACINDAN BAŞLA</span><h2>Hangi ürünü araştırıyorsun?</h2><p>Ürün türüne özel rehber ve kontrol listelerine göz at.</p></div><Link href="/urunler" className="market-text-link">Tüm ürün rehberleri <ArrowRight size={16}/></Link></div>
+  <div className="market-category-grid">{marketGroups.map((group,index)=><Link href={`/urunler?kategori=${group.slug}`} className="market-category-card" key={group.slug}><span>0{index+1}</span><h3>{group.label}</h3><p>{group.topic}</p><ArrowRight size={18}/></Link>)}</div>
+ </section>
+
+ <section className="market-tools-band">
+  <div className="wrap">
+   <div className="market-section-heading"><div><span className="market-kicker"><span/> HESABI KENDİN YAP</span><h2>Fiyatı gir, hesabı gör.</h2><p>Gerçek satıcı fiyatı sunmuyoruz; kendi gördüğün fiyatlarla karşılaştır.</p></div></div>
+   <div className="market-tool-grid">{tools.map((tool,index)=><Link href={`/${tool.slug}`} className="market-tool-card" key={tool.slug}><span className="market-tool-number">0{index+1}</span><h3>{tool.title}</h3><p>{tool.description}</p><span className="market-text-link">Hesaplamayı aç <ArrowRight size={15}/></span></Link>)}</div>
+  </div>
+ </section>
+
+ <section className="wrap market-transparency">
+  <div className="market-transparency-icon"><ShieldCheck size={24}/></div>
+  <div><span className="market-kicker"><span/> AÇIK VE ÖZGÜN BİLGİ</span><h2>Kaynağı yoksa fiyatı da yok.</h2><p>Market görsellerini ve katalog metinlerini kopyalamayız. Yalnızca yayımlama koşulu doğrulanmış fiyatları; kaynağı, tarihi ve geçerlilik şartıyla gösteririz. Affiliate veya sponsorlu içerik olursa ayrıca işaretleriz.</p><Link href="/market-rehberi" className="market-text-link">Rehberin yöntemini oku <ArrowRight size={16}/></Link></div>
+ </section>
+</>;}
