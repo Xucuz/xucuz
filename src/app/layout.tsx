@@ -7,6 +7,7 @@ import {mode} from '@/lib/providers/engine';
 import {BrandIntro} from '@/components/brand-intro';
 import {Logo} from '@/components/logo';
 import {TopBrandBanner} from '@/components/top-brand-banner';
+import {PianoToggle} from '@/components/piano-toggle';
 import './globals.css';
 
 export const metadata:Metadata={metadataBase:new URL(process.env.NEXT_PUBLIC_SITE_URL??'http://localhost:3000'),title:{default:'Xucuz.com — Almadan önce gerçek maliyeti öğren',template:'%s | xucuz'},description:'İhtiyacına göre market ürünlerini karşılaştır, birim fiyatı hesapla ve alışveriş rehberlerini oku.',robots:mode()==='demo'?{index:false,follow:false}:{index:true,follow:true}};
@@ -24,6 +25,7 @@ export default function RootLayout({children}:{children:React.ReactNode}){
     <Link href="/rehberler" className="desktop-link">Rehberler</Link>
     <Link href="/gecmis-fiyat" className="desktop-link">Geçmiş fiyat</Link>
     <Link href="/#araclar" className="favorite-link"><Calculator size={18}/><span>Araçlar</span></Link>
+    <PianoToggle/>
    </nav>
   </header>
   <main id="main" tabIndex={-1}>{children}</main>
