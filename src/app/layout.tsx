@@ -1,6 +1,7 @@
 export const dynamic='force-dynamic';
 import type {Metadata} from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import {ArrowUpRight,Calculator} from 'lucide-react';
 import {Analytics} from '@vercel/analytics/next';
 import {mode} from '@/lib/providers/engine';
@@ -18,7 +19,7 @@ export default function RootLayout({children}:{children:React.ReactNode}){
   <TopBrandBanner/>
   {mode()==='demo'&&<div className="mode-bar"><span className="dot"/> Demo veriler — gerçek teklif değildir</div>}
   <header className="header wrap">
-   <div className="header-ad-slot" aria-label="Reklam alanı"><span>Reklam alanı</span></div>
+   <Link href="/" className="header-ad-slot" aria-label="Xucuz.com ana sayfa"><Image src="/xucuz-wordmark.svg" alt="Xucuz.com" width={824} height={160}/></Link>
    <nav aria-label="Ana menü">
     <Link href="/market-rehberi" className="desktop-link">Market rehberi</Link>
     <Link href="/urun-sec" className="desktop-link">Ürün seç</Link>
