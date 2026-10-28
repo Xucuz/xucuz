@@ -16,7 +16,7 @@ const siteUrl=process.env.NEXT_PUBLIC_SITE_URL??'https://xucuz.com';
 export const metadata:Metadata={metadataBase:new URL(siteUrl),title:{default:'Xucuz.com — Almadan önce gerçek maliyeti öğren',template:'%s | xucuz'},description:'İhtiyacına göre ürün seç, market alışverişinde birim fiyatı ve kampanya koşullarını karşılaştır. Kaynağı doğrulanmayan fiyatı teklif diye sunmayız.',applicationName:'Xucuz',other:{'google-adsense-account':'ca-pub-9203233526232260'},openGraph:{type:'website',locale:'tr_TR',url:siteUrl,siteName:'Xucuz.com',title:'Xucuz.com — Almadan önce gerçek maliyeti öğren',description:'Ürün seçme rehberleri, birim fiyat hesapları ve bilinçli alışveriş araçları.'},twitter:{card:'summary',title:'Xucuz.com — Almadan önce gerçek maliyeti öğren',description:'Ürün seçme rehberleri, birim fiyat hesapları ve bilinçli alışveriş araçları.'},robots:mode()==='demo'?{index:false,follow:false}:{index:true,follow:true}};
 
 export default function RootLayout({children}:{children:React.ReactNode}){
- return <html lang="tr"><body><Script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9203233526232260" strategy="beforeInteractive" crossOrigin="anonymous"/><BrandIntro/><div id="site-content">
+ return <html lang="tr"><body><Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9203233526232260" strategy="beforeInteractive" crossOrigin="anonymous"/><BrandIntro/><div id="site-content">
   <a className="skip" href="#main">İçeriğe geç</a>
   <TopBrandBanner/>
   {mode()==='demo'&&<div className="mode-bar"><span className="dot"/> Demo veriler — gerçek teklif değildir</div>}
