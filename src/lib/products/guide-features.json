@@ -2623,5 +2623,505 @@
     "Gövde ölçüsü, ağırlığı ve elde tutuş rahatlığı",
     "Deri türü, akort mekanizması ve yedek deri erişimi",
     "Gövde malzemesi, kenar işçiliği ve taşıma kılıfı"
+  ],
+  "Beyaz peynir": [
+    "Peynir türü, içerik ve yağ oranının etiketteki tanımı",
+    "Net miktar ve varsa süzme ağırlıkla kg fiyatı",
+    "Ambalaj, tarih ve etikette belirtilen saklama koşulları"
+  ],
+  "Kaşar peyniri": [
+    "Ürün adı, içerik ve kaşar türü",
+    "Dilimli veya blok biçimi ile net miktar",
+    "Kg fiyatı ve açıldıktan sonraki saklama bilgisi"
+  ],
+  "Taze kaşar": [
+    "Taze kaşar adı ve içerik listesi",
+    "Dilimli/blok biçimi, paket miktarı ve kg fiyatı",
+    "Ambalaj bütünlüğü, tarih ve saklama etiketi"
+  ],
+  "Eski kaşar": [
+    "Etikette belirtilen kaşar türü ve olgunlaştırma bilgisi",
+    "Blok/dilim biçimi ve net paket miktarı",
+    "Kg fiyatı, tarih ve saklama koşulları"
+  ],
+  "Tulum peyniri": [
+    "Ürünün tam adı, kullanılan süt ve içerik",
+    "Ambalaj biçimi, net miktar ve kg fiyatı",
+    "Üretici bilgisi, tarih ve saklama etiketi"
+  ],
+  "Lor peyniri": [
+    "Lorun içerik listesi ve ürünün etiket tanımı",
+    "Net miktar, paket büyüklüğü ve kg fiyatı",
+    "Açıldıktan sonraki kullanım ve saklama bilgisi"
+  ],
+  "Çeçil peyniri": [
+    "Ürün adı, süt/içerik ve paket biçimi",
+    "Net miktar ve karşılaştırılan kg fiyatı",
+    "Ambalaj bütünlüğü, tarih ve saklama koşulları"
+  ],
+  "Mozzarella": [
+    "Rendelenmiş, blok veya salamuralı ürün ayrımı",
+    "Net miktar ve varsa süzme ağırlık",
+    "İçerik, tarih ve etiketteki saklama koşulları"
+  ],
+  "Labne": [
+    "Ürün tanımı, içerik ve alerjen bilgisi",
+    "Net miktar ve aynı içerikte kg fiyatı",
+    "Ambalaj, tarih ve açıldıktan sonraki saklama bilgisi"
+  ],
+  "Krem peynir": [
+    "Krem peynir türü, içerik ve katkı bilgisi",
+    "Porsiyonlu veya tek kap ambalajın net miktarı",
+    "Kg fiyatı, tarih ve saklama koşulları"
+  ],
+  "Tereyağı": [
+    "Etiketteki ürün adı, içerik ve yağ oranı",
+    "Tuzlu/tuzsuz ayrımı, paket miktarı ve kg fiyatı",
+    "Ambalaj, tarih ve saklama koşulları"
+  ],
+  "Kaymak": [
+    "Etiketteki kaymak tanımı ve içerik listesi",
+    "Paket miktarı, porsiyon ihtiyacı ve kg fiyatı",
+    "Tarih, ambalaj ve saklama talimatı"
+  ],
+  "Kefir": [
+    "Sade/aromalı ürün ayrımı ve içerik listesi",
+    "Net hacim, şişe adedi ve litre fiyatı",
+    "Tarih, kapak bütünlüğü ve saklama koşulları"
+  ],
+  "Ayran": [
+    "Ürün içeriği, ambalaj türü ve net hacim",
+    "Tekli/çoklu paket adedi ve litre fiyatı",
+    "Tarih ve etiketteki soğukta saklama bilgisi"
+  ],
+  "Sucuk": [
+    "Etiketteki et türü, ürün tanımı ve içerik",
+    "Dilimli/bütün biçimi, net miktar ve kg fiyatı",
+    "Ambalaj, tarih ve saklama/hazırlama talimatı"
+  ],
+  "Pastırma": [
+    "Et türü, çemenli/çemensiz ayrımı ve içerik",
+    "Dilimli/blok biçimi ile net miktar",
+    "Kg fiyatı, ambalaj ve saklama talimatı"
+  ],
+  "Kavurma": [
+    "Et türü, içerik ve ürünün tam etiket adı",
+    "Net paket miktarı ve kg fiyatı",
+    "Ambalaj, tarih ve hazırlama/saklama talimatı"
+  ],
+  "Salam": [
+    "Et türü, içerik ve ürünün etiket tanımı",
+    "Dilimli/bütün biçimi, paket miktarı ve kg fiyatı",
+    "Tarih, ambalaj ve açıldıktan sonraki saklama bilgisi"
+  ],
+  "Sosis": [
+    "Et türü, içerik ve alerjen bilgisi",
+    "Adet, net miktar ve kg fiyatının birlikte değerlendirilmesi",
+    "Hazırlama, tarih ve saklama talimatı"
+  ],
+  "Hindi füme": [
+    "Hindi ürününün etiket adı ve içerik listesi",
+    "Dilim biçimi, net paket miktarı ve kg fiyatı",
+    "Ambalaj, tarih ve saklama bilgisi"
+  ],
+  "Tavuk füme": [
+    "Tavuk ürününün etiket adı ve içerik listesi",
+    "Dilim biçimi, net paket miktarı ve kg fiyatı",
+    "Ambalaj, tarih ve saklama bilgisi"
+  ],
+  "Siyah zeytin": [
+    "Zeytin çeşidi, çekirdek durumu ve içerik",
+    "Kalibre bilgisi ve varsa süzme ağırlık",
+    "Kg fiyatı, ambalaj ve saklama talimatı"
+  ],
+  "Yeşil zeytin": [
+    "Çeşit, çekirdekli/dolgulu ayrımı ve içerik",
+    "Kalibre, net miktar ve varsa süzme ağırlık",
+    "Kg fiyatı, ambalaj ve saklama bilgisi"
+  ],
+  "Kırma zeytin": [
+    "Zeytin çeşidi, işleme biçimi ve içerik",
+    "Kalibre bilgisi ve süzme ağırlık",
+    "Kg fiyatı, tarih ve saklama koşulları"
+  ],
+  "Çizik zeytin": [
+    "Zeytin çeşidi, çizik işleme biçimi ve içerik",
+    "Kalibre, çekirdek durumu ve süzme ağırlık",
+    "Kg fiyatı, ambalaj ve saklama bilgisi"
+  ],
+  "Domates": [
+    "Çeşit, olgunluk ve kullanılacak yemek/salata amacı",
+    "Görünür ezilme, ambalaj ve ürünün fiziksel durumu",
+    "Kg fiyatı, net tartım ve alınacak tüketim miktarı"
+  ],
+  "Salatalık": [
+    "Çeşit, boyut ve kullanım ihtiyacı",
+    "Görünür fiziksel durum ve ambalaj bilgisi",
+    "Kg/adet satış birimi ve karşılaştırılabilir miktar"
+  ],
+  "Biber": [
+    "Biber türü, acı/tatlı ürün tanımı ve kullanım amacı",
+    "Boyut, görünür fiziksel durum ve paket bilgisi",
+    "Kg fiyatı ve paketli üründe net miktar"
+  ],
+  "Patlıcan": [
+    "Çeşit, boyut ve yemek için uygun şekil",
+    "Görünür ezilme ve fiziksel durum kontrolü",
+    "Kg fiyatı, net tartım ve tüketilecek miktar"
+  ],
+  "Kabak": [
+    "Kabak türü, boyut ve kullanılacak yemek",
+    "Görünür fiziksel durum ve ambalaj bilgisi",
+    "Kg/adet birimi ve net tartılan miktar"
+  ],
+  "Patates": [
+    "Çeşit veya kullanım amacı için satıcı açıklaması",
+    "Görünür fiziksel durum ve paket içeriği",
+    "Kg fiyatı, torbanın net miktarı ve saklama imkânı"
+  ],
+  "Soğan": [
+    "Kuru/taze ürün ayrımı ve soğan çeşidi",
+    "Görünür fiziksel durum ve paket bilgisi",
+    "Kg/adet birimi ve tüketilecek miktar"
+  ],
+  "Sarımsak": [
+    "Taze/kuru ve baş/soyulmuş ürün ayrımı",
+    "Baş, diş veya paket biçimindeki miktar",
+    "Kg fiyatı, net tartım ve ambalaj bilgisi"
+  ],
+  "Havuç": [
+    "Boyut, paket biçimi ve kullanım ihtiyacı",
+    "Görünür fiziksel durum ve ürün bütünlüğü",
+    "Kg fiyatı ve temizlenmiş/temizlenmemiş ürün ayrımı"
+  ],
+  "Marul": [
+    "Marul çeşidi ve bütün/kesilmiş ürün ayrımı",
+    "Görünür yaprak durumu ve paket bilgisi",
+    "Adet/kg birimi ile karşılaştırılan miktar"
+  ],
+  "Ispanak": [
+    "Bütün, ayıklanmış veya yıkanmış ürün ayrımı",
+    "Görünür yaprak durumu ve ambalaj bilgisi",
+    "Kg fiyatı, net miktar ve tüketim planı"
+  ],
+  "Brokoli": [
+    "Bütün veya parçalanmış ürün biçimi",
+    "Görünür fiziksel durum ve paket bilgisi",
+    "Kg/adet satış birimi ve net miktar"
+  ],
+  "Karnabahar": [
+    "Bütün veya parçalanmış ürün biçimi",
+    "Görünür fiziksel durum ve ambalaj bilgisi",
+    "Kg/adet fiyatı ve net karşılaştırma miktarı"
+  ],
+  "Pırasa": [
+    "Demet, paket veya tartılı satış biçimi",
+    "Görünür fiziksel durum ve ayıklanmış ürün ayrımı",
+    "Kg fiyatı, net miktar ve tüketilecek bölüm"
+  ],
+  "Mantar": [
+    "Yetiştirilmiş ürünün türü ve etiket/kaynak bilgisi",
+    "Ambalaj, görünür fiziksel durum ve tarih bilgisi",
+    "Net miktar, kg fiyatı ve saklama talimatı"
+  ],
+  "Maydanoz": [
+    "Demet veya paket satış biçimi",
+    "Görünür yaprak durumu ve ambalaj bilgisi",
+    "Demet/adet fiyatının net miktardan ayrılması"
+  ],
+  "Limon": [
+    "Çeşit, boyut ve kullanım ihtiyacı",
+    "Görünür fiziksel durum ve paket bilgisi",
+    "Adet/kg birimi ve net tartılan miktar"
+  ],
+  "Portakal": [
+    "Çeşit ve sofralık/sıkmalık ürün tanımı",
+    "Görünür fiziksel durum ve paket bilgisi",
+    "Kg fiyatı ve kullanılabilecek miktar"
+  ],
+  "Mandalina": [
+    "Çeşit, boyut ve tüketim ihtiyacı",
+    "Görünür fiziksel durum ve paket bilgisi",
+    "Kg fiyatı, net miktar ve tüketim planı"
+  ],
+  "Elma": [
+    "Elma çeşidi, boyut ve kullanım amacı",
+    "Görünür fiziksel durum ve ambalaj bilgisi",
+    "Kg fiyatı ve net karşılaştırma miktarı"
+  ],
+  "Armut": [
+    "Armut çeşidi ve tüketim için olgunluk ihtiyacı",
+    "Görünür fiziksel durum ve paket bilgisi",
+    "Kg fiyatı ve tüketilecek miktar"
+  ],
+  "Muz": [
+    "Olgunluk durumu ve tüketim zamanı ihtiyacı",
+    "Görünür fiziksel durum ve paket bilgisi",
+    "Kg/adet birimi ve kabuk dahil tartımın açıklığı"
+  ],
+  "Çilek": [
+    "Paket biçimi ve satıcının çeşit/kaynak açıklaması",
+    "Görünür fiziksel durum ve paket içeriği",
+    "Net paket miktarı, kg fiyatı ve tüketim planı"
+  ],
+  "Üzüm": [
+    "Çeşit, çekirdekli/çekirdeksiz ürün tanımı",
+    "Görünür tane/salkım durumu ve ambalaj bilgisi",
+    "Kg fiyatı ve net tartılan miktar"
+  ],
+  "Karpuz": [
+    "Bütün veya kesilmiş ürün ayrımı",
+    "Görünür fiziksel durum ve paket bilgisi",
+    "Kg/adet satış birimi ve ihtiyaca uygun büyüklük"
+  ],
+  "Ekmek": [
+    "Ekmek türü, içerik ve alerjen bilgisi",
+    "Adet fiyatından ayrı net gramaj ve kg fiyatı",
+    "Paketli/açık satış biçimi ve tarih/saklama bilgisi"
+  ],
+  "Domates salçası": [
+    "Domates içeriği, tuz ve ürün tanımı",
+    "Net miktar ve aynı içerikte kg fiyatı",
+    "Ambalaj, tarih ve açıldıktan sonra saklama bilgisi"
+  ],
+  "Biber salçası": [
+    "Acı/tatlı ürün tanımı ve içerik listesi",
+    "Net paket miktarı ve kg fiyatı",
+    "Ambalaj, tarih ve açıldıktan sonraki saklama bilgisi"
+  ],
+  "Reçel": [
+    "Meyve türü, içerik ve etiketteki meyve oranı",
+    "Net miktar, kavanoz adedi ve kg fiyatı",
+    "Tarih, kapak bütünlüğü ve saklama bilgisi"
+  ],
+  "Pekmez": [
+    "Ürün türü, hammaddesi ve içerik listesi",
+    "Net ağırlık/hacim birimi ve karşılaştırma miktarı",
+    "Ambalaj, tarih ve saklama talimatı"
+  ],
+  "Tahin": [
+    "İçerik listesi ve susam/alerjen bilgisi",
+    "Net miktar ve aynı içerikte kg fiyatı",
+    "Ambalaj, tarih ve saklama talimatı"
+  ],
+  "Helva": [
+    "Helva türü, içerik ve alerjen bilgisi",
+    "Paket miktarı, porsiyon ihtiyacı ve kg fiyatı",
+    "Ambalaj, tarih ve saklama bilgisi"
+  ],
+  "Fıstık ezmesi": [
+    "Fıstık oranı, içerik ve alerjen bilgisi",
+    "Net miktar ve aynı içerikte kg fiyatı",
+    "Ambalaj, tarih ve açıldıktan sonraki saklama bilgisi"
+  ],
+  "Fındık ezmesi": [
+    "Fındık oranı, içerik ve alerjen bilgisi",
+    "Net paket miktarı ve kg fiyatı",
+    "Ambalaj, tarih ve saklama talimatı"
+  ],
+  "Kakaolu fındık kreması": [
+    "Fındık/kakao bilgisi, içerik ve alerjenler",
+    "Net miktar, çoklu paket adedi ve kg fiyatı",
+    "Ambalaj, tarih ve saklama bilgisi"
+  ],
+  "Mısır gevreği": [
+    "Ürün türü, içerik ve alerjen bilgisi",
+    "Net miktar ve aynı içerikte kg fiyatı",
+    "Paket bütünlüğü, tarih ve saklama talimatı"
+  ],
+  "Yulaf ezmesi": [
+    "İri/ince veya karışımlı ürün tanımı",
+    "İçerik, alerjen uyarıları ve net miktar",
+    "Kg fiyatı ve hazırlama/saklama talimatı"
+  ],
+  "Galeta": [
+    "Ürün içeriği, alerjenler ve paket türü",
+    "Adet bilgisinden ayrı net miktar ve kg fiyatı",
+    "Ambalaj, tarih ve saklama bilgisi"
+  ],
+  "Galeta unu": [
+    "İçerik, kullanım amacı ve alerjen bilgisi",
+    "Net miktar ve kg fiyatı",
+    "Ambalaj, tarih ve saklama talimatı"
+  ],
+  "Buğday nişastası": [
+    "Hammadde, içerik ve alerjen bilgisi",
+    "Net miktar ve kg fiyatı",
+    "Kullanım/hazırlama ve saklama talimatı"
+  ],
+  "Mısır nişastası": [
+    "Ürün tanımı, içerik ve alerjen uyarıları",
+    "Net miktar ve aynı içerikte kg fiyatı",
+    "Kullanım/hazırlama ve saklama talimatı"
+  ],
+  "Kabartma tozu": [
+    "İçerik, paket türü ve kullanım talimatı",
+    "Tek paket gramajı, paket adedi ve toplam miktar",
+    "Kg/adet fiyatı, tarih ve saklama bilgisi"
+  ],
+  "Kuru maya": [
+    "Maya türü ve kullanım talimatı",
+    "Tek paket gramajı, çoklu paket adedi ve toplam miktar",
+    "Birim fiyat, tarih ve saklama koşulları"
+  ],
+  "Yaş maya": [
+    "Ürün türü ve kullanım talimatı",
+    "Net miktar, paket adedi ve kg fiyatı",
+    "Ambalaj, tarih ve saklama talimatı"
+  ],
+  "Vanilin": [
+    "Vanilin/vanilya ürün ayrımı ve içerik",
+    "Tek paket miktarı ve toplam paket adedi",
+    "Birim fiyat, kullanım ve saklama talimatı"
+  ],
+  "Tuz": [
+    "Tuz türü, tane iriliği ve içerik tanımı",
+    "Net paket miktarı ve kg fiyatı",
+    "Ambalaj, etiket ve saklama bilgisi"
+  ],
+  "Karabiber": [
+    "Tane/öğütülmüş ürün ayrımı ve içerik",
+    "Net miktar ve kg fiyatı",
+    "Ambalaj, tarih ve saklama talimatı"
+  ],
+  "Pul biber": [
+    "Acı/tatlı ürün tanımı ve içerik listesi",
+    "Net miktar ve aynı içerikte kg fiyatı",
+    "Ambalaj, tarih ve saklama bilgisi"
+  ],
+  "Kekik": [
+    "Ürün adı, içerik ve karışım olup olmadığı",
+    "Net miktar ve kg fiyatı",
+    "Ambalaj, tarih ve saklama talimatı"
+  ],
+  "Kimyon": [
+    "Tane/öğütülmüş ürün ayrımı ve içerik",
+    "Net miktar ve aynı içerikte kg fiyatı",
+    "Ambalaj, tarih ve saklama bilgisi"
+  ],
+  "Nohut": [
+    "Nohut türü, tane boyutu ve kullanım amacı",
+    "Yabancı madde/kırık tane durumu ve ambalaj bilgisi",
+    "Net miktar, kg fiyatı ve etiketteki saklama talimatı"
+  ],
+  "Kırmızı mercimek": [
+    "Bütün/kırık tane biçimi ve etiket tanımı",
+    "Görünür tane durumu, içerik ve ambalaj",
+    "Net miktar, kg fiyatı ve saklama bilgisi"
+  ],
+  "Yeşil mercimek": [
+    "Mercimek çeşidi ve tane boyutu",
+    "Görünür tane durumu ve paket bilgisi",
+    "Kg fiyatı, net miktar ve pişirme talimatı"
+  ],
+  "Sarı mercimek": [
+    "Ürün türü ve bütün/kırık tane ayrımı",
+    "İçerik, görünür tane durumu ve paket bilgisi",
+    "Net miktar, kg fiyatı ve saklama talimatı"
+  ],
+  "Kuru fasulye": [
+    "Fasulye çeşidi, tane boyutu ve kullanım amacı",
+    "Görünür kırık tane/yabancı madde ve ambalaj",
+    "Net miktar, kg fiyatı ve hazırlama talimatı"
+  ],
+  "Barbunya": [
+    "Kuru ürün ile taze/konserve biçimin ayrılması",
+    "Tane boyutu, içerik ve paket bilgisi",
+    "Net miktar veya süzme ağırlıkla kg fiyatı"
+  ],
+  "Börülce": [
+    "Kuru/taze ürün ayrımı ve çeşidi",
+    "Tane boyutu, görünür durum ve paket bilgisi",
+    "Net miktar, kg fiyatı ve hazırlama talimatı"
+  ],
+  "Maş fasulyesi": [
+    "Ürün adı, tane yapısı ve içerik listesi",
+    "Görünür tane durumu ve ambalaj bilgisi",
+    "Kg fiyatı, net miktar ve hazırlama talimatı"
+  ],
+  "Bakla": [
+    "Kuru/taze ve kabuklu/iç ürün ayrımı",
+    "Tane veya paket biçiminin açıklığı",
+    "Net miktar, kg fiyatı ve hazırlama bilgisi"
+  ],
+  "Kuru bezelye": [
+    "Bütün/kırık tane ve ürün tanımı",
+    "Görünür tane durumu ve ambalaj bilgisi",
+    "Kg fiyatı, net miktar ve hazırlama talimatı"
+  ],
+  "Baldo pirinç": [
+    "Baldo çeşidinin etiketteki tanımı",
+    "Tane/kırık oranı bilgisi ve paket miktarı",
+    "Kg fiyatı ve etiketteki pişirme talimatı"
+  ],
+  "Osmancık pirinç": [
+    "Osmancık çeşidinin etiketteki tanımı",
+    "Tane görünümü, paket içeriği ve net miktar",
+    "Kg fiyatı ve pişirme/saklama talimatı"
+  ],
+  "Jasmin pirinç": [
+    "Jasmin ürün tanımı ve içerik",
+    "Tane biçimi, ambalaj ve net miktar",
+    "Kg fiyatı ve etiketteki pişirme talimatı"
+  ],
+  "Basmati pirinç": [
+    "Basmati türü ve etikette belirtilen ürün bilgisi",
+    "Tane biçimi, içerik ve net paket miktarı",
+    "Kg fiyatı ve pişirme talimatı"
+  ],
+  "Esmer pirinç": [
+    "Ürün çeşidi ve etiketteki işleme tanımı",
+    "İçerik, tane durumu ve net miktar",
+    "Kg fiyatı ve pişirme/saklama talimatı"
+  ],
+  "Pilavlık bulgur": [
+    "Bulgur türü ve tane iriliği tanımı",
+    "Buğday/içerik bilgisi ve paket miktarı",
+    "Kg fiyatı ve etiketteki hazırlama talimatı"
+  ],
+  "Köftelik bulgur": [
+    "Köftelik ürün tanımı ve tane iriliği",
+    "İçerik, alerjen bilgisi ve net miktar",
+    "Kg fiyatı ve hazırlama talimatı"
+  ],
+  "İnce bulgur": [
+    "İnce tane tanımı ve kullanılacak tarif",
+    "İçerik, alerjen bilgisi ve paket miktarı",
+    "Kg fiyatı ve hazırlama talimatı"
+  ],
+  "Siyez bulguru": [
+    "Siyez tanımının etiket ve içerik bilgisiyle kontrolü",
+    "Tane iriliği ve net paket miktarı",
+    "Kg fiyatı ve pişirme/saklama talimatı"
+  ],
+  "Karabuğday": [
+    "Kabuklu/iç ve kavrulmuş/kavrulmamış ürün ayrımı",
+    "İçerik, alerjen uyarıları ve net miktar",
+    "Kg fiyatı ve hazırlama/saklama talimatı"
+  ],
+  "Kinoa": [
+    "Ürün çeşidi, karışım olup olmadığı ve içerik",
+    "Ambalaj, net miktar ve etiket bilgisi",
+    "Kg fiyatı ve etiketteki hazırlama talimatı"
+  ],
+  "Kuru taneli mısır": [
+    "Kullanım amacı ve tane türünün tanımı",
+    "Görünür tane durumu ve ambalaj bilgisi",
+    "Net miktar, kg fiyatı ve hazırlama talimatı"
+  ],
+  "Aşurelik buğday": [
+    "Ürünün etiket adı ve tane işleme tanımı",
+    "İçerik, görünür tane durumu ve paket miktarı",
+    "Kg fiyatı ve hazırlama/saklama talimatı"
+  ],
+  "Firik bulguru": [
+    "Firik ürün tanımı, içerik ve karışım bilgisi",
+    "Tane iriliği ve net paket miktarı",
+    "Kg fiyatı ve pişirme talimatı"
+  ],
+  "Patlatmalık mısır": [
+    "Patlatmalık ürün tanımı ve içerik",
+    "Tane durumu, ambalaj ve net miktar",
+    "Kg fiyatı ve hazırlama talimatı"
   ]
 }
