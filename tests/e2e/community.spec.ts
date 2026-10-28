@@ -1,7 +1,7 @@
 import {test,expect} from './fixtures';
 
 test('Google benzeri arama ve 81 il listesi mobilde taşmadan görünür',async({page})=>{
- await page.goto('/');await expect(page.locator('h1')).toContainText('Ürün fiyatını ara');await expect(page.locator('.community-hero input[type="search"]')).toBeVisible();await expect(page.getByRole('link',{name:/Fiyat bildir/}).first()).toBeVisible();
+ await page.goto('/');await expect(page.locator('h1')).toContainText('Ürün fiyatını ara');await expect(page.locator('.community-hero input[type="search"]')).toBeVisible();await expect(page.locator('.community-mascot-banner')).toBeVisible();await expect(page.locator('.community-header-mascot')).toBeVisible();await page.locator('.live-qa-launcher').click();await expect(page.locator('.xucina-avatar img')).toBeVisible();await expect(page.getByRole('link',{name:/Fiyat bildir/}).first()).toBeVisible();
  await page.goto('/fiyat-ekle');await expect(page.locator('input[name="productName"]')).toBeVisible();await expect(page.locator('select[name="city"] option')).toHaveCount(82);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
 
