@@ -14,3 +14,6 @@ export const matchingIssues=pgTable('matching_issues',{id:integer().primaryKey()
 
 export const monthlyVisitors=pgTable('monthly_visitors',{month:text().notNull(),visitorHash:text('visitor_hash').notNull()},t=>[primaryKey({columns:[t.month,t.visitorHash]})]);
 export const monthlyVisitorTotals=pgTable('monthly_visitor_totals',{month:text().primaryKey(),visitors:bigint({mode:'number'}).notNull().default(0)});
+
+export const yearlyVisitors=pgTable('yearly_visitors',{year:text().notNull(),visitorHash:text('visitor_hash').notNull()},t=>[primaryKey({columns:[t.year,t.visitorHash]})]);
+export const yearlyVisitorTotals=pgTable('yearly_visitor_totals',{year:text().primaryKey(),visitors:bigint({mode:'number'}).notNull().default(0),startedAt:timestamp('started_at',{withTimezone:true}).notNull().defaultNow()});

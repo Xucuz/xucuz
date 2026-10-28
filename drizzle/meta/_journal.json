@@ -22,6 +22,13 @@
       "when": 1793163000000,
       "tag": "0002_monthly-visitors",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1793164000000,
+      "tag": "0003_yearly-visitors",
+      "breakpoints": true
     }
   ]
 }
