@@ -1,3 +1,7 @@
+## Güncel tasarım: haftalık market rehberi
+
+Ana sayfa, Xucuz’un siyah-sarı marka diliyle haftalık market rehberi ve birim fiyat hesabına odaklanır. `/market-rehberi` kaynak, kontrol zamanı, ürün miktarı ve kampanya koşulunu birlikte açıklayan özgün içerik sunar. Yalnızca yeniden yayımlama koşulu onaylanmış, güncel teklifler gösterilir; market kaydı yoksa fiyat uydurulmaz ve boş durum açıklanır. Ürün araması mevcut editoryal rehberlere, hesaplama araçları kullanıcının girdiği değerlere gider. Katalog görselleri ve metinleri kopyalanmaz; affiliate veya sponsorlu yerleşimler açıkça etiketlenir.
+
 ## Üst marka bandı
 
 Sayaç arayüzü kaldırıldı; en üst siyah bantta onaylanan ürün simgeli X ve posterin Xucuz.com yazısı/sloganı gösterilir. Aynı görselin iki özgün bölümü SVG görünüm alanlarıyla yerleştirilir; yeni bir logo üretilmez. Üç saniyelik açılış ekranı korunur. Site arayüzü ziyaretçi sayım isteği göndermez. Aşağıdaki sayaç belgeleri tarihsel teknik hazırlığı anlatır.

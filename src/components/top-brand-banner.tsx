@@ -1,4 +1,3 @@
 import Link from 'next/link';
-// Both viewports show unmodified regions of the same approved poster:
-// the product-collage X and its original wordmark/tagline.
-export function TopBrandBanner(){return <section className="top-brand-band" aria-label="Xucuz marka görseli"><Link href="/" className="top-brand-card" aria-label="Ürün simgeli Xucuz.com logosu — ana sayfa"><span className="top-brand-symbol"><svg viewBox="55 215 920 900" aria-hidden="true" focusable="false"><image href="/brand-intro.webp" width="1024" height="1536"/></svg></span><span className="top-brand-wordmark"><svg viewBox="45 1160 925 270" aria-hidden="true" focusable="false"><image href="/brand-intro.webp" width="1024" height="1536"/></svg></span></Link></section>;}
+import Image from 'next/image';
+export function TopBrandBanner(){return <section className="top-brand-band" aria-label="Xucuz marka görseli"><Link href="/" className="top-brand-card" aria-label="Xucuz.com logosu — ana sayfa"><Image className="top-brand-symbol" src="/xucuz-logo.svg" width={96} height={96} alt="Xucuz.com siyah X logosu" unoptimized/><span className="top-brand-tagline">Etikete değil gerçek maliyete bak</span></Link></section>;}

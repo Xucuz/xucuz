@@ -10,5 +10,5 @@ export function BrandIntro(){const overlay=useRef<HTMLDivElement>(null);const sk
  function onVisibility(){if(document.visibilityState==='visible'&&performance.now()-started>=3000)finish();}
  close.current=finish;document.addEventListener('keydown',onKey);document.addEventListener('visibilitychange',onVisibility);return ()=>finish(false);
  },[]);
- return <div ref={overlay} className="brand-intro" role="dialog" aria-modal="true" aria-label="Xucuz açılış ekranı"><Image src="/brand-intro.webp" alt="Ürün simgelerinden oluşan büyük X ve Xucuz.com logosu. Etikete değil, gerçek maliyete bak." fill priority sizes="(max-width: 640px) 100vw, 67vh"/><button ref={skip} type="button" className="intro-skip" onClick={()=>close.current()}>Siteye geç →</button></div>;
+ return <div ref={overlay} className="brand-intro" role="dialog" aria-modal="true" aria-label="Xucuz açılış ekranı"><div className="intro-lockup"><Image src="/xucuz-logo.svg" alt="Xucuz.com siyah X logosu" width={280} height={280} priority unoptimized/><p>Etikete değil gerçek maliyete bak</p></div><button ref={skip} type="button" className="intro-skip" onClick={()=>close.current()}>Siteye geç →</button></div>;
 }
