@@ -18,7 +18,7 @@ export function MarketplaceHome(){const {t}=useLanguage();return <div className=
     <div className="community-shortcuts"><a href="#fiyat-bildir"><Camera size={16}/>{t('addPrice')}</a><Link href="/urunler"><Store size={16}/>{t('search')}</Link></div>
     <div className="community-trust"><ShieldCheck size={19}/><span>{t('honesty')}</span></div>
    </div>
-   <Image src="/xucina-home.webp" alt="Xucina, Xucuz.com’un uzun koyu saçlı, esmer tenli, mavi ve altın kıyafetli resmi kadın cin maskotu." width={900} height={600} priority sizes="(max-width: 700px) 100vw, 38vw" className="community-hero-mascot" />
+   <Image src="/xucina-brand.jpg" alt="Xucina, Xucuz.com’un uzun koyu saçlı, esmer tenli, mavi ve altın kıyafetli resmi kadın cin maskotu." width={1280} height={853} priority sizes="(max-width: 700px) 100vw, 38vw" className="community-hero-mascot" />
   </div>
  </section>
  <section className="community-contribute" id="fiyat-bildir"><div className="community-contribute-icon"><Camera size={22}/></div><div><p className="community-kicker">{t('contributeKicker')}</p><h2>{t('contributeTitle')}</h2><p>{t('contributeBody')}</p></div><Link href="/fiyat-ekle" className="community-cta">{t('addPrice')}<ArrowRight size={17}/></Link></section>

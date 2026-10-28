@@ -362,10 +362,10 @@ footer{background:#f6faf8;border-color:#d9e3e8}
 .community-lead{max-width:760px}
 .community-hero-feature{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);grid-template-areas:"search mascot";align-items:center;gap:28px;text-align:left}
 .community-hero-search{grid-area:search;min-width:0}
-.community-hero-mascot{grid-area:mascot;display:block;width:100%;height:auto;object-fit:contain;border:1px solid #e5e9e6;border-radius:18px;background:#fff;box-shadow:0 14px 38px #102a4315}
+.community-hero-mascot{grid-area:mascot;display:block;width:100%;height:auto;object-fit:contain;border:1px solid #e5e9e6;border-radius:0;background:#fff;box-shadow:0 14px 38px #102a4315}
 .community-hero-search .community-shortcuts{justify-content:flex-start}
 .community-hero-search .community-trust{margin-inline:0}
 .community-header-mascot{object-fit:cover;object-position:center;border-radius:50%}
 .community-logo-mascot{object-fit:cover;object-position:center}
 .xucina-avatar img{object-fit:cover;object-position:center;transform:none}
-@media(max-width:700px){.community-hero{margin-top:22px;padding-top:22px}.community-hero-feature{grid-template-columns:minmax(0,1fr);grid-template-areas:"mascot" "search";gap:16px}.community-hero-search .community-search{grid-template-columns:minmax(0,1fr);gap:2px;padding:8px}.community-hero-search .community-query{border-bottom:1px solid #e4ebee}.community-hero-search .community-city{border-left:0;border-bottom:1px solid #e4ebee}.community-hero-search .community-search-button{width:100%}.community-hero-search .community-shortcuts{justify-content:center}.community-hero-mascot{width:min(100%,440px);justify-self:center;border-radius:14px}}
+@media(max-width:700px){.community-hero{margin-top:22px;padding-top:22px}.community-hero-feature{grid-template-columns:minmax(0,1fr);grid-template-areas:"mascot" "search";gap:16px}.community-hero-search .community-search{grid-template-columns:minmax(0,1fr);gap:2px;padding:8px}.community-hero-search .community-query{border-bottom:1px solid #e4ebee}.community-hero-search .community-city{border-left:0;border-bottom:1px solid #e4ebee}.community-hero-search .community-search-button{width:100%}.community-hero-search .community-shortcuts{justify-content:center}.community-hero-mascot{width:min(100%,440px);justify-self:center}}
