@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './fixtures';
 const categories=['otel','ucak','otobus','market','otomobil','elektronik','beyaz-esya','cicek'];
 test('ana sayfa ve tüm kategoriler mobilde taşmadan açılır',async({page})=>{for(const path of ['/',...categories.map(c=>`/${c}`)]){await page.goto(path);await expect(page.getByText('Demo veriler — gerçek teklif değildir')).toBeVisible();await expect(page.locator('h1')).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);if(path!=='/')await expect(page.locator('.offer-card').first()).toBeVisible();}});
 test('hotel alias ve URL araması filtreleri korur',async({page})=>{await page.goto('/hotel?q=antalya&stars=4');await expect(page).toHaveURL(/\/otel\?q=antalya&stars=4/);await expect(page.locator('.offer-card')).toHaveCount(2);await page.reload();await expect(page.getByPlaceholder('Şehir veya tesis adı')).toHaveValue('antalya');});

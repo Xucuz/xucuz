@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './fixtures';
 import {demoOffers} from '../../src/lib/demo';
 test('Vercel eski demo ayarına rağmen yalnızca canlı mod; sekiz kategoride uydurma fiyat yok',async({page,request})=>{
  for(const category of ['otel','ucak','otobus','market','otomobil','elektronik','beyaz-esya','cicek']){
