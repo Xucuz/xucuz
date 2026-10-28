@@ -1,3 +1,7 @@
+## Ürün yazıldığında rehber açılması
+
+Ana sayfadaki Rehber bul tam ürün/tek model eşleşmesinde doğrudan rehberi açar. Kısmi arama eşleşen rehberleri listeler; katalogda olmayan adlarda açıkça genel olarak etiketlenen alışveriş rehberi ve kontrol listesi sunulur. Özellik veya fiyat uydurulmaz. [Arama akışı](docs/GUIDE-SEARCH.md).
+
 ## Genişleyen ürün ve model kataloğu
 
 Güncel katalog 21 grupta 525 ürün türü ve 5 üretici kaynaklı model içerir: toplam 530 kayıt. Müzik aletleri (gitar, saz, bağlama, piyano vb.) rehberleri eklendi. Sunucuda arama, büyük listede sayfalama ve 50.000 toplam kayıt sınırıyla doğrulanan model içe aktarma hazırdır; 50.000 gerçek kayıt henüz yüklenmemiştir. [Kapsam, kaynaklar ve model ekleme](docs/CATALOG-SCALE.md). Aşağıdaki 500 ürün bölümleri ilk sürümün kapsamını anlatır.
