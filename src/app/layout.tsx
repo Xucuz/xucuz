@@ -19,7 +19,7 @@ export default function RootLayout({children}:{children:React.ReactNode}){
   <TopBrandBanner/>
   {mode()==='demo'&&<div className="mode-bar"><span className="dot"/> Demo veriler — gerçek teklif değildir</div>}
   <header className="header wrap">
-   <Link href="/" className="header-ad-slot header-genie-brand" aria-label="Xucuz.com ana sayfa"><span className="header-genie-mascot"><Image src="/xucuz-genie-mascot.webp" alt="" width={600} height={338} unoptimized/></span><Image className="header-genie-wordmark" src="/xucuz-wordmark.jpg" alt="Xucuz.com" width={856} height={178} unoptimized/></Link>
+   <Link href="/" className="header-ad-slot header-genie-brand" aria-label="Xucuz.com ana sayfa"><Image className="header-genie-full-logo" src="/xucuz-genie-logo.jpg" alt="Xucuz.com cinli logosu" width={1280} height={720} unoptimized/></Link>
    <nav aria-label="Ana menü">
     <Link href="/market-rehberi" className="desktop-link">Market rehberi</Link>
     <Link href="/urun-sec" className="desktop-link">Ürün seç</Link>
