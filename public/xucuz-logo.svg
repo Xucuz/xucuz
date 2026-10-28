@@ -4,7 +4,7 @@
   <rect width="240" height="240" fill="#ffd928"/>
   <path fill="#050505" d="M42 24h49l107 175h-49L42 24Zm107 0h49L91 199H42L149 24Z"/>
   <g transform="rotate(-58 120 120)" font-family="Arial,Helvetica,sans-serif" font-weight="900">
-    <text x="53" y="130" fill="#ed1c24" font-size="24" text-anchor="middle">X</text>
-    <text x="130" y="126" fill="#fff" font-size="15" letter-spacing=".5" text-anchor="middle" textLength="100" lengthAdjust="spacingAndGlyphs">UCUZ.COM</text>
+    <text x="66" y="126" fill="#ed1c24" font-size="24" text-anchor="middle">X</text>
+    <text x="124" y="126" fill="#fff" font-size="15" letter-spacing=".5" text-anchor="middle" textLength="100" lengthAdjust="spacingAndGlyphs">UCUZ.COM</text>
   </g>
 </svg>
