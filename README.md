@@ -1,3 +1,7 @@
+## Üst marka bandı
+
+Sayaç arayüzü kaldırıldı; en üst siyah bantta onaylanan ürün simgeli X ve posterin Xucuz.com yazısı/sloganı gösterilir. Aynı görselin iki özgün bölümü SVG görünüm alanlarıyla yerleştirilir; yeni bir logo üretilmez. Üç saniyelik açılış ekranı korunur. Site arayüzü ziyaretçi sayım isteği göndermez. Aşağıdaki sayaç belgeleri tarihsel teknik hazırlığı anlatır.
+
 ## Üç saniyelik marka açılışı
 
 Onaylanan ürün simgeli X görseli ilk sekme ziyaretinde üç saniye gösterilir, ardından site açılır. Aynı sekmedeki gezinti ve yenilemelerde tekrar gösterilmez; Siteye geç/Escape ile erken kapatılır. JavaScript kapalıysa CSS üç saniyede ekranı kaldırır. [Davranış ve testler](docs/BRAND-INTRO.md).
