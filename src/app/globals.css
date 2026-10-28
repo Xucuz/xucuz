@@ -50,18 +50,18 @@ input[type=checkbox],input[type=radio]{accent-color:#000000}
 
 /* Xucuz's approved yellow tile logo and its tagline. */
 .brand-lockup{display:inline-flex;align-items:center;gap:12px;max-width:100%}
-.brand-symbol{display:block;width:58px;height:58px;object-fit:contain;flex:none}
+.brand-symbol{display:block;width:66px;height:66px;object-fit:contain;flex:none}
 .brand-tagline{display:block;max-width:210px;font-size:12px;line-height:1.4;font-weight:700;letter-spacing:0;color:inherit}
 .brand-intro{background:#ffd928}
 .intro-lockup{display:flex;flex-direction:column;align-items:center;gap:14px;width:min(90vw,460px);text-align:center}
-.intro-lockup img{display:block;width:min(68vw,340px);height:auto;object-fit:contain}
+.intro-lockup img{display:block;width:min(74vw,380px);height:auto;object-fit:contain}
 .intro-lockup p{margin:0;color:#050505;font-size:clamp(17px,4vw,25px);font-weight:800;letter-spacing:-.025em}
 .top-brand-band{background:#050505;padding:9px 16px}
 .top-brand-card{width:min(760px,100%);background:transparent;gap:18px;padding:0;overflow:visible}
-.top-brand-symbol{width:78px;height:78px;object-fit:contain}
+.top-brand-symbol{width:90px;height:90px;object-fit:contain}
 .top-brand-tagline{color:#fff;font-size:clamp(15px,2.6vw,21px);font-weight:750;line-height:1.3;letter-spacing:-.015em}
-@media(max-width:600px){.top-brand-card{gap:12px}.top-brand-symbol{width:62px;height:62px}.top-brand-tagline{font-size:15px}}
-@media(max-width:380px){.top-brand-symbol{width:54px;height:54px}.top-brand-tagline{font-size:13px}}
+@media(max-width:600px){.top-brand-card{gap:12px}.top-brand-symbol{width:72px;height:72px}.top-brand-tagline{font-size:15px}}
+@media(max-width:380px){.top-brand-symbol{width:62px;height:62px}.top-brand-tagline{font-size:13px}}
 
 /* Original Xucuz market guide experience */
 .market-home-hero,.market-guide-hero{background:#fff3cc;border-block:1px solid #e9dfb7;overflow:hidden}
