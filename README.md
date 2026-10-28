@@ -101,6 +101,8 @@ DATA_MODE=live: yalnızca doğrulanmış, etkin ve güncel izinli feed kayıtlar
 
 Vercel: Next.js framework seçin, Node 24, build `npm run build`, bağlı dal `feat/xucuz-platform`. Vercel her zaman canlı mod kullanır; NEXT_PUBLIC_SITE_URL değerini ayarlayın. Veri kaynağı yoksa boş durum gösterilir. Canlı ve yönetim için PostgreSQL DATABASE_URL, ADMIN_PASSWORD_HASH, SESSION_SECRET gereklidir. Migration deploy öncesi güvenli ortamda çalıştırılır. Runtime modu sunucuda okunur.
 
+Ziyaret ölçümü için proje panelinde **Analytics → Enable** seçeneğini etkinleştirin. Uygulama `@vercel/analytics` bileşenini içerir; etkinleştirildikten sonraki dağıtımlarda ziyaretçi ve sayfa görüntüleme verileri proje panelinin Analytics bölümünde görünür. Önceki ziyaretler geriye dönük ölçülemez.
+
 Docker: `docker compose --profile app up -d --build`. Compose .env okur; .env.local dosyasını otomatik okumaz. Production veritabanı parolasını değiştirin. HTTPS ters proxy ve yedekleme sağlayın. Ücretli hizmet otomatik açılmaz.
 
 Henüz hosting/DNS dağıtımı yapılmadı. İşletme unvanı, adresi, iletişim e-postası ve veri sorumlusu bilgileri yayından önce sağlanmalıdır. CONTACT_EMAIL, BUSINESS_NAME ve BUSINESS_ADDRESS sunucuda yapılandırılabilir. Gönderim servisi yokken iletişim formu başarı mesajı üretmez.
