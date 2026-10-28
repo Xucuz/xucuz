@@ -1,4 +1,4 @@
-import {pgTable,text,boolean,timestamp,jsonb,bigint,index,integer} from 'drizzle-orm/pg-core';
+import {pgTable,text,boolean,timestamp,jsonb,bigint,index,integer,primaryKey} from 'drizzle-orm/pg-core';
 import type {Offer} from '@/lib/types';
 export const categories=pgTable('categories',{id:text().primaryKey(),name:text().notNull()});
 export const providers=pgTable('providers',{id:text().primaryKey(),name:text().notNull(),enabled:boolean().notNull().default(false),allowedHosts:jsonb().$type<string[]>().notNull().default([]),documentationUrl:text(),permissionReference:text(),verifiedAt:timestamp({withTimezone:true}),lastSyncAt:timestamp({withTimezone:true}),lastError:text()});
@@ -11,3 +11,6 @@ export const offers=pgTable('offers',{id:text().primaryKey(),category:text().not
 export const priceObservations=pgTable('price_observations',{id:integer().primaryKey().generatedAlwaysAsIdentity(),offerId:text().notNull().references(()=>offers.id),amount:bigint({mode:'number'}).notNull(),currency:text().notNull(),observedAt:timestamp({withTimezone:true}).notNull(),demo:boolean().notNull()});
 export const importRuns=pgTable('import_runs',{id:integer().primaryKey().generatedAlwaysAsIdentity(),createdAt:timestamp({withTimezone:true}).notNull().defaultNow(),providerId:text().notNull(),status:text().notNull(),rowCount:integer().notNull(),report:jsonb().notNull()});
 export const matchingIssues=pgTable('matching_issues',{id:integer().primaryKey().generatedAlwaysAsIdentity(),importId:integer().references(()=>importRuns.id),sourceId:text().notNull(),reason:text().notNull(),resolved:boolean().notNull().default(false)});
+
+export const monthlyVisitors=pgTable('monthly_visitors',{month:text().notNull(),visitorHash:text('visitor_hash').notNull()},t=>[primaryKey({columns:[t.month,t.visitorHash]})]);
+export const monthlyVisitorTotals=pgTable('monthly_visitor_totals',{month:text().primaryKey(),visitors:bigint({mode:'number'}).notNull().default(0)});
