@@ -46,6 +46,25 @@ test('dil seçimi paylaşılabilir akışta korunur ve form etiketleri çevrilir
  await page.goto('/');await page.locator('.community-topline select').selectOption('en');await expect(page.locator('h1')).toContainText('Search a product');await page.goto('/fiyat-ekle');await expect(page.locator('h1')).toContainText('Submit a price observation');await expect(page.locator('input[name="productName"]').locator('xpath=..')).toContainText('Product name');await page.locator('.language-select select').first().selectOption('ru');await expect(page.locator('h1')).toContainText('Отправить наблюдение');
 });
 
+test('üyelik isteyen canlı sohbet rumuzla mesaj gönderir ve mobilde taşma yapmaz',async({page})=>{
+ let latestMessage='';
+ await page.route('**/api/live-chat/auth',async route=>{
+  if(route.request().method()==='GET')return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({member:null})});
+  return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({member:{id:'member-1',nickname:'FiyatMeraklisi'}})});
+ });
+ await page.route('**/api/live-chat/messages**',async route=>{
+  if(route.request().method()==='GET')return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({member:{id:'member-1',nickname:'FiyatMeraklisi'},messages:[]})});
+  latestMessage=(route.request().postDataJSON() as {message:string}).message;
+  return route.fulfill({status:201,contentType:'application/json',body:JSON.stringify({message:{id:'1',nickname:'FiyatMeraklisi',body:latestMessage,createdAt:new Date().toISOString()}})});
+ });
+ await page.goto('/');if(await page.getByRole('button',{name:'Reddet'}).isVisible().catch(()=>false))await page.getByRole('button',{name:'Reddet'}).click();
+ await page.getByRole('button',{name:'Canlı Sohbet'}).click();const dialog=page.getByRole('dialog',{name:'Canlı Sohbet'});await expect(dialog).toBeVisible();
+ await dialog.getByLabel('Rumuz').fill('FiyatMeraklisi');await dialog.getByLabel('Parola').fill('GuvenliParola123');await dialog.getByRole('button',{name:'Üyeliği oluştur ve katıl'}).click();
+ await expect(dialog.getByText(/Rumuzun:/)).toBeVisible();await dialog.getByLabel('Mesajın').fill('Merhaba, birim fiyatı nasıl karşılaştırırım?');await dialog.getByRole('button',{name:'Mesajı gönder'}).click();
+ await expect(dialog.getByText('Merhaba, birim fiyatı nasıl karşılaştırırım?')).toBeVisible();expect(latestMessage).toContain('Merhaba');
+ const box=await dialog.boundingBox();expect(box).not.toBeNull();expect(box!.width).toBeLessThanOrEqual(page.viewportSize()?.width??0);expect(box!.x).toBeGreaterThanOrEqual(0);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBeTruthy();
+});
+
 test('kanıtsız resim, yetkisiz moderasyon ve canlı örnek veri reddedilir',async({page,request})=>{
  await page.goto('/');const isDemo=new URL(page.url()).port==='3000';await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content',isDemo?/noindex/:/index/);
  const response=await request.post('/api/community/submit',{headers:{origin:'https://attacker.example'},multipart:{productName:'Süt',store:'Market',city:'İstanbul',price:'20',observedAt:'2026-10-28',consent:'on',receipt:{name:'fake.jpg',mimeType:'image/jpeg',buffer:Buffer.from('this is not jpeg')}}});expect(response.status()).toBe(403);
