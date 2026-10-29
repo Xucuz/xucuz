@@ -5,6 +5,12 @@ test('Google benzeri arama ve 81 il listesi mobilde taşmadan görünür',async(
  await page.goto('/fiyat-ekle');await expect(page.locator('input[name="productName"]')).toBeVisible();await expect(page.locator('select[name="city"] option')).toHaveCount(82);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
 
+test('günlük ziyaretçi sayımına katılım bandı gösterilmez ve tarayıcı sayım isteği göndermez',async({page})=>{
+ let visitorRequestSent=false;await page.route('**/api/visitors',async route=>{visitorRequestSent=true;return route.fulfill({status:204,body:''});});
+ await page.goto('/');await expect(page.locator('.visitor-consent')).toHaveCount(0);await expect(page.getByText(/Günlük tekil ziyaretçi sayımına anonim olarak katılmak ister misin/)).toHaveCount(0);
+ await page.waitForTimeout(100);expect(visitorRequestSent).toBe(false);
+});
+
 test('Xucina sohbet penceresi yazılı soruya yanıt verir',async({page})=>{
  await page.goto('/');await page.getByRole('button',{name:/Xucina’ya sor|Ask Xucina|Спросить Ксучину/i}).click();
  const dialog=page.getByRole('dialog',{name:'Xucina'});await expect(dialog).toBeVisible();await expect(dialog.locator('.xucina-avatar img')).toBeVisible();const avatar=await dialog.locator('.xucina-avatar').boundingBox();expect(avatar?.width).toBeLessThanOrEqual(44);expect(avatar?.height).toBeLessThanOrEqual(44);
@@ -44,6 +50,25 @@ test('URL araması ürünü ve ili korur; kayıt yokken fiyat üretmez',async({p
 
 test('dil seçimi paylaşılabilir akışta korunur ve form etiketleri çevrilir',async({page})=>{
  await page.goto('/');await page.locator('.community-topline select').selectOption('en');await expect(page.locator('h1')).toContainText('Search a product');await page.goto('/fiyat-ekle');await expect(page.locator('h1')).toContainText('Submit a price observation');await expect(page.locator('input[name="productName"]').locator('xpath=..')).toContainText('Product name');await page.locator('.language-select select').first().selectOption('ru');await expect(page.locator('h1')).toContainText('Отправить наблюдение');
+});
+
+test('üyelik isteyen canlı sohbet rumuzla mesaj gönderir ve mobilde taşma yapmaz',async({page})=>{
+ let latestMessage='';
+ await page.route('**/api/live-chat/auth',async route=>{
+  if(route.request().method()==='GET')return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({member:null})});
+  return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({member:{id:'member-1',nickname:'FiyatMeraklisi'}})});
+ });
+ await page.route('**/api/live-chat/messages**',async route=>{
+  if(route.request().method()==='GET')return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({member:{id:'member-1',nickname:'FiyatMeraklisi'},messages:[]})});
+  latestMessage=(route.request().postDataJSON() as {message:string}).message;
+  return route.fulfill({status:201,contentType:'application/json',body:JSON.stringify({message:{id:'1',nickname:'FiyatMeraklisi',body:latestMessage,createdAt:new Date().toISOString()}})});
+ });
+ await page.goto('/');if(await page.getByRole('button',{name:'Reddet'}).isVisible().catch(()=>false))await page.getByRole('button',{name:'Reddet'}).click();
+ await page.getByRole('button',{name:'Canlı Sohbet'}).click();const dialog=page.getByRole('dialog',{name:'Canlı Sohbet'});await expect(dialog).toBeVisible();
+ await dialog.getByLabel('Rumuz').fill('FiyatMeraklisi');await dialog.getByLabel('Parola').fill('GuvenliParola123');await dialog.getByRole('button',{name:'Üyeliği oluştur ve katıl'}).click();
+ await expect(dialog.getByText(/Rumuzun:/)).toBeVisible();await dialog.getByLabel('Mesajın').fill('Merhaba, birim fiyatı nasıl karşılaştırırım?');await dialog.getByRole('button',{name:'Mesajı gönder'}).click();
+ await expect(dialog.getByText('Merhaba, birim fiyatı nasıl karşılaştırırım?')).toBeVisible();expect(latestMessage).toContain('Merhaba');
+ const box=await dialog.boundingBox();expect(box).not.toBeNull();expect(box!.width).toBeLessThanOrEqual(page.viewportSize()?.width??0);expect(box!.x).toBeGreaterThanOrEqual(0);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBeTruthy();
 });
 
 test('kanıtsız resim, yetkisiz moderasyon ve canlı örnek veri reddedilir',async({page,request})=>{
