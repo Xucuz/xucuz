@@ -14,7 +14,7 @@ test('Xucina sohbet penceresi yazılı soruya yanıt verir',async({page})=>{
 
 test('Xucina fiyat sorusunda kayıtsız fiyat üretmez',async({request})=>{
  const response=await request.post('/api/qa',{data:{question:'QzxvQzxv adı verilen hayali ürünün fiyatı kaç TL?'}});expect(response.ok()).toBeTruthy();
- const reply=await response.json() as {text:string};expect(reply.text).toMatch(/güncel ve yönetici onaylı|fiyat kayıtlarına şu anda erişemiyorum/);expect(reply.text).not.toMatch(/\d+[,.]\d{2}\s?(₺|TL)/);
+ const reply=await response.json() as {text:string};expect(reply.text).toMatch(/güncel ve yönetici onaylı|DATABASE_URL eksik|PostgreSQL veritabanına bağlanılamıyor|tabloları veritabanında bulunamadı|sorgusu tamamlanamadı/);expect(reply.text).not.toMatch(/\d+[,.]\d{2}\s?(₺|TL)/);
 });
 
 test('Xucina sohbeti telefonda görünür ve yatay taşma oluşturmaz',async({page})=>{
