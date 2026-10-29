@@ -8,8 +8,6 @@ export const metadata: Metadata = {
 const providers = [
   { name: 'Google', detail: 'Google hesabı ile giriş için OAuth uygulaması yapılandırılacak.' },
   { name: 'Facebook', detail: 'Facebook Login uygulaması ve gerekli izinler yapılandırılacak.' },
-  { name: 'Instagram', detail: 'Instagram API yalnızca uygun profesyonel hesapları destekler; kişisel hesaplar için genel giriş vaat edilmez.' },
-  { name: 'X', detail: 'X OAuth uygulaması ve geliştirici erişimi gereklidir.' },
 ];
 
 export default function SohbetPage() {
