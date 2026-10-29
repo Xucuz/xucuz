@@ -3,10 +3,10 @@ import {cookieOptions,seal,unseal,type Member} from '@/lib/social-auth';
 type Pending={state:string;verifier:string;exp:number};
 export async function GET(request:NextRequest){
  const url=new URL(request.url);
- const fail=()=>NextResponse.redirect(new URL('/sohbet?error=login',url));
+ const fail=(stage:string)=>{const destination=new URL('/sohbet',url);destination.searchParams.set('error',stage);const response=NextResponse.redirect(destination);response.cookies.delete('xucuz_oauth');return response;};
  const pending=unseal<Pending>(request.cookies.get('xucuz_oauth')?.value);
  const state=url.searchParams.get('state'),code=url.searchParams.get('code');
- if(!pending||pending.exp<Date.now()||!state||state!==pending.state||!code)return fail();
+ if(!pending||pending.exp<Date.now()||!state||state!==pending.state||!code)return fail('state');
  const redirectUri='https://xucuz-git-feat-community-price-platform-yahya-763e.vercel.app/api/auth/callback/google';
  try{
  const tokenResponse=await fetch('https://oauth2.googleapis.com/token',{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded'},body:new URLSearchParams({client_id:process.env.AUTH_GOOGLE_ID!,client_secret:process.env.AUTH_GOOGLE_SECRET!,code,grant_type:'authorization_code',redirect_uri:redirectUri,code_verifier:pending.verifier}),cache:'no-store'});
