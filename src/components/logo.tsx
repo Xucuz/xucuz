@@ -1,3 +1,15 @@
 import Image from 'next/image';
 
-export function Logo(){return <span className="brand-lockup"><Image className="brand-symbol" src="/xucuz-logo.svg" width={76} height={76} alt="Xucuz.com siyah X logosu" unoptimized/><span className="brand-tagline">Etikete değil gerçek maliyete bak</span></span>;}
+/** The original, unmodified Xucuz logo artwork supplied by the user. */
+export function Logo({placement='header'}:{placement?:'header'|'footer'}){
+ return <Image
+  src="/xucuz-original-logo.jpg"
+  alt="Xucuz.com — Türkiye’nin en ucuzunu birlikte bulalım!"
+  width={1280}
+  height={466}
+  priority={placement==='header'}
+  unoptimized
+  sizes={placement==='header'?'(max-width: 700px) 155px, 230px':'210px'}
+  className={`xucuz-original-logo xucuz-original-logo-${placement}`}
+ />;
+}

@@ -1,0 +1,2 @@
+import type {MetadataRoute} from 'next';
+export default function manifest():MetadataRoute.Manifest{return {name:'Xucuz — Topluluk Fiyat Rehberi',short_name:'Xucuz',description:'Türkiye genelinde topluluk tarafından bildirilen, incelenmiş fiyat gözlemleri.',start_url:'/',display:'standalone',background_color:'#f7fbf9',theme_color:'#102a43',lang:'tr',categories:['shopping','utilities'],icons:[{src:'/xucina-icon-192.png',sizes:'192x192',type:'image/png',purpose:'any'},{src:'/xucina-icon-512.png',sizes:'512x512',type:'image/png',purpose:'any'}]};}
