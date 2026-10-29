@@ -24,7 +24,7 @@ async function RootDocument({children}:{children:React.ReactNode}){const savedLa
   <a className="skip" href="#main">İçeriğe geç</a>
   {mode()==='demo'&&<div className="mode-bar"><span className="dot"/> Demo veriler — gerçek teklif değildir</div>}
   <header className="community-header wrap">
-   <Link href="/" className="community-header-logo" aria-label="Xucuz.com ana sayfa"><Image src="/xucina-icon-192.png" alt="" width={40} height={40} className="community-header-mascot"/><span className="community-header-x">x</span>ucuz<span className="community-wordmark-dot">.</span></Link>
+   <Link href="/" className="community-header-logo" aria-label="Xucuz.com ana sayfa"><span style={{display:"grid",gap:1,lineHeight:1.1}}><span style={{fontSize:"0.9em",fontWeight:850,letterSpacing:"-0.06em"}}><span className="community-header-x">x</span>ucuz<span className="community-wordmark-dot">.com</span></span><small style={{fontSize:"9px",fontWeight:600,letterSpacing:0,whiteSpace:"normal"}}>Türkiye’nin en ucuzunu birlikte bulalım</small></span></Link>
    <nav aria-label="Ana menü"><Link href="/fiyatlar">Fiyat ara</Link><Link href="/fiyat-ekle">Fiyat bildir</Link><Link href="/rehberler">Rehberler</Link><Link href="/hakkimizda">Hakkımızda</Link><LanguageSelect/></nav>
   </header>
   <main id="main" tabIndex={-1}>{children}</main>
