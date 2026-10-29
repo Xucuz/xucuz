@@ -5,6 +5,12 @@ test('Google benzeri arama ve 81 il listesi mobilde taşmadan görünür',async(
  await page.goto('/fiyat-ekle');await expect(page.locator('input[name="productName"]')).toBeVisible();await expect(page.locator('select[name="city"] option')).toHaveCount(82);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
 
+test('günlük ziyaretçi sayımına katılım bandı gösterilmez ve tarayıcı sayım isteği göndermez',async({page})=>{
+ let visitorRequestSent=false;await page.route('**/api/visitors',async route=>{visitorRequestSent=true;return route.fulfill({status:204,body:''});});
+ await page.goto('/');await expect(page.locator('.visitor-consent')).toHaveCount(0);await expect(page.getByText(/Günlük tekil ziyaretçi sayımına anonim olarak katılmak ister misin/)).toHaveCount(0);
+ await page.waitForTimeout(100);expect(visitorRequestSent).toBe(false);
+});
+
 test('Xucina sohbet penceresi yazılı soruya yanıt verir',async({page})=>{
  await page.goto('/');await page.getByRole('button',{name:/Xucina’ya sor|Ask Xucina|Спросить Ксучину/i}).click();
  const dialog=page.getByRole('dialog',{name:'Xucina'});await expect(dialog).toBeVisible();await expect(dialog.locator('.xucina-avatar img')).toBeVisible();const avatar=await dialog.locator('.xucina-avatar').boundingBox();expect(avatar?.width).toBeLessThanOrEqual(44);expect(avatar?.height).toBeLessThanOrEqual(44);

@@ -11,7 +11,6 @@ import {LiveQA} from '@/components/live-qa';
 import {LiveChat} from '@/components/live-chat';
 import {LanguageProvider,LanguageSelect} from '@/components/language-provider';
 import {PwaRegister} from '@/components/pwa-register';
-import {VisitorMetricsConsent} from '@/components/visitor-metrics-consent';
 import './globals.css';
 
 const siteUrl=process.env.NEXT_PUBLIC_SITE_URL??'https://xucuz.com';
@@ -34,6 +33,6 @@ async function RootDocument({children}:{children:React.ReactNode}){const savedLa
    <div><strong>xucuz’u keşfet</strong><Link href="/fiyatlar">Fiyat ara</Link><Link href="/fiyat-ekle">Fiyat gözlemi paylaş</Link><Link href="/urun-sec">İhtiyacına göre ürün seç</Link><Link href="/rehberler">Alışveriş rehberleri</Link><Link href="/hakkimizda">Hakkımızda</Link><Link href="/iletisim">İletişim <ArrowUpRight size={13}/></Link><Link href="/affiliate">Affiliate ve sponsorlu içerik</Link></div>
    <div><strong>Bilgilendirme</strong><Link href="/gizlilik">Gizlilik ve çerezler</Link><Link href="/kullanim-kosullari">Kullanım koşulları</Link><Link href="/gecmis-fiyat">Geçmiş teklif kayıtları</Link><Link href="/birim-fiyat">Birim fiyat karşılaştır</Link><Link href="/indirim-hesapla">İndirim hesapla</Link><Link href="/taksit-mi-pesin-mi">Taksit ve peşin karşılaştır</Link></div>
   </div><div className="wrap footer-bottom"><span>© {new Date().getFullYear()} Xucuz.com. Tüm hakları saklıdır.</span><span>Türkçe · Türkiye · TRY</span><span>Ödeme veya rezervasyon almayız.</span></div></footer>
- </div><LiveChat/><LiveQA/><VisitorMetricsConsent/><Analytics/></LanguageProvider></body></html>;
+ </div><LiveChat/><LiveQA/><Analytics/></LanguageProvider></body></html>;
 }
 
