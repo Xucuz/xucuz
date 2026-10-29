@@ -369,3 +369,26 @@ footer{background:#f6faf8;border-color:#d9e3e8}
 .community-logo-mascot{object-fit:cover;object-position:center}
 .xucina-avatar img{object-fit:cover;object-position:center;transform:none}
 @media(max-width:700px){.community-hero{margin-top:22px;padding-top:22px}.community-hero-feature{grid-template-columns:minmax(0,1fr);grid-template-areas:"mascot" "search";gap:16px}.community-hero-search .community-search{grid-template-columns:minmax(0,1fr);gap:2px;padding:8px}.community-hero-search .community-query{border-bottom:1px solid #e4ebee}.community-hero-search .community-city{border-left:0;border-bottom:1px solid #e4ebee}.community-hero-search .community-search-button{width:100%}.community-hero-search .community-shortcuts{justify-content:center}.community-hero-mascot{width:min(100%,440px);justify-self:center}}
+
+/* Use the exact supplied wordmark in both shared brand positions. */
+.community-header-logo{display:flex;align-items:center;flex:none;line-height:0}
+.xucuz-original-logo{display:block;height:auto;object-fit:contain}
+.xucuz-original-logo-header{width:230px;max-width:100%}
+.footer-brand-logo{display:inline-flex;line-height:0;max-width:100%}
+.xucuz-original-logo-footer{width:210px;max-width:100%}
+.live-qa-online-line{display:flex;align-items:center;gap:8px;margin-top:3px;font-size:11px}
+.live-qa-head .live-qa-online-label{color:#087f5b;font-weight:750}
+.live-qa-head .live-qa-online-count{color:#c62828;font-weight:850;min-width:1ch}
+.admin-visitor-card{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:18px;align-items:center;padding:20px 22px;margin:0 0 24px;border:1px solid #e4e4e4;border-radius:10px;background:#fff;color:#111}
+.admin-visitor-card h2{margin:0 0 4px;color:#111;font-size:18px}
+.admin-visitor-card p{margin:0;color:#333;font-size:12px}
+.admin-visitor-card>strong{color:#111;font-size:30px;font-variant-numeric:tabular-nums}
+.admin-visitor-card button{border:1px solid #ccc;border-radius:6px;background:#fff;color:#111;padding:8px 12px;font-weight:700}
+.visitor-consent{position:fixed;z-index:80;left:16px;bottom:calc(16px + env(safe-area-inset-bottom));width:min(480px,calc(100vw - 32px));display:flex;align-items:center;gap:16px;padding:13px 15px;background:#fff;color:#111;border:1px solid #cfd8dc;border-radius:10px;box-shadow:0 8px 30px #102a4320}
+.visitor-consent p{margin:0;color:#222;font-size:11px;line-height:1.55}
+.visitor-consent>div{display:flex;gap:7px;flex:none}
+.visitor-consent button{min-height:36px;padding:0 10px;border:1px solid #cbd5d9;border-radius:6px;background:#fff;color:#111;font-size:11px;font-weight:750}
+.visitor-consent button:first-child{background:#102a43;color:#fff;border-color:#102a43}
+@media(max-width:700px){.community-header{gap:10px}.xucuz-original-logo-header{width:155px}.footer-brand-logo{max-width:100%}}
+@media(max-width:480px){.admin-visitor-card{grid-template-columns:minmax(0,1fr) auto;padding:16px}.admin-visitor-card button{grid-column:1/-1;width:100%}}
+@media(max-width:520px){.visitor-consent{left:10px;bottom:calc(10px + env(safe-area-inset-bottom));width:calc(100vw - 20px);align-items:flex-start;flex-direction:column;gap:9px}.visitor-consent>div{width:100%}.visitor-consent button{flex:1}}

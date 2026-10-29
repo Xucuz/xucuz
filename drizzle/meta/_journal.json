@@ -36,6 +36,13 @@
       "when": 1793211000000,
       "tag": "0004_community-prices",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1793290000000,
+      "tag": "0005_visitor-presence-and-daily-metrics",
+      "breakpoints": true
     }
   ]
 }

@@ -17,3 +17,21 @@ test('canlı ana sayfa topluluk fiyat gözlemlerini sunar, satıcı fiyatı uydu
 
 test('sitede müzik oynatıcısı ve otomatik ses bulunmaz',async({page})=>{await page.goto('/');await expect(page.locator('audio')).toHaveCount(0);await expect(page.getByRole('button',{name:/piyano|mozart/i})).toHaveCount(0);});
 
+test('orijinal logo üstte ve altta oranı korunarak gösterilir; Xucina ana sayfa görseli değişmez',async({page})=>{
+ await page.goto('/');
+ const headerLogo=page.locator('.community-header-logo img');const footerLogo=page.locator('.footer-brand-logo img');
+ await expect(headerLogo).toHaveAttribute('src',/xucuz-original-logo\.jpg/);await expect(footerLogo).toHaveAttribute('src',/xucuz-original-logo\.jpg/);
+ await expect(headerLogo).toHaveAttribute('alt',/Türkiye’nin en ucuzunu birlikte bulalım/);
+ const dimensions=await headerLogo.evaluate((image:HTMLImageElement)=>image.naturalWidth/image.naturalHeight);expect(dimensions).toBeCloseTo(1280/466,2);
+ await expect(page.locator('.community-hero-mascot')).toHaveAttribute('src',/xucina-brand/);
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+});
+
+test('Xucina sohbetinde çevrimiçi sayı gerçek API yanıtından gelir; yetkisiz admin günlük sayıyı alamaz',async({page,request})=>{
+ await page.route('**/api/presence',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({status:'ready',onlineCount:3,measuredAt:new Date().toISOString()})}));
+ await page.goto('/');await page.getByRole('button',{name:'Xucina’ya sor'}).click();
+ await expect(page.locator('.live-qa-online-label')).toHaveText('Çevrimiçi');await expect(page.locator('.live-qa-online-count')).toHaveText('3');
+ const colors=await page.evaluate(()=>({label:getComputedStyle(document.querySelector('.live-qa-online-label')!).color,count:getComputedStyle(document.querySelector('.live-qa-online-count')!).color}));expect(colors.label).toBe('rgb(8, 127, 91)');expect(colors.count).toBe('rgb(198, 40, 40)');
+ const daily=await request.get('/api/admin/visitors');expect(daily.status()).toBe(401);
+});
+

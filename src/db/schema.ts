@@ -30,3 +30,7 @@ export const communityPriceEvidence=pgTable('community_price_evidence',{
  id:text().primaryKey(),observationId:text('observation_id').notNull().references(()=>communityPriceObservations.id,{onDelete:'cascade'}),
  kind:text().notNull(),mimeType:text('mime_type').notNull(),byteLength:integer('byte_length').notNull(),content:bytea().notNull(),createdAt:timestamp('created_at',{withTimezone:true}).notNull().defaultNow()
 },t=>[index('community_evidence_observation_idx').on(t.observationId)]);
+
+export const dailyVisitors=pgTable('daily_visitors',{day:text().notNull(),visitorHash:text('visitor_hash').notNull()},t=>[primaryKey({columns:[t.day,t.visitorHash]})]);
+export const dailyVisitorTotals=pgTable('daily_visitor_totals',{day:text().primaryKey(),visitors:bigint({mode:'number'}).notNull().default(0)});
+export const onlinePresence=pgTable('online_presence',{sessionHash:text('session_hash').primaryKey(),lastSeenAt:timestamp('last_seen_at',{withTimezone:true}).notNull()});
