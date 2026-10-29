@@ -10,17 +10,17 @@ export async function GET(request:NextRequest){
  const redirectUri='https://xucuz-git-feat-community-price-platform-yahya-763e.vercel.app/api/auth/callback/google';
  try{
  const tokenResponse=await fetch('https://oauth2.googleapis.com/token',{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded'},body:new URLSearchParams({client_id:process.env.AUTH_GOOGLE_ID!,client_secret:process.env.AUTH_GOOGLE_SECRET!,code,grant_type:'authorization_code',redirect_uri:redirectUri,code_verifier:pending.verifier}),cache:'no-store'});
- if(!tokenResponse.ok)return fail();
+ if(!tokenResponse.ok)return fail('server');
  const token=await tokenResponse.json() as {access_token?:string};
- if(!token.access_token)return fail();
+ if(!token.access_token)return fail('server');
  const profileResponse=await fetch('https://openidconnect.googleapis.com/v1/userinfo',{headers:{authorization:'Bearer '+token.access_token},cache:'no-store'});
- if(!profileResponse.ok)return fail();
+ if(!profileResponse.ok)return fail('server');
  const profile=await profileResponse.json() as {sub?:string;name?:string};
- if(!profile.sub)return fail();
+ if(!profile.sub)return fail('server');
  const member:Member={sub:profile.sub,name:(profile.name||'Üye').slice(0,80),provider:'google',exp:Date.now()+7*86400000};
  const response=NextResponse.redirect(new URL('/sohbet',url));
  response.cookies.set('xucuz_member',seal(member),{...cookieOptions,maxAge:7*86400});
  response.cookies.delete('xucuz_oauth');
  return response;
- }catch{return fail();}
+ }catch{return fail('server');}
 }
