@@ -7,7 +7,7 @@ export const metadata:Metadata={title:'Xucuz Canlı Sohbet — Sosyal Giriş',de
 export default async function SohbetPage({searchParams}:{searchParams:Promise<{error?:string}>}){
  const [user,params]=await Promise.all([member(),searchParams]);
  return <section className="wrap" style={{maxWidth:780,margin:'3rem auto 5rem',padding:'0 1rem'}}>
- <h1>Xucuz Canlı Sohbet</h1><p>Sohbet üyeliği için telefon numarası veya SMS gerekmez.</p>
+ <h1>Xucuz Canlı Sohbet</h1><p>Google hesabınla giriş yap; istersen sohbette kendine özel bir rumuz kullan.</p>
  {params.error&&<p role="alert" style={{color:'#b91c1c'}}>Giriş tamamlanamadı. Hata aşaması: {params.error}. Lütfen bu kodu bildir.</p>}
  {user?<div style={{padding:20,border:'1px solid #cbd5e1',borderRadius:12}}><p>Hoş geldin, <strong>{user.name}</strong>! Google hesabınla güvenli giriş yaptın.</p><form action="/api/auth/logout" method="post"><button type="submit">Çıkış yap</button></form></div>:
  <div style={{display:'grid',gap:12,maxWidth:360}}>
