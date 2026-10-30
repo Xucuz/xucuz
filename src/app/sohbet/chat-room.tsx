@@ -6,6 +6,9 @@ export default function ChatRoom(){
  const [body,setBody]=useState('');
  const [error,setError]=useState('');
  const [sending,setSending]=useState(false);
+ const [nickname,setNickname]=useState('');
+ const [profileName,setProfileName]=useState('');
+ const [profileMessage,setProfileMessage]=useState('');
  const refresh=useCallback(async()=>{
   try{const response=await fetch('/api/chat/messages',{cache:'no-store'});if(!response.ok)throw Error();const data=await response.json();setMessages(data.messages);setError('');}
   catch{setError('Mesajlar şu anda yüklenemiyor.');}
