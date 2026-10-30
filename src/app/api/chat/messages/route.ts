@@ -19,7 +19,9 @@ export async function POST(request:NextRequest){
  try{
   const recent=await sql`SELECT count(*)::int AS total FROM social_chat_messages WHERE provider=${user.provider} AND provider_sub=${user.sub} AND created_at>now()-interval '15 seconds'`;
   if(Number(recent[0]?.total)>=3)return NextResponse.json({error:'rate_limited'},{status:429});
-  await sql`INSERT INTO social_chat_messages (provider,provider_sub,display_name,body) VALUES (${user.provider},${user.sub},${user.name.slice(0,80)},${body})`;
+  const profiles=await sql`SELECT nickname FROM social_chat_profiles WHERE provider=${user.provider} AND provider_sub=${user.sub} LIMIT 1`;
+  const displayName=typeof profiles[0]?.nickname==='string'?profiles[0].nickname:user.name;
+  await sql`INSERT INTO social_chat_messages (provider,provider_sub,display_name,body) VALUES (${user.provider},${user.sub},${displayName.slice(0,80)},${body})`;
   return NextResponse.json({ok:true},{status:201});
  }catch{return NextResponse.json({error:'unavailable'},{status:503});}
 }
