@@ -2,6 +2,7 @@
 import {useState} from 'react';
 import Link from 'next/link';
 import type {ModerationState,ReportCategory} from '@/lib/phone-lookup/report-policy';
+import {applyModerationDecision} from '@/lib/phone-lookup/moderation';
 
 type DemoReport={id:string;category:ReportCategory;state:ModerationState};
 const initialReports:DemoReport[]=[
@@ -21,7 +22,7 @@ export function PhoneModerationDemo(){
   const [filter,setFilter]=useState<ModerationState|'all'>('all');
   const visible=reports.filter(report=>filter==='all'||report.state===filter);
   function update(id:string,state:ModerationState){
-    setReports(previous=>previous.map(report=>report.id===id&&report.state==='pending'?{...report,state}:report));
+    setReports(previous=>previous.map(report=>report.id===id?{...report,state:applyModerationDecision(report.state,state as 'approved'|'rejected')??report.state}:report));
   }
   return <section className="wrap" style={{maxWidth:850,padding:'48px 0 80px'}}>
     <p><Link href="/admin" style={{textDecoration:'underline'}}>← Yönetim</Link></p>
