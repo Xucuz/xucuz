@@ -1,5 +1,6 @@
 'use client';
 import {useState} from 'react';
+import {createReportDraft} from '@/lib/phone-lookup/report-policy';
 
 const reportKinds=[
   {value:'unwanted',label:'İstenmeyen arama'},
@@ -13,7 +14,7 @@ export function PhoneReportDemo(){
   return <section aria-labelledby="report-demo-title" style={{marginTop:36,border:'1px solid #e5e2d8',borderRadius:12,padding:20}}>
     <h2 id="report-demo-title" style={{fontSize:22}}>Spam bildirimi — demo</h2>
     <p>Bu alan sadece arayüzün nasıl çalışacağını gösterir. Gerçek bildirim göndermez, numara veya kişi bilgisi kaydetmez.</p>
-    <form onSubmit={event=>{event.preventDefault();setPreview(true);}} style={{display:'grid',gap:12}}>
+    <form onSubmit={event=>{event.preventDefault();setPreview(createReportDraft(kind)!==null);}} style={{display:'grid',gap:12}}>
       <label htmlFor="report-kind" style={{fontWeight:700}}>Bildirim kategorisi</label>
       <select id="report-kind" value={kind} onChange={event=>{setKind(event.target.value);setPreview(false);}}
         style={{padding:12,border:'1px solid #b5b5b5',borderRadius:8}}>
