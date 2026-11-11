@@ -14,7 +14,7 @@ export default function ChatRoom(){
   catch{setError('Mesajlar şu anda yüklenemiyor.');}
  },[]);
  useEffect(()=>{void fetch('/api/chat/profile').then(r=>r.json()).then(p=>{setNickname(p.nickname??'');setProfileName(p.name??'');}).catch(()=>{});},[]);
- useEffect(()=>{void refresh();const timer=setInterval(()=>void refresh(),5000);return()=>clearInterval(timer);},[refresh]);
+ useEffect(()=>{const initial=setTimeout(()=>void refresh(),0);const timer=setInterval(()=>void refresh(),5000);return()=>{clearTimeout(initial);clearInterval(timer);};},[refresh]);
  async function send(event:React.FormEvent<HTMLFormElement>){
   event.preventDefault();if(!body.trim()||sending)return;setSending(true);
   try{const response=await fetch('/api/chat/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({body})});if(!response.ok)throw Error();setBody('');await refresh();}
