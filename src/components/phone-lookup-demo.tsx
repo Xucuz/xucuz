@@ -1,6 +1,7 @@
 'use client';
 import {useState} from 'react';
 import {normalizeTurkishMobile} from '@/lib/phone-lookup/normalize';
+import {PhoneReportDemo,VerifiedBusinessDemo} from '@/components/phone-report-demo';
 
 export function PhoneLookupDemo(){
   const [input,setInput]=useState('');
@@ -31,6 +32,8 @@ export function PhoneLookupDemo(){
       <p>Numara biçimi geçerli. <strong>Numara sahibi, operatör veya spam durumu sorgulanmadı.</strong></p>
       <p>Gerçek veri bağlantısı ve izinli profil sistemi henüz geliştirilmedi.</p>
     </div>}
+    <PhoneReportDemo/>
+    <VerifiedBusinessDemo/>
     <div style={{marginTop:36}}>
       <h2 style={{fontSize:22}}>Planlanan özellikler</h2>
       <ul style={{lineHeight:2}}>
