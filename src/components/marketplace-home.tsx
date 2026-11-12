@@ -12,8 +12,8 @@ import {RadarRouteFinder} from './radar-route-finder';
 
 export function MarketplaceHome(){const {t}=useLanguage();return <div className="community-home">
  <div className="community-topline"><span>{t('system')}</span><LanguageSelect/></div>
- <OnDutyPharmacies/>
  <RadarRouteFinder/>
+ <OnDutyPharmacies/>
  <section className="community-hero">
   <p className="community-kicker">{t('homeKicker')}</p>
   <h1>{t('intro')}</h1>
