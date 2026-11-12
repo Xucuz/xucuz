@@ -7,6 +7,7 @@ import {ArrowUpRight} from 'lucide-react';
 import {Analytics} from '@vercel/analytics/next';
 import {mode} from '@/lib/providers/engine';
 import {Logo} from '@/components/logo';
+import {MarketTicker} from '@/components/market-ticker';
 import {LiveQA} from '@/components/live-qa';
 import {LanguageProvider,LanguageSelect} from '@/components/language-provider';
 import {PwaRegister} from '@/components/pwa-register';
@@ -22,6 +23,7 @@ export default function RootLayout({children}:{children:React.ReactNode}){
 async function RootDocument({children}:{children:React.ReactNode}){const savedLanguage=(await cookies()).get('xucuz_lang')?.value;const language=savedLanguage==='en'||savedLanguage==='ru'?savedLanguage:'tr';
  return <html lang={language}><body><Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9203233526232260" strategy="beforeInteractive" crossOrigin="anonymous"/><LanguageProvider initialLanguage={language}><PwaRegister/><div id="site-content">
   <a className="skip" href="#main">İçeriğe geç</a>
+  <MarketTicker/>
   {mode()==='demo'&&<div className="mode-bar"><span className="dot"/> Demo veriler — gerçek teklif değildir</div>}
   <header className="community-header wrap">
    <Link href="/" className="community-header-logo" aria-label="Xucuz.com ana sayfa"><Logo placement="header"/></Link>
