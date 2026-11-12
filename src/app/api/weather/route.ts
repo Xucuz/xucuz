@@ -12,6 +12,36 @@ type ForecastPoint = {
   };
 };
 
+type ReverseGeocode = {address?: Record<string, string>};
+
+async function getLocationName(lat: number, lon: number) {
+  try {
+    const url = new URL('https://nominatim.openstreetmap.org/reverse');
+    url.searchParams.set('format', 'jsonv2');
+    url.searchParams.set('addressdetails', '1');
+    url.searchParams.set('zoom', '10');
+    url.searchParams.set('lat', lat.toFixed(3));
+    url.searchParams.set('lon', lon.toFixed(3));
+    const response = await fetch(url, {
+      headers: {
+        Accept: 'application/json',
+        'Accept-Language': 'tr',
+        'User-Agent': 'Xucuz.com/1.0 https://www.xucuz.com',
+      },
+      next: {revalidate: 86400},
+    });
+    if (!response.ok) return null;
+    const result = await response.json() as ReverseGeocode;
+    const address = result.address ?? {};
+    const district = address.city_district ?? address.municipality ?? address.county ?? address.town ?? address.suburb ?? address.city ?? address.village;
+    const province = address.province ?? address.state ?? address.region;
+    const parts = [district, province].filter((value): value is string => Boolean(value));
+    return [...new Set(parts)].join(', ') || null;
+  } catch {
+    return null;
+  }
+}
+
 function numberParam(value: string | null, min: number, max: number) {
   if (!value) return null;
   const parsed = Number(value);
@@ -30,10 +60,13 @@ export async function GET(request: Request) {
     const url = new URL('https://api.met.no/weatherapi/locationforecast/2.0/compact');
     url.searchParams.set('lat', lat.toFixed(4));
     url.searchParams.set('lon', lon.toFixed(4));
-    const response = await fetch(url, {
+    const [response, locationName] = await Promise.all([
+      fetch(url, {
       headers: {Accept: 'application/json', 'User-Agent': 'Xucuz.com/1.0 https://www.xucuz.com'},
       next: {revalidate: 1800},
-    });
+      }),
+      getLocationName(lat, lon),
+    ]);
     if (!response.ok) {
       return NextResponse.json({error: 'Hava durumu kaynağı şu anda yanıt vermiyor.'}, {status: 502});
     }
@@ -65,8 +98,11 @@ export async function GET(request: Request) {
 
     return NextResponse.json({
       days: [...byDate.values()].slice(0, 5),
+      locationName,
       attribution: 'Weather data © MET Norway',
       attributionUrl: 'https://www.met.no/en/Weather-and-climate/Weather-forecasts/Terms-of-service',
+      locationAttribution: locationName ? '© OpenStreetMap contributors' : null,
+      locationAttributionUrl: 'https://www.openstreetmap.org/copyright',
       updatedAt: new Date().toISOString(),
     }, {headers: {'Cache-Control': 'public, s-maxage=1800, stale-while-revalidate=3600'}});
   } catch {

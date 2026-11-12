@@ -1,16 +1,16 @@
 'use client';
 
 import {useState} from 'react';
-import {Cloud,CloudDrizzle,CloudFog,CloudLightning,CloudRain,CloudSnow,CloudSun,LocateFixed,LoaderCircle,Sun} from 'lucide-react';
+import {Cloud,CloudDrizzle,CloudFog,CloudLightning,CloudRain,CloudSnow,CloudSun,LocateFixed,LoaderCircle,MapPin,Sun} from 'lucide-react';
 import {useLanguage} from './language-provider';
 
 type WeatherDay = {date: string; min: number; max: number; symbol: string; precipitation: number};
-type Forecast = {days: WeatherDay[]; attribution: string; attributionUrl: string};
+type Forecast = {days: WeatherDay[]; locationName: string | null; attribution: string; attributionUrl: string; locationAttribution: string | null; locationAttributionUrl: string};
 
 const copy = {
-  tr: {title:'Yakınındaki hava durumu',description:'Konumuna göre 5 günlük tahmini gör.',locate:'Konumuma göre göster',loading:'Konum alınıyor…',permission:'Hava durumunu görmek için konum izni ver veya tarayıcı ayarlarını kontrol et.',error:'Hava durumu şu anda alınamıyor. Biraz sonra tekrar dene.',rain:'Yağış',today:'Bugün'},
-  en: {title:'Weather near you',description:'See a 5-day forecast for your location.',locate:'Use my location',loading:'Getting location…',permission:'Allow location access to see the weather, or check your browser settings.',error:'Weather is unavailable right now. Please try again later.',rain:'Precipitation',today:'Today'},
-  ru: {title:'Погода рядом с вами',description:'Прогноз на 5 дней для вашего местоположения.',locate:'Показать по моему местоположению',loading:'Определяем местоположение…',permission:'Разрешите доступ к местоположению, чтобы увидеть погоду, или проверьте настройки браузера.',error:'Сейчас прогноз недоступен. Попробуйте позже.',rain:'Осадки',today:'Сегодня'},
+  tr: {title:'Yakınındaki hava durumu',description:'Konumuna göre 5 günlük tahmini gör.',locate:'Konumuma göre göster',loading:'Konum alınıyor…',permission:'Hava durumunu görmek için konum izni ver veya tarayıcı ayarlarını kontrol et.',error:'Hava durumu şu anda alınamıyor. Biraz sonra tekrar dene.',locationLabel:'Tahmin konumu',rain:'Yağış',today:'Bugün'},
+  en: {title:'Weather near you',description:'See a 5-day forecast for your location.',locate:'Use my location',loading:'Getting location…',permission:'Allow location access to see the weather, or check your browser settings.',error:'Weather is unavailable right now. Please try again later.',locationLabel:'Forecast location',rain:'Precipitation',today:'Today'},
+  ru: {title:'Погода рядом с вами',description:'Прогноз на 5 дней для вашего местоположения.',locate:'Показать по моему местоположению',loading:'Определяем местоположение…',permission:'Разрешите доступ к местоположению, чтобы увидеть погоду, или проверьте настройки браузера.',error:'Сейчас прогноз недоступен. Попробуйте позже.',locationLabel:'Место прогноза',rain:'Осадки',today:'Сегодня'},
 } as const;
 
 function WeatherIcon({code}: {code: string}) {
@@ -68,6 +68,7 @@ export function WeatherForecast() {
     </div>
     {error && <p className="weather-forecast-message" role="status">{error}</p>}
     {forecast && <>
+      {forecast.locationName && <p className="weather-forecast-location"><MapPin size={16} aria-hidden="true"/><span><small>{t.locationLabel}</small>{forecast.locationName}</span></p>}
       <div className="weather-forecast-days">
         {forecast.days.map((day,index)=><article className="weather-forecast-day" key={day.date}>
           <span>{index===0?t.today:new Date(`${day.date}T12:00:00+03:00`).toLocaleDateString(language,{weekday:'short',timeZone:'Europe/Istanbul'})}</span>
@@ -76,7 +77,7 @@ export function WeatherForecast() {
           {day.precipitation>0.2&&<small>{t.rain} {day.precipitation.toFixed(1)} mm</small>}
         </article>)}
       </div>
-      <p className="weather-forecast-source">{forecast.attribution}. <a href={forecast.attributionUrl} target="_blank" rel="noreferrer">{language==='ru'?'Условия использования':language==='en'?'Terms of service':'Kullanım koşulları'}</a></p>
+      <p className="weather-forecast-source">{forecast.attribution}. <a href={forecast.attributionUrl} target="_blank" rel="noreferrer">{language==='ru'?'Условия использования':language==='en'?'Terms of service':'Kullanım koşulları'}</a>{forecast.locationAttribution&&<> · {forecast.locationAttribution} <a href={forecast.locationAttributionUrl} target="_blank" rel="noreferrer">OSM</a></>}</p>
     </>}
   </section>;
 }
