@@ -75,11 +75,37 @@
   border-radius: 12px;
   background: #f4f7f8;
 }
-.mapFrame {
+.mapCanvas {
   display: block;
   width: 100%;
   height: clamp(250px, 34vw, 390px);
-  border: 0;
+  z-index: 0;
+  background: #eef3ef;
+}
+.stationPin { background: transparent; border: 0; }
+.stationPin span {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 34px;
+  border: 2px solid #fff;
+  border-radius: 15px 15px 15px 2px;
+  background: #087f5b;
+  box-shadow: 0 2px 8px #102a4350;
+  color: #fff;
+  font-size: 17px;
+  transform: rotate(-45deg);
+}
+.stationPin span i { font-style: normal; transform: rotate(45deg); }
+.userPin { background: transparent; border: 0; }
+.userPin span {
+  display: block;
+  width: 17px;
+  height: 17px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  background: #155eef;
+  box-shadow: 0 0 0 3px #155eef88, 0 1px 6px #102a4380;
 }
 .mapCaption {
   margin: 0;
@@ -138,7 +164,7 @@
   .actions { grid-column: 1 / -1; width: 100%; min-width: 0; }
   .link { width: 100%; min-height: 48px; }
   .map,.results,.note { grid-column: 1 / -1; margin: 0; }
-  .mapFrame { height: min(72vw, 320px); }
+  .mapCanvas { height: min(72vw, 320px); }
   .cameraItem { grid-template-columns: auto minmax(0,1fr) auto; }
   .stationFee { grid-column: 2 / 3; }
   .stationLink { grid-column: 3; grid-row: 1 / 3; }

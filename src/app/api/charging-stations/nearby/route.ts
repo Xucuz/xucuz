@@ -81,30 +81,41 @@ export async function POST(request: NextRequest) {
   if (!input.success) return NextResponse.json({error: 'Geçerli bir konum alınamadı.'}, {status: 400});
 
   const {latitude, longitude} = input.data;
-  const query = `[out:json][timeout:20];nwr(around:${radiusMeters},${latitude},${longitude})["amenity"="charging_station"];out center tags 100;`;
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 23000);
+  const query = `[out:json][timeout:10];nwr(around:${radiusMeters},${latitude},${longitude})["amenity"="charging_station"];out center tags 100;`;
+  let elements: z.infer<typeof overpassSchema>['elements'] | null = null;
   try {
-    const response = await fetch('https://overpass.osm.ch/api/interpreter', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-        Accept: 'application/json',
-        'User-Agent': 'Xucuz/1.0 (https://www.xucuz.com)',
-      },
-      body: new URLSearchParams({data: query}),
-      signal: controller.signal,
-      cache: 'no-store',
-    });
-    if (!response.ok) {
-      return NextResponse.json({error: 'Harita kaynağı şu anda yanıt vermiyor. Biraz sonra tekrar deneyin.'}, {status: 503});
+    // These are worldwide Overpass instances. The former overpass.osm.ch
+    // endpoint contains Switzerland-only data and silently returned no
+    // Turkish stations with HTTP 200.
+    for (const endpoint of ['https://overpass-api.de/api/interpreter', 'https://z.overpass-api.de/api/interpreter']) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 11000);
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+            Accept: 'application/json',
+            'User-Agent': 'Xucuz/1.0 (https://www.xucuz.com)',
+          },
+          body: new URLSearchParams({data: query}),
+          signal: controller.signal,
+          cache: 'no-store',
+        });
+        if (!response.ok) continue;
+        const parsed = overpassSchema.safeParse(await response.json());
+        if (!parsed.success) continue;
+        elements = parsed.data.elements;
+        break;
+      } catch {
+        // Try the second global instance if the first is busy or unreachable.
+      } finally {
+        clearTimeout(timeout);
+      }
     }
-    const parsed = overpassSchema.safeParse(await response.json());
-    if (!parsed.success) {
-      return NextResponse.json({error: 'Harita kaynağından geçerli yanıt alınamadı.'}, {status: 502});
-    }
+    if (!elements) return NextResponse.json({error: 'Küresel harita kaynakları şu anda yanıt vermiyor. Biraz sonra tekrar deneyin.'}, {status: 503});
 
-    const stations = parsed.data.elements
+    const stations = elements
       .filter(element => element.tags?.amenity === 'charging_station')
       .flatMap(element => {
         const lat = element.lat ?? element.center?.lat;
@@ -138,7 +149,5 @@ export async function POST(request: NextRequest) {
     }, {headers: {'Cache-Control': 'private, no-store'}});
   } catch {
     return NextResponse.json({error: 'Harita kaynağına şu anda ulaşılamıyor. Biraz sonra tekrar deneyin.'}, {status: 503});
-  } finally {
-    clearTimeout(timeout);
   }
 }

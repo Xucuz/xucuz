@@ -3,9 +3,10 @@
 import {useEffect, useRef, useState} from 'react';
 import {MapPin,Navigation,Zap} from 'lucide-react';
 import styles from './charging-stations-finder.module.css';
+import {ChargingStationsMap} from './charging-stations-map';
 
 type Coordinates = {latitude: number; longitude: number};
-type ChargingStation = {
+export type ChargingStation = {
   id: number;
   type: 'node' | 'way' | 'relation';
   latitude: number;
@@ -31,16 +32,6 @@ function distanceMeters(a: Coordinates, b: Coordinates) {
 
 function distanceLabel(meters: number) {
   return meters < 1000 ? `${Math.round(meters)} m` : `${(meters / 1000).toLocaleString('tr-TR', {maximumFractionDigits: 1})} km`;
-}
-
-function createMapUrl(latitude: number, longitude: number) {
-  const latitudeOffset = 0.02;
-  const longitudeOffset = latitudeOffset / Math.max(Math.cos(latitude * Math.PI / 180), 0.25);
-  const west = (longitude - longitudeOffset).toFixed(5);
-  const south = (latitude - latitudeOffset).toFixed(5);
-  const east = (longitude + longitudeOffset).toFixed(5);
-  const north = (latitude + latitudeOffset).toFixed(5);
-  return `https://www.openstreetmap.org/export/embed.html?bbox=${west}%2C${south}%2C${east}%2C${north}&layer=mapnik&marker=${latitude.toFixed(5)}%2C${longitude.toFixed(5)}`;
 }
 
 function feeLabel(fee: string) {
@@ -171,7 +162,7 @@ export function ChargingStationsFinder() {
       </button>
     </div>
     {location && <div className={styles.map}>
-      <iframe className={styles.mapFrame} title="Yakındaki elektrikli araç şarj üniteleri haritası" src={createMapUrl(location.latitude, location.longitude)} loading="lazy"/>
+      <ChargingStationsMap location={location} stations={stations}/>
       <p className={styles.mapCaption}>{mapStatus || 'Harita cihaz konumunuzu gösterir.'} Konum OpenStreetMap haritası için iletilir; Xucuz hesabınızda saklanmaz.</p>
     </div>}
     {(status || stations.length > 0) && <div className={styles.results} role="status" aria-live="polite">
