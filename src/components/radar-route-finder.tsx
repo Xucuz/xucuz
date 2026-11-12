@@ -10,6 +10,7 @@ const osmCopyrightUrl='https://www.openstreetmap.org/copyright';
 
 type NearbyCamera = {
   id: number;
+  type: 'node' | 'way' | 'relation';
   latitude: number;
   longitude: number;
   distanceMeters: number;
@@ -90,7 +91,7 @@ export function RadarRouteFinder(){
           <span className={styles.cameraIcon} aria-hidden="true"><MapPin size={17}/></span>
           <span className={styles.cameraLabel}>{camera.label}</span>
           <strong className={styles.distance}>{distanceLabel(camera.distanceMeters)}</strong>
-          <a href={`https://www.openstreetmap.org/node/${camera.id}`} target="_blank" rel="noopener noreferrer">Haritada aç</a>
+          <a href={`https://www.openstreetmap.org/${camera.type}/${camera.id}`} target="_blank" rel="noopener noreferrer">Haritada aç</a>
         </li>)}
       </ul>}
     </div>}
