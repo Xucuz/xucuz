@@ -54,7 +54,7 @@ export async function GET(request: NextRequest) {
       headers: {'Content-Type': 'application/json', Accept: 'application/json, text/event-stream'},
       body: JSON.stringify({
         jsonrpc: '2.0', id: 1, method: 'tools/call',
-        params: {name: 'nobetci_eczane_listele', arguments: {il: city, limit: 8}},
+        params: {name: 'nobetci_eczane_listele', arguments: {il: city, limit: 100}},
       }),
       signal: controller.signal,
       cache: 'no-store',

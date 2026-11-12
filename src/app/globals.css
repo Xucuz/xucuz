@@ -405,7 +405,7 @@ footer{background:#f6faf8;border-color:#d9e3e8}
 .duty-pharmacies-heading p:last-child{margin:0;color:#52636b}
 .duty-pharmacies-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:15px;background:#e8f5ef;color:#16804d;flex:none}
 .duty-city-label{display:block;margin:0 0 7px;font-size:14px;font-weight:650;color:#263b49}
-.duty-pharmacies select{width:min(100%,420px);min-height:48px;padding:0 14px;border:1px solid #bdcbc6;border-radius:12px;background:#fff;color:#102a43;font:inherit}
+.duty-pharmacies select{width:min(100%,420px);min-height:48px;padding:0 14px;border:1px solid #bdcbc6;border-radius:12px;background:#fff;color:#102a43;font:inherit}.duty-location-fields{display:grid;grid-template-columns:minmax(0,420px);gap:14px}.duty-location-fields>div{display:flex;flex-direction:column;align-items:flex-start;width:100%}.duty-location-fields select{width:100%}.duty-location-fields select:disabled{color:#687b82;background:#f5f8f7;cursor:not-allowed}
 .duty-status{margin:14px 0 0;color:#52636b;font-size:14px;line-height:1.6}
 .duty-error{color:#a13232}
 .duty-pharmacy-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
