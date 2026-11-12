@@ -1,11 +1,11 @@
 'use client';
 
 import {useState} from 'react';
-import {MapPin, Phone, Pill} from 'lucide-react';
+import {ArrowUpRight,MapPin,Pill} from 'lucide-react';
 import {turkiyeCities} from '@/lib/turkiye-cities';
 
-type Pharmacy = {id: string | number; name: string; phone?: string | null; address?: string | null; district?: string | null; mapsUrl?: string};
-type Result = {date: string; fetchedAt: string; pharmacies: Pharmacy[]; coverageMessage?: string; provinceSource: string; attribution: string; attributionUrl: string};
+type Pharmacy = {id: string; name: string; district?: string; address?: string; onCall: boolean; detailUrl: string};
+type Result = {date: string; validityStart: string; validityEnd: string; total: number; returned: number; notice?: string; sourceUrl: string; attribution: string; attributionUrl: string; pharmacies: Pharmacy[]};
 
 export function OnDutyPharmacies() {
   const [city, setCity] = useState('');
@@ -34,7 +34,7 @@ export function OnDutyPharmacies() {
   return <section className="duty-pharmacies" aria-labelledby="duty-pharmacies-title">
     <div className="duty-pharmacies-heading">
       <div className="duty-pharmacies-icon"><Pill size={21}/></div>
-      <div><p className="community-kicker">GÜNCEL BÖLGE BİLGİSİ</p><h2 id="duty-pharmacies-title">Nöbetçi eczaneler</h2><p>İlini seç, bugün için bildirilen eczaneleri gör.</p></div>
+      <div><p className="community-kicker">GÜNCEL BÖLGE BİLGİSİ</p><h2 id="duty-pharmacies-title">Nöbetçi eczaneler</h2><p>81 ilden birini seç, bugün için bildirilen nöbetçi eczaneleri gör.</p></div>
     </div>
     <label className="duty-city-label" htmlFor="duty-city">İl seçin</label>
     <select id="duty-city" value={city} onChange={event => void load(event.target.value)}>
@@ -45,14 +45,15 @@ export function OnDutyPharmacies() {
     {error && <p className="duty-status duty-error" role="status">{error}</p>}
     {result && <>
       <p className="duty-status">Nöbet tarihi: <strong>{new Intl.DateTimeFormat('tr-TR', {dateStyle: 'long', timeZone: 'Europe/Istanbul'}).format(new Date(`${result.date}T12:00:00+03:00`))}</strong></p>
-      <p className="duty-status">Veri alındı: {new Intl.DateTimeFormat('tr-TR', {dateStyle: 'short', timeStyle: 'short', timeZone: 'Europe/Istanbul'}).format(new Date(result.fetchedAt))}</p>
-      {result.pharmacies.length ? <div className="duty-pharmacy-list">{result.pharmacies.slice(0, 6).map(pharmacy => <article className="duty-pharmacy-card" key={pharmacy.id}>
+      <p className="duty-status">{result.returned} eczane gösteriliyor; seçilen ilde toplam {result.total} nöbet kaydı var.</p>
+      {result.pharmacies.length ? <div className="duty-pharmacy-list">{result.pharmacies.slice(0, 8).map(pharmacy => <article className="duty-pharmacy-card" key={pharmacy.id}>
         <h3>{pharmacy.name}</h3><p>{[pharmacy.district, pharmacy.address].filter(Boolean).join(' · ') || 'Adres bilgisi paylaşılmamış'}</p>
-        <div className="duty-pharmacy-actions">{pharmacy.phone && <a href={`tel:${pharmacy.phone}`}><Phone size={15}/>Ara</a>}{pharmacy.mapsUrl && <a href={pharmacy.mapsUrl} target="_blank" rel="noreferrer"><MapPin size={15}/>Yol tarifi</a>}</div>
-      </article>)}</div> : <p className="duty-status">Bu il için kaynakta bugüne ait kayıt bulunmuyor.</p>}
-      {result.coverageMessage && <p className="duty-coverage-note">{result.coverageMessage}</p>}
-      <p className="duty-attribution"><a href={result.attributionUrl} target="_blank" rel="noreferrer">{result.attribution}</a> · İl listesi: <a href={result.provinceSource} target="_blank" rel="noreferrer">kaynak sayfa</a>. Veriler günlük yenilenir; gitmeden önce eczaneyi telefonla arayıp nöbetini doğrulayın.</p>
+        {pharmacy.onCall && <p className="duty-on-call">İcap nöbeti: eczane kapalı olabilir; gitmeden önce telefonla çağırın.</p>}
+        <div className="duty-pharmacy-actions"><a href={pharmacy.detailUrl} target="_blank" rel="noreferrer"><MapPin size={15}/>Telefon ve yol tarifi<ArrowUpRight size={14}/></a></div>
+      </article>)}</div> : <p className="duty-status">Bu il için kaynakta bugün kayıt bulunmuyor.</p>}
+      {result.notice && <p className="duty-coverage-note">{result.notice}</p>}
+      <p className="duty-attribution"><a href={result.attributionUrl} target="_blank" rel="noreferrer">{result.attribution}</a> · <a href={result.sourceUrl} target="_blank" rel="noreferrer">İl listesi ve tüm kayıtlar</a>. Nöbet listesi gün içinde değişebilir; gitmeden önce eczaneyi arayıp doğrulayın.</p>
     </>}
-    {!city && <p className="duty-status">Nöbet listesi ile bulunduğunuz il değişebilir; görmek için ilinizi seçin.</p>}
+    {!city && <p className="duty-status">Nöbet listesi bulunduğunuz ile göre değişir; görmek için ilinizi seçin.</p>}
   </section>;
 }

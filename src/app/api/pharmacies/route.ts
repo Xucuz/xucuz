@@ -1,39 +1,29 @@
 import {NextRequest, NextResponse} from 'next/server';
 import {z} from 'zod';
 import {turkiyeCities} from '@/lib/turkiye-cities';
+import {rateLimit} from '@/lib/security';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-const pharmacyDatasetSchema = z.object({
-  status: z.string(),
-  fetched_at: z.string().datetime({offset: true}),
-  valid_from: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-  valid_until: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-  freshness: z.object({state: z.string(), age_seconds: z.number().nonnegative(), max_age_seconds: z.number().positive()}),
-  attribution: z.object({text: z.string().min(1), url: z.string().url()}),
-  data: z.object({
-    coverage: z.array(z.object({
-      province_id: z.string(),
-      service_date: z.string(),
-      status: z.string(),
-      source_state: z.string(),
-      source_url: z.string().url(),
-      message: z.string().optional(),
-    })),
-    pharmacies: z.array(z.object({
-      id: z.string(),
-      name: z.string().min(1),
-      province_id: z.string(),
-      district_id: z.string().nullable().optional(),
-      address: z.string().nullable().optional(),
-      phone: z.string().nullable().optional(),
-      roster_date: z.string(),
-      verified_at: z.string().datetime({offset: true}),
-      source_url: z.string().url(),
-      location: z.object({latitude: z.number(), longitude: z.number()}).nullable().optional(),
-    })),
-  }),
+const rosterSchema = z.object({
+  konum: z.string(),
+  nobetGunu: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  gecerlilikBaslangic: z.string().datetime({offset: true}),
+  gecerlilikBitis: z.string().datetime({offset: true}),
+  toplamEczane: z.number().int().nonnegative(),
+  donenEczane: z.number().int().nonnegative(),
+  sayfaUrl: z.string().url(),
+  kaynak: z.string(),
+  not: z.string().optional(),
+  eczaneler: z.array(z.object({
+    ad: z.string().min(1),
+    il: z.string(),
+    ilce: z.string().optional(),
+    adres: z.string().optional(),
+    icap: z.boolean().optional(),
+    sayfaUrl: z.string().url(),
+  })),
 });
 
 function slugifyCity(city: string) {
@@ -45,66 +35,75 @@ function istanbulToday() {
   return new Intl.DateTimeFormat('en-CA', {timeZone: 'Europe/Istanbul'}).format(new Date());
 }
 
-function normalizePhone(value?: string | null) {
-  if (!value) return undefined;
-  let digits = value.replace(/\D/g, '');
-  if (digits.length === 10) digits = `0${digits}`;
-  return digits.length >= 11 && digits.length <= 13 ? digits : undefined;
+function trustedPageUrl(value: string) {
+  const url = new URL(value);
+  return url.protocol === 'https:' && url.hostname === 'nobetcieczane.org';
 }
 
 export async function GET(request: NextRequest) {
   const input = request.nextUrl.searchParams.get('city') ?? '';
   const city = turkiyeCities.find(item => slugifyCity(item) === slugifyCity(input));
   if (!city) return NextResponse.json({error: 'Geçerli bir il seçin.'}, {status: 400});
+  if (!rateLimit('duty-pharmacy-read', 120)) return NextResponse.json({error: 'İstek sınırına ulaşıldı. Biraz sonra yeniden deneyin.'}, {status: 429});
 
-  const today = istanbulToday();
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 8000);
   try {
-    const response = await fetch('https://turkpidya.com/wp-json/turkpidya-data/v1/tools/datasets/pharmacies', {
-      headers: {Accept: 'application/json'},
+    const response = await fetch('https://nobetcieczane.org/mcp', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', Accept: 'application/json, text/event-stream'},
+      body: JSON.stringify({
+        jsonrpc: '2.0', id: 1, method: 'tools/call',
+        params: {name: 'nobetci_eczane_listele', arguments: {il: city, limit: 8}},
+      }),
       signal: controller.signal,
       cache: 'no-store',
     });
-    if (!response.ok) return NextResponse.json({error: 'Nöbetçi eczane verisi şu an alınamıyor.'}, {status: 502});
-    const parsed = pharmacyDatasetSchema.safeParse(await response.json());
-    if (!parsed.success) return NextResponse.json({error: 'Veri kaynağından geçerli bir yanıt alınamadı.'}, {status: 502});
+    if (!response.ok) return NextResponse.json({error: 'Nöbetçi eczane listesi şu an alınamıyor.'}, {status: 502});
 
-    const data = parsed.data;
-    const age = (Date.now() - new Date(data.fetched_at).getTime()) / 1000;
-    if (data.status !== 'verified' || data.freshness.state !== 'fresh' || age < 0 || age > data.freshness.max_age_seconds || data.valid_from !== today || data.valid_until !== today) {
-      return NextResponse.json({error: 'Kaynağın verisi bugünün tarihiyle doğrulanmadı; güncel liste gösterilmiyor.'}, {status: 503});
+    const body = await response.text();
+    const eventData = body.split(/\r?\n/).find(line => line.startsWith('data: '))?.slice(6);
+    const envelope: unknown = JSON.parse(eventData ?? body);
+    const envelopeSchema = z.object({
+      result: z.object({isError: z.boolean().optional(), content: z.array(z.object({text: z.string()}))}),
+    });
+    const parsedEnvelope = envelopeSchema.safeParse(envelope);
+    if (!parsedEnvelope.success || parsedEnvelope.data.result.isError) {
+      return NextResponse.json({error: 'Nöbetçi eczane kaynağından geçerli yanıt alınamadı.'}, {status: 502});
     }
+    const content = parsedEnvelope.data.result.content.find(item => item.text.trim().startsWith('{'))?.text;
+    if (!content) return NextResponse.json({error: 'Nöbetçi eczane kaynağında liste bulunamadı.'}, {status: 502});
+    const parsedRoster = rosterSchema.safeParse(JSON.parse(content));
+    if (!parsedRoster.success) return NextResponse.json({error: 'Nöbetçi eczane verisi doğrulanamadı.'}, {status: 502});
 
-    const citySlug = slugifyCity(city);
-    const coverage = data.data.coverage.find(item => item.province_id === citySlug && item.service_date === today);
-    if (!coverage || coverage.status === 'unavailable' || coverage.source_state !== 'current') {
-      return NextResponse.json({error: `${city} için bugün doğrulanabilir nöbet listesi bu kaynakta bulunmuyor.`}, {status: 404});
+    const roster = parsedRoster.data;
+    const now = Date.now();
+    if (roster.nobetGunu !== istanbulToday() || now < Date.parse(roster.gecerlilikBaslangic) || now >= Date.parse(roster.gecerlilikBitis)) {
+      return NextResponse.json({error: 'Kaynağın nöbet listesi bugün için geçerli değil; eski liste gösterilmiyor.'}, {status: 503});
     }
-
-    const pharmacies = data.data.pharmacies
-      .filter(item => item.province_id === citySlug && item.roster_date === today)
-      .slice(0, 8)
-      .map(item => ({
-        id: item.id,
-        name: item.name,
-        phone: normalizePhone(item.phone),
-        address: item.address,
-        district: item.district_id,
-        sourceUrl: item.source_url,
-        verifiedAt: item.verified_at,
-        mapsUrl: item.location ? `https://www.google.com/maps/search/?api=1&query=${item.location.latitude},${item.location.longitude}` : undefined,
-      }));
+    if (!trustedPageUrl(roster.sayfaUrl) || roster.eczaneler.some(item => !trustedPageUrl(item.sayfaUrl))) {
+      return NextResponse.json({error: 'Kaynak bağlantısı doğrulanamadı.'}, {status: 502});
+    }
 
     return NextResponse.json({
-      date: today,
-      fetchedAt: data.fetched_at,
-      pharmacies,
-      coverageMessage: coverage.message,
-      provinceSource: coverage.source_url,
-      attribution: data.attribution.text,
-      attributionUrl: data.attribution.url,
-    }, {headers: {'Cache-Control': 'no-store'}});
+      date: roster.nobetGunu,
+      validityStart: roster.gecerlilikBaslangic,
+      validityEnd: roster.gecerlilikBitis,
+      total: roster.toplamEczane,
+      returned: roster.donenEczane,
+      notice: roster.not,
+      sourceUrl: roster.sayfaUrl,
+      attribution: 'Veri: NobetciEczane.org',
+      attributionUrl: 'https://nobetcieczane.org/',
+      pharmacies: roster.eczaneler.map((item, index) => ({
+        id: `${slugifyCity(city)}-${index}-${slugifyCity(item.ad)}`,
+        name: item.ad,
+        district: item.ilce,
+        address: item.adres,
+        onCall: item.icap ?? false,
+        detailUrl: item.sayfaUrl,
+      })),
+    }, {headers: {'Cache-Control': 'public, max-age=0, s-maxage=60'}});
   } catch {
     return NextResponse.json({error: 'Nöbetçi eczane kaynağına şu an ulaşılamıyor.'}, {status: 502});
   } finally {

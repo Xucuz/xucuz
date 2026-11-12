@@ -417,3 +417,5 @@ footer{background:#f6faf8;border-color:#d9e3e8}
 .duty-attribution,.duty-coverage-note{margin:16px 0 0;color:#64747a;font-size:12px;line-height:1.6}
 .duty-attribution a{color:#087a58;text-decoration:underline}
 @media(max-width:700px){.duty-pharmacies{width:calc(100% - 28px);padding:20px 16px;margin-bottom:36px;border-radius:17px}.duty-pharmacies-heading{align-items:flex-start;gap:11px}.duty-pharmacies-icon{width:42px;height:42px}.duty-pharmacy-list{grid-template-columns:minmax(0,1fr)}}
+
+.duty-pharmacy-card .duty-on-call{margin-top:9px;color:#9b3535;font-size:12px;font-weight:650}
