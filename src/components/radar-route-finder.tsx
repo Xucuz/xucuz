@@ -27,7 +27,7 @@ function distanceLabel(meters: number) {
 }
 
 function createMapUrl(latitude: number, longitude: number) {
-  const latitudeOffset = 0.045;
+  const latitudeOffset = 0.27;
   const longitudeOffset = latitudeOffset / Math.max(Math.cos(latitude * Math.PI / 180), 0.25);
   const west = (longitude - longitudeOffset).toFixed(5);
   const south = (latitude - latitudeOffset).toFixed(5);
@@ -69,7 +69,7 @@ export function RadarRouteFinder(){
         setCameras(result.cameras);
         setStatus(result.cameras.length
           ? `${distanceLabel(result.radiusMeters)} çevrede OpenStreetMap'e kaydedilmiş ${result.cameras.length} sabit kamera kaydı.`
-          : 'OpenStreetMap’te bu 5 km çevrede sabit kamera kaydı bulunamadı. Haritadaki kayıtlar eksik veya güncel olmayabilir.');
+          : 'OpenStreetMap’te bu 30 km çevrede sabit kamera kaydı bulunamadı. Haritadaki kayıtlar eksik veya güncel olmayabilir.');
       } catch (error) {
         setStatus(error instanceof Error ? error.message : 'Yakın çevre sorgulanamadı. Biraz sonra tekrar deneyin.');
       } finally {
@@ -92,7 +92,7 @@ export function RadarRouteFinder(){
     <div className={styles.content}>
       <p className={styles.kicker}>YOLA ÇIKMADAN ÖNCE</p>
       <h2 className={styles.title} id="radar-route-title">Yakınımdaki radarlar</h2>
-      <p className={styles.description}>İl veya ilçe seçmeden, yalnızca sen istediğinde cihaz konumundan 5 km çevredeki harita kayıtlarını ara.</p>
+      <p className={styles.description}>İl veya ilçe seçmeden, yalnızca sen istediğinde cihaz konumundan 30 km çevredeki harita kayıtlarını ara.</p>
     </div>
     <button className={styles.link} type="button" onClick={findNearby} disabled={loading}>
       <Navigation size={17} aria-hidden="true"/>{loading ? 'Konum aranıyor…' : 'Konumumdan bul'}
