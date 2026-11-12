@@ -15,6 +15,7 @@ type ChargingStation = {
   operator: string;
   fee: string;
   sockets: string;
+  website: string | null;
 };
 
 type SearchResult = {radiusMeters: number; stations: ChargingStation[]};
@@ -33,7 +34,7 @@ function distanceLabel(meters: number) {
 }
 
 function createMapUrl(latitude: number, longitude: number) {
-  const latitudeOffset = 0.27;
+  const latitudeOffset = 0.02;
   const longitudeOffset = latitudeOffset / Math.max(Math.cos(latitude * Math.PI / 180), 0.25);
   const west = (longitude - longitudeOffset).toFixed(5);
   const south = (latitude - latitudeOffset).toFixed(5);
@@ -43,7 +44,7 @@ function createMapUrl(latitude: number, longitude: number) {
 }
 
 function feeLabel(fee: string) {
-  return fee === 'no' ? 'Ücretsiz (harita kaydına göre)' : fee === 'yes' ? 'Ücretli; tutar belirtilmemiş' : fee;
+  return fee === 'no' ? 'Şarj hizmeti ücretsiz (harita kaydına göre)' : fee === 'yes' ? 'Ücret var; tutar belirtilmemiş' : fee === 'Ücret bilgisi girilmemiş' ? 'Fiyat bilgisi yok' : `Kaydedilen tarife: ${fee}`;
 }
 
 export function ChargingStationsFinder() {
@@ -75,7 +76,7 @@ export function ChargingStationsFinder() {
       const result = data as SearchResult;
       setStations(result.stations);
       setStatus(result.stations.length
-        ? `${result.stations.length} şarj ünitesi bulundu; arama çevresi ${(result.radiusMeters / 1000).toLocaleString('tr-TR')} km.`
+        ? `${result.stations.length} şarj ünitesi bulundu. Fiyat alanları kaynak kaydındaki biçimde gösterilir.`
         : 'Bu çevrede OpenStreetMap’e kaydedilmiş şarj ünitesi bulunamadı. Harita kayıtları eksik olabilir.');
     } catch (error) {
       setStatus(error instanceof Error ? error.message : 'Şarj üniteleri şu anda alınamıyor.');
@@ -96,7 +97,7 @@ export function ChargingStationsFinder() {
     }
 
     const lastSearch = lastSearchLocation.current;
-    if (!lastSearch || (distanceMeters(lastSearch, next) >= 10000 && now - lastSearchAt.current >= 180000)) {
+    if (!lastSearch || (distanceMeters(lastSearch, next) >= 3000 && now - lastSearchAt.current >= 120000)) {
       void searchStations(next);
     }
     setMapStatus('Canlı harita açık; konum hareket ettikçe harita izni dahilinde güncellenir.');
@@ -159,7 +160,7 @@ export function ChargingStationsFinder() {
     <div className={styles.content}>
       <p className={styles.kicker}>YAKININDAKİ HİZMETLER</p>
       <h2 className={styles.title} id="charging-title">Elektrikli araç şarj üniteleri</h2>
-      <p className={styles.description}>Konum izniyle canlı haritayı aç; yakın istasyonları, işletmecileri ve kaynakta varsa ücret bilgisini gör.</p>
+      <p className={styles.description}>Yol boyunca toplam mesafe sınırı yok; konumun ilerledikçe yakın istasyonlar yenilenir.</p>
     </div>
     <div className={styles.actions}>
       <button className={styles.link} type="button" onClick={tracking ? () => stopLiveMap() : startLiveMap} aria-pressed={tracking}>
@@ -188,7 +189,7 @@ export function ChargingStationsFinder() {
         </li>)}
       </ul>}
     </div>}
-    <p className={styles.note}>İstasyon ve ücret bilgileri OpenStreetMap katkıcılarının kayıtlarından gelir; gerçek zamanlı tarife garantisi yoktur. Ücret belirtilmemişse tahmin edilmez; ödeme öncesi işletmecinin uygulamasından doğrulayın. İstasyon listesi canlı konum açıkken yaklaşık 10 km hareket ve 3 dakika geçince yenilenir.</p>
+    <p className={styles.note}>İstasyonlar konumun çevresinde aranır ve yol boyunca ilerledikçe yenilenir. İşletmeci ve ücret bilgileri OpenStreetMap katkıcılarının kayıtlarından gelir; gerçek zamanlı tarife garantisi yoktur. Kaynak kWh birimini yazmışsa aynen gösterilir; fiyat yoksa tahmin edilmez. Ödeme öncesi işletmecinin uygulamasından doğrulayın. Konum OpenStreetMap haritasına iletilir, Xucuz hesabında saklanmaz.</p>
     <p className={styles.source}>Kaynak: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap katkıcıları</a></p>
   </section>;
 }
