@@ -90,14 +90,17 @@ function parseRows(payload: unknown): Station[] {
 
 function requestEpdkStations(): Promise<Station[]> {
   return new Promise((resolve, reject) => {
-    const body = JSON.stringify({
+    const filters = {
       lisansNo: '*',
       sarjIstasyonuNo: '*',
       markaAdi: '*',
       yesilSarjIstasyonuMu: '*',
       sarjIstasyonuAdi: '*',
       hizmetSekli: '*',
-    });
+    };
+    // EPDK's Swagger describes the required body as a string, although its
+    // example is an object. Send the JSON filter as a JSON string to match it.
+    const body = JSON.stringify(JSON.stringify(filters));
     const request = https.request('https://apigateway.epdk.gov.tr/sarjIstasyonlari/', {
       method: 'GET',
       headers: {
