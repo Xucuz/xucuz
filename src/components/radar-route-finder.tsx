@@ -183,8 +183,8 @@ export function RadarRouteFinder() {
             {station.operator}
           </span>
           <strong className={styles.distance}>{distanceLabel(station.distanceMeters)}</strong>
-          <span>{feeLabel(station.fee)}{station.sockets ? ` · ${station.sockets}` : ''}</span>
-          <a href={`https://www.openstreetmap.org/${station.type}/${station.id}`} target="_blank" rel="noopener noreferrer">Haritada aç</a>
+          <span className={styles.stationFee}>{feeLabel(station.fee)}{station.sockets ? ` · ${station.sockets}` : ''}</span>
+          <a className={styles.stationLink} href={`https://www.openstreetmap.org/${station.type}/${station.id}`} target="_blank" rel="noopener noreferrer">Haritada aç</a>
         </li>)}
       </ul>}
     </div>}
