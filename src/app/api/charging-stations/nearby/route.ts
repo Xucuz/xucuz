@@ -1,3 +1,4 @@
+import https from 'node:https';
 import {NextRequest, NextResponse} from 'next/server';
 import {z} from 'zod';
 import {rateLimit} from '@/lib/security';
@@ -6,21 +7,33 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const radiusMeters = 30000;
+const CACHE_MS = 15 * 60 * 1000;
+const maximumResponseBytes = 20 * 1024 * 1024;
 const requestSchema = z.object({
   latitude: z.number().finite().min(-90).max(90),
   longitude: z.number().finite().min(-180).max(180),
 }).strict();
 
-const overpassSchema = z.object({
-  elements: z.array(z.object({
-    type: z.enum(['node', 'way', 'relation']),
-    id: z.number().int().positive(),
-    lat: z.number().finite().optional(),
-    lon: z.number().finite().optional(),
-    center: z.object({lat: z.number().finite(), lon: z.number().finite()}).optional(),
-    tags: z.record(z.string(), z.string()).optional(),
-  }).passthrough()),
+const epdkSchema = z.object({
+  statusCode: z.number(),
+  columnNames: z.array(z.string()).optional(),
+  numRows: z.number().optional(),
+  result: z.unknown().nullable().optional(),
+  errors: z.array(z.unknown()).optional(),
 });
+
+type Station = {
+  id: string;
+  latitude: number;
+  longitude: number;
+  name: string;
+  operator: string;
+  address: string;
+  sockets: string;
+};
+
+type Cache = {expiresAt: number; stations: Station[]};
+const cacheGlobal = globalThis as typeof globalThis & {__xucuzEpdkStationCache?: Cache; __xucuzEpdkStationFetch?: Promise<Station[]>};
 
 function distanceMeters(lat1: number, lon1: number, lat2: number, lon2: number) {
   const radians = (degrees: number) => degrees * Math.PI / 180;
@@ -31,36 +44,100 @@ function distanceMeters(lat1: number, lon1: number, lat2: number, lon2: number) 
   return 6371000 * 2 * Math.atan2(Math.sqrt(arc), Math.sqrt(1 - arc));
 }
 
-function shortTag(value: string | undefined, fallback: string) {
-  return value?.trim().slice(0, 120) || fallback;
+function asRecord(row: unknown, columns: string[]) {
+  if (Array.isArray(row)) return Object.fromEntries(columns.map((column, index) => [column.toLowerCase(), row[index]]));
+  if (!row || typeof row !== 'object') return {};
+  return Object.fromEntries(Object.entries(row).map(([key, value]) => [key.toLowerCase(), value]));
 }
 
-function feeFromTags(tags: Record<string, string> | undefined) {
-  const charge = tags?.charge?.trim();
-  if (charge) return charge.slice(0, 120);
-  if (tags?.fee === 'no') return 'no';
-  if (tags?.fee === 'yes') return 'yes';
-  return 'Ücret bilgisi girilmemiş';
+function text(value: unknown, fallback = ''): string {
+  if (typeof value === 'string' || typeof value === 'number') return String(value).trim().slice(0, 400);
+  if (Array.isArray(value)) return value.map(entry => text(entry)).filter(Boolean).join(', ').slice(0, 400);
+  if (value && typeof value === 'object') return JSON.stringify(value).slice(0, 400);
+  return fallback;
 }
 
-function safeProviderUrl(value: string | undefined) {
-  if (!value) return null;
-  try {
-    const url = new URL(value);
-    if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password) return null;
-    return url.toString();
-  } catch {
-    return null;
+function coordinate(value: unknown) {
+  const parsed = Number(text(value).replace(',', '.'));
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function parseRows(payload: unknown): Station[] {
+  const envelope = epdkSchema.parse(payload);
+  if (envelope.statusCode !== 200) throw new Error('EPDK istasyon servisi başarılı yanıt vermedi.');
+  const columns = envelope.columnNames ?? [];
+  let result = envelope.result;
+  if (typeof result === 'string') {
+    try { result = JSON.parse(result) as unknown; } catch { throw new Error('EPDK istasyon yanıtı okunamadı.'); }
   }
+  if (!Array.isArray(result)) return [];
+  return result.flatMap(row => {
+    const data = asRecord(row, columns);
+    const latitude = coordinate(data.enlem);
+    const longitude = coordinate(data.boylam);
+    if (latitude === null || longitude === null || Math.abs(latitude) > 90 || Math.abs(longitude) > 180) return [];
+    return [{
+      id: text(data.sarjistasyonuno, `${latitude},${longitude}`),
+      latitude,
+      longitude,
+      name: text(data.sarjistasyonuadi, 'İsimsiz şarj ünitesi'),
+      operator: text(data.marka || data.sarjagiisletmecisiunvan || data.sarjistasyonuisletmecisi, 'İşletmeci bilgisi belirtilmemiş'),
+      address: text(data.adres),
+      sockets: text(data.soketler),
+    }];
+  });
 }
 
-function socketsFromTags(tags: Record<string, string> | undefined) {
-  if (!tags) return '';
-  const sockets = Object.entries(tags)
-    .filter(([key, value]) => key.startsWith('socket:') && value !== 'no' && value !== '0')
-    .map(([key, value]) => `${key.slice('socket:'.length)} × ${value}`)
-    .slice(0, 4);
-  return sockets.join(', ');
+function requestEpdkStations(): Promise<Station[]> {
+  return new Promise((resolve, reject) => {
+    const body = JSON.stringify({
+      lisansNo: '*',
+      sarjIstasyonuNo: '*',
+      markaAdi: '*',
+      yesilSarjIstasyonuMu: '*',
+      sarjIstasyonuAdi: '*',
+      hizmetSekli: '*',
+    });
+    const request = https.request('https://apigateway.epdk.gov.tr/sarjIstasyonlari/', {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(body),
+        'User-Agent': 'Xucuz/1.0 (https://www.xucuz.com)',
+      },
+      timeout: 12000,
+    }, response => {
+      const chunks: Buffer[] = [];
+      let size = 0;
+      response.on('data', (chunk: Buffer) => {
+        size += chunk.length;
+        if (size > maximumResponseBytes) request.destroy(new Error('EPDK yanıt boyutu sınırı aşıldı.'));
+        else chunks.push(chunk);
+      });
+      response.on('end', () => {
+        if (response.statusCode === 429) return reject(new Error('EPDK istek sınırına ulaşıldı.'));
+        if (!response.statusCode || response.statusCode < 200 || response.statusCode >= 300) return reject(new Error('EPDK istasyon servisi şu anda yanıt vermiyor.'));
+        try { resolve(parseRows(JSON.parse(Buffer.concat(chunks).toString('utf8')) as unknown)); }
+        catch (error) { reject(error); }
+      });
+    });
+    request.on('timeout', () => request.destroy(new Error('EPDK istasyon servisi zaman aşımına uğradı.')));
+    request.on('error', reject);
+    request.end(body);
+  });
+}
+
+async function allStations() {
+  const current = cacheGlobal.__xucuzEpdkStationCache;
+  if (current && current.expiresAt > Date.now()) return current.stations;
+  if (cacheGlobal.__xucuzEpdkStationFetch) return cacheGlobal.__xucuzEpdkStationFetch;
+  const fetchPromise = requestEpdkStations().then(stations => {
+    cacheGlobal.__xucuzEpdkStationCache = {stations, expiresAt: Date.now() + CACHE_MS};
+    return stations;
+  }).finally(() => { cacheGlobal.__xucuzEpdkStationFetch = undefined; });
+  cacheGlobal.__xucuzEpdkStationFetch = fetchPromise;
+  return fetchPromise;
 }
 
 export async function POST(request: NextRequest) {
@@ -72,82 +149,34 @@ export async function POST(request: NextRequest) {
   }
 
   let body: unknown;
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({error: 'Konum isteği okunamadı.'}, {status: 400});
-  }
+  try { body = await request.json(); }
+  catch { return NextResponse.json({error: 'Konum isteği okunamadı.'}, {status: 400}); }
   const input = requestSchema.safeParse(body);
   if (!input.success) return NextResponse.json({error: 'Geçerli bir konum alınamadı.'}, {status: 400});
 
-  const {latitude, longitude} = input.data;
-  const query = `[out:json][timeout:10];nwr(around:${radiusMeters},${latitude},${longitude})["amenity"="charging_station"];out center tags 100;`;
-  let elements: z.infer<typeof overpassSchema>['elements'] | null = null;
   try {
-    // These are worldwide Overpass instances. The former overpass.osm.ch
-    // endpoint contains Switzerland-only data and silently returned no
-    // Turkish stations with HTTP 200.
-    for (const endpoint of ['https://overpass-api.de/api/interpreter', 'https://z.overpass-api.de/api/interpreter']) {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 11000);
-      try {
-        const response = await fetch(endpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-            Accept: 'application/json',
-            'User-Agent': 'Xucuz/1.0 (https://www.xucuz.com)',
-          },
-          body: new URLSearchParams({data: query}),
-          signal: controller.signal,
-          cache: 'no-store',
-        });
-        if (!response.ok) continue;
-        const parsed = overpassSchema.safeParse(await response.json());
-        if (!parsed.success) continue;
-        elements = parsed.data.elements;
-        break;
-      } catch {
-        // Try the second global instance if the first is busy or unreachable.
-      } finally {
-        clearTimeout(timeout);
-      }
-    }
-    if (!elements) return NextResponse.json({error: 'Küresel harita kaynakları şu anda yanıt vermiyor. Biraz sonra tekrar deneyin.'}, {status: 503});
-
-    const stations = elements
-      .filter(element => element.tags?.amenity === 'charging_station')
-      .flatMap(element => {
-        const lat = element.lat ?? element.center?.lat;
-        const lon = element.lon ?? element.center?.lon;
-        if (lat === undefined || lon === undefined) return [];
-        const distance = distanceMeters(latitude, longitude, lat, lon);
-        if (distance > radiusMeters) return [];
-        const tags = element.tags;
-        return [{
-          id: element.id,
-          type: element.type,
-          latitude: lat,
-          longitude: lon,
-          distanceMeters: Math.round(distance),
-          name: shortTag(tags?.name, 'İsimsiz şarj ünitesi'),
-          operator: shortTag(tags?.operator || tags?.brand || tags?.network, 'İşletmeci bilgisi haritada belirtilmemiş'),
-          fee: feeFromTags(tags),
-          sockets: socketsFromTags(tags),
-          website: safeProviderUrl(tags?.website || tags?.contact_website),
-        }];
-      })
-      .sort((a, b) => a.distanceMeters - b.distanceMeters)
-      .slice(0, 100);
-
+    const stations = await allStations();
+    const nearby = stations.flatMap(station => {
+      const distance = distanceMeters(input.data.latitude, input.data.longitude, station.latitude, station.longitude);
+      if (distance > radiusMeters) return [];
+      return [{...station, distanceMeters: Math.round(distance), fee: 'EPDK istasyon listesinde tarife bilgisi sunulmuyor.', website: null, type: 'epdk' as const}];
+    }).sort((a, b) => a.distanceMeters - b.distanceMeters).slice(0, 100);
     return NextResponse.json({
       radiusMeters,
-      stations,
-      source: 'OpenStreetMap contributors',
-      attributionUrl: 'https://www.openstreetmap.org/copyright',
+      stations: nearby,
+      source: 'EPDK Şarj İstasyonları Listesi',
+      attributionUrl: 'https://lisans.epdk.gov.tr/epvys-web/faces/pages/lisans/elektrikSarjAgiIsletmeci/sarjIstasyonuOzetSorgula.xhtml',
       checkedAt: new Date().toISOString(),
     }, {headers: {'Cache-Control': 'private, no-store'}});
   } catch {
-    return NextResponse.json({error: 'Harita kaynağına şu anda ulaşılamıyor. Biraz sonra tekrar deneyin.'}, {status: 503});
+    const cached = cacheGlobal.__xucuzEpdkStationCache;
+    if (cached) {
+      const nearby = cached.stations.flatMap(station => {
+        const distance = distanceMeters(input.data.latitude, input.data.longitude, station.latitude, station.longitude);
+        return distance <= radiusMeters ? [{...station, distanceMeters: Math.round(distance), fee: 'EPDK istasyon listesinde tarife bilgisi sunulmuyor.', website: null, type: 'epdk' as const}] : [];
+      }).sort((a, b) => a.distanceMeters - b.distanceMeters).slice(0, 100);
+      return NextResponse.json({radiusMeters, stations: nearby, source: 'EPDK Şarj İstasyonları Listesi', checkedAt: new Date().toISOString(), stale: true}, {headers: {'Cache-Control': 'private, no-store'}});
+    }
+    return NextResponse.json({error: 'EPDK istasyon verisi şu anda alınamıyor; sahte kayıt gösterilmedi.'}, {status: 503});
   }
 }

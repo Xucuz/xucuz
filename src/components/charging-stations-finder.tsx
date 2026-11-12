@@ -7,13 +7,14 @@ import {ChargingStationsMap} from './charging-stations-map';
 
 type Coordinates = {latitude: number; longitude: number};
 export type ChargingStation = {
-  id: number;
-  type: 'node' | 'way' | 'relation';
+  id: string;
+  type: 'epdk';
   latitude: number;
   longitude: number;
   distanceMeters: number;
   name: string;
   operator: string;
+  address: string;
   fee: string;
   sockets: string;
   website: string | null;
@@ -35,7 +36,7 @@ function distanceLabel(meters: number) {
 }
 
 function feeLabel(fee: string) {
-  return fee === 'no' ? 'Harita kaydı: ücret alınmıyor' : fee === 'yes' ? 'Ücret var; tutar kaydı yok' : fee === 'Ücret bilgisi girilmemiş' ? 'Fiyat bilgisi yok' : `Tarife kaydı: ${fee}`;
+  return fee.startsWith('EPDK') ? fee : fee === 'no' ? 'Harita kaydı: ücret alınmıyor' : fee === 'yes' ? 'Ücret var; tutar kaydı yok' : fee === 'Ücret bilgisi girilmemiş' ? 'Fiyat bilgisi yok' : `Tarife kaydı: ${fee}`;
 }
 
 export function ChargingStationsFinder() {
@@ -67,8 +68,8 @@ export function ChargingStationsFinder() {
       const result = data as SearchResult;
       setStations(result.stations);
       setStatus(result.stations.length
-        ? `${result.stations.length} şarj ünitesi bulundu. Fiyat alanları kaynak kaydındaki biçimde gösterilir.`
-        : 'Bu çevrede OpenStreetMap’e kaydedilmiş şarj ünitesi bulunamadı. Harita kayıtları eksik olabilir.');
+        ? `${result.stations.length} EPDK kayıtlı şarj ünitesi bulundu. EPDK bu listede tarife fiyatı sağlamıyor.`
+        : 'EPDK kayıtlarında bu çevre için konum bilgili şarj ünitesi bulunamadı.');
     } catch (error) {
       setStatus(error instanceof Error ? error.message : 'Şarj üniteleri şu anda alınamıyor.');
     } finally {
@@ -172,15 +173,15 @@ export function ChargingStationsFinder() {
           <span className={styles.cameraIcon} aria-hidden="true"><MapPin size={17}/></span>
           <span className={styles.cameraLabel}>
             <strong>{station.name}</strong><br/>
-            {station.operator}{station.website && <> · <a className={styles.stationWebsite} href={station.website} target="_blank" rel="noopener noreferrer">Sağlayıcı bilgisi</a></>}
+          {station.operator}{station.address && <> · {station.address}</>}{station.website && <> · <a className={styles.stationWebsite} href={station.website} target="_blank" rel="noopener noreferrer">Sağlayıcı bilgisi</a></>}
           </span>
           <strong className={styles.distance}>{distanceLabel(station.distanceMeters)}</strong>
           <span className={styles.stationFee}>{feeLabel(station.fee)}{station.sockets ? ` · ${station.sockets}` : ''}</span>
-          <a className={styles.stationLink} href={`https://www.openstreetmap.org/${station.type}/${station.id}`} target="_blank" rel="noopener noreferrer">Haritada aç</a>
+          <a className={styles.stationLink} href={`https://www.openstreetmap.org/?mlat=${station.latitude}&mlon=${station.longitude}#map=16/${station.latitude}/${station.longitude}`} target="_blank" rel="noopener noreferrer">Haritada aç</a>
         </li>)}
       </ul>}
     </div>}
-    <p className={styles.note}>İstasyonlar konumun çevresinde aranır ve yol boyunca ilerledikçe yenilenir. İşletmeci ve ücret bilgileri OpenStreetMap katkıcılarının kayıtlarından gelir; gerçek zamanlı tarife garantisi yoktur. Kaynak kWh birimini yazmışsa aynen gösterilir; fiyat yoksa tahmin edilmez. Ödeme öncesi işletmecinin uygulamasından doğrulayın. Konum OpenStreetMap haritasına iletilir, Xucuz hesabında saklanmaz.</p>
-    <p className={styles.source}>Kaynak: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap katkıcıları</a></p>
+    <p className={styles.note}>İstasyon konumları ve işletmeci bilgileri EPDK’nın kamuya açık istasyon listesinden gelir; veri 15 dakikada bir önbellekten yenilenir. EPDK bu serviste güncel tarife veya anlık müsaitlik sunmadığı için fiyat uydurulmaz. Ödeme öncesi işletmecinin uygulamasından doğrulayın. Konum EPDK araması ve OpenStreetMap haritası için kullanılır; Xucuz hesabınızda saklanmaz.</p>
+    <p className={styles.source}>Kaynak: <a href="https://www.epdk.gov.tr/Detay/Icerik/3-34680/enerji-donusum-piyasasi-web-servisleri" target="_blank" rel="noopener noreferrer">EPDK Şarj İstasyonları Listesi</a> · <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap</a></p>
   </section>;
 }
