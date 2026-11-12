@@ -140,8 +140,12 @@ export function RadarRouteFinder() {
     }
     setLoading(true);
     navigator.geolocation.getCurrentPosition(position => {
-      acceptPosition(position);
-      void searchStations({latitude: position.coords.latitude, longitude: position.coords.longitude});
+      const coords = {latitude: position.coords.latitude, longitude: position.coords.longitude};
+      lastMapLocation.current = coords;
+      lastMapUpdateAt.current = Date.now();
+      setLocation(coords);
+      setMapStatus('Konum haritada gösteriliyor.');
+      void searchStations(coords);
     }, error => {
       setLoading(false);
       setStatus(error.code === error.PERMISSION_DENIED
