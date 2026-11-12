@@ -65,7 +65,7 @@ export function LiveQA(){
   setVoiceNotice('');setMessages(current=>[...current,{id:nextId.current++,from:'visitor',reply:{text:question}}]);setInput('');setBusy(true);
   let reply:QaReply;
   try{
-   const response=await fetch('/api/qa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question,language}),signal:AbortSignal.timeout(15000)});
+   const response=await fetch('/api/qa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question,language,history:messages.filter(message=>message.id!==0).slice(-8).map(message=>({role:message.from==='visitor'?'user':'assistant',content:message.reply.text.slice(0,1200)}))}),signal:AbortSignal.timeout(15000)});
    const body=await response.json() as QaReply|{error:string};
    reply=response.ok&&'text'in body?body:{text:'Şu an yanıt veremedim. Biraz sonra yeniden deneyebilir ya da İletişim sayfasına yazabilirsin.',href:'/iletisim',label:'İletişim sayfası'};
   }catch{reply={text:'Bağlantı kurulamadı veya yanıt zaman aşımına uğradı. Biraz sonra yeniden deneyebilirsin.',href:'/iletisim',label:'İletişim sayfası'};}
