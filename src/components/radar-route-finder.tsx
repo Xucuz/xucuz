@@ -78,7 +78,7 @@ export function RadarRouteFinder(){
     <div className={styles.icon} aria-hidden="true"><Car size={24}/></div>
     <div className={styles.content}>
       <p className={styles.kicker}>YOLA ÇIKMADAN ÖNCE</p>
-      <h2 className={styles.title} id="radar-route-title">Yakınımdaki sabit kameralar</h2>
+      <h2 className={styles.title} id="radar-route-title">Yakınımdaki radarlar</h2>
       <p className={styles.description}>İl veya ilçe seçmeden, yalnızca sen istediğinde cihaz konumundan 5 km çevredeki harita kayıtlarını ara.</p>
     </div>
     <button className={styles.link} type="button" onClick={findNearby} disabled={loading}>
