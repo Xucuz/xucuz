@@ -8,10 +8,12 @@ import {ProductSearch} from './product-search';
 import {CommunityPriceShowcase} from './community-price-showcase';
 import {products} from '@/lib/products';
 import {OnDutyPharmacies} from './on-duty-pharmacies';
+import {RadarRouteFinder} from './radar-route-finder';
 
 export function MarketplaceHome(){const {t}=useLanguage();return <div className="community-home">
  <div className="community-topline"><span>{t('system')}</span><LanguageSelect/></div>
  <OnDutyPharmacies/>
+ <RadarRouteFinder/>
  <section className="community-hero">
   <p className="community-kicker">{t('homeKicker')}</p>
   <h1>{t('intro')}</h1>
