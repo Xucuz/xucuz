@@ -40,6 +40,12 @@
   font-size: 13px;
   line-height: 1.65;
 }
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 170px;
+}
 .link {
   display: inline-flex;
   align-items: center;
@@ -126,7 +132,8 @@
   .icon { width: 42px; height: 42px; border-radius: 13px; }
   .title { font-size: 22px; }
   .description { font-size: 12px; }
-  .link { grid-column: 1 / -1; width: 100%; min-height: 48px; }
+  .actions { grid-column: 1 / -1; width: 100%; min-width: 0; }
+  .link { width: 100%; min-height: 48px; }
   .map,.results,.note { grid-column: 1 / -1; margin: 0; }
   .mapFrame { height: min(72vw, 320px); }
   .cameraItem { grid-template-columns: auto minmax(0,1fr) auto; }
