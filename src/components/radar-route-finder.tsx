@@ -58,21 +58,6 @@ export function RadarRouteFinder(){
   const lastMapUpdate = useRef<Coordinates | null>(null);
   const lastMapUpdateAt = useRef(0);
 
-  function updateLocation(position: GeolocationPosition) {
-    const next = {
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude,
-    };
-    setLocation(next);
-    const now = Date.now();
-    const movedEnough = !lastMapUpdate.current || distanceMeters(lastMapUpdate.current, next) >= 100;
-    const waitedEnough = now - lastMapUpdateAt.current >= 10000;
-    if (!lastMapUpdate.current || (movedEnough && waitedEnough)) {
-      lastMapUpdate.current = next;
-      lastMapUpdateAt.current = now;
-    }
-  }
-
   function stopLiveMap(message = 'Canlı konum haritası durduruldu.') {
     if (watchId.current !== null && navigator.geolocation) {
       navigator.geolocation.clearWatch(watchId.current);
