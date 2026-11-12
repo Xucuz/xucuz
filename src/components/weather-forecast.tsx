@@ -8,9 +8,9 @@ type WeatherDay = {date: string; min: number; max: number; symbol: string; preci
 type Forecast = {days: WeatherDay[]; attribution: string; attributionUrl: string};
 
 const copy = {
-  tr: {title:'Yakınındaki hava durumu',description:'Konumuna göre 5 günlük tahmini gör.',locate:'Konumuma göre göster',loading:'Konum alınıyor…',permission:'Hava durumunu görmek için konum izni ver veya tarayıcı ayarlarını kontrol et.',error:'Hava durumu şu anda alınamıyor. Biraz sonra tekrar dene.',fiveDays:'5 gün',month:'1 ay',monthlyTitle:'Bir aylık görünüm',monthlyBody:'Ücretsiz kaynak güvenilir 30 günlük günlük tahmin sunmuyor. Yanıltıcı bir tahmin göstermek yerine yalnızca 5 günlük tahmini paylaşıyoruz.',rain:'Yağış',today:'Bugün'},
-  en: {title:'Weather near you',description:'See a 5-day forecast for your location.',locate:'Use my location',loading:'Getting location…',permission:'Allow location access to see the weather, or check your browser settings.',error:'Weather is unavailable right now. Please try again later.',fiveDays:'5 days',month:'1 month',monthlyTitle:'Monthly outlook',monthlyBody:'The free source does not provide a reliable 30-day daily forecast. We show the 5-day forecast instead of presenting an uncertain prediction as fact.',rain:'Precipitation',today:'Today'},
-  ru: {title:'Погода рядом с вами',description:'Прогноз на 5 дней для вашего местоположения.',locate:'Показать по моему местоположению',loading:'Определяем местоположение…',permission:'Разрешите доступ к местоположению, чтобы увидеть погоду, или проверьте настройки браузера.',error:'Сейчас прогноз недоступен. Попробуйте позже.',fiveDays:'5 дней',month:'1 месяц',monthlyTitle:'Прогноз на месяц',monthlyBody:'Бесплатный источник не предоставляет надёжный ежедневный прогноз на 30 дней. Мы показываем прогноз на 5 дней, не выдавая неопределённость за точный прогноз.',rain:'Осадки',today:'Сегодня'},
+  tr: {title:'Yakınındaki hava durumu',description:'Konumuna göre 5 günlük tahmini gör.',locate:'Konumuma göre göster',loading:'Konum alınıyor…',permission:'Hava durumunu görmek için konum izni ver veya tarayıcı ayarlarını kontrol et.',error:'Hava durumu şu anda alınamıyor. Biraz sonra tekrar dene.',rain:'Yağış',today:'Bugün'},
+  en: {title:'Weather near you',description:'See a 5-day forecast for your location.',locate:'Use my location',loading:'Getting location…',permission:'Allow location access to see the weather, or check your browser settings.',error:'Weather is unavailable right now. Please try again later.',rain:'Precipitation',today:'Today'},
+  ru: {title:'Погода рядом с вами',description:'Прогноз на 5 дней для вашего местоположения.',locate:'Показать по моему местоположению',loading:'Определяем местоположение…',permission:'Разрешите доступ к местоположению, чтобы увидеть погоду, или проверьте настройки браузера.',error:'Сейчас прогноз недоступен. Попробуйте позже.',rain:'Осадки',today:'Сегодня'},
 } as const;
 
 function WeatherIcon({code}: {code: string}) {
@@ -29,7 +29,6 @@ export function WeatherForecast() {
   const {language} = useLanguage();
   const t = copy[language];
   const [forecast, setForecast] = useState<Forecast | null>(null);
-  const [tab, setTab] = useState<'days'|'month'>('days');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -46,7 +45,6 @@ export function WeatherForecast() {
         const data = await response.json() as Forecast & {error?: string};
         if (!response.ok) throw new Error(data.error || t.error);
         setForecast(data);
-        setTab('days');
       } catch {
         setError(t.error);
       } finally {
@@ -70,18 +68,14 @@ export function WeatherForecast() {
     </div>
     {error && <p className="weather-forecast-message" role="status">{error}</p>}
     {forecast && <>
-      <div className="weather-forecast-tabs" role="tablist" aria-label={t.title}>
-        <button type="button" role="tab" aria-selected={tab==='days'} onClick={()=>setTab('days')}>{t.fiveDays}</button>
-        <button type="button" role="tab" aria-selected={tab==='month'} onClick={()=>setTab('month')}>{t.month}</button>
-      </div>
-      {tab==='days' ? <div className="weather-forecast-days">
+      <div className="weather-forecast-days">
         {forecast.days.map((day,index)=><article className="weather-forecast-day" key={day.date}>
           <span>{index===0?t.today:new Date(`${day.date}T12:00:00+03:00`).toLocaleDateString(language,{weekday:'short',timeZone:'Europe/Istanbul'})}</span>
           <WeatherIcon code={day.symbol}/>
           <strong>{Math.round(day.max)}° <i>{Math.round(day.min)}°</i></strong>
           {day.precipitation>0.2&&<small>{t.rain} {day.precipitation.toFixed(1)} mm</small>}
         </article>)}
-      </div> : <div className="weather-forecast-monthly" role="tabpanel"><strong>{t.monthlyTitle}</strong><p>{t.monthlyBody}</p></div>}
+      </div>
       <p className="weather-forecast-source">{forecast.attribution}. <a href={forecast.attributionUrl} target="_blank" rel="noreferrer">{language==='ru'?'Условия использования':language==='en'?'Terms of service':'Kullanım koşulları'}</a></p>
     </>}
   </section>;
