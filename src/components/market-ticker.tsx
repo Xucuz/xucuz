@@ -10,11 +10,27 @@ async function getRates():Promise<Rates|null>{
   return data as Rates;
  }catch{return null;}
 }
+async function getGold():Promise<number|null>{
+ const key=process.env.METALS_DEV_API_KEY;
+ if(!key)return null;
+ try{
+  const url=new URL('https://api.metals.dev/v1/latest');
+  url.searchParams.set('api_key',key);
+  url.searchParams.set('currency','TRY');
+  url.searchParams.set('unit','g');
+  const response=await fetch(url.toString(),{next:{revalidate:43200}});
+  if(!response.ok)return null;
+  const data:unknown=await response.json();
+  if(!data||typeof data!=='object'||!('metals'in data))return null;
+  const gold=(data as {metals?:{gold?:unknown}}).metals?.gold;
+  return typeof gold==='number'&&Number.isFinite(gold)&&gold>0?gold:null;
+ }catch{return null;}
+}
 export async function MarketTicker(){
- const data=await getRates();
+ const [data,gold]=await Promise.all([getRates(),getGold()]);
  const usd=data?data.rates.TRY/data.rates.USD:null;
  const eur=data?.rates.TRY;
  const fmt=(n:number)=>new Intl.NumberFormat('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:4}).format(n);
- const items=[usd?`USD/TRY \${fmt(usd)} ₺`:'USD/TRY: veri alınamadı',eur?`EUR/TRY \${fmt(eur)} ₺`:'EUR/TRY: veri alınamadı','Gram altın: lisanslı veri kaynağı bekleniyor'];
- return <aside className="market-ticker" aria-label="Döviz ve altın bilgi bandı"><span className="market-ticker-label">PİYASALAR</span><div className="market-ticker-window"><div className="market-ticker-track">{[0,1].map(copy=><span key={copy} className="market-ticker-group" aria-hidden={copy===1}>{items.map((item,i)=><span key={i}>{item}</span>)}<span>{data?`Referans tarih: \${data.date}`:'Güncel referans verisi alınamadı'}</span></span>)}</div></div><a className="market-ticker-source" href="https://frankfurter.dev/" target="_blank" rel="noopener noreferrer">Kaynak: Frankfurter · Referans kur</a></aside>;
+ const items=[usd?`USD/TRY ${fmt(usd)} ₺`:'USD/TRY: veri alınamadı',eur?`EUR/TRY ${fmt(eur)} ₺`:'EUR/TRY: veri alınamadı',gold?'Gram altın spot '+fmt(gold)+' ₺':'Gram altın: veri bekleniyor'];
+ return <aside className="market-ticker" aria-label="Döviz ve altın bilgi bandı"><span className="market-ticker-label">PİYASALAR</span><div className="market-ticker-window"><div className="market-ticker-track">{[0,1].map(copy=><span key={copy} className="market-ticker-group" aria-hidden={copy===1}>{items.map((item,i)=><span key={i}>{item}</span>)}<span>{data?`Referans tarih: ${data.date}`:'Güncel referans verisi alınamadı'}</span></span>)}</div></div><a className="market-ticker-source" href="https://frankfurter.dev/" target="_blank" rel="noopener noreferrer">Döviz: Frankfurter · Referans kur</a></aside>;
 }
