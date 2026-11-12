@@ -11,6 +11,7 @@ import {OnDutyPharmacies} from './on-duty-pharmacies';
 
 export function MarketplaceHome(){const {t}=useLanguage();return <div className="community-home">
  <div className="community-topline"><span>{t('system')}</span><LanguageSelect/></div>
+ <OnDutyPharmacies/>
  <section className="community-hero">
   <p className="community-kicker">{t('homeKicker')}</p>
   <h1>{t('intro')}</h1>
@@ -27,5 +28,4 @@ export function MarketplaceHome(){const {t}=useLanguage();return <div className=
  <section className="community-contribute" id="fiyat-bildir"><div className="community-contribute-icon"><Camera size={22}/></div><div><p className="community-kicker">{t('contributeKicker')}</p><h2>{t('contributeTitle')}</h2><p>{t('contributeBody')}</p></div><Link href="/fiyat-ekle" className="community-cta">{t('addPrice')}<ArrowRight size={17}/></Link></section>
  <section className="community-how" aria-label={t('howTitle')}><article><b>01</b><h3>{t('howFind')}</h3><p>{t('howFindBody')}</p></article><article><b>02</b><h3>{t('howProof')}</h3><p>{t('howProofBody')}</p></article><article><b>03</b><h3>{t('howCompare')}</h3><p>{t('howCompareBody')}</p></article></section>
  <section className="community-guide-search"><div><p className="community-kicker">ÜRÜNÜ TANIMLARKEN YARDIM</p><h2>Ürün rehberini de bul.</h2><p>Fiyat gözlemi yoksa ürün özelliklerini ve alışveriş kontrol listesini incele.</p></div><ProductSearch total={products.length}/></section>
- <OnDutyPharmacies/>
 </div>;}
