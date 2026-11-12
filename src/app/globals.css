@@ -419,3 +419,16 @@ footer{background:#f6faf8;border-color:#d9e3e8}
 @media(max-width:700px){.duty-pharmacies{width:calc(100% - 28px);padding:20px 16px;margin-bottom:36px;border-radius:17px}.duty-pharmacies-heading{align-items:flex-start;gap:11px}.duty-pharmacies-icon{width:42px;height:42px}.duty-pharmacy-list{grid-template-columns:minmax(0,1fr)}}
 
 .duty-pharmacy-card .duty-on-call{margin-top:9px;color:#9b3535;font-size:12px;font-weight:650}
+
+/* Market ticker: motion is disabled for reduced-motion preferences. */
+.market-ticker{display:flex;align-items:center;gap:14px;background:#171717;color:#fff;padding:7px 16px;font-size:12px;min-height:36px;overflow:hidden}
+.market-ticker-label{font-weight:800;letter-spacing:.07em;color:#f5cc44;flex-shrink:0}
+.market-ticker-window{overflow:hidden;flex:1;min-width:0}
+.market-ticker-track{display:flex;width:max-content;animation:market-scroll 32s linear infinite}
+.market-ticker-window:hover .market-ticker-track,.market-ticker-window:focus-within .market-ticker-track{animation-play-state:paused}
+.market-ticker-group{display:flex;align-items:center;gap:32px;white-space:nowrap;padding-right:32px}
+.market-ticker-group span:before{content:'•';color:#f5cc44;margin-right:12px}
+.market-ticker-source{font-size:10px;text-decoration:underline;color:#ddd;white-space:nowrap}
+@keyframes market-scroll{to{transform:translateX(-50%)}}
+@media(max-width:640px){.market-ticker{gap:8px;padding:7px 9px}.market-ticker-source{font-size:9px;max-width:94px;white-space:normal;line-height:1.2}}
+@media(prefers-reduced-motion:reduce){.market-ticker-track{animation:none}.market-ticker-window{overflow-x:auto}}
