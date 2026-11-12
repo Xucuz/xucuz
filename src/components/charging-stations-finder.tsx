@@ -44,7 +44,7 @@ function createMapUrl(latitude: number, longitude: number) {
 }
 
 function feeLabel(fee: string) {
-  return fee === 'no' ? 'Şarj hizmeti ücretsiz (harita kaydına göre)' : fee === 'yes' ? 'Ücret var; tutar belirtilmemiş' : fee === 'Ücret bilgisi girilmemiş' ? 'Fiyat bilgisi yok' : `Kaydedilen tarife: ${fee}`;
+  return fee === 'no' ? 'Harita kaydı: ücret alınmıyor' : fee === 'yes' ? 'Ücret var; tutar kaydı yok' : fee === 'Ücret bilgisi girilmemiş' ? 'Fiyat bilgisi yok' : `Tarife kaydı: ${fee}`;
 }
 
 export function ChargingStationsFinder() {
@@ -181,7 +181,7 @@ export function ChargingStationsFinder() {
           <span className={styles.cameraIcon} aria-hidden="true"><MapPin size={17}/></span>
           <span className={styles.cameraLabel}>
             <strong>{station.name}</strong><br/>
-            {station.operator}
+            {station.operator}{station.website && <> · <a className={styles.stationWebsite} href={station.website} target="_blank" rel="noopener noreferrer">Sağlayıcı bilgisi</a></>}
           </span>
           <strong className={styles.distance}>{distanceLabel(station.distanceMeters)}</strong>
           <span className={styles.stationFee}>{feeLabel(station.fee)}{station.sockets ? ` · ${station.sockets}` : ''}</span>
