@@ -103,7 +103,6 @@ export function RadarRouteFinder(){
         title="Konumunuzun çevre haritası"
         src={createMapUrl(location.latitude, location.longitude)}
         loading="lazy"
-        referrerPolicy="no-referrer"
       />
       <p className={styles.mapCaption}>Harita konumunuzu gösterir. Radar kayıtları varsa aşağıdaki sonuçlarda görünür.</p>
     </div>}
