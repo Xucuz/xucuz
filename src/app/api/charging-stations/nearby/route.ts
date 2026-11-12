@@ -43,6 +43,17 @@ function feeFromTags(tags: Record<string, string> | undefined) {
   return 'Ücret bilgisi girilmemiş';
 }
 
+function safeProviderUrl(value: string | undefined) {
+  if (!value) return null;
+  try {
+    const url = new URL(value);
+    if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password) return null;
+    return url.toString();
+  } catch {
+    return null;
+  }
+}
+
 function socketsFromTags(tags: Record<string, string> | undefined) {
   if (!tags) return '';
   const sockets = Object.entries(tags)
@@ -112,6 +123,7 @@ export async function POST(request: NextRequest) {
           operator: shortTag(tags?.operator || tags?.brand || tags?.network, 'İşletmeci bilgisi haritada belirtilmemiş'),
           fee: feeFromTags(tags),
           sockets: socketsFromTags(tags),
+          website: safeProviderUrl(tags?.website || tags?.contact_website),
         }];
       })
       .sort((a, b) => a.distanceMeters - b.distanceMeters)
