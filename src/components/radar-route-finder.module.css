@@ -61,6 +61,28 @@
 .link:hover:not(:disabled) { background: #066c4d; }
 .link:focus-visible { outline: 3px solid #102a43; outline-offset: 3px; }
 .link:disabled { cursor: wait; opacity: .7; }
+.map {
+  grid-column: 2 / -1;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #d9e3e8;
+  border-radius: 12px;
+  background: #f4f7f8;
+}
+.mapFrame {
+  display: block;
+  width: 100%;
+  height: clamp(250px, 34vw, 390px);
+  border: 0;
+}
+.mapCaption {
+  margin: 0;
+  padding: 8px 11px;
+  color: #526575;
+  background: #fff;
+  font-size: 11px;
+  line-height: 1.5;
+}
 .results {
   grid-column: 2 / -1;
   min-width: 0;
@@ -105,7 +127,8 @@
   .title { font-size: 22px; }
   .description { font-size: 12px; }
   .link { grid-column: 1 / -1; width: 100%; min-height: 48px; }
-  .results,.note { grid-column: 1 / -1; margin: 0; }
+  .map,.results,.note { grid-column: 1 / -1; margin: 0; }
+  .mapFrame { height: min(72vw, 320px); }
   .cameraItem { grid-template-columns: auto minmax(0,1fr) auto; }
   .cameraItem a { grid-column: 2 / -1; }
   .source { right: 15px; bottom: 10px; left: 15px; display: flex; flex-wrap: wrap; gap: 5px; }

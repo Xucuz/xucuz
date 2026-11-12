@@ -26,10 +26,21 @@ function distanceLabel(meters: number) {
   return meters < 1000 ? `${Math.round(meters)} m` : `${(meters / 1000).toLocaleString('tr-TR', {maximumFractionDigits: 1})} km`;
 }
 
+function createMapUrl(latitude: number, longitude: number) {
+  const latitudeOffset = 0.045;
+  const longitudeOffset = latitudeOffset / Math.max(Math.cos(latitude * Math.PI / 180), 0.25);
+  const west = (longitude - longitudeOffset).toFixed(5);
+  const south = (latitude - latitudeOffset).toFixed(5);
+  const east = (longitude + longitudeOffset).toFixed(5);
+  const north = (latitude + latitudeOffset).toFixed(5);
+  return `https://www.openstreetmap.org/export/embed.html?bbox=${west}%2C${south}%2C${east}%2C${north}&layer=mapnik&marker=${latitude.toFixed(5)}%2C${longitude.toFixed(5)}`;
+}
+
 export function RadarRouteFinder(){
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState('');
   const [cameras, setCameras] = useState<NearbyCamera[] | null>(null);
+  const [location, setLocation] = useState<{latitude: number; longitude: number} | null>(null);
 
   async function findNearby() {
     setStatus('');
@@ -40,14 +51,16 @@ export function RadarRouteFinder(){
     }
     setLoading(true);
     navigator.geolocation.getCurrentPosition(async position => {
+      const currentLocation = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      };
+      setLocation(currentLocation);
       try {
         const response = await fetch('/api/radars/nearby', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          }),
+          body: JSON.stringify(currentLocation),
           cache: 'no-store',
         });
         const data = await response.json();
@@ -84,10 +97,19 @@ export function RadarRouteFinder(){
     <button className={styles.link} type="button" onClick={findNearby} disabled={loading}>
       <Navigation size={17} aria-hidden="true"/>{loading ? 'Konum aranıyor…' : 'Konumumdan bul'}
     </button>
+    {location && <div className={styles.map}>
+      <iframe
+        className={styles.mapFrame}
+        title="Konumunuzun çevre haritası"
+        src={createMapUrl(location.latitude, location.longitude)}
+        loading="lazy"
+      />
+      <p className={styles.mapCaption}>Harita konumunuzu gösterir. Radar kayıtları varsa aşağıdaki sonuçlarda görünür.</p>
+    </div>}
     {status && <div className={styles.results} role="status" aria-live="polite">
       <p className={styles.status}>{status}</p>
       {cameras && cameras.length > 0 && <ul className={styles.cameraList}>
-        {cameras.map(camera => <li key={camera.id} className={styles.cameraItem}>
+        {cameras.map(camera => <li key={`${camera.type}-${camera.id}`} className={styles.cameraItem}>
           <span className={styles.cameraIcon} aria-hidden="true"><MapPin size={17}/></span>
           <span className={styles.cameraLabel}>{camera.label}</span>
           <strong className={styles.distance}>{distanceLabel(camera.distanceMeters)}</strong>

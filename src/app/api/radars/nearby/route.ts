@@ -53,11 +53,12 @@ export async function POST(request: NextRequest) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 18000);
   try {
-    const response = await fetch('https://overpass-api.de/api/interpreter', {
+    const response = await fetch('https://overpass.osm.ch/api/interpreter', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
         Accept: 'application/json',
+        'User-Agent': 'Xucuz/1.0 (https://www.xucuz.com)',
       },
       body: new URLSearchParams({data: query}),
       signal: controller.signal,
