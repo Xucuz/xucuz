@@ -5,7 +5,7 @@ import {rateLimit} from '@/lib/security';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-const radiusMeters = 5000;
+const radiusMeters = 30000;
 const requestSchema = z.object({
   latitude: z.number().finite().min(-90).max(90),
   longitude: z.number().finite().min(-180).max(180),
