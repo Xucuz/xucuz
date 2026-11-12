@@ -396,3 +396,24 @@ footer{background:#f6faf8;border-color:#d9e3e8}
 .price-showcase{position:relative;isolation:isolate;overflow:hidden;width:min(1080px,calc(100% - 36px));margin:8px auto 34px;padding:clamp(22px,4vw,38px);border:1px solid #dce9e2;border-radius:24px;background:radial-gradient(ellipse at 95% 0,#def4e7 0,transparent 36%),linear-gradient(135deg,#f8fcf9 0,#fff 68%);box-shadow:0 22px 60px #102a430c}
 @media(max-width:700px){.price-showcase{width:calc(100% - 28px);margin:0 auto 25px;padding:20px 15px;border-radius:19px}.price-showcase-heading{align-items:flex-start;flex-direction:column;gap:12px;margin-bottom:18px}.price-showcase-heading h2{font-size:27px}.price-showcase-heading>div>p:last-child{font-size:11px}.price-showcase-proof{font-size:9px}.price-showcase-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.price-showcase-card,.price-showcase-skeleton{min-height:190px;padding:12px}.price-showcase-product{font-size:12px}.price-showcase-amount{font-size:22px}.price-showcase-date{font-size:8px}.price-showcase-empty{align-items:flex-start;flex-wrap:wrap;padding:16px}.price-showcase-empty>div{min-width:calc(100% - 44px)}.price-showcase-empty>a{margin-left:40px}.price-showcase-foot{align-items:flex-start;flex-direction:column}}
 @media(prefers-reduced-motion:reduce){.price-showcase-skeleton span{animation:none}.price-showcase-card{transition:none}}
+
+/* Current, source-attributed duty pharmacy panel. */
+
+.duty-pharmacies{width:min(1040px,calc(100% - 36px));margin:0 auto 64px;padding:30px;border:1px solid #dce6e2;border-radius:22px;background:#fff;box-shadow:0 12px 36px #102a430b}
+.duty-pharmacies-heading{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.duty-pharmacies-heading h2{margin:2px 0 4px;color:#102a43;font-size:clamp(22px,3vw,30px)}
+.duty-pharmacies-heading p:last-child{margin:0;color:#52636b}
+.duty-pharmacies-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:15px;background:#e8f5ef;color:#16804d;flex:none}
+.duty-city-label{display:block;margin:0 0 7px;font-size:14px;font-weight:650;color:#263b49}
+.duty-pharmacies select{width:min(100%,420px);min-height:48px;padding:0 14px;border:1px solid #bdcbc6;border-radius:12px;background:#fff;color:#102a43;font:inherit}
+.duty-status{margin:14px 0 0;color:#52636b;font-size:14px;line-height:1.6}
+.duty-error{color:#a13232}
+.duty-pharmacy-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
+.duty-pharmacy-card{min-width:0;padding:16px;border:1px solid #e1e9e5;border-radius:14px;background:#fbfdfc}
+.duty-pharmacy-card h3{margin:0 0 7px;color:#102a43;font-size:16px}
+.duty-pharmacy-card p{margin:0;color:#586970;font-size:14px;line-height:1.55;overflow-wrap:anywhere}
+.duty-pharmacy-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:13px}
+.duty-pharmacy-actions a{display:inline-flex;align-items:center;gap:6px;color:#087a58;font-size:14px;font-weight:650;text-decoration:none}
+.duty-attribution,.duty-coverage-note{margin:16px 0 0;color:#64747a;font-size:12px;line-height:1.6}
+.duty-attribution a{color:#087a58;text-decoration:underline}
+@media(max-width:700px){.duty-pharmacies{width:calc(100% - 28px);padding:20px 16px;margin-bottom:36px;border-radius:17px}.duty-pharmacies-heading{align-items:flex-start;gap:11px}.duty-pharmacies-icon{width:42px;height:42px}.duty-pharmacy-list{grid-template-columns:minmax(0,1fr)}}
