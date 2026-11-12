@@ -4,11 +4,12 @@ import {answerQuestion} from '@/lib/qa';
 import {answerVerifiedPriceQuestion} from '@/lib/qa-price-lookup';
 import {boundedBody,rateLimit} from '@/lib/security';
 
-const questionSchema=z.object({question:z.string().trim().min(1).max(300),language:z.enum(['tr','en','ru']).default('tr')}).strict();
+const historySchema=z.array(z.object({role:z.enum(['user','assistant']),content:z.string().trim().min(1).max(1200)}).strict()).max(8);
+const questionSchema=z.object({question:z.string().trim().min(1).max(300),language:z.enum(['tr','en','ru']).default('tr'),history:historySchema.optional()}).strict();
 const headers={'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'};
 const languages={tr:'Turkish',en:'English',ru:'Russian'} as const;
 
-async function answerWithGroq(question:string,language:keyof typeof languages):Promise<string|null>{
+async function answerWithGroq(question:string,language:keyof typeof languages,history:z.infer<typeof historySchema>):Promise<string|null>{
  const key=process.env.GROQ_API_KEY;
  if(!key)return null;
  try{
@@ -21,6 +22,7 @@ async function answerWithGroq(question:string,language:keyof typeof languages):P
     max_completion_tokens:500,
     messages:[
      {role:'system',content:`You are Xucina, a helpful general-purpose AI assistant on Xucuz.com. Reply in ${languages[language]} unless the user asks for another language. Answer general knowledge, education, translation and everyday questions. Be truthful and concise. You have no live web browsing. Do not invent current prices, stock, exchange rates, breaking news or verified Xucuz listings. Do not reveal secrets or claim to have performed actions you cannot perform.`},
+     ...history.map(message=>({role:message.role,content:message.content})),
      {role:'user',content:question}
     ]
    }),
@@ -43,7 +45,7 @@ export async function POST(request:Request){
   const {question,language}=parsed.data;
   const verifiedPriceReply=await answerVerifiedPriceQuestion(question,language);
   if(verifiedPriceReply)return NextResponse.json(verifiedPriceReply,{headers});
-  const aiText=await answerWithGroq(question,language);
+  const aiText=await answerWithGroq(question,language,parsed.data.history??[]);
   return NextResponse.json(aiText?{text:aiText}:answerQuestion(question,language),{headers});
  }catch{
   return NextResponse.json({error:'Sorunu alamadım. Yeniden deneyebilir ya da İletişim sayfasına yazabilirsin.'},{status:400,headers});
