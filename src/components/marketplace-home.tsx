@@ -9,10 +9,12 @@ import {CommunityPriceShowcase} from './community-price-showcase';
 import {products} from '@/lib/products';
 import {OnDutyPharmacies} from './on-duty-pharmacies';
 import {DailyHoroscope} from './daily-horoscope';
+import {WeatherForecast} from './weather-forecast';
 
 export function MarketplaceHome(){const {t}=useLanguage();return <div className="community-home">
  <div className="community-topline"><span>{t('system')}</span><LanguageSelect/></div>
  <DailyHoroscope/>
+ <WeatherForecast/>
  <OnDutyPharmacies/>
  <section className="community-hero">
   <p className="community-kicker">{t('homeKicker')}</p>
