@@ -31,8 +31,8 @@ function slugifyCity(city: string) {
     .replaceAll('ü', 'u').replaceAll('ş', 's').replaceAll('ö', 'o').replaceAll('ç', 'c');
 }
 
-function istanbulToday() {
-  return new Intl.DateTimeFormat('en-CA', {timeZone: 'Europe/Istanbul'}).format(new Date());
+function istanbulDate(value: string) {
+  return new Intl.DateTimeFormat('en-CA', {timeZone: 'Europe/Istanbul'}).format(new Date(value));
 }
 
 function trustedPageUrl(value: string) {
@@ -78,7 +78,11 @@ export async function GET(request: NextRequest) {
 
     const roster = parsedRoster.data;
     const now = Date.now();
-    if (roster.nobetGunu !== istanbulToday() || now < Date.parse(roster.gecerlilikBaslangic) || now >= Date.parse(roster.gecerlilikBitis)) {
+    const validityStart = Date.parse(roster.gecerlilikBaslangic);
+    const validityEnd = Date.parse(roster.gecerlilikBitis);
+    // The provider labels a 09:00–09:00 duty by its start date. At 00:01,
+    // yesterday's date can still be today's valid overnight duty roster.
+    if (roster.nobetGunu !== istanbulDate(roster.gecerlilikBaslangic) || now < validityStart || now >= validityEnd) {
       return NextResponse.json({error: 'Kaynağın nöbet listesi bugün için geçerli değil; eski liste gösterilmiyor.'}, {status: 503});
     }
     if (!trustedPageUrl(roster.sayfaUrl) || roster.eczaneler.some(item => !trustedPageUrl(item.sayfaUrl))) {
