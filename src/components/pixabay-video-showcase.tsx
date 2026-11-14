@@ -42,9 +42,9 @@ export function PixabayVideoShowcase() {
     <div className="pixabay-showcase-heading">
       <span className="pixabay-showcase-icon"><Clapperboard size={20}/></span>
       <div>
-        <p className="community-kicker">DÜNYADAN EĞLENCE</p>
-        <h2 id="pixabay-showcase-title">Global komik videolar</h2>
-        <p>Pixabay’de popüler komedi klipleri. Liste dakikada bir kontrol edilir; kaynak verisi günde bir kez güncellenebilir.</p>
+        <p className="community-kicker">DÜNYADAN ALIŞVERİŞ</p>
+        <h2 id="pixabay-showcase-title">Alışveriş videoları</h2>
+        <p>Pixabay’de popüler alışveriş ve mağaza videoları. Liste dakikada bir kontrol edilir; kaynak verisi günde bir kez güncellenebilir.</p>
       </div>
     </div>
 

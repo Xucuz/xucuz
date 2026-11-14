@@ -14,7 +14,7 @@ type PixabayHit = {
   videos?: {small?: PixabayVideoVariant; medium?: PixabayVideoVariant; large?: PixabayVideoVariant};
 };
 
-const comedyTag = /\b(fun(ny|nies)|comedy|comedian|humou?r|prank|joke|laugh(ter|ing)?|meme|hilarious|silly|goofy)\b/i;
+const shoppingTag = /\b(shopping|shop|shopper|store|supermarket|grocery|retail|checkout|cashier|customer|consumer|mall|discount|sale|buy(?:ing)?|e-?commerce|online shopping|product demo)\b/i;
 
 export async function GET() {
   const key = process.env.PIXABAY_API_KEY;
@@ -24,12 +24,12 @@ export async function GET() {
 
   const params = new URLSearchParams({
     key,
-    q: 'funny',
+    q: 'shopping',
     lang: 'en',
     video_type: 'film',
     safesearch: 'true',
     order: 'popular',
-    per_page: '20',
+    per_page: '50',
   });
 
   try {
@@ -43,9 +43,11 @@ export async function GET() {
 
     const payload = await response.json() as {hits?: PixabayHit[]};
     const videos = (payload.hits ?? []).flatMap((hit) => {
-      if (!comedyTag.test(hit.tags)) return [];
+      if (!shoppingTag.test(hit.tags)) return [];
       const variant = hit.videos?.medium ?? hit.videos?.small ?? hit.videos?.large;
       if (!variant?.url || !hit.pageURL || !hit.user) return [];
+      const tags = hit.tags.split(',').map((tag) => tag.trim()).filter(Boolean);
+      const shoppingTags = tags.filter((tag) => shoppingTag.test(tag));
       return [{
         id: hit.id,
         videoUrl: variant.url,
@@ -53,7 +55,7 @@ export async function GET() {
         pageUrl: hit.pageURL,
         author: hit.user,
         authorUrl: `https://pixabay.com/users/${encodeURIComponent(hit.user)}-${hit.user_id}/`,
-        tags: hit.tags.split(',').map((tag) => tag.trim()).filter(Boolean).slice(0, 3),
+        tags: [...shoppingTags.slice(0, 1), ...tags.filter((tag) => !shoppingTag.test(tag)).slice(0, 2)],
         duration: hit.duration,
       }];
     }).slice(0, 4);
