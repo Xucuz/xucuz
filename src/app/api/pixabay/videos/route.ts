@@ -1,6 +1,7 @@
 import {NextResponse} from 'next/server';
 
-export const revalidate = 86_400;
+export const dynamic = 'force-dynamic';
+const sourceRevalidateSeconds = 86_400;
 
 type PixabayVideoVariant = {url?: string; thumbnail?: string};
 type PixabayHit = {
@@ -33,7 +34,7 @@ export async function GET() {
 
   try {
     const response = await fetch(`https://pixabay.com/api/videos/?${params}`, {
-      next: {revalidate},
+      next: {revalidate: sourceRevalidateSeconds},
       headers: {Accept: 'application/json'},
     });
     if (!response.ok) {
