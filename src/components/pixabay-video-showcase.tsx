@@ -44,7 +44,6 @@ export function PixabayVideoShowcase() {
       <div>
         <p className="community-kicker">DÜNYADAN ALIŞVERİŞ</p>
         <h2 id="pixabay-showcase-title">Alışveriş videoları</h2>
-        <p>Pixabay’de popüler alışveriş ve mağaza videoları. Liste dakikada bir kontrol edilir; kaynak verisi günde bir kez güncellenebilir.</p>
       </div>
     </div>
 
