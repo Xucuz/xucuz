@@ -442,3 +442,19 @@ footer{background:#f6faf8;border-color:#d9e3e8}
 .weather-location-picker{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}.weather-location-picker label{display:grid;gap:5px;color:#43555d;font-size:12px;font-weight:650}.weather-location-picker select{width:100%;min-width:0;min-height:42px;padding:0 10px;border:1px solid #d5dfdc;border-radius:10px;background:#fff;color:#102a43;font:inherit}.weather-location-picker select:disabled{background:#f2f5f4;color:#89969a}.weather-place-submit{grid-column:1/-1;justify-self:start}
 @media(max-width:700px){.weather-forecast{width:calc(100% - 28px);margin:12px auto 16px;padding:16px 13px;border-radius:16px}.weather-forecast-heading{align-items:flex-start;flex-direction:column}.weather-forecast-title-wrap{align-items:flex-start}.weather-forecast h2{font-size:15px;line-height:1.4}.weather-forecast-icon{width:40px;height:40px}.weather-forecast-locate{width:100%;min-height:43px}.weather-location-picker{grid-template-columns:minmax(0,1fr);gap:9px}.weather-place-submit{grid-column:auto;justify-self:stretch}.weather-forecast-days{gap:5px}.weather-forecast-day{min-height:93px;padding:8px 2px;gap:6px}.weather-forecast-day>span{font-size:10px}.weather-forecast-day strong{font-size:13px}.weather-forecast-day strong i{display:block;margin:1px 0 0;font-size:11px}.weather-forecast-day small{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.weather-spin{animation:none}}
+
+.pixabay-showcase{padding-block:34px 42px;border-top:1px solid #e5e8e7}
+.pixabay-showcase-heading{display:flex;gap:14px;align-items:flex-start;margin-bottom:19px}
+.pixabay-showcase-icon{width:42px;height:42px;display:grid;place-items:center;flex:none;border-radius:12px;background:#e9f5ee;color:#087f5b}
+.pixabay-showcase-heading .community-kicker{margin:0 0 5px}
+.pixabay-showcase-heading h2{font-size:23px;margin:0 0 5px;letter-spacing:-.035em}
+.pixabay-showcase-heading>div>p:last-child{font-size:12px;margin:0}
+.pixabay-video-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.pixabay-video-card{min-width:0;overflow:hidden;border:1px solid #e1e7e3;border-radius:11px;background:white}
+.pixabay-video-card video{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:#edf1ee}
+.pixabay-video-caption{display:grid;gap:5px;padding:10px 11px 11px}
+.pixabay-video-caption>span{font-size:11px;color:#293a36;text-transform:capitalize;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pixabay-video-caption a,.pixabay-showcase-credit a{display:inline-flex;align-items:center;gap:3px;width:fit-content;font-size:10px;color:#087f5b;text-decoration:underline;text-underline-offset:2px}
+.pixabay-showcase-message{padding:17px;border:1px dashed #d5dfda;border-radius:9px;font-size:12px;background:#fbfdfc}
+.pixabay-showcase-credit{font-size:10px;margin:12px 0 0;display:flex;align-items:center;gap:4px}
+@media(max-width:760px){.pixabay-showcase{padding-block:28px 34px}.pixabay-showcase-heading{gap:11px}.pixabay-showcase-heading h2{font-size:20px}.pixabay-video-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.pixabay-video-caption{padding:8px}.pixabay-video-caption>span{font-size:10px}.pixabay-video-caption a{font-size:9px}}
