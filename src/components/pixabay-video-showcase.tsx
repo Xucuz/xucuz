@@ -20,27 +20,31 @@ export function PixabayVideoShowcase() {
 
   useEffect(() => {
     const controller = new AbortController();
-    fetch('/api/pixabay/videos', {signal: controller.signal})
-      .then(async (response) => {
+    const loadVideos = async () => {
+      try {
+        const response = await fetch('/api/pixabay/videos', {cache: 'no-store', signal: controller.signal});
         if (!response.ok) throw new Error('Pixabay videos unavailable');
-        return response.json() as Promise<{videos?: Video[]}>;
-      })
-      .then((data) => {
+        const data = await response.json() as {videos?: Video[]};
         const items = data.videos ?? [];
         setVideos(items);
         setStatus(items.length ? 'ready' : 'empty');
-      })
-      .catch(() => { if (!controller.signal.aborted) setStatus('error'); });
-    return () => controller.abort();
+      } catch {
+        if (!controller.signal.aborted) setStatus((current) => current === 'loading' ? 'error' : current);
+      }
+    };
+
+    void loadVideos();
+    const refreshTimer = window.setInterval(() => void loadVideos(), 60_000);
+    return () => { controller.abort(); window.clearInterval(refreshTimer); };
   }, []);
 
   return <section className="pixabay-showcase wrap" aria-labelledby="pixabay-showcase-title">
     <div className="pixabay-showcase-heading">
       <span className="pixabay-showcase-icon"><Clapperboard size={20}/></span>
       <div>
-        <p className="community-kicker">ALIŞVERİŞTEN KÜÇÜK ESİNTİLER</p>
-        <h2 id="pixabay-showcase-title">Dünyadan kısa videolar</h2>
-        <p>Pixabay topluluğunun seçili videoları. Fiyat veya ürün teklifi içermez.</p>
+        <p className="community-kicker">DÜNYADAN EĞLENCE</p>
+        <h2 id="pixabay-showcase-title">Global komik videolar</h2>
+        <p>Pixabay’de popüler komedi klipleri. Liste dakikada bir kontrol edilir; kaynak verisi günde bir kez güncellenebilir.</p>
       </div>
     </div>
 
