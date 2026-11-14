@@ -21,9 +21,8 @@ export async function GET() {
 
   const params = new URLSearchParams({
     key,
-    q: 'shopping market food',
+    q: 'funny comedy humor',
     lang: 'en',
-    category: 'food',
     video_type: 'film',
     safesearch: 'true',
     order: 'popular',

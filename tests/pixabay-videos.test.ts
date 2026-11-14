@@ -44,6 +44,7 @@ it('returns attributed video metadata without exposing the API key', async () =>
   });
   const requestedUrl = new URL(vi.mocked(fetch).mock.calls[0][0] as string);
   expect(requestedUrl.searchParams.get('order')).toBe('popular');
+  expect(requestedUrl.searchParams.get('q')).toBe('funny comedy humor');
   expect(requestedUrl.searchParams.get('per_page')).toBe('4');
   expect(JSON.stringify(body)).not.toContain('private-test-value');
   expect(response.headers.get('Cache-Control')).toContain('s-maxage=86400');
