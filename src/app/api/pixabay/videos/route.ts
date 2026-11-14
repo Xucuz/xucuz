@@ -13,6 +13,8 @@ type PixabayHit = {
   videos?: {small?: PixabayVideoVariant; medium?: PixabayVideoVariant; large?: PixabayVideoVariant};
 };
 
+const comedyTag = /\b(fun(ny|nies)|comedy|comedian|humou?r|prank|joke|laugh(ter|ing)?|meme|hilarious|silly|goofy)\b/i;
+
 export async function GET() {
   const key = process.env.PIXABAY_API_KEY;
   if (!key) {
@@ -21,12 +23,12 @@ export async function GET() {
 
   const params = new URLSearchParams({
     key,
-    q: 'funny comedy humor',
+    q: 'funny',
     lang: 'en',
     video_type: 'film',
     safesearch: 'true',
     order: 'popular',
-    per_page: '4',
+    per_page: '20',
   });
 
   try {
@@ -40,6 +42,7 @@ export async function GET() {
 
     const payload = await response.json() as {hits?: PixabayHit[]};
     const videos = (payload.hits ?? []).flatMap((hit) => {
+      if (!comedyTag.test(hit.tags)) return [];
       const variant = hit.videos?.medium ?? hit.videos?.small ?? hit.videos?.large;
       if (!variant?.url || !hit.pageURL || !hit.user) return [];
       return [{
@@ -52,7 +55,7 @@ export async function GET() {
         tags: hit.tags.split(',').map((tag) => tag.trim()).filter(Boolean).slice(0, 3),
         duration: hit.duration,
       }];
-    });
+    }).slice(0, 4);
 
     return NextResponse.json({videos}, {
       headers: {'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=3600'},
