@@ -1,37 +1,83 @@
-type Rates={date:string;rates:Record<string,number>};
-async function getRates():Promise<Rates|null>{
- try{
-  const response=await fetch('https://api.frankfurter.dev/v1/latest?base=EUR&symbols=TRY,USD,GBP',{next:{revalidate:3600}});
-  if(!response.ok)return null;
-  const data:unknown=await response.json();
-  if(!data||typeof data!=='object'||!('rates'in data)||!('date'in data))return null;
-  const rates=(data as Rates).rates;
-  if(!rates||!Number.isFinite(rates.TRY)||!Number.isFinite(rates.USD)||rates.USD<=0||!Number.isFinite(rates.GBP)||rates.GBP<=0)return null;
-  return data as Rates;
- }catch{return null;}
+'use client';
+
+import {useCallback, useEffect, useState} from 'react';
+
+type MarketData = {
+  fxReferenceDate: string | null;
+  eurTry: number | null;
+  usdTry: number | null;
+  gbpTry: number | null;
+  goldTryPerGram: number | null;
+  goldUpdatedAt: string | null;
+};
+
+const formatTRY = (value: number) => new Intl.NumberFormat('tr-TR', {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 4,
+}).format(value);
+
+function localTime(value: string | null) {
+  if (!value) return null;
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? null : new Intl.DateTimeFormat('tr-TR', {
+    hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Istanbul',
+  }).format(parsed);
 }
-async function getGold():Promise<number|null>{
- const key=process.env.METALS_DEV_API_KEY;
- if(!key)return null;
- try{
-  const url=new URL('https://api.metals.dev/v1/latest');
-  url.searchParams.set('api_key',key);
-  url.searchParams.set('currency','TRY');
-  url.searchParams.set('unit','g');
-  const response=await fetch(url.toString(),{next:{revalidate:43200}});
-  if(!response.ok)return null;
-  const data:unknown=await response.json();
-  if(!data||typeof data!=='object'||!('metals'in data))return null;
-  const gold=(data as {metals?:{gold?:unknown}}).metals?.gold;
-  return typeof gold==='number'&&Number.isFinite(gold)&&gold>0?gold:null;
- }catch{return null;}
-}
-export async function MarketTicker(){
- const [data,gold]=await Promise.all([getRates(),getGold()]);
- const usd=data?data.rates.TRY/data.rates.USD:null;
- const eur=data?.rates.TRY;
- const gbp=data?data.rates.TRY/data.rates.GBP:null;
- const fmt=(n:number)=>new Intl.NumberFormat('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:4}).format(n);
- const items=[usd?`USD/TRY ${fmt(usd)} ₺`:'USD/TRY: veri alınamadı',eur?`EUR/TRY ${fmt(eur)} ₺`:'EUR/TRY: veri alınamadı',gbp?`GBP/TRY ${fmt(gbp)} ₺`:'GBP/TRY: veri alınamadı',gold?'Gram altın spot '+fmt(gold)+' ₺':'Gram altın: veri bekleniyor'];
- return <aside className="market-ticker" aria-label="Döviz ve altın bilgi bandı"><span className="market-ticker-label">PİYASALAR</span><div className="market-ticker-window"><div className="market-ticker-track">{[0,1].map(copy=><span key={copy} className="market-ticker-group" aria-hidden={copy===1}>{items.map((item,i)=><span key={i}>{item}</span>)}<span>{data?`Referans tarih: ${data.date}`:'Güncel referans verisi alınamadı'}</span></span>)}</div></div><a className="market-ticker-source" href="https://frankfurter.dev/" target="_blank" rel="noopener noreferrer">Döviz: Frankfurter · Referans kur</a></aside>;
+
+export function MarketTicker() {
+  const [data, setData] = useState<MarketData | null>(null);
+  const [checkedAt, setCheckedAt] = useState<string | null>(null);
+
+  const refresh = useCallback(async () => {
+    try {
+      const response = await fetch('/api/markets', {cache: 'no-store'});
+      if (!response.ok) throw new Error('Market data is unavailable');
+      const next = await response.json() as MarketData;
+      setData(next);
+    } catch {
+      // Keep the last good observation visible if a provider is briefly unavailable.
+    } finally {
+      setCheckedAt(new Date().toISOString());
+    }
+  }, []);
+
+  useEffect(() => {
+    const initialTimer = window.setTimeout(() => void refresh(), 0);
+    const interval = window.setInterval(() => void refresh(), 60_000);
+    const onVisible = () => {
+      if (document.visibilityState === 'visible') void refresh();
+    };
+    document.addEventListener('visibilitychange', onVisible);
+    return () => {
+      window.clearTimeout(initialTimer);
+      window.clearInterval(interval);
+      document.removeEventListener('visibilitychange', onVisible);
+    };
+  }, [refresh]);
+
+  const items = data ? [
+    data.usdTry ? `USD/TRY ${formatTRY(data.usdTry)} ₺` : 'USD/TRY verisi alınamadı',
+    data.eurTry ? `EUR/TRY ${formatTRY(data.eurTry)} ₺` : 'EUR/TRY verisi alınamadı',
+    data.gbpTry ? `GBP/TRY ${formatTRY(data.gbpTry)} ₺` : 'GBP/TRY verisi alınamadı',
+    data.goldTryPerGram ? `Gram altın spot* ${formatTRY(data.goldTryPerGram)} ₺` : 'Gram altın spot verisi alınamadı',
+  ] : ['Piyasa verileri yükleniyor…'];
+  const checkedTime = localTime(checkedAt);
+  const goldTime = localTime(data?.goldUpdatedAt ?? null);
+
+  return <aside className="market-ticker" aria-label="Döviz referans kurları ve altın spot fiyatı">
+    <span className="market-ticker-label">PİYASALAR</span>
+    <div className="market-ticker-window" aria-live="polite">
+      <div className="market-ticker-track">{[0, 1].map(copy => <span key={copy} className="market-ticker-group" aria-hidden={copy === 1}>
+        {items.map((item, index) => <span key={index}>{item}</span>)}
+        <span>{data?.fxReferenceDate ? `Döviz referans tarihi: ${data.fxReferenceDate}` : 'Döviz referans verisi bekleniyor'}</span>
+        {goldTime && <span>Altın kaynağı: ${goldTime}</span>}
+      </span>)}</div>
+    </div>
+    <span className="market-ticker-update">{checkedTime ? `Son kontrol ${checkedTime}` : 'Güncelleniyor'}</span>
+    <span className="market-ticker-sources">
+      <a className="market-ticker-source" href="https://frankfurter.dev/" target="_blank" rel="noopener noreferrer">Döviz: Frankfurter · referans</a>
+      <a className="market-ticker-source" href="https://gold-api.com/faqs" target="_blank" rel="noopener noreferrer">Altın: Gold API · spot</a>
+    </span>
+    <span className="market-ticker-disclaimer" title="Altın spot karşılığı, perakende kuyumcu satış fiyatı değildir.">*Spot gösterge; kuyumcu satış fiyatı değildir.</span>
+  </aside>;
 }
