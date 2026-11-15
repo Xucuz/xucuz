@@ -642,3 +642,23 @@ body:has(.city-landing-home) .site-utilitybar,body:has(.city-landing-home) .comm
 .city-home-hero-gallery{position:absolute;z-index:-2;inset:0;overflow:hidden;display:grid;grid-template-columns:repeat(4,1fr)}.city-home-hero-gallery img{position:absolute!important;inset:0 auto 0 0!important;width:25%!important;height:100%!important;object-fit:cover;object-position:center}.city-home-hero-gallery img.panel-2{left:25%!important}.city-home-hero-gallery img.panel-3{left:50%!important}.city-home-hero-gallery img.panel-4{left:75%!important}.city-home-hero-shade{position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(10,41,85,.42),rgba(15,77,142,.82) 26%,rgba(19,86,157,.86) 72%,rgba(10,39,80,.34))}.city-landing-home .city-home-hero::after{z-index:-1;inset:0;background:linear-gradient(0deg,rgba(7,37,77,.2),transparent 75%)}
 @media(max-width:700px){.city-home-hero-gallery img{width:50%!important}.city-home-hero-gallery img.panel-2{left:50%!important}.city-home-hero-gallery img.panel-3,.city-home-hero-gallery img.panel-4{display:none}.city-home-hero-shade{background:rgba(12,53,108,.76)}}
 @media(min-width:701px){.city-home-featured-body .city-home-info-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.city-home-featured-body .city-home-info-card{min-height:118px}.city-home-featured-body .city-home-info-image{height:72px!important}}
+
+/* Xucina'nın konumu ve lamba görseli: görsel oranını koruyan hero düzeni */
+.city-home-hero{min-height:370px!important;overflow:hidden}
+.city-home-hero-inner{position:static!important;min-height:370px!important;padding:24px 220px 184px!important}
+.city-home-mascot{z-index:4;top:12px!important;left:14px!important;bottom:auto!important;width:116px!important;height:116px!important;overflow:hidden;border:3px solid #fff;border-radius:50%;background:#fff;box-shadow:0 8px 24px #092c5540;transform:none!important;opacity:1!important}
+.city-home-mascot img{width:100%;height:100%;object-fit:contain!important;object-position:center!important;mix-blend-mode:normal!important}
+.city-home-hero-art{position:absolute;z-index:2;left:50%;bottom:8px;width:min(340px,42vw);aspect-ratio:1280/853;overflow:hidden;border:3px solid #fff;border-radius:13px;background:#fff;box-shadow:0 8px 24px #082c5550;transform:translateX(-50%)}
+.city-home-hero-art img{display:block;width:100%;height:100%;object-fit:contain}
+.city-home-hero-copy{position:relative;z-index:3}
+@media(max-width:700px){
+ .city-home-hero{min-height:430px!important}
+ .city-home-hero-inner{min-height:430px!important;padding:92px 12px 164px!important}
+ .city-home-mascot{top:8px!important;left:10px!important;width:76px!important;height:76px!important}
+ .city-home-hero-copy{padding-bottom:0!important}
+ .city-home-hero-copy h1{font-size:27px!important}
+ .city-home-hero-copy>p:not(.city-home-kicker){font-size:11px}
+ .city-home-hero-art{bottom:8px;width:min(270px,72vw);border-width:2px;border-radius:10px}
+ .city-home-photo-credit{position:absolute;z-index:4;bottom:2px;left:0;right:0;margin:0;font-size:8px}
+}
+@media(max-width:380px){.city-home-hero-copy h1{font-size:24px!important}.city-home-hero{min-height:418px!important}.city-home-hero-inner{min-height:418px!important}}
