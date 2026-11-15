@@ -1,13 +1,9 @@
-# 81 İl Rehberi: Google Places kurulumu
+# 81 İl Rehberi: mekân listeleri
 
-İl sayfalarındaki mekân adı, adresi, puanı ve Google yorum sayısı Google Places API (New) üzerinden sunucu tarafında alınır. Uygulama API anahtarı yokken gerçek mekân veya puan üretmez.
+İl sayfalarındaki restoran, kafe, market ve alışveriş işletmeleri ücretsiz OpenStreetMap (OSM) topluluk kayıtlarından gelir. OSM verisi Google yorum puanı sunmaz; arayüz bu puanları uydurmaz ve listeyi “en yüksek puanlı” diye tanıtmaz. Kayıtlar OSM sayfasına bağlanır ve kaynak ODbL atfıyla gösterilir. Adres ayrıntısı kaynakta yoksa sayfa bunu açıkça belirtir.
 
-## Gerekli yapılandırma
+API yanıtı CDN'de altı saat tutulur; böylece her ziyaret yeni bir Overpass isteği üretmez. Dış kaynak geçici olarak erişilemezse ziyaretçiye OpenStreetMap üzerinde arama bağlantısı gösterilir.
 
-1. Google Cloud Console'da bir proje seçin ve Places API (New) hizmetini etkinleştirin.
-2. Google Maps Platform faturalandırmasını ve istek kotasını yapılandırın. Places API ücretlidir; iki Text Search isteği, her il sayfası görüntülemesinde gönderilir.
-3. Sunucu için bir API anahtarı oluşturun ve anahtarı yalnızca Places API ile sınırlandırın. Web sayfası/referrer kısıtı sunucu isteklerine uygun değildir.
-4. Anahtarı Vercel'de `GOOGLE_PLACES_API_KEY` adıyla önce Preview ortamına ekleyin. Değeri `NEXT_PUBLIC_` değişkeni olarak tanımlamayın ve kaynak koda koymayın.
-5. Google Cloud'da günlük ve dakikalık kotalar ile bütçe uyarıları belirleyin; API tüketimini izleyin.
+Google Places entegrasyonu isteğe bağlıdır. `GOOGLE_PLACES_API_KEY` yalnızca sunucu ortamında tanımlanırsa puanlı sonuçlar Google Places'tan gelir; bu istekler ücretli olabilir ve Google içerikleri önbelleğe alınmaz. Anahtar yoksa veya Google sonuç döndürmezse ücretsiz OSM listesi kullanılır. Vercel'de anahtar eklemek şart değildir.
 
-API yanıtları veritabanına yazılmaz ve önbelleğe alınmaz. Sonuçlar puana, eşitlikte Google yorum sayısına göre sıralanır ve Google Maps bağlantısıyla birlikte gösterilir. Gerçek kullanım ve maliyet, Google Cloud projesinin kota ve fiyatlandırmasına bağlıdır.
+OpenStreetMap verisi © OpenStreetMap katkıda bulunanlar tarafından sağlanır ve Open Database License (ODbL) koşullarına tabidir. Harita kayıtları eksik veya güncelliğini yitirmiş olabilir; Xucuz bunları işletme onayı ya da Google puanı olarak sunmaz.
