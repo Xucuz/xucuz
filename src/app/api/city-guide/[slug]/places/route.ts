@@ -34,9 +34,8 @@ function osmAddress(tags:Record<string,string>,city:string,element:OsmElement):s
  const number=tags['addr:housenumber'];
  const district=tags['addr:district']??tags['addr:suburb']??tags['addr:neighbourhood'];
  const locality=tags['addr:city']??city;
- const first=street?[`${street}${number?` ${number}`:''}`]:[];
- const parts=[...first,district,locality].filter((part):part is string=>Boolean(part));
- if(parts.length)return parts.join(', ');
+ if(street)return [`${street}${number?` ${number}`:''}`,district,locality].filter(Boolean).join(', ');
+ if(district)return [district,locality].filter(Boolean).join(', ');
  const point=element.center??(element.lat!==undefined&&element.lon!==undefined?{lat:element.lat,lon:element.lon}:undefined);
  return point?`Harita noktası ${point.lat.toFixed(5)}, ${point.lon.toFixed(5)} · Sokak adresi kaydedilmemiş`:`Adres ayrıntısı harita kaydında yok · ${city}`;
 }
@@ -58,7 +57,7 @@ async function searchOpenStreetMap(city:string):Promise<Place[]>{
   const url=`https://www.openstreetmap.org/${element.type}/${element.id}`;
   unique.set(`${element.type}/${element.id}`,{id:`${element.type}/${element.id}`,name:tags.name,address,url,category,typeLabel});
  }
- return [...unique.values()].sort((a,b)=>Number(a.address.includes('Sokak adresi kaydedilmemiş'))-Number(b.address.includes('Sokak adresi kaydedilmemiş'))||a.name.localeCompare(b.name,'tr')).slice(0,24);
+ return [...unique.values()].sort((a,b)=>Number(a.address.startsWith('Harita noktası'))-Number(b.address.startsWith('Harita noktası'))||Number(a.address.startsWith('Adres ayrıntısı'))-Number(b.address.startsWith('Adres ayrıntısı'))||a.name.localeCompare(b.name,'tr')).slice(0,24);
 }
 
 export async function GET(_request:Request,{params}:{params:Promise<{slug:string}>}){
