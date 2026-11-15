@@ -19,3 +19,17 @@ export async function getLicensedCityPhotos(search:string,limit=8):Promise<Licen
   }).slice(0,limit);
  }catch{return [];}
 }
+
+export async function getCityGuidePhotos(city:string,topic='city',limit=8):Promise<LicensedCityPhoto[]>{
+ const searches:Record<string,string[]>={
+  city:[`${city} Turkey`,`${city} Turkey landscape`,`${city} Turkey architecture`],
+  food:city==='Adana'?['Adana kebab','Adana kebabı','Turkish kebab food','Turkish cuisine food']: [`${city} traditional food Turkey`,`${city} cuisine Turkey`,'Turkish traditional food'],
+  sights:[`${city} Turkey landmark`,`${city} historic site Turkey`,`${city} landscape Turkey`],
+  products:[`${city} Turkey handicraft`,`${city} local products Turkey`],
+  clothing:[`${city} Turkey traditional clothing`,`${city} Turkey textile`],
+ };
+ const candidates=await Promise.all((searches[topic]??searches.city).map(search=>getLicensedCityPhotos(search,limit)));
+ const unique=new Map<string,LicensedCityPhoto>();
+ for(const photo of candidates.flat())if(!unique.has(photo.filePage))unique.set(photo.filePage,photo);
+ return [...unique.values()].slice(0,limit);
+}
