@@ -23,9 +23,10 @@ async function RootDocument({children}:{children:React.ReactNode}){const savedLa
  return <html lang={language}><body><Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9203233526232260" strategy="beforeInteractive" crossOrigin="anonymous"/><LanguageProvider initialLanguage={language}><PwaRegister/><div id="site-content">
   <a className="skip" href="#main">İçeriğe geç</a>
   {mode()==='demo'&&<div className="mode-bar"><span className="dot"/> Demo veriler — gerçek teklif değildir</div>}
+  <div className="site-utilitybar"><span>Ücretsiz iş ortaklığı ağı</span><span className="site-utility-separator" aria-hidden="true">·</span><strong>Xucuz platform komisyonu %0</strong><Link href="/magazalar">İş ortağı olun <ArrowUpRight size={13}/></Link></div>
   <header className="community-header wrap">
    <Link href="/" className="community-header-logo" aria-label="Xucuz.com ana sayfa"><Logo placement="header"/></Link>
-   <nav aria-label="Ana menü"><Link href="/magazalar">Mağazalar</Link><Link href="/yayincilar">Yayıncılar</Link><Link href="/icerik-ureticileri">İçerik üreticileri</Link><Link href="/ajanslar">Ajanslar</Link><Link href="/fiyatlar">Fiyat karşılaştır</Link><LanguageSelect/></nav>
+   <nav aria-label="Ana menü"><Link href="/magazalar">Mağazalar</Link><Link href="/yayincilar">Yayıncılar</Link><Link href="/icerik-ureticileri">İçerik üreticileri</Link><Link href="/ajanslar">Ajanslar</Link><Link href="/is-ortaklari">İş ortakları</Link><Link href="/kampanyalar">Kampanyalar</Link><Link className="community-nav-compare" href="/fiyatlar">Fiyat karşılaştır</Link><LanguageSelect/></nav>
   </header>
   <main id="main" tabIndex={-1}>{children}</main>
   <footer><div className="wrap footer-grid" style={{gridTemplateColumns:"repeat(auto-fit,minmax(190px,1fr))"}}>
