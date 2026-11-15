@@ -1,0 +1,15 @@
+'use client';
+
+import {useEffect,useState} from 'react';
+import {ArrowUpRight,MapPin,Star} from 'lucide-react';
+
+type Place={id:string;displayName:{text:string};formattedAddress:string;rating:number;userRatingCount:number;googleMapsUri:string;primaryTypeDisplayName?:{text?:string};category:'Restoran'|'Alışveriş'};
+type ResponseBody={status:'ok'|'unconfigured'|'unavailable'|'not-found';places?:Place[];message?:string};
+
+export function CityPopularPlaces({slug,city}:{slug:string;city:string}){const [result,setResult]=useState<ResponseBody|null>(null);const [loading,setLoading]=useState(true);
+ useEffect(()=>{const controller=new AbortController();void fetch(`/api/city-guide/${encodeURIComponent(slug)}/places`,{signal:controller.signal,cache:'no-store'}).then(async response=>{const body=await response.json() as ResponseBody;if(!response.ok&&body.status!=='unconfigured'&&body.status!=='unavailable')throw new Error('Mekân verileri alınamadı.');setResult(body);}).catch(()=>{if(!controller.signal.aborted)setResult({status:'unavailable',places:[],message:'Mekân bilgileri şu anda alınamadı.'});}).finally(()=>{if(!controller.signal.aborted)setLoading(false);});return()=>controller.abort();},[slug]);
+ return <section className="city-popular-places"><div className="city-section-heading"><div><p className="city-eyebrow">GOOGLE YORUMLARINA GÖRE</p><h2>{city}’de öne çıkan mekânlar</h2></div><a href={`https://www.google.com/maps/search/${encodeURIComponent(`${city} restaurants shopping`)}`} target="_blank" rel="noreferrer">Google Haritalar’da aç <ArrowUpRight size={14}/></a></div>
+  {loading?<div className="city-places-state" role="status">Google’dan mekân bilgileri alınıyor…</div>:result?.status==='unconfigured'?<div className="city-places-state">Google Places API henüz yapılandırılmadı. Gerçek mekân adı, adresi ve puanı bu nedenle gösterilmiyor.</div>:result?.status==='unavailable'?<div className="city-places-state">{result.message??'Google Places verisi şu anda alınamadı.'}</div>:result?.places?.length?<div className="city-popular-grid">{result.places.map(place=><article className="city-popular-card" key={place.id}><span className="city-popular-type">{place.category}{place.primaryTypeDisplayName?.text?` · ${place.primaryTypeDisplayName.text}`:''}</span><h3>{place.displayName.text}</h3><p><MapPin size={14}/>{place.formattedAddress}</p><div className="city-place-rating"><span><Star size={14} fill="currentColor"/>{place.rating.toFixed(1)}</span><small>{place.userRatingCount.toLocaleString('tr-TR')} Google yorumu</small></div><a href={place.googleMapsUri} target="_blank" rel="noreferrer">Google Haritalar’da gör <ArrowUpRight size={13}/></a></article>)}</div>:<div className="city-places-state">Google Places bu il için puanlı mekân sonucu döndürmedi.</div>}
+  <p className="city-places-attribution">Mekân adı, adres, puan ve yorum sayısı Google Places API’den alınır. Puanlar Google kullanıcı yorumlarını yansıtır; değişebilir. Kaynak: <a href="https://maps.google.com/" target="_blank" rel="noreferrer">Google Maps</a>.</p>
+ </section>;
+}
