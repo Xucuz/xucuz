@@ -4,10 +4,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {useRouter} from 'next/navigation';
 import {FormEvent,useEffect,useMemo,useState} from 'react';
-import {ArrowRight,Bus,Camera,Car,ChevronRight,Compass,MapPin,Plane,Search,ShoppingBasket,ShoppingCart,Shirt,Store,Utensils,Hotel,Monitor,Tag} from 'lucide-react';
+import {ArrowRight,Bell,Bus,Camera,Car,ChevronRight,Compass,Gift,Home,MapPin,Pencil,Plane,Scale,Search,ShoppingBag,ShoppingBasket,ShoppingCart,Shirt,Store,Utensils,Hotel,Monitor,Tag,UserRound} from 'lucide-react';
 import {cityGuides,citySlug,cultureSearchUrl} from '@/lib/city-guide';
+import type {LicensedCityPhoto} from '@/lib/city-guide-photos';
 
-type Photo={title:string;imageUrl:string;filePage:string;license:string;licenseUrl:string;artist:string};
+type Photo=LicensedCityPhoto;
 type Place={id:string;name:string;address:string;url:string;category:'Restoran'|'Alışveriş';typeLabel:string};
 type PlaceResponse={places?:Place[];source?:string};
 type Card={title:string;href:string;eyebrow?:string;image?:Photo};
@@ -24,14 +25,13 @@ const categories=[
 ];
 const topicTabs=[
  {id:'food',label:'Yöresel Yemekler',icon:<Utensils size={18}/>},
- {id:'products',label:'Yöresel Ürünler',icon:<ShoppingBagIcon/>},
+ {id:'products',label:'Yöresel Ürünler',icon:<ShoppingBag size={18}/>},
  {id:'clothing',label:'Yöresel Giyim',icon:<Shirt size={18}/>},
  {id:'sights',label:'Gezilecek Yerler',icon:<Camera size={18}/>},
  {id:'stay',label:'Konaklama Önerileri',icon:<Hotel size={18}/>},
  {id:'places',label:'Yerel Fırsatlar',icon:<Store size={18}/>},
+ {id:'about',label:'İl Hakkında',icon:<MapPin size={18}/>},
 ];
-function ShoppingBagIcon(){return <Tag size={18}/>;}
-
 const adanaFood=[
  {title:'Adana kebabı',query:'Adana kebabı yöresel yemek'},
  {title:'Şalgam',query:'Adana şalgam yöresel içecek'},
@@ -46,15 +46,17 @@ const adanaSights=[
 ];
 const letters=['Tümü',...'ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVY Z'.replaceAll(' ','')];
 
-export function CityGuideHome(){
+export function CityGuideHome({initialPhotos=[],initialFoodPhotos=[]}:{initialPhotos?:Photo[];initialFoodPhotos?:Photo[]}){
  const router=useRouter();
  const [selectedSlug,setSelectedSlug]=useState('adana');
  const [query,setQuery]=useState('');
  const [activeTab,setActiveTab]=useState('food');
  const [letter,setLetter]=useState('Tümü');
- const [photoState,setPhotoState]=useState<{slug:string;photos:Photo[]}>({slug:'adana',photos:[]});
+ const [photoState,setPhotoState]=useState<{slug:string;photos:Photo[]}>({slug:'adana',photos:initialPhotos});
+ const [foodPhotoState,setFoodPhotoState]=useState<{slug:string;photos:Photo[]}>({slug:'adana',photos:initialFoodPhotos});
  const [placeState,setPlaceState]=useState<{slug:string;places:Place[]}>({slug:'',places:[]});
  const photos=photoState.slug===selectedSlug?photoState.photos:[];
+ const foodPhotos=foodPhotoState.slug===selectedSlug?foodPhotoState.photos:[];
  const photoLoading=photoState.slug!==selectedSlug;
  const places=placeState.slug===selectedSlug?placeState.places:[];
  const placeLoading=activeTab==='places'&&placeState.slug!==selectedSlug;
@@ -68,13 +70,24 @@ export function CityGuideHome(){
  const featuredPhoto=photos[0];
 
  useEffect(()=>{
+  if(selectedSlug==='adana'&&initialPhotos.length)return;
   const controller=new AbortController();
   void fetch(`/api/city-guide/${selectedSlug}/photos`,{signal:controller.signal})
    .then(response=>response.ok?response.json():Promise.reject())
    .then(body=>setPhotoState({slug:selectedSlug,photos:(body.photos??[]) as Photo[]}))
    .catch(()=>{if(!controller.signal.aborted)setPhotoState({slug:selectedSlug,photos:[]});});
   return()=>controller.abort();
- },[selectedSlug]);
+ },[selectedSlug,initialPhotos]);
+
+ useEffect(()=>{
+  if(activeTab!=='food'||foodPhotoState.slug===selectedSlug)return;
+  const controller=new AbortController();
+  void fetch(`/api/city-guide/${selectedSlug}/photos?topic=food`,{signal:controller.signal})
+   .then(response=>response.ok?response.json():Promise.reject())
+   .then(body=>setFoodPhotoState({slug:selectedSlug,photos:(body.photos??[]) as Photo[]}))
+   .catch(()=>{if(!controller.signal.aborted)setFoodPhotoState({slug:selectedSlug,photos:[]});});
+  return()=>controller.abort();
+ },[activeTab,selectedSlug,foodPhotoState.slug]);
 
  useEffect(()=>{
   if(activeTab!=='places')return;
@@ -94,7 +107,7 @@ export function CityGuideHome(){
   if(query.trim())router.push(`/fiyatlar?q=${encodeURIComponent(query.trim())}`);
  }
 
- const foodCards:Card[]=selectedCity.slug==='adana'?adanaFood.map(item=>({title:item.title,eyebrow:'ADANA LEZZETİ',href:cultureSearchUrl(selectedCity.name,item.query)})):[
+ const foodCards:Card[]=selectedCity.slug==='adana'?adanaFood.map((item,index)=>({title:item.title,eyebrow:'ADANA LEZZETİ',href:cultureSearchUrl(selectedCity.name,item.query),image:foodPhotos[index]})):[
   {title:`${selectedCity.name} mutfağı`,eyebrow:'YÖRESEL MUTFAK',href:cultureSearchUrl(selectedCity.name,'yöresel yemekler geleneksel mutfak')},
   {title:'Coğrafi işaretli lezzetler',eyebrow:'YÖRESEL LEZZETLER',href:cultureSearchUrl(selectedCity.name,'coğrafi işaretli yemekler')},
   {title:'Yöresel tatlılar',eyebrow:'TATLILAR',href:cultureSearchUrl(selectedCity.name,'yöresel tatlılar')},
@@ -104,12 +117,14 @@ export function CityGuideHome(){
   [{title:'Coğrafi işaretli ürünler',eyebrow:'YEREL ÜRÜNLER',href:cultureSearchUrl(selectedCity.name,'coğrafi işaretli ürünler')},{title:'El sanatları',eyebrow:'GELENEKSEL ÜRETİM',href:cultureSearchUrl(selectedCity.name,'el sanatları')},{title:'Yöresel pazarlar',eyebrow:'ALIŞVERİŞ',href:`https://www.openstreetmap.org/search?query=${encodeURIComponent(`${selectedCity.name} yöresel pazar`)}`},{title:'Yerel üreticiler',eyebrow:'YEREL İŞLETMELER',href:`https://www.openstreetmap.org/search?query=${encodeURIComponent(`${selectedCity.name} yerel üretici`)}`}]:activeTab==='clothing'?
   [{title:'Dokuma kültürü',eyebrow:'YÖRESEL GİYİM',href:cultureSearchUrl(selectedCity.name,'dokuma kumaş')},{title:'Geleneksel kıyafetler',eyebrow:'YÖRESEL GİYİM',href:cultureSearchUrl(selectedCity.name,'geleneksel kıyafetler')},{title:'El dokumaları',eyebrow:'EL SANATLARI',href:cultureSearchUrl(selectedCity.name,'el dokuması')},{title:'Yerel tasarımcılar',eyebrow:'ALIŞVERİŞ',href:`https://www.openstreetmap.org/search?query=${encodeURIComponent(`${selectedCity.name} giyim mağazası`)}`}]:activeTab==='sights'?
   (selectedCity.slug==='adana'?adanaSights.map(item=>({title:item.title,eyebrow:'GEZİLECEK YER',href:cultureSearchUrl(selectedCity.name,item.query)})):photos.slice(0,4).map(photo=>({title:photo.title.replace(/^File:/,''),eyebrow:'WIKIMEDIA COMMONS',href:photo.filePage,image:photo}))).concat(photos.length<4&&selectedCity.slug!=='adana'?[{title:`${selectedCity.name} gezi rehberi`,eyebrow:'KÜLTÜR PORTALI',href:`https://www.kulturportali.gov.tr/turkiye/${selectedCity.slug}/gezilecekyer`}]:[]).slice(0,4):activeTab==='stay'?
-  [{title:`${selectedCity.name} otellerini karşılaştır`,eyebrow:'KONAKLAMA',href:`/otel?${new URLSearchParams({city:selectedCity.name})}`},{title:'Ulaşım seçenekleri',eyebrow:'YOLCULUK',href:'/ucak'},{title:'Otobüs biletlerini ara',eyebrow:'ŞEHİRLER ARASI',href:'/otobus'},{title:'Seyahat rehberi',eyebrow:'XUCUZ REHBER',href:'/rehberler'}]:[];
- const sightCards:Card[]=selectedCity.slug==='adana'?adanaSights.map(item=>({title:item.title,href:cultureSearchUrl(selectedCity.name,item.query)})):photos.slice(1,5).map(photo=>({title:photo.title.replace(/^File:/,''),href:photo.filePage,image:photo}));
+  [{title:`${selectedCity.name} otellerini karşılaştır`,eyebrow:'KONAKLAMA',href:`/otel?${new URLSearchParams({city:selectedCity.name})}`},{title:'Ulaşım seçenekleri',eyebrow:'YOLCULUK',href:'/ucak'},{title:'Otobüs biletlerini ara',eyebrow:'ŞEHİRLER ARASI',href:'/otobus'},{title:'Seyahat rehberi',eyebrow:'XUCUZ REHBER',href:'/rehberler'}]:activeTab==='about'?
+  [{title:`${selectedCity.name} il rehberi`,eyebrow:'İL HAKKINDA',href:`/81-il-rehberi/${selectedCity.slug}`},{title:'Yöresel kültür',eyebrow:'KÜLTÜR PORTALI',href:cultureSearchUrl(selectedCity.name,'yerel kültür')},{title:'Tarih ve kültür',eyebrow:'DOĞRULANABİLİR BİLGİ',href:`https://www.kulturportali.gov.tr/turkiye/${selectedCity.slug}`},{title:'Fotoğraf galerisi',eyebrow:'LİSANSLI FOTOĞRAFLAR',href:`/81-il-rehberi/${selectedCity.slug}`}]:[];
+ const sightCards:Card[]=photos.slice(1,5).map(photo=>({title:photo.title.replace(/^File:/,''),href:photo.filePage,image:photo}));
 
  return <div className="city-landing-home">
+  <header className="city-home-header"><Link href="/" className="city-home-brand" aria-label="Xucuz.com ana sayfa"><ShoppingBag/><span><strong><b>XU</b>cuz<span>.com</span></strong><small>Türkiye’nin Karşılaştırmalı Ucuz Arama Motoru</small></span></Link><nav aria-label="Ana menü"><Link href="/"><Home/><span>Ana Sayfa</span></Link><Link className="active" href="/81-il-rehberi"><MapPin/><span>81 İl Rehberi</span></Link><Link href="/karsilastir"><Scale/><span>Karşılaştır</span></Link><Link href="/kampanyalar"><Tag/><span>Fırsatlar</span></Link><Link href="/rehberler"><Pencil/><span>Blog</span></Link><Link href="/favoriler"><Bell/><span>Favoriler</span></Link></nav><div className="city-home-account"><Link href="/favoriler"><UserRound/>Giriş Yap</Link><Link className="join" href="/magazalar"><Gift/>Ücretsiz Üye Ol</Link></div></header>
   <section className="city-home-hero" aria-labelledby="city-home-title">
-   {featuredPhoto&&<Image src={featuredPhoto.imageUrl} alt="" fill priority unoptimized sizes="100vw" className="city-home-hero-photo"/>}
+   <div className="city-home-hero-gallery" aria-hidden="true">{photos.slice(0,4).map((photo,index)=><Image key={photo.filePage} src={photo.imageUrl} alt="" fill priority={index===0} unoptimized sizes="100vw" className={`city-home-hero-photo panel-${index+1}`}/>)}</div>
    <div className="city-home-hero-shade"/>
    <div className="city-home-hero-inner">
     <div className="city-home-mascot" aria-label="Xucina, Xucuz.com'un resmi maskotu"><Image src="/xucina-home.webp" alt="Xucina, Xucuz.com’un resmi kadın cin maskotu" width={900} height={600} priority unoptimized/></div>
