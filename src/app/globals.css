@@ -427,3 +427,6 @@ body:has(.visitor-consent) .member-chat-root{bottom:calc(120px + env(safe-area-i
 @media(max-width:700px){.community-header{gap:10px}.xucuz-original-logo-header{width:155px}.footer-brand-logo{max-width:100%}}
 @media(max-width:480px){.admin-visitor-card{grid-template-columns:minmax(0,1fr) auto;padding:16px}.admin-visitor-card button{grid-column:1/-1;width:100%}}
 @media(max-width:520px){.visitor-consent{left:10px;bottom:calc(10px + env(safe-area-inset-bottom));width:calc(100vw - 20px);align-items:flex-start;flex-direction:column;gap:9px}.visitor-consent>div{width:100%}.visitor-consent button{flex:1}}
+
+/* Affiliate redesign: responsive global navigation */
+.community-header{gap:20px}.community-header nav{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:12px 19px}.community-header nav a{white-space:nowrap;font-weight:650}.community-header nav a:hover{color:#176bc5}@media(max-width:900px){.community-header{height:auto;min-height:85px;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}.community-header nav{justify-content:flex-start;width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:7px}.community-header nav a{font-size:12px}}@media(max-width:520px){.community-header{width:calc(100% - 32px)}.community-header nav{gap:15px}}
