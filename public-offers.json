@@ -1,32 +1,32 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-17T15:48:47.181Z",
+  "generatedAt": "2026-11-17T16:55:14.561Z",
   "offers": [],
   "statuses": [
     {
       "id": "tazecicek-public",
-      "checkedAt": "2026-11-17T15:48:47.181Z",
+      "checkedAt": "2026-11-17T16:55:14.561Z",
       "success": 0,
       "failed": 0,
       "message": "Kaynak erişim kısıtı nedeniyle devre dışı."
     },
     {
       "id": "incehesap-public",
-      "checkedAt": "2026-11-17T15:48:47.181Z",
+      "checkedAt": "2026-11-17T16:55:14.561Z",
       "success": 0,
       "failed": 0,
       "message": "Kaynak erişim kısıtı nedeniyle devre dışı."
     },
     {
       "id": "cicekmarket-public",
-      "checkedAt": "2026-11-17T15:48:47.181Z",
+      "checkedAt": "2026-11-17T16:55:14.561Z",
       "success": 0,
       "failed": 0,
       "message": "Yeniden yayın koşulları incelemesi tamamlanmadı; fiyat toplama ve yayın kapalı."
     },
     {
       "id": "gaming-public",
-      "checkedAt": "2026-11-17T15:48:47.181Z",
+      "checkedAt": "2026-11-17T16:55:14.561Z",
       "success": 0,
       "failed": 0,
       "message": "Madde 2.2 izinsiz yeniden yayını kısıtlıyor; fiyat yayını kapalı."
