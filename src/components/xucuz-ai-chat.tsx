@@ -1,7 +1,8 @@
 'use client';
 import {FormEvent,useEffect,useRef,useState} from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
-import {ArrowLeft,ArrowUpRight,Lamp,Send,ShieldCheck,Sparkles} from 'lucide-react';
+import {ArrowLeft,ArrowUpRight,Send,ShieldCheck,Sparkles} from 'lucide-react';
 import {useLanguage} from './language-provider';
 import {worldText} from '@/lib/xucuz-world-copy';
 
@@ -28,7 +29,7 @@ export function XucuzAiChat(){
   <div className="world-ai-heading"><Link href="/" className="world-back-link"><ArrowLeft size={15}/>{t('backHome')}</Link><p className="world-eyebrow"><span/>{t('aiEyebrow')}</p><h1>{t('aiPageTitle')}</h1><p>{t('aiLead')}</p></div>
   <div className="world-ai-layout">
    <aside className="world-ai-side">
-    <div className="world-ai-mascot-card"><span className="world-ai-halo"/><span className="world-ai-mascot" aria-hidden="true">🧞‍♂️</span><span className="world-ai-lamp"><Lamp size={25}/></span><span className="world-ai-spark"><Sparkles size={17}/></span></div>
+    <div className="world-ai-mascot-card"><span className="world-ai-halo"/><Image className="world-ai-mascot-image" src="/xucuz-world-genie.webp" alt={t('genieAlt')} width={630} height={630} priority sizes="(max-width:640px) 90vw, 35vw"/><span className="world-ai-spark"><Sparkles size={17}/></span></div>
     <div className={`world-ai-status ${status.assistantReady?'is-ready':'is-offline'}`}><span className="world-ai-status-dot"/><div><strong>{status.assistantReady?t('aiReady'):t('aiUnavailable')}</strong><small>{status.priceDatabaseConfigured?t('aiPriceReady'):t('priceScope')}</small></div></div>
     <div className="world-ai-privacy"><ShieldCheck size={17}/><p>{t('aiPrivacy')}</p></div>
    </aside>

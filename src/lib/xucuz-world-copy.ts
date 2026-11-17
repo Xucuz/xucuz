@@ -4,7 +4,7 @@ export const worldCopy={
  tr:{
   home:'Ana sayfa',ai:'Xucuz AI',passport:'Passport',travel:'Travel',market:'Market',business:'Business',radar:'Radar',
   currency:'Para birimi tercihi',eyebrow:'DÜNYAYI KEŞFET · AKILLI SEÇİMLER YAP',heroTitle:'Dünyayı keşfet.\nDaha bilinçli seç.',heroLead:'Alışveriş, seyahat ve keşif için tek bir küresel deneyim. Kaynağı doğrulanmayan fiyatı gerçekmiş gibi göstermiyoruz.',
-  askAi:'Xucuz AI ile konuş',openPassport:'Passport’u keşfet',searchLabel:'Doğrulanmış fiyatlarda ara',searchPlaceholder:'Ürün adı yaz…',searchButton:'Ara',
+  askAi:'Xucuz AI ile konuş',openPassport:'Passport’u keşfet',genieAlt:'Altın lambasının yanında duran neon mavi Xucuz cini',searchLabel:'Doğrulanmış fiyatlarda ara',searchPlaceholder:'Ürün adı yaz…',searchButton:'Ara',
   verified:'Kaynağı belli',verifiedBody:'Fiyatlarda onay, kaynak, para birimi ve tarih görünür.',noGuess:'Tahmin yok',noGuessBody:'Bağlı kaynak yoksa fiyat gösterilmez.',global:'Dünya için tasarlandı',globalBody:'TR, EN ve RU arayüzü; çoklu para birimi tercihi.',
   modulesTitle:'Xucuz dünyasını keşfet',modulesLead:'Her bölüm aynı ilkeye bağlı: veri kaynağı ve gerçek durum açıkça görünür.',
   aiTitle:'Kişisel alışveriş asistanı',aiBody:'Ürün rehberi ve doğrulanmış fiyat kayıtlarıyla yardımcı olur. Yapay zekâ servisi bağlı değilse bunu açıkça söyler.',aiStatus:'AI bağlantısı yapılandırmaya bağlı',
@@ -36,7 +36,7 @@ export const worldCopy={
  en:{
   home:'Home',ai:'Xucuz AI',passport:'Passport',travel:'Travel',market:'Market',business:'Business',radar:'Radar',
   currency:'Currency preference',eyebrow:'EXPLORE THE WORLD · CHOOSE WITH CONFIDENCE',heroTitle:'Explore the world.\nChoose with clarity.',heroLead:'One global experience for shopping, travel, and discovery. We never present an unverified price as real.',
-  askAi:'Chat with Xucuz AI',openPassport:'Explore Passport',searchLabel:'Search verified prices',searchPlaceholder:'Product name…',searchButton:'Search',
+  askAi:'Chat with Xucuz AI',openPassport:'Explore Passport',genieAlt:'Xucuz’s neon blue genie beside a golden lamp',searchLabel:'Search verified prices',searchPlaceholder:'Product name…',searchButton:'Search',
   verified:'Sources are visible',verifiedBody:'Price entries show approval, source, currency, and date.',noGuess:'No guessing',noGuessBody:'If a source is not connected, no price is shown.',global:'Made for the world',globalBody:'TR, EN, and RU interface with a currency preference.',
   modulesTitle:'Explore Xucuz World',modulesLead:'Every section follows one rule: make the source and real status clear.',
   aiTitle:'Your shopping assistant',aiBody:'Get product guidance and verified price records. If AI is not connected, we say so.',aiStatus:'AI depends on configuration',
@@ -68,7 +68,7 @@ export const worldCopy={
  ru:{
   home:'Главная',ai:'Xucuz AI',passport:'Паспорт',travel:'Путешествия',market:'Маркет',business:'Бизнес',radar:'Радар',
   currency:'Предпочитаемая валюта',eyebrow:'ОТКРЫВАЙТЕ МИР · ВЫБИРАЙТЕ ОСОЗНАННО',heroTitle:'Открывайте мир.\nВыбирайте уверенно.',heroLead:'Единая глобальная платформа для покупок, путешествий и открытий. Мы не выдаём непроверенную цену за настоящую.',
-  askAi:'Общаться с Xucuz AI',openPassport:'Открыть паспорт',searchLabel:'Поиск подтверждённых цен',searchPlaceholder:'Название товара…',searchButton:'Найти',
+  askAi:'Общаться с Xucuz AI',openPassport:'Открыть паспорт',genieAlt:'Неоново-синий джинн Xucuz рядом с золотой лампой',searchLabel:'Поиск подтверждённых цен',searchPlaceholder:'Название товара…',searchButton:'Найти',
   verified:'Источник виден',verifiedBody:'Указаны подтверждение, источник, валюта и дата цены.',noGuess:'Без догадок',noGuessBody:'Если источник не подключён, цена не показывается.',global:'Для всего мира',globalBody:'Интерфейс TR, EN и RU, выбор валюты.',
   modulesTitle:'Откройте Xucuz World',modulesLead:'В каждом разделе мы ясно показываем источник и фактический статус.',
   aiTitle:'Ваш помощник по покупкам',aiBody:'Подсказки по товарам и проверенные записи цен. Если AI не подключён, мы сообщим об этом.',aiStatus:'AI зависит от настройки',

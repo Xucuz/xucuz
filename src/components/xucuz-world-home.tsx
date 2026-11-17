@@ -25,8 +25,7 @@ export function XucuzWorldHome(){
    </div>
    <Link href="/xucuz-ai" className="world-genie-showcase" aria-label={t('ai')}>
     <span className="world-orbit world-orbit-one"/><span className="world-orbit world-orbit-two"/>
-    <span className="world-genie-glow"/><span className="world-genie-emoji" aria-hidden="true">🧞‍♂️</span>
-    <span className="world-genie-lamp"><span>✦</span><Sparkles size={25}/></span>
+    <span className="world-genie-glow"/><Image className="world-genie-image" src="/xucuz-world-genie.webp" alt={t('genieAlt')} width={630} height={630} priority sizes="(max-width:640px) 80vw, 35vw"/>
     <span className="world-genie-caption"><Sparkles size={13}/>{t('ai')}</span>
    </Link>
    <div className="world-hero-bottom"><span><Globe2 size={14}/>XUCUZ WORLD</span><span>TR <i/> EN <i/> RU</span><a href="#world-modules">{t('modulesTitle')}<ArrowDownRight size={15}/></a></div>
