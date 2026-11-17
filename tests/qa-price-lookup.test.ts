@@ -9,7 +9,7 @@ vi.mock('@/db',()=>({db:mock.db}));
 
 import {answerVerifiedPriceQuestion} from '../src/lib/qa-price-lookup';
 
-describe('Xucina verified price answers',()=>{
+describe('Xucin verified price answers',()=>{
  afterEach(()=>{mock.rows.length=0;mock.query.limit.mockImplementation(async()=>mock.rows);vi.unstubAllEnvs();vi.clearAllMocks();});
  it('uses only a returned approved observation and names its source and observation date',async()=>{
   vi.stubEnv('DATABASE_URL','postgres://test-only.invalid/xucuz');

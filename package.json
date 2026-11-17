@@ -19,7 +19,9 @@
     "catalog:import": "node --import tsx scripts/import-product-models.ts"
   },
   "dependencies": {
+    "@ai-sdk/groq": "^4.0.84",
     "@vercel/analytics": "^1.6.1",
+    "ai": "^7.0.173",
     "csv-parse": "^6.1.0",
     "drizzle-orm": "^0.44.7",
     "lucide-react": "^0.468.0",

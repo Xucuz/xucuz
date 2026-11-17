@@ -12,8 +12,8 @@ Eksikler: topluluk fiyat gönderimi ve kanıt dosyalarının güvenli saklanmas�
 2. `/fiyatlar` ve `/fiyat-ekle` ile ürün/bölge araması ve topluluk gönderisi akışını kur. İlk veri alanı market fiyat gözlemleridir; veri kaynağı, şehir, mağaza, paket ölçüsü, kampanya şartı ve gözlem zamanı kayıtla birlikte tutulur.
 3. Fiş, raf etiketi ve ürün görseli yüklemelerini ayrı özel kanıt kayıtları olarak PostgreSQL'de sakla. Tarayıcı fotoğrafları yeniden boyutlandırıp metadata içermeyen WebP'ye dönüştürür. SVG ve bilinmeyen dosya türlerini kabul etme; boyut/adet sınırı koy. Kanıtları herkese açma ve yönetici incelemesi tamamlanınca sil.
 4. Gönderileri `pending` başlat. Yalnızca giriş yapmış yönetici kanıtı inceledikten sonra onaylayabilir/reddedebilir. Kamuya yalnızca onaylı, süresi geçmemiş kayıtları ver; bunları “topluluk gözlemi” olarak göster, satıcıya git bağlantısı veya canlı satıcı fiyatı gibi sunma.
-5. Türkçe/İngilizce/Rusça ilk aşama ana akışını (arama, gönderi, sonuç ve Xucina yardım paneli) yerelleştir.
-6. Xucina için ürün rehberlerine dayalı, fiyat uydurmayan yazılı asistanı koru ve tarayıcının Web Speech API'lerini isteğe bağlı kullan. Ses izni yoksa metin akışı çalışmaya devam etsin.
+5. Türkçe/İngilizce/Rusça ilk aşama ana akışını (arama, gönderi, sonuç ve Xucin yardım paneli) yerelleştir.
+6. Xucin için ürün rehberlerine dayalı, fiyat uydurmayan yazılı asistanı koru ve tarayıcının Web Speech API'lerini isteğe bağlı kullan. Ses izni yoksa metin akışı çalışmaya devam etsin.
 7. PWA manifest, kurulum bilgisi ve çevrimdışı statik yardım sayfası ekle. Çevrimdışıyken fiyatları güncelmiş gibi sunma.
 8. Şema, moderasyon yetkisi, gizli kanıtlar, onay sonrası görünürlük, dil seçimi ve fiyat tazeliği için test ekle.
 
