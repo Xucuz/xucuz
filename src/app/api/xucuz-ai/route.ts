@@ -4,24 +4,28 @@ import {NextResponse} from 'next/server';
 import {z} from 'zod';
 import {answerVerifiedPriceQuestion} from '@/lib/qa-price-lookup';
 import {sameOrigin,rateLimit,boundedBody} from '@/lib/security';
+import {createGroq} from '@ai-sdk/groq';
+import {selectXucinAiProvider} from '@/lib/xucin-ai-config';
 
 export const dynamic='force-dynamic';
 const defaultModel='alibaba/qwen3.8-flash';
+const defaultGroqModel='qwen/qwen3.8-27b';
 const languages=['tr','en','ru'] as const;
 const schema=z.object({language:z.enum(languages),messages:z.array(z.object({role:z.enum(['user','assistant']),content:z.string().trim().min(1).max(1200)})).min(1).max(12)}).strict();
 const moneyIntent=/(?:\bfiyat\w*|\bkaç\s*(?:tl|lira)?\b|\btl\b|\btry\b|\bdolar\b|\beuro\b|\bkur\b|\bprice\w*|\bcost\w*|\bhow much\b|\bcheapest\b|\bexchange rate\b|\busd\b|\beur\b|\bgbp\b|цена|стоим|сколько|курс|лир|доллар|евро)/i;
 const moneyOutput=/(?:[$€£₺]\s*\d|\d[\d,. ]*\s*(?:[$€£₺]|\b(?:TRY|TL|USD|EUR|GBP)\b)|(?:price|cost|fare|rate|стоимост|цен[аы])[^\n]{0,36}\d)/i;
-function gatewayConfigured(){return Boolean(process.env.AI_GATEWAY_API_KEY||process.env.VERCEL_OIDC_TOKEN);}
+function selectedProvider(){return selectXucinAiProvider({gatewayApiKey:process.env.AI_GATEWAY_API_KEY,vercelOidcToken:process.env.VERCEL_OIDC_TOKEN,groqApiKey:process.env.GROQ_API_KEY});}
 function json(body:unknown,status=200){return NextResponse.json(body,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});}
 function genericError(language:'tr'|'en'|'ru'){
- return language==='en'?'Xucuz AI is not configured yet. Set up Vercel AI Gateway for general answers.':language==='ru'?'Xucuz AI пока не настроен. Для общих ответов настройте Vercel AI Gateway.':'Xucuz AI henüz yapılandırılmadı. Genel yanıtlar için Vercel AI Gateway ayarlayın.';
+ return language==='en'?'Xucuz AI is not connected. Configure a Groq API key or Vercel AI Gateway in this environment.':language==='ru'?'Xucuz AI не подключён. Настройте ключ Groq или Vercel AI Gateway в этой среде.':'Xucuz AI bağlantısı yapılandırılmamış. Bu ortamda Groq API anahtarı veya Vercel AI Gateway ayarlayın.';
 }
 function safeFallback(language:'tr'|'en'|'ru'){
  return language==='en'?'I can help with shopping guidance, but I cannot provide a current price, fare, exchange rate, or seller quote without a verified source.':language==='ru'?'Я могу помочь с выбором, но без подтверждённого источника не сообщаю актуальные цены, тарифы, курсы или предложения продавцов.':'Alışveriş rehberliğinde yardımcı olabilirim; doğrulanmış kaynak olmadan güncel fiyat, ücret, kur veya satıcı teklifi veremem.';
 }
 
 export async function GET(){
- return json({assistantReady:Boolean(process.env.AI_GATEWAY_MODEL||defaultModel)&&gatewayConfigured(),priceDatabaseConfigured:Boolean(process.env.DATABASE_URL),providerConfigured:gatewayConfigured()});
+ const provider=selectedProvider();
+ return json({assistantReady:Boolean(provider),priceDatabaseConfigured:Boolean(process.env.DATABASE_URL),providerConfigured:Boolean(provider),provider});
 }
 
 export async function POST(request:Request){
@@ -44,16 +48,20 @@ export async function POST(request:Request){
   }
  }
 
- if(!gatewayConfigured())return json({error:genericError(language),code:'ai_gateway_not_configured'},503);
+ const provider=selectedProvider();
+ if(!provider)return json({error:genericError(language),code:'ai_provider_not_configured'},503);
  const langName=language==='en'?'English':language==='ru'?'Russian':'Turkish';
  const system=`You are Xucin, Xucuz World's concise and helpful AI guide for shopping and travel discovery. Reply in ${langName}. Explain that this preview does not yet have live global retailer, travel, booking, or currency-rate integrations. Never invent or state numeric prices, fares, exchange rates, inventory, seller offers, or current travel availability. The user may ask about such data: say that only verified, current database records can be quoted. Do not imply that a booking, payment, location check, or account action occurred. Do not ask for passwords, payment information, or sensitive personal data. Keep answers brief and practical.`;
  const history=messages.slice(-8).map(message=>({role:message.role,content:message.content})) as ModelMessage[];
  try{
-  const result=await generateText({model:process.env.AI_GATEWAY_MODEL||defaultModel,system,messages:history,maxOutputTokens:400,abortSignal:AbortSignal.timeout(15_000)});
+  const model=provider==='vercel-ai-gateway'
+   ?process.env.AI_GATEWAY_MODEL||defaultModel
+   :createGroq({apiKey:process.env.GROQ_API_KEY!})(process.env.GROQ_MODEL||defaultGroqModel);
+  const result=await generateText({model,system,messages:history,maxOutputTokens:400,abortSignal:AbortSignal.timeout(15_000)});
   const text=moneyOutput.test(result.text)?safeFallback(language):result.text;
   return new Response(text,{headers:{'Content-Type':'text/plain; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
  }catch{
   console.error('[xucuz-world-ai] model request failed');
-  return json({error:genericError(language),code:'ai_gateway_request_failed'},503);
+  return json({error:genericError(language),code:'ai_provider_request_failed'},503);
  }
 }
