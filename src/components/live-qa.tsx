@@ -73,16 +73,16 @@ export function LiveQA(){
  }
 
  return <div className="live-qa-root">
-  {open&&<section id="live-qa-panel" className="live-qa-panel" role="dialog" aria-modal="false" aria-label="Xucina">
-   <header className="live-qa-head"><div className="xucina-avatar" aria-hidden="true"><Image src="/xucina-icon-192.png" alt="" fill sizes="40px"/></div><div><strong id="live-qa-title">Xucina</strong><span className="live-qa-online-line"><span className="live-qa-online-label">Çevrimiçi</span><span className="live-qa-online-count">{onlineCount===null?'—':onlineCount.toLocaleString('tr-TR')}</span></span></div><button type="button" className="live-qa-close" onClick={()=>{setOnlineCount(null);setOpen(false);}} aria-label="Sohbeti kapat"><X size={20}/></button></header>
+  {open&&<section id="live-qa-panel" className="live-qa-panel" role="dialog" aria-modal="false" aria-label="Xucin">
+   <header className="live-qa-head"><div className="xucina-avatar" aria-hidden="true"><Image src="/xucina-icon-192.png" alt="" fill sizes="40px"/></div><div><strong id="live-qa-title">Xucin</strong><span className="live-qa-online-line"><span className="live-qa-online-label">Çevrimiçi</span><span className="live-qa-online-count">{onlineCount===null?'—':onlineCount.toLocaleString('tr-TR')}</span></span></div><button type="button" className="live-qa-close" onClick={()=>{setOnlineCount(null);setOpen(false);}} aria-label="Sohbeti kapat"><X size={20}/></button></header>
    <div className="live-qa-messages" ref={list} aria-live="polite" aria-relevant="additions text">
     {messages.map(message=><div className={`live-qa-message ${message.from}`} key={message.id}><p>{message.id===0?welcomes[language]:message.reply.text}</p>{message.from==='assistant'&&<button className="xucina-speak" type="button" onClick={()=>speak(message.reply.text)} aria-label={t('speak')}><Volume2 size={14}/>{t('speak')}</button>}{message.reply.href&&message.reply.label&&<Link href={message.reply.href} onClick={()=>setOpen(false)}>{message.reply.label} →</Link>}</div>)}
     {busy&&<div className="live-qa-message assistant" role="status"><p className="live-qa-typing">•••</p></div>}
    </div>
    <div className="live-qa-prompts"><button type="button" onClick={()=>setInput(t('perUnitPrompt'))}>{t('perUnit')}</button><button type="button" onClick={()=>setInput(t('totalCostPrompt'))}>{t('totalCost')}</button></div>
    <form className="live-qa-form" onSubmit={send}><label className="sr-only" htmlFor="live-qa-input">{t('ask')}</label><textarea ref={inputRef} id="live-qa-input" value={input} onChange={event=>setInput(event.target.value.slice(0,300))} placeholder={t('ask')} rows={1} maxLength={300} onKeyDown={event=>{if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();event.currentTarget.form?.requestSubmit();}}}/><button type="button" onClick={listen} aria-label={listening?t('stopListening'):t('listen')} aria-pressed={listening} title={t('listen')}><Mic size={17}/></button><button type="submit" aria-label={t('sendQuestion')} disabled={!input.trim()||busy}><Send size={18}/></button></form>
-   <p className="live-qa-note">{t('xucinaIntro')} {listening?t('listening'):''}{voiceNotice&&<span className="live-qa-voice-notice" role="status">{voiceNotice}</span>}</p>
+   <p className="live-qa-note">{t('xucinIntro')} {listening?t('listening'):''}{voiceNotice&&<span className="live-qa-voice-notice" role="status">{voiceNotice}</span>}</p>
   </section>}
-  <button type="button" className={`live-qa-launcher ${open?'is-open':''}`} onClick={()=>{setOnlineCount(null);setOpen(value=>!value);}} aria-label={open?'Xucina penceresini kapat':t('xucina')} aria-expanded={open} aria-controls="live-qa-panel"><Sparkles size={21}/><span>{open?'Kapat':t('xucina')}</span></button>
+  <button type="button" className={`live-qa-launcher ${open?'is-open':''}`} onClick={()=>{setOnlineCount(null);setOpen(value=>!value);}} aria-label={open?'Xucin penceresini kapat':t('xucin')} aria-expanded={open} aria-controls="live-qa-panel"><Sparkles size={21}/><span>{open?'Kapat':t('xucin')}</span></button>
  </div>;
 }

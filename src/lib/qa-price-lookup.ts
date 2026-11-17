@@ -34,7 +34,7 @@ function failureKind(error:unknown):FailureKind{
 }
 function failureReply(kind:FailureKind,language:Language):PriceReply{
  const text=kind==='database_not_configured'?dbNotConfigured[language]:kind==='database_connection_failed'?dbConnectionFailed[language]:kind==='price_migration_missing'?migrationMissing[language]:queryFailed[language];
- console.error(`[xucina-qa] verified price lookup unavailable: ${kind}`);
+ console.error(`[xucin-qa] verified price lookup unavailable: ${kind}`);
  return {text,href:'/fiyatlar',label:language==='tr'?'Fiyat aramayı aç':language==='en'?'Open price search':'Открыть поиск цен'};
 }
 

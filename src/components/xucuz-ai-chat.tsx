@@ -34,7 +34,7 @@ export function XucuzAiChat(){
     <div className="world-ai-privacy"><ShieldCheck size={17}/><p>{t('aiPrivacy')}</p></div>
    </aside>
    <section className="world-chat-card" aria-label={t('ai')}>
-    <div className="world-chat-header"><span className="world-chat-mark"><Sparkles size={17}/></span><div><strong>Xucuz AI</strong><small>{status.assistantReady?t('aiReady'):t('aiUnavailable')}</small></div><span className="world-chat-preview">PREVIEW</span></div>
+   <div className="world-chat-header"><span className="world-chat-mark"><Sparkles size={17}/></span><div><strong>Xucin</strong><small>{status.assistantReady?t('aiReady'):t('aiUnavailable')}</small></div><span className="world-chat-preview">PREVIEW</span></div>
     <div className="world-chat-messages" ref={logRef} aria-live="polite">
      {messages.length===0&&<div className="world-chat-welcome"><p>{t('aiLead')}</p><span className="world-chat-scope"><ShieldCheck size={14}/>{t('priceScope')}</span></div>}
      {messages.map((message,index)=><div className={`world-chat-message ${message.role}`} key={`${index}-${message.role}`}><span>{message.role==='assistant'?'🧞‍♂️':'YOU'}</span><p>{message.text}</p>{message.role==='assistant'&&<Link href="/fiyatlar">{t('verified')}<ArrowUpRight size={12}/></Link>}</div>)}
