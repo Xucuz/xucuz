@@ -1,55 +1,78 @@
 'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
-import {ArrowDownRight,ArrowRight,ArrowUpRight,Compass,Globe2,LockKeyhole,MapPinned,Plane,Radio,Search,ShieldCheck,Sparkles,Store,WalletCards} from 'lucide-react';
+import {useState} from 'react';
+import {ArrowRight,Calculator,MapPinned,Mic,MicOff,Search,ShieldCheck,Sparkles,Tag,Utensils} from 'lucide-react';
 import {useLanguage} from './language-provider';
 import {worldText} from '@/lib/xucuz-world-copy';
 
 export function XucuzWorldHome(){
- const {language}=useLanguage();const t=(key:Parameters<typeof worldText>[1])=>worldText(language,key);
- const modules=[
-  {id:'xucuz-ai',href:'/xucuz-ai',key:'aiTitle' as const,body:'aiBody' as const,status:'aiStatus' as const,Icon:Sparkles,tone:'blue'},
-  {id:'passport',href:'/passport',key:'passportTitle' as const,body:'passportBody' as const,status:'passportStatus' as const,Icon:MapPinned,tone:'gold'},
-  {id:'travel',href:'/#travel',key:'travelTitle' as const,body:'travelBody' as const,status:'travelStatus' as const,Icon:Plane,tone:'sky'},
-  {id:'market',href:'/fiyatlar',key:'marketTitle' as const,body:'marketBody' as const,status:'marketStatus' as const,Icon:WalletCards,tone:'violet'},
-  {id:'business',href:'/magazalar',key:'businessTitle' as const,body:'businessBody' as const,status:'businessStatus' as const,Icon:Store,tone:'mint'},
-  {id:'radar',href:'/#radar',key:'radarTitle' as const,body:'radarBody' as const,status:'radarStatus' as const,Icon:Radio,tone:'coral'}
+ const {language}=useLanguage();
+ const t=(key:Parameters<typeof worldText>[1])=>worldText(language,key);
+ const [speaking,setSpeaking]=useState(false);
+ const [voiceNotice,setVoiceNotice]=useState('');
+ const speak=()=>{
+  if(typeof window==='undefined'||!('speechSynthesis' in window)){setVoiceNotice(t('magicVoiceUnsupported'));return;}
+  const synth=window.speechSynthesis;
+  if(speaking){synth.cancel();setSpeaking(false);return;}
+  synth.cancel();
+  const utterance=new SpeechSynthesisUtterance(`${t('magicTitleFirst')} ${t('magicTitleSecond')}. ${t('magicLead')} ${t('magicVoiceLine')}`);
+  utterance.lang=language==='en'?'en-US':language==='ru'?'ru-RU':'tr-TR';
+  utterance.rate=.96;
+  utterance.pitch=1.04;
+  utterance.onend=()=>setSpeaking(false);
+  utterance.onerror=()=>{setSpeaking(false);setVoiceNotice(t('magicVoiceUnsupported'));};
+  setVoiceNotice('');setSpeaking(true);synth.speak(utterance);
+ };
+
+ const portals=[
+  {href:'/fiyatlar',label:'magicPriceTitle' as const,description:'magicPriceBody' as const,Icon:Tag,scene:'price'},
+  {href:'/birim-fiyat',label:'magicBasketTitle' as const,description:'magicBasketBody' as const,Icon:Calculator,scene:'basket'},
+  {href:'/passport',label:'magicDiscoveryTitle' as const,description:'magicDiscoveryBody' as const,Icon:MapPinned,scene:'discovery'}
  ];
- return <div className="world-home">
-  <section className="world-hero" aria-labelledby="world-title">
-   <div className="world-hero-grid" aria-hidden="true"/>
-   <div className="world-hero-copy"><p className="world-eyebrow"><span/>{t('eyebrow')}</p><h1 id="world-title">{t('heroTitle')}</h1><p className="world-hero-lead">{t('heroLead')}</p>
-    <form className="world-search" action="/fiyatlar"><Search size={19}/><label htmlFor="world-search" className="sr-only">{t('searchLabel')}</label><input id="world-search" name="q" placeholder={t('searchPlaceholder')} autoComplete="off"/><button type="submit">{t('searchButton')}<ArrowRight size={16}/></button></form>
-    <p className="world-search-note"><ShieldCheck size={14}/>{t('priceScope')}</p>
-    <div className="world-hero-actions"><Link className="world-button-primary" href="/xucuz-ai"><Sparkles size={17}/>{t('askAi')}<ArrowUpRight size={16}/></Link><Link className="world-button-quiet" href="/passport"><Compass size={17}/>{t('openPassport')}</Link></div>
+
+ return <div className="magic-home">
+  <section className="magic-stage" aria-labelledby="magic-title">
+   <div className="magic-sky" aria-hidden="true"><span className="magic-moon"/><span className="magic-star magic-star-one"/><span className="magic-star magic-star-two"/><span className="magic-star magic-star-three"/><span className="magic-cityline"/><span className="magic-frame magic-frame-left"/><span className="magic-frame magic-frame-right"/></div>
+   <div className="magic-stage-inner">
+    <div className="magic-hero">
+     <div className="magic-mascot-wrap">
+      <span className="magic-mascot-halo" aria-hidden="true"/>
+      <Image className="magic-mascot" src="/xucuz-world-genie.webp" alt={t('genieAlt')} width={630} height={630} priority sizes="(max-width: 700px) 82vw, 38vw"/>
+      <span className="magic-mascot-spark magic-spark-a" aria-hidden="true">✦</span><span className="magic-mascot-spark magic-spark-b" aria-hidden="true">✧</span>
+      <div className="magic-mascot-actions">
+       <button type="button" className="magic-voice-button" onClick={speak} aria-pressed={speaking}>
+        {speaking?<MicOff size={17}/>:<Mic size={17}/>}<span>{speaking?t('magicVoiceStop'):t('magicVoiceButton')}</span>
+       </button>
+       {voiceNotice&&<span className="magic-voice-notice" role="status">{voiceNotice}</span>}
+       <Link className="magic-ask-link" href="/xucuz-ai"><Sparkles size={14}/>{t('askAi')}</Link>
+      </div>
+     </div>
+     <div className="magic-copy">
+      <p className="magic-kicker"><span className="magic-kicker-gem"/> {t('magicKicker')}</p>
+      <h1 id="magic-title"><span>{t('magicTitleFirst')}</span><em>{t('magicTitleSecond')}</em></h1>
+      <p className="magic-lead">{t('magicLead')}</p>
+      <form className="magic-search" action="/fiyatlar">
+       <Search size={21} aria-hidden="true"/><label htmlFor="magic-search-input" className="sr-only">{t('searchLabel')}</label>
+       <input id="magic-search-input" name="q" placeholder={t('magicSearchPlaceholder')} autoComplete="off"/>
+       <button type="submit">{t('magicSearchButton')}<ArrowRight size={17}/></button>
+      </form>
+      <p className="magic-search-note"><ShieldCheck size={15}/>{t('magicSearchNote')}</p>
+     </div>
+    </div>
+
+    <nav className="magic-portals" aria-label={t('magicPortalsLabel')}>
+     {portals.map(({href,label,description,Icon,scene},index)=><Link className={`magic-portal magic-portal-${scene}`} href={href} key={scene}>
+      <span className="magic-portal-number">0{index+1}</span>
+      <span className="magic-portal-art" aria-hidden="true"><span className="magic-portal-rune"/><span className="magic-portal-icon"><Icon size={48} strokeWidth={1.45}/></span>{scene==='basket'&&<span className="magic-portal-subicon"><Calculator size={24}/></span>}{scene==='discovery'&&<span className="magic-portal-subicon"><Utensils size={22}/></span>}</span>
+      <span className="magic-portal-title">{t(label)}</span><span className="magic-portal-description">{t(description)}</span><span className="magic-portal-arrow"><ArrowRight size={17}/></span>
+     </Link>)}
+    </nav>
+
+    <div className="magic-trust-strip"><span><ShieldCheck size={20}/>{t('magicTrustNoGuess')}</span><i aria-hidden="true"/><span><Search size={19}/>{t('magicTrustSource')}</span></div>
    </div>
-   <Link href="/xucuz-ai" className="world-genie-showcase" aria-label={t('ai')}>
-    <span className="world-orbit world-orbit-one"/><span className="world-orbit world-orbit-two"/>
-    <span className="world-genie-glow"/><Image className="world-genie-image" src="/xucuz-world-genie.webp" alt={t('genieAlt')} width={630} height={630} priority sizes="(max-width:640px) 80vw, 35vw"/>
-    <span className="world-genie-caption"><Sparkles size={13}/>{t('ai')}</span>
-   </Link>
-   <div className="world-hero-bottom"><span><Globe2 size={14}/>XUCUZ WORLD</span><span>TR <i/> EN <i/> RU</span><a href="#world-modules">{t('modulesTitle')}<ArrowDownRight size={15}/></a></div>
   </section>
-
-  <section className="world-principles" aria-label={t('dataTitle')}>
-   {[['sourceLabel','sourceBody',LockKeyhole],['currencyLabel','currencyBody',WalletCards],['noInvented','noInventedBody',ShieldCheck]].map(([title,body,Icon])=>{
-    const ItemIcon=Icon as typeof LockKeyhole;return <article key={title as string}><span className="world-principle-icon"><ItemIcon size={18}/></span><div><strong>{t(title as Parameters<typeof worldText>[1])}</strong><p>{t(body as Parameters<typeof worldText>[1])}</p></div></article>;
-   })}
-  </section>
-
-  <section className="world-modules-section" id="world-modules" aria-labelledby="world-modules-title">
-   <div className="world-section-heading"><div><p className="world-eyebrow"><span/>{t('home')}</p><h2 id="world-modules-title">{t('modulesTitle')}</h2><p>{t('modulesLead')}</p></div><span className="world-section-index">01 / 06</span></div>
-   <div className="world-module-grid">{modules.map(({id,href,key,body,status,Icon,tone},index)=><Link href={href} id={id} key={id} className={`world-module-card tone-${tone}`}>
-    <span className="world-module-top"><span className="world-module-icon"><Icon size={20}/></span><span>0{index+1}</span></span>
-    <h3>{t(key)}</h3><p>{t(body)}</p><span className="world-module-status"><i/>{t(status)}</span><span className="world-module-arrow"><ArrowUpRight size={18}/></span>
-   </Link>)}</div>
-  </section>
-
-  <section className="world-passport-band" aria-labelledby="world-passport-title">
-   <div className="world-passport-copy"><p className="world-eyebrow"><span/>XUCUZ PASSPORT</p><h2 id="world-passport-title">{t('passportTitle')}</h2><p>{t('passportBody')}</p><Link className="world-button-primary" href="/passport">{t('openPassport')}<ArrowRight size={16}/></Link><small>{t('localNote')}</small></div>
-  <Link href="/passport" className="world-atlas-card" aria-label={t('mapTitle')}><span className="world-atlas-head"><span><MapPinned size={15}/>{t('mapTitle')}</span><ArrowUpRight size={16}/></span><span className="world-atlas-image"><Image src="/world-atlas.svg" alt="" width={1200} height={600} sizes="(max-width: 640px) 90vw, 55vw" loading="lazy"/></span><span className="world-atlas-foot"><i/> PERSONAL DISCOVERY MAP <span>PUBLIC-DOMAIN BASE MAP</span></span></Link>
-  </section>
-
-  <section className="world-trust-section" aria-labelledby="world-trust-title"><div className="world-trust-icon"><ShieldCheck size={24}/></div><div><p className="world-eyebrow"><span/>XUCUZ DATA STANDARD</p><h2 id="world-trust-title">{t('dataTitle')}</h2><p>{t('dataLead')}</p></div><Link href="/veri-kaynaklari">{t('verified')}<ArrowRight size={15}/></Link></section>
+  <section className="magic-afterword" aria-label={t('dataTitle')}><p>{t('magicAfterword')}</p><Link href="/veri-kaynaklari">{t('verified')}<ArrowRight size={14}/></Link></section>
  </div>;
 }
