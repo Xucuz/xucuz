@@ -79,3 +79,6 @@
 .magic-world-orbit{top:0%;right:5%;width:clamp(138px,14vw,170px)}
 @media(max-width:960px){.magic-mascot{width:auto;height:100%;max-width:100%}}
 @media(max-width:700px){.magic-mascot-wrap{width:min(90vw,360px);height:min(112vw,430px);min-height:0}.magic-mascot{width:auto;height:100%;max-width:100%}.magic-world-orbit{top:0%;right:4%;width:clamp(126px,39vw,150px)}}
+.magic-world-orbit{top:-4%;right:8%;width:clamp(180px,16vw,205px)}.magic-world-globe{width:82%}
+@media(max-width:960px){.magic-world-orbit{top:-3%;right:-3%;width:clamp(160px,20vw,185px)}}
+@media(max-width:700px){.magic-world-orbit{top:-3%;right:-3%;width:clamp(138px,42vw,158px)}}
