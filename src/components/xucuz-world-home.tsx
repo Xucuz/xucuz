@@ -82,7 +82,7 @@ export function XucuzWorldHome(){
       <p className="magic-kicker"><span className="magic-kicker-gem"/> {t('magicKicker')}</p>
       <h1 id="magic-title"><span>{t('magicTitleFirst')}</span><em>{t('magicTitleSecond')}</em></h1>
       <p className="magic-lead">{t('magicLead')}</p>
-      <form className="magic-search" action="/fiyatlar">
+      <form className="magic-search" action="/ara">
        <Search size={21} aria-hidden="true"/><label htmlFor="magic-search-input" className="sr-only">{t('searchLabel')}</label>
        <input id="magic-search-input" name="q" placeholder={t('magicSearchPlaceholder')} autoComplete="off"/>
        <button type="submit">{t('magicSearchButton')}<ArrowRight size={17}/></button>
