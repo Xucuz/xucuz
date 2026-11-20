@@ -1,8 +1,9 @@
 'use client';
-import {FormEvent,useEffect,useRef,useState} from 'react';
+
+import {FormEvent, KeyboardEvent, useEffect, useRef, useState} from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import {ArrowLeft,ArrowUpRight,Send,ShieldCheck,Sparkles} from 'lucide-react';
+import {ArrowLeft,ArrowUpRight,Plus,Send,ShieldCheck,Sparkles} from 'lucide-react';
 import {useLanguage} from './language-provider';
 import {worldText} from '@/lib/xucuz-world-copy';
 import type {Offer} from '@/lib/types';
@@ -32,25 +33,19 @@ export function XucuzAiChat(){
   }catch{setMessages([...next,{role:'assistant' as const,text:t('apiError')}].slice(-12));}
   finally{setSending(false);}
  }
- return <div className="world-ai-page">
-  <div className="world-ai-heading"><Link href="/" className="world-back-link"><ArrowLeft size={15}/>{t('backHome')}</Link><p className="world-eyebrow"><span/>{t('aiEyebrow')}</p><h1>{t('aiPageTitle')}</h1><p>{t('aiLead')}</p></div>
-  <div className="world-ai-layout">
-   <aside className="world-ai-side">
-    <div className="world-ai-mascot-card"><span className="world-ai-halo"/><Image className="world-ai-mascot-image" src="/xucuz-world-genie.webp" alt={t('genieAlt')} width={630} height={630} priority sizes="(max-width:640px) 90vw, 35vw"/><span className="world-ai-spark"><Sparkles size={17}/></span></div>
-    <div className={`world-ai-status ${status.assistantReady?'is-ready':'is-offline'}`}><span className="world-ai-status-dot"/><div><strong>{status.assistantReady?t('aiReady'):t('aiUnavailable')}</strong><small>{status.priceDatabaseConfigured?t('aiPriceReady'):t('priceScope')}</small></div></div>
-    <div className="world-ai-privacy"><ShieldCheck size={17}/><p>{t('aiPrivacy')}</p></div>
-   </aside>
-   <section className="world-chat-card" aria-label={t('ai')}>
-   <div className="world-chat-header"><span className="world-chat-mark"><Sparkles size={17}/></span><div><strong>Xucin</strong><small>{status.assistantReady?t('aiReady'):t('aiUnavailable')}</small></div><span className="world-chat-preview">PREVIEW</span></div>
-    <div className="world-chat-messages" ref={logRef} aria-live="polite">
-     {messages.length===0&&<div className="world-chat-welcome"><p>{t('aiLead')}</p><span className="world-chat-scope"><ShieldCheck size={14}/>{t('priceScope')}</span></div>}
-     {messages.map((message,index)=><div className={`world-chat-message ${message.role}`} key={`${index}-${message.role}`}><span>{message.role==='assistant'?'🧞‍♂️':'YOU'}</span><p>{message.text}</p>{message.offers&&<div className="world-chat-offers" aria-label={language==='en'?'Verified store results':language==='ru'?'Проверенные предложения магазинов':'Doğrulanmış mağaza sonuçları'}>{message.offers.map(offer=><article className="world-chat-offer" key={offer.id}><div className="world-chat-offer-meta"><strong>{offer.provider}</strong><time dateTime={offer.updatedAt}>{new Intl.DateTimeFormat(language==='en'?'en-US':language==='ru'?'ru-RU':'tr-TR',{dateStyle:'short',timeStyle:'short'}).format(new Date(offer.updatedAt))}</time></div><a href={offer.url??undefined} target="_blank" rel="noopener noreferrer" className="world-chat-offer-title">{offer.title}<ArrowUpRight size={13}/></a><strong className="world-chat-offer-price">{money(total(offer),offer.currency)}</strong><small>{offer.source}</small></article>)}</div>}{message.role==='assistant'&&<Link href="/fiyatlar">{t('verified')}<ArrowUpRight size={12}/></Link>}</div>)}
-     {sending&&<div className="world-chat-message assistant"><span>🧞‍♂️</span><p className="world-chat-pending"><i/>{t('thinking')}</p></div>}
-    </div>
-    <div className="world-chat-prompts">{(['promptPrice','promptGuide','promptTravel'] as const).map(key=><button type="button" key={key} disabled={sending} onClick={()=>void submit(undefined,t(key))}>{t(key)}</button>)}</div>
-    <form className="world-chat-composer" onSubmit={submit}><label className="sr-only" htmlFor="xucuz-ai-question">{t('chatPlaceholder')}</label><textarea id="xucuz-ai-question" value={question} onChange={event=>setQuestion(event.target.value)} placeholder={t('chatPlaceholder')} maxLength={1200} rows={2} disabled={sending}/><button type="submit" aria-label={t('send')} disabled={sending||question.trim().length===0}><Send size={17}/></button></form>
-    <div className="world-chat-foot"><span>{status.priceDatabaseConfigured?'DB · VERIFIED RECORDS':'DB · NOT CONFIGURED'}</span><span>{error||'MESSAGES NOT SAVED'}</span></div>
-   </section>
+ function onComposerKeyDown(event:KeyboardEvent<HTMLTextAreaElement>){if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();void submit();}}
+ function newChat(){if(sending)return;setMessages([]);setQuestion('');setError('');}
+ const suggestions=[t('promptPrice'),t('promptGuide'),t('promptTravel')];
+ return <main className="xucin-chat-page">
+  <header className="xucin-chat-topbar"><Link href="/" className="xucin-chat-back"><ArrowLeft size={17}/><span>{t('backHome')}</span></Link><div className="xucin-chat-brand"><Sparkles size={18}/><strong>Xucin</strong><span>Xucuz AI</span></div><button className="xucin-new-chat" type="button" onClick={newChat} disabled={sending}><Plus size={16}/><span>Yeni sohbet</span></button></header>
+  <div className={`xucin-chat-column ${messages.length?'has-messages':''}`}>
+   {messages.length===0?<section className="xucin-welcome"><Image src="/xucuz-world-genie.webp" alt={t('genieAlt')} width={88} height={88} priority/><h1>Bugün ne arıyorsun?</h1><p>Ürün, alışveriş veya gezi hakkında Xucin’e sor.</p><span className="xucin-source-note"><ShieldCheck size={14}/>{t('priceScope')}</span></section>:<div className="xucin-conversation" ref={logRef} aria-live="polite">
+    {messages.map((message,index)=><article className={`xucin-message ${message.role}`} key={`${index}-${message.role}`}><div className="xucin-message-avatar">{message.role==='assistant'?<Image src="/xucuz-world-genie.webp" alt="" width={30} height={30}/>:<span>Sen</span>}</div><div className="xucin-message-content"><strong>{message.role==='assistant'?'Xucin':'Sen'}</strong><p>{message.text}</p>{message.offers&&<div className="world-chat-offers" aria-label={language==='en'?'Verified store results':language==='ru'?'Проверенные предложения магазинов':'Doğrulanmış mağaza sonuçları'}>{message.offers.map(offer=><article className="world-chat-offer" key={offer.id}><div className="world-chat-offer-meta"><strong>{offer.provider}</strong><time dateTime={offer.updatedAt}>{new Intl.DateTimeFormat(language==='en'?'en-US':language==='ru'?'ru-RU':'tr-TR',{dateStyle:'short',timeStyle:'short'}).format(new Date(offer.updatedAt))}</time></div><a href={offer.url??undefined} target="_blank" rel="noopener noreferrer" className="world-chat-offer-title">{offer.title}<ArrowUpRight size={13}/></a><strong className="world-chat-offer-price">{money(total(offer),offer.currency)}</strong><small>{offer.source}</small></article>)}</div>}{message.role==='assistant'&&<Link href="/fiyatlar" className="xucin-verified-link">{t('verified')}<ArrowUpRight size={13}/></Link>}</div></article>)}
+    {sending&&<div className="xucin-thinking"><span className="xucin-thinking-dot"/><span>{t('thinking')}</span></div>}
+   </div>}
+   {messages.length===0&&<div className="xucin-suggestions">{suggestions.map((prompt,index)=><button type="button" key={`${index}-${prompt}`} onClick={()=>void submit(undefined,prompt)} disabled={sending}>{prompt}</button>)}</div>}
+   <div className="xucin-composer-wrap"><form className="xucin-composer" onSubmit={submit}><label className="sr-only" htmlFor="xucin-question">{t('chatPlaceholder')}</label><textarea id="xucin-question" value={question} onChange={event=>setQuestion(event.target.value)} onKeyDown={onComposerKeyDown} placeholder={t('chatPlaceholder')} maxLength={1200} rows={1} disabled={sending}/><button type="submit" aria-label={t('send')} disabled={sending||question.trim().length===0}><Send size={18}/></button></form><div className="xucin-disclaimer">{error||t('aiPrivacy')}</div></div>
   </div>
- </div>;
+  <footer className="xucin-chat-footer"><span className={status.assistantReady?'ready':''}/>{status.assistantReady?t('aiReady'):t('aiUnavailable')} · {status.priceDatabaseConfigured?t('aiPriceReady'):t('priceScope')}</footer>
+ </main>;
 }
