@@ -82,3 +82,4 @@
 .magic-world-orbit{top:-4%;right:8%;width:clamp(205px,18vw,235px)}.magic-world-globe{width:88%}
 @media(max-width:960px){.magic-world-orbit{top:-3%;right:-3%;width:clamp(180px,23vw,205px)}}
 @media(max-width:700px){.magic-world-orbit{top:-3%;right:-3%;width:clamp(156px,46vw,176px)}}
+.world-chat-offers{display:grid;gap:8px;margin:12px 0 4px}.world-chat-offer{display:grid;gap:5px;padding:10px 11px;border:1px solid #dce5f0;border-radius:10px;background:#fff}.world-chat-offer-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#546981;font-size:10px}.world-chat-offer-meta time,.world-chat-offer small{color:#7b8da1;font-size:9px}.world-chat-offer-title{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;color:#142d49;font-size:11px;font-weight:700}.world-chat-offer-title svg{flex:none;color:#176ec4}.world-chat-offer-price{color:#087957;font-size:15px}
