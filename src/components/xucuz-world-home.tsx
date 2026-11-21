@@ -5,7 +5,6 @@ import Link from 'next/link';
 import {ArrowRight,Calculator,MapPinned,Search,ShieldCheck,Tag,Utensils} from 'lucide-react';
 import {useLanguage} from './language-provider';
 import {worldText} from '@/lib/xucuz-world-copy';
-import {ProvinceMapViewer} from './province-map-viewer';
 
 export function XucuzWorldHome(){
  const {language}=useLanguage();
@@ -24,7 +23,10 @@ export function XucuzWorldHome(){
     <div className="magic-hero">
      <div className="magic-mascot-wrap">
       <span className="magic-mascot-halo" aria-hidden="true"/>
-      <Image className="magic-mascot" src="/xucuz-genie-turkiye.webp" alt={t('genieAlt')} width={1130} height={1392} priority sizes="(max-width: 700px) 90vw, 38vw"/>
+      <div className="magic-mascot-art">
+       <Image className="magic-mascot" src="/xucuz-genie-turkiye.webp" alt={t('genieAlt')} width={1130} height={1392} priority sizes="(max-width: 700px) 90vw, 38vw"/>
+       <Image className="magic-map-province-labels" src="/xucuz-genie-province-labels.svg" alt="" aria-hidden="true" width={1130} height={1392} unoptimized sizes="(max-width: 700px) 90vw, 38vw"/>
+      </div>
       <span className="magic-mascot-spark magic-spark-a" aria-hidden="true">✦</span><span className="magic-mascot-spark magic-spark-b" aria-hidden="true">✧</span>
 
      </div>
@@ -38,7 +40,6 @@ export function XucuzWorldHome(){
        <button type="submit">{t('magicSearchButton')}<ArrowRight size={17}/></button>
       </form>
       <p className="magic-search-note"><ShieldCheck size={15}/>{t('magicSearchNote')}</p>
-      <ProvinceMapViewer/>
      </div>
     </div>
 
