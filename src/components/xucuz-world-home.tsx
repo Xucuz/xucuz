@@ -23,36 +23,7 @@ export function XucuzWorldHome(){
     <div className="magic-hero">
      <div className="magic-mascot-wrap">
       <span className="magic-mascot-halo" aria-hidden="true"/>
-      <Image className="magic-mascot" src="/xucuz-genie-selected.webp" alt={t('genieAlt')} width={1130} height={1392} priority sizes="(max-width: 700px) 90vw, 38vw"/>
-      <span className="magic-world-orbit" aria-hidden="true">
-       <span className="magic-world-globe">
-        <svg viewBox="0 0 180 180" focusable="false">
-         <defs>
-          <radialGradient id="magic-world-ocean" cx="35%" cy="28%"><stop offset="0" stopColor="#49e7ff"/><stop offset=".52" stopColor="#087dc7"/><stop offset="1" stopColor="#08245d"/></radialGradient>
-          <clipPath id="magic-world-clip"><circle cx="90" cy="90" r="65"/></clipPath>
-         </defs>
-         <circle cx="90" cy="90" r="67" fill="url(#magic-world-ocean)" stroke="#a9f4ff" strokeWidth="2"/>
-         <g clipPath="url(#magic-world-clip)">
-          <g className="magic-world-land-track">
-           <g className="magic-world-land">
-            <path d="M26 49l10-11 14 2 5 7 12 2 6 8-7 6-2 11-9 2-4 11-8-3-3-10-9-7-8-2-3-9 5-7zM59 87l10 2 7 12-3 15-7 14-7 19-8-5 1-15-5-13 3-14zM84 47l10-7 11 2 3 7 13-2 14 7 12-1 10 8-2 8-14 1-6 8-11-2-9 7-8-5-7 7-8-4-6-11-9-4-3-10 6-6zM96 79l12 2 8 11-3 12-6 8-3 16-7 9-7-7-2-14-7-10 3-13-1-9 6-5zM134 116l12-3 11 6-4 9-13 4-9-6z" fill="#5cf2b2" stroke="#9cffe0" strokeWidth="1.2"/>
-           </g>
-           <g className="magic-world-land" transform="translate(130 0)">
-            <path d="M26 49l10-11 14 2 5 7 12 2 6 8-7 6-2 11-9 2-4 11-8-3-3-10-9-7-8-2-3-9 5-7zM59 87l10 2 7 12-3 15-7 14-7 19-8-5 1-15-5-13 3-14zM84 47l10-7 11 2 3 7 13-2 14 7 12-1 10 8-2 8-14 1-6 8-11-2-9 7-8-5-7 7-8-4-6-11-9-4-3-10 6-6zM96 79l12 2 8 11-3 12-6 8-3 16-7 9-7-7-2-14-7-10 3-13-1-9 6-5zM134 116l12-3 11 6-4 9-13 4-9-6z" fill="#5cf2b2" stroke="#9cffe0" strokeWidth="1.2"/>
-           </g>
-           <g className="magic-world-land" transform="translate(260 0)">
-            <path d="M26 49l10-11 14 2 5 7 12 2 6 8-7 6-2 11-9 2-4 11-8-3-3-10-9-7-8-2-3-9 5-7zM59 87l10 2 7 12-3 15-7 14-7 19-8-5 1-15-5-13 3-14zM84 47l10-7 11 2 3 7 13-2 14 7 12-1 10 8-2 8-14 1-6 8-11-2-9 7-8-5-7 7-8-4-6-11-9-4-3-10 6-6zM96 79l12 2 8 11-3 12-6 8-3 16-7 9-7-7-2-14-7-10 3-13-1-9 6-5zM134 116l12-3 11 6-4 9-13 4-9-6z" fill="#5cf2b2" stroke="#9cffe0" strokeWidth="1.2"/>
-           </g>
-          </g>
-          <ellipse className="magic-world-meridian magic-world-meridian-one" cx="90" cy="90" rx="31" ry="65" fill="none" stroke="#a8efff" strokeOpacity=".58" strokeWidth="2"/>
-          <ellipse className="magic-world-meridian magic-world-meridian-two" cx="90" cy="90" rx="55" ry="65" fill="none" stroke="#a8efff" strokeOpacity=".33" strokeWidth="1.5"/>
-          <path d="M25 90h130M35 62h110M35 118h110" fill="none" stroke="#a8efff" strokeOpacity=".35" strokeWidth="1.5"/>
-         </g>
-         <circle cx="90" cy="90" r="67" fill="none" stroke="#fff" strokeOpacity=".42" strokeWidth="1"/>
-        </svg>
-       </span>
-       <span className="magic-world-spark magic-world-spark-one">✦</span><span className="magic-world-spark magic-world-spark-two">✧</span>
-      </span>
+      <Image className="magic-mascot" src="/xucuz-genie-turkiye.webp" alt={t('genieAlt')} width={1130} height={1392} priority sizes="(max-width: 700px) 90vw, 38vw"/>
       <span className="magic-mascot-spark magic-spark-a" aria-hidden="true">✦</span><span className="magic-mascot-spark magic-spark-b" aria-hidden="true">✧</span>
 
      </div>
