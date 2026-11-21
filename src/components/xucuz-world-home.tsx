@@ -23,10 +23,7 @@ export function XucuzWorldHome(){
     <div className="magic-hero">
      <div className="magic-mascot-wrap">
       <span className="magic-mascot-halo" aria-hidden="true"/>
-      <div className="magic-mascot-art">
-       <Image className="magic-mascot" src="/xucuz-genie-turkiye.webp" alt={t('genieAlt')} width={1130} height={1392} priority sizes="(max-width: 700px) 90vw, 38vw"/>
-       <Image className="magic-map-province-labels" src="/xucuz-genie-province-labels.svg" alt="" aria-hidden="true" width={1130} height={1392} unoptimized sizes="(max-width: 700px) 90vw, 38vw"/>
-      </div>
+      <Image className="magic-mascot" src="/xucuz-genie-turkiye-red-flat.webp" alt={t('genieAlt')} width={1130} height={1392} priority sizes="(max-width: 700px) 90vw, 38vw"/>
       <span className="magic-mascot-spark magic-spark-a" aria-hidden="true">✦</span><span className="magic-mascot-spark magic-spark-b" aria-hidden="true">✧</span>
 
      </div>
