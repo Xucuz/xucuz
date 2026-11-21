@@ -5,6 +5,7 @@ import Link from 'next/link';
 import {ArrowRight,Calculator,MapPinned,Search,ShieldCheck,Tag,Utensils} from 'lucide-react';
 import {useLanguage} from './language-provider';
 import {worldText} from '@/lib/xucuz-world-copy';
+import {ProvinceMapViewer} from './province-map-viewer';
 
 export function XucuzWorldHome(){
  const {language}=useLanguage();
@@ -37,6 +38,7 @@ export function XucuzWorldHome(){
        <button type="submit">{t('magicSearchButton')}<ArrowRight size={17}/></button>
       </form>
       <p className="magic-search-note"><ShieldCheck size={15}/>{t('magicSearchNote')}</p>
+      <ProvinceMapViewer/>
      </div>
     </div>
 
