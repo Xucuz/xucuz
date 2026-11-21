@@ -19,7 +19,7 @@ export function WorldHeader(){
    <nav className="world-nav" aria-label="Xucuz">
     {nav.map(({href,key,Icon},index)=><Link href={href} key={key} className={`world-nav-link ${index===0?'world-home-link':''}`}><Icon size={16}/><span>{worldText(language,key)}</span></Link>)}
    </nav>
-   <div className="world-controls"><LanguageSelect/><Link href="/xucuz-ai" className="world-header-ask">{worldText(language,'askAi')}</Link></div>
+   <div className="world-controls"><LanguageSelect/></div>
   </div>
  </header>;
 }

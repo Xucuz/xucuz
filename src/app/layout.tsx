@@ -4,7 +4,7 @@ import {cookies} from 'next/headers';
 import Script from 'next/script';
 import {Analytics} from '@vercel/analytics/next';
 import {mode} from '@/lib/providers/engine';
-import {LiveQA} from '@/components/live-qa';
+import {LiveQaRoute} from '@/components/live-qa-route';
 import {LiveChat} from '@/components/live-chat';
 import {LanguageProvider} from '@/components/language-provider';
 import {PwaRegister} from '@/components/pwa-register';
@@ -25,6 +25,6 @@ async function RootDocument({children}:{children:React.ReactNode}){const savedLa
   <WorldHeader/>
   <main id="main" tabIndex={-1}>{children}</main>
   <WorldFooter/>
- </div><LiveChat/><LiveQA/><Analytics/></LanguageProvider></body></html>;
+ </div><LiveChat/><LiveQaRoute/><Analytics/></LanguageProvider></body></html>;
 }
 

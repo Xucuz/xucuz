@@ -2,29 +2,13 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import {useState} from 'react';
-import {ArrowRight,Calculator,MapPinned,Mic,MicOff,Search,ShieldCheck,Sparkles,Tag,Utensils} from 'lucide-react';
+import {ArrowRight,Calculator,MapPinned,Search,ShieldCheck,Tag,Utensils} from 'lucide-react';
 import {useLanguage} from './language-provider';
 import {worldText} from '@/lib/xucuz-world-copy';
 
 export function XucuzWorldHome(){
  const {language}=useLanguage();
  const t=(key:Parameters<typeof worldText>[1])=>worldText(language,key);
- const [speaking,setSpeaking]=useState(false);
- const [voiceNotice,setVoiceNotice]=useState('');
- const speak=()=>{
-  if(typeof window==='undefined'||!('speechSynthesis' in window)){setVoiceNotice(t('magicVoiceUnsupported'));return;}
-  const synth=window.speechSynthesis;
-  if(speaking){synth.cancel();setSpeaking(false);return;}
-  synth.cancel();
-  const utterance=new SpeechSynthesisUtterance(`${t('magicTitleFirst')} ${t('magicTitleSecond')}. ${t('magicLead')} ${t('magicVoiceLine')}`);
-  utterance.lang=language==='en'?'en-US':language==='ru'?'ru-RU':'tr-TR';
-  utterance.rate=.96;
-  utterance.pitch=1.04;
-  utterance.onend=()=>setSpeaking(false);
-  utterance.onerror=()=>{setSpeaking(false);setVoiceNotice(t('magicVoiceUnsupported'));};
-  setVoiceNotice('');setSpeaking(true);synth.speak(utterance);
- };
 
  const portals=[
   {href:'/fiyatlar',label:'magicPriceTitle' as const,description:'magicPriceBody' as const,Icon:Tag,scene:'price'},
@@ -70,13 +54,7 @@ export function XucuzWorldHome(){
        <span className="magic-world-spark magic-world-spark-one">✦</span><span className="magic-world-spark magic-world-spark-two">✧</span>
       </span>
       <span className="magic-mascot-spark magic-spark-a" aria-hidden="true">✦</span><span className="magic-mascot-spark magic-spark-b" aria-hidden="true">✧</span>
-      <div className="magic-mascot-actions">
-       <button type="button" className="magic-voice-button" onClick={speak} aria-pressed={speaking}>
-        {speaking?<MicOff size={17}/>:<Mic size={17}/>}<span>{speaking?t('magicVoiceStop'):t('magicVoiceButton')}</span>
-       </button>
-       {voiceNotice&&<span className="magic-voice-notice" role="status">{voiceNotice}</span>}
-       <Link className="magic-ask-link" href="/xucuz-ai"><Sparkles size={14}/>{t('askAi')}</Link>
-      </div>
+
      </div>
      <div className="magic-copy">
       <p className="magic-kicker"><span className="magic-kicker-gem"/> {t('magicKicker')}</p>
