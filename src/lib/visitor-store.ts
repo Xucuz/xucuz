@@ -1,10 +1,26 @@
 import {sql} from '@/db';
 import {visitorHash,visitorYear,visitorDay} from './visitor-stats';
+const CLEANUP_INTERVAL_MS=6*60*60*1000;
+let cleanupAt=0;
+let cleanupPromise:Promise<void>|null=null;
+
+async function cleanupExpiredMetrics(now:Date){
+ if(now.getTime()-cleanupAt<CLEANUP_INTERVAL_MS)return;
+ if(!cleanupPromise){
+  cleanupPromise=sql.begin(async tx=>{
+   await tx`set local statement_timeout = '3000ms'`;
+   await tx`delete from yearly_visitors where year < ${visitorYear(now)}`;
+   await tx`delete from daily_visitors where day < ${visitorDay(new Date(now.getTime()-2*86400000))}`;
+   await tx`delete from online_presence where last_seen_at < ${new Date(now.getTime()-2*86400000)}`;
+   await tx`delete from daily_visitor_totals where day < ${visitorDay(new Date(now.getTime()-400*86400000))}`;
+  }).then(()=>{cleanupAt=now.getTime();});
+ }
+ const pending=cleanupPromise;
+ try{await pending;}finally{if(cleanupPromise===pending)cleanupPromise=null;}
+}
+
 export async function readVisitors(now=new Date()){const year=visitorYear(now);const rows=await sql`select visitors,started_at from yearly_visitor_totals where year=${year}`;return {year,count:Number(rows[0]?.visitors??0),startedAt:rows[0]?.started_at?new Date(rows[0].started_at).toISOString():null,measuredAt:now.toISOString()};}
-export async function recordVisitor(id:string,secret:string,now=new Date()){const year=visitorYear(now);const hash=visitorHash(id,year,secret);await sql.begin(async tx=>{await tx`set local statement_timeout = '3000ms'`;const inserted=await tx`insert into yearly_visitors(year,visitor_hash) values (${year},${hash}) on conflict do nothing returning year`;if(inserted.length){await tx`insert into yearly_visitor_totals(year,visitors) values (${year},1) on conflict(year) do update set visitors=yearly_visitor_totals.visitors+1`;}
- // Keep only current-year pseudonymous identifiers; aggregate totals remain.
- await tx`delete from yearly_visitors where year < ${year}`;
- });return readVisitors(now);}
+export async function recordVisitor(id:string,secret:string,now=new Date()){const year=visitorYear(now);const hash=visitorHash(id,year,secret);await sql.begin(async tx=>{await tx`set local statement_timeout = '3000ms'`;const inserted=await tx`insert into yearly_visitors(year,visitor_hash) values (${year},${hash}) on conflict do nothing returning year`;if(inserted.length){await tx`insert into yearly_visitor_totals(year,visitors) values (${year},1) on conflict(year) do update set visitors=yearly_visitor_totals.visitors+1`;}});await cleanupExpiredMetrics(now);}
 
 export async function readDailyVisitors(now=new Date()){
  const day=visitorDay(now);
@@ -17,11 +33,8 @@ export async function recordDailyVisitor(id:string,secret:string,now=new Date())
   await tx`set local statement_timeout = '3000ms'`;
   const inserted=await tx`insert into daily_visitors(day,visitor_hash) values (${day},${hash}) on conflict do nothing returning day`;
   if(inserted.length)await tx`insert into daily_visitor_totals(day,visitors) values (${day},1) on conflict(day) do update set visitors=daily_visitor_totals.visitors+1`;
-  await tx`delete from daily_visitors where day < ${visitorDay(new Date(now.getTime()-2*86400000))}`;
-  await tx`delete from online_presence where last_seen_at < ${new Date(now.getTime()-2*86400000)}`;
-  await tx`delete from daily_visitor_totals where day < ${visitorDay(new Date(now.getTime()-400*86400000))}`;
  });
- return readDailyVisitors(now);
+ await cleanupExpiredMetrics(now);
 }
 export async function readOnlinePresence(now=new Date()){
  const cutoff=new Date(now.getTime()-75_000);
@@ -33,7 +46,7 @@ export async function heartbeatOnlinePresence(id:string,secret:string,now=new Da
  await sql.begin(async tx=>{
   await tx`set local statement_timeout = '3000ms'`;
   await tx`insert into online_presence(session_hash,last_seen_at) values (${hash},${now}) on conflict(session_hash) do update set last_seen_at=excluded.last_seen_at`;
-  await tx`delete from online_presence where last_seen_at < ${new Date(now.getTime()-75_000)}`;
  });
+ await cleanupExpiredMetrics(now);
  return readOnlinePresence(now);
 }

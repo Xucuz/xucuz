@@ -1,9 +1,25 @@
 import {createHash,randomBytes,randomUUID} from 'node:crypto';
 import {sql} from '@/db';
 import {hashPassword,verifyPassword} from './security';
+import {LIVE_CHAT_INITIAL_HISTORY_LIMIT} from './traffic-optimization';
 
 export const CHAT_COOKIE='xucuz_chat_session';
 export const CHAT_SESSION_MS=14*24*60*60*1000;
+const CHAT_CLEANUP_INTERVAL_MS=6*60*60*1000;
+let chatCleanupAt=0;
+let chatCleanupPromise:Promise<void>|null=null;
+async function cleanupChatRows(now=new Date()){
+ if(now.getTime()-chatCleanupAt<CHAT_CLEANUP_INTERVAL_MS)return;
+ if(!chatCleanupPromise){
+  chatCleanupPromise=sql.begin(async tx=>{
+   await tx`set local statement_timeout = '3000ms'`;
+   await tx`delete from chat_messages where created_at<${new Date(now.getTime()-30*86400000)}`;
+   await tx`delete from chat_sessions where expires_at<${now}`;
+  }).then(()=>{chatCleanupAt=now.getTime();});
+ }
+ const pending=chatCleanupPromise;
+ try{await pending;}finally{if(chatCleanupPromise===pending)chatCleanupPromise=null;}
+}
 const bannedTerms=new Set([
  'amk','aq','siktir','sikeyim','sikiyim','sikerim','sikim','sikik','sikis','sikiyor','sikicem','sikecem',
  'orospu','orospucocugu','orospuçocuğu','pic','piç','yarrak','yarak','got','göt','gotveren','gotveren',
@@ -34,6 +50,7 @@ export async function loginChatMember(nickname:string,password:string){
  return {ok:true as const,member:{id:String(member.id),nickname:String(member.nickname)}};
 }
 export async function createChatSession(memberId:string,token:string,now=new Date()){
+ await cleanupChatRows(now);
  const expiresAt=new Date(now.getTime()+CHAT_SESSION_MS);
  await sql`insert into chat_sessions(session_hash,member_id,expires_at) values (${hashChatSession(token)},${memberId},${expiresAt})`;
  return expiresAt;
@@ -47,20 +64,19 @@ export async function getChatMember(token:string|undefined,now=new Date()){
 }
 export async function revokeChatSession(token:string|undefined){if(token&&/^[a-f0-9]{64}$/.test(token))await sql`delete from chat_sessions where session_hash=${hashChatSession(token)}`;}
 export async function insertChatMessage(member:{id:string;nickname:string},body:string){
+ await cleanupChatRows();
  return await sql.begin(async tx=>{
   await tx`select pg_advisory_xact_lock(hashtext(${member.id}))`;
   const recent=await tx`select count(*)::int as count from chat_messages where member_id=${member.id} and created_at>now()-interval '1 minute'`;
   if(Number(recent[0]?.count??0)>=10){const error=new Error('Message rate limit');error.name='ChatRateLimitError';throw error;}
-  await tx`delete from chat_messages where created_at<now()-interval '30 days'`;
-  await tx`delete from chat_sessions where expires_at<now()`;
   const rows=await tx`insert into chat_messages(member_id,nickname,body) values (${member.id},${member.nickname},${body}) returning id::text as id,nickname,body,created_at`;
   return rows[0];
  });
 }
 export async function readChatMessages(afterId='0'){
  if(!/^\d+$/.test(afterId))throw new Error('Invalid message cursor');
- if(afterId==='0')return await sql`select id::text as id,nickname,body,created_at from chat_messages order by id desc limit 50`;
- return await sql`select id::text as id,nickname,body,created_at from chat_messages where id>${afterId}::bigint order by id asc limit 50`;
+ if(afterId==='0')return await sql`select id::text as id,nickname,body,created_at from chat_messages order by id desc limit ${LIVE_CHAT_INITIAL_HISTORY_LIMIT}`;
+ return await sql`select id::text as id,nickname,body,created_at from chat_messages where id>${afterId}::bigint order by id asc limit ${LIVE_CHAT_INITIAL_HISTORY_LIMIT}`;
 }
 export async function banChatMember(memberId:string,reason='Küfür veya hakaret'){
  await sql.begin(async tx=>{await tx`update chat_members set banned_at=now(),ban_reason=${reason} where id=${memberId} and banned_at is null`;await tx`delete from chat_sessions where member_id=${memberId}`;});

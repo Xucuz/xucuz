@@ -3,6 +3,7 @@
 import {FormEvent,useCallback,useEffect,useRef,useState} from 'react';
 import {usePathname} from 'next/navigation';
 import {LogOut,MessageCircle,Send,X} from 'lucide-react';
+import {LIVE_CHAT_POLL_INTERVAL_MS} from '@/lib/traffic-optimization';
 
 type Member={id:string;nickname:string};
 type ChatMessage={id:string;nickname:string;body:string;createdAt:string};
@@ -29,10 +30,10 @@ export function LiveChat(){
   finally{setLoading(false);}
  },[]);
 
- useEffect(()=>{if(!open||!member)return;let stopped=false;let running=false;const poll=async()=>{if(running)return;running=true;try{const response=await fetch(`/api/live-chat/messages?after=${lastId.current}`,{cache:'no-store'});const body=await response.json() as {messages?:ChatMessage[];error?:string};if(response.status===401){setMember(null);setError('Oturumun sona erdi. Yeniden giriş yap.');}else if(!response.ok){if(!stopped)setError(body.error??'Mesajlar yüklenemedi.');}else if(!stopped){setMessages(current=>{const known=new Set(current.map(item=>item.id));const fresh=(body.messages??[]).filter(item=>!known.has(item.id));if(fresh.length)lastId.current=fresh[fresh.length-1]!.id;return [...current,...fresh].slice(-100);});}}
+ useEffect(()=>{if(!open||!member)return;let stopped=false;let running=false;const poll=async()=>{if(stopped||document.visibilityState==='hidden'||running)return;running=true;try{const response=await fetch(`/api/live-chat/messages?after=${lastId.current}`,{cache:'no-store'});const body=await response.json() as {messages?:ChatMessage[];error?:string};if(response.status===401){setMember(null);setError('Oturumun sona erdi. Yeniden giriş yap.');}else if(!response.ok){if(!stopped)setError(body.error??'Mesajlar yüklenemedi.');}else if(!stopped){setMessages(current=>{const known=new Set(current.map(item=>item.id));const fresh=(body.messages??[]).filter(item=>!known.has(item.id));if(fresh.length)lastId.current=fresh[fresh.length-1]!.id;return [...current,...fresh].slice(-100);});}}
    catch{if(!stopped)setError('Sohbet bağlantısı kesildi; yeniden bağlanılıyor.');}
    finally{running=false;}
-  };void poll();const timer=window.setInterval(()=>void poll(),3500);return()=>{stopped=true;window.clearInterval(timer);};},[open,member]);
+  };const onVisibility=()=>{if(document.visibilityState==='visible')void poll();};void poll();const timer=window.setInterval(()=>void poll(),LIVE_CHAT_POLL_INTERVAL_MS);document.addEventListener('visibilitychange',onVisibility);return()=>{stopped=true;window.clearInterval(timer);document.removeEventListener('visibilitychange',onVisibility);};},[open,member]);
  useEffect(()=>{list.current?.scrollTo({top:list.current.scrollHeight,behavior:'smooth'});},[messages]);
 
  async function authenticate(event:FormEvent<HTMLFormElement>){

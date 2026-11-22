@@ -6,6 +6,7 @@ import Image from 'next/image';
 import {Mic,Send,Sparkles,Volume2,X} from 'lucide-react';
 import type {QaReply} from '@/lib/qa';
 import {useLanguage} from './language-provider';
+import {PRESENCE_HEARTBEAT_INTERVAL_MS} from '@/lib/traffic-optimization';
 
 type Message={id:number;from:'assistant'|'visitor';reply:QaReply};
 type SpeechResult=Event&{results:ArrayLike<ArrayLike<{transcript:string}>>};
@@ -31,7 +32,7 @@ export function LiveQA(){
  const nextId=useRef(1);
 
  useEffect(()=>{if(open){list.current?.scrollTo({top:list.current.scrollHeight,behavior:'smooth'});inputRef.current?.focus();}},[messages,open,busy]);
- useEffect(()=>{if(!open)return;let stopped=false;let sessionId:string;try{sessionId=sessionStorage.getItem('xucuz-presence-session')??crypto.randomUUID();sessionStorage.setItem('xucuz-presence-session',sessionId);}catch{return;}const heartbeat=async()=>{try{const response=await fetch('/api/presence',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:sessionId}),cache:'no-store'});const result=await response.json() as {status?:string;onlineCount?:number};if(!stopped&&response.ok&&result.status==='ready'&&typeof result.onlineCount==='number')setOnlineCount(result.onlineCount);else if(!stopped)setOnlineCount(null);}catch{if(!stopped)setOnlineCount(null);}};void heartbeat();const timer=window.setInterval(()=>void heartbeat(),20000);return()=>{stopped=true;window.clearInterval(timer);};},[open]);
+ useEffect(()=>{if(!open)return;let stopped=false;let sessionId:string;try{sessionId=sessionStorage.getItem('xucuz-presence-session')??crypto.randomUUID();sessionStorage.setItem('xucuz-presence-session',sessionId);}catch{return;}const heartbeat=async()=>{if(document.visibilityState==='hidden')return;try{const response=await fetch('/api/presence',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:sessionId}),cache:'no-store'});const result=await response.json() as {status?:string;onlineCount?:number};if(!stopped&&response.ok&&result.status==='ready'&&typeof result.onlineCount==='number')setOnlineCount(result.onlineCount);else if(!stopped)setOnlineCount(null);}catch{if(!stopped)setOnlineCount(null);}};const onVisibility=()=>{if(document.visibilityState==='visible')void heartbeat();};void heartbeat();const timer=window.setInterval(()=>void heartbeat(),PRESENCE_HEARTBEAT_INTERVAL_MS);document.addEventListener('visibilitychange',onVisibility);return()=>{stopped=true;window.clearInterval(timer);document.removeEventListener('visibilitychange',onVisibility);};},[open]);
 
  function listen(){
   setVoiceNotice('');
