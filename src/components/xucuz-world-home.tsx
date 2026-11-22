@@ -16,14 +16,23 @@ export function XucuzWorldHome() {
 
   useEffect(() => {
     let cancelled = false;
-    fetch('/api/trends', { cache: 'no-store' })
-      .then(async (response) => {
+    const load = async () => {
+      try {
+        const response = await fetch('/api/trends', { cache: 'no-store' });
         if (!response.ok) throw new Error('Trends unavailable');
-        return response.json() as Promise<{ terms?: Trend[] }>;
-      })
-      .then((result) => { if (!cancelled) setTrends(result.terms ?? []); })
-      .catch(() => { if (!cancelled) setTrends([]); });
-    return () => { cancelled = true; };
+        const result = await response.json() as { terms?: Trend[] };
+        if (!cancelled) {
+          const next = result.terms ?? [];
+          setTrends(next);
+          setActive((current) => next.length ? current % next.length : 0);
+        }
+      } catch {
+        // Keep the last successfully loaded trend list if the source is temporarily unavailable.
+      }
+    };
+    void load();
+    const refresh = window.setInterval(() => void load(), 300000);
+    return () => { cancelled = true; window.clearInterval(refresh); };
   }, []);
 
   useEffect(() => {
