@@ -1,16 +1,13 @@
 'use client';
 import Link from 'next/link';
 import {usePathname} from 'next/navigation';
-import {Lamp,MapPinned,Search,ShoppingBasket,Store,Wrench} from 'lucide-react';
+import {Lamp,Store,Wrench} from 'lucide-react';
 import {LanguageSelect,useLanguage} from './language-provider';
 import {worldText,type WorldCopyKey} from '@/lib/xucuz-world-copy';
 
 const nav=[
  {href:'/',key:'magicNavShop',label:undefined,Icon:Store},
- {href:'/fiyatlar',key:'magicNavPrice',label:undefined,Icon:Search},
  {href:'/xucuz-usta',key:'xucuzUsta',label:'Xucuz Usta',Icon:Wrench},
- {href:'/birim-fiyat',key:'magicNavBasket',label:undefined,Icon:ShoppingBasket},
- {href:'/passport',key:'magicNavDiscover',label:undefined,Icon:MapPinned}
 ] as const;
 
 export function WorldHeader(){
