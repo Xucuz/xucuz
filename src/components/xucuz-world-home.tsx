@@ -15,11 +15,12 @@ function TrendImage({ src, alt, className }: { src: string; alt: string; classNa
   return <Image className={className} src={src} alt={alt} width={640} height={360} unoptimized loading="lazy" referrerPolicy="no-referrer" />;
 }
 
-export function XucuzWorldHome({initialTrends}:{initialTrends:Trend[]}) {
+export function XucuzWorldHome({initialTrends,initialSourceUnavailable}:{initialTrends:Trend[];initialSourceUnavailable:boolean}) {
   const [trends, setTrends] = useState<Trend[]>(initialTrends);
   const [displayed, setDisplayed] = useState<Trend[]>(initialTrends.slice(0,12));
   const [topic, setTopic] = useState<Topic | null>(null);
   const [loadingTrends, setLoadingTrends] = useState(true);
+  const [sourceUnavailable,setSourceUnavailable]=useState(initialSourceUnavailable);
   const [loadingTopic, setLoadingTopic] = useState(false);
   const nextTrend = useRef(12);
 
@@ -28,16 +29,17 @@ export function XucuzWorldHome({initialTrends}:{initialTrends:Trend[]}) {
     const load = async () => {
       try {
         const response = await fetch('/api/trends', { cache: 'no-store' });
-        if (!response.ok) throw new Error('Global Trends unavailable');
+        if (!response.ok) throw new Error('Google Trends Türkiye unavailable');
         const result = await response.json() as { terms?: Trend[] };
         if (!cancelled) {
           const next = result.terms ?? [];
           setTrends(next);
           setDisplayed(next.slice(0, 12));
+          setSourceUnavailable(false);
           nextTrend.current = 12;
         }
       } catch {
-        // Never substitute invented trends for a failed source feed.
+        if(!cancelled)setSourceUnavailable(true);
       } finally {
         if (!cancelled) setLoadingTrends(false);
       }
@@ -87,23 +89,23 @@ export function XucuzWorldHome({initialTrends}:{initialTrends:Trend[]}) {
   }, [topic]);
 
   return <div className="trends-home">
-    <h1 className="trends-home-sr-only">Xucuz — dünya trendleri</h1>
+    <h1 className="trends-home-sr-only">Türkiye’de yükselen alışveriş ürünü aramaları</h1>
     <div className="trends-home-layout">
       <div className="trends-home-art">
         <Image className="trends-home-mascot" src="/xucuz-genie-globe.webp" alt="Dönen dünyaya dokunan Xucuz cin maskotu" width={745} height={1089} priority sizes="(max-width: 700px) 74vw, 36vw" />
         <div className="trends-home-globe" aria-hidden="true" />
       </div>
 
-      {displayed.length > 0 ? <section className="trends-home-grid" aria-label="Dünyanın farklı bölgelerindeki Google Trends aramaları">
+      {displayed.length > 0 ? <section className="trends-home-grid" aria-label="Google Trends Türkiye’de yükselen alışveriş ürünü aramaları">
         {displayed.map((trend, index) => <Link className="trends-home-card" key={`${trend.geo}:${trend.term}`} href={trend.href} onClick={(event)=>{event.preventDefault();void openTopic(trend);}} aria-label={`${trend.term}, ${trend.geo}; konu bilgisini aç`}>
           {trend.imageUrl ? <TrendImage className="trends-home-card-photo" src={trend.imageUrl} alt="" /> : <span className={`trends-home-card-art trends-home-card-art-${index % 6}`} aria-hidden="true"><span>{trend.geo}</span></span>}
           <span className="trends-home-card-copy">
             <span className="trends-home-card-region">{trend.geo} · {trend.language.toUpperCase()}</span>
             <strong>{trend.term}</strong>
-            {trend.traffic && <small>{trend.traffic} arama</small>}
+            {trend.traffic && <small>Yaklaşık arama ilgisi: {trend.traffic}</small>}
           </span>
         </Link>)}
-      </section> : <div className="trends-home-status" role="status">{loadingTrends ? 'Dünya trendleri yükleniyor…' : 'Trend akışı şu anda alınamıyor.'}</div>}
+      </section> : <div className="trends-home-status" role="status">{loadingTrends ? 'Türkiye alışveriş trendleri yükleniyor…' : sourceUnavailable ? 'Google Trends Türkiye akışına şu anda ulaşılamıyor; doğrulanmış son akış da bulunamadı.' : 'Türkiye trend akışında şu anda ürün alışverişiyle açıkça ilişkili yükselen arama bulunmuyor.'}</div>}
     </div>
 
     {topic && <div className="trends-topic-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) setTopic(null); }}>

@@ -43,6 +43,7 @@ const TREND_REGIONS: TrendRegion[] = [
 ];
 
 const TREND_URL = 'https://trends.google.com/trending/rss?geo=';
+const TURKEY_REGION: TrendRegion = { geo: 'TR', locale: 'tr-TR', language: 'tr' };
 const NEWS_URL = 'https://news.google.com/rss/search?';
 const GOOGLE_IMAGE_HOSTS = ['googleusercontent.com', 'gstatic.com'];
 let lastGoodTrends: GoogleTrend[] = [];
@@ -137,6 +138,22 @@ const cachedGlobalTrends = unstable_cache(fetchGlobalTrends, ['xucuz-global-tren
   tags: ['global-trends'],
 });
 
+async function fetchTurkeyTrends(): Promise<GoogleTrend[]> {
+  const trends = await fetchRegion(TURKEY_REGION);
+  if (trends.length > 0) {
+    lastGoodByRegion.set(TURKEY_REGION.geo, trends);
+    return trends;
+  }
+  const lastGood = lastGoodByRegion.get(TURKEY_REGION.geo);
+  if (lastGood?.length) return lastGood;
+  throw new Error('No Google Trends Türkiye feed is available');
+}
+
+const cachedTurkeyTrends = unstable_cache(fetchTurkeyTrends, ['xucuz-turkey-trends-v1'], {
+  revalidate: 300,
+  tags: ['turkey-trends'],
+});
+
 export async function getGoogleTrends(): Promise<GoogleTrend[]> {
   try {
     return await cachedGlobalTrends();
@@ -144,6 +161,17 @@ export async function getGoogleTrends(): Promise<GoogleTrend[]> {
     // Next's data cache keeps the most recent successful value during failed revalidation.
     // This process-level fallback also covers transient failures within a warm instance.
     if (lastGoodTrends.length > 0) return lastGoodTrends;
+    throw error;
+  }
+}
+
+/** Google Trends' public RSS feed for Türkiye only. */
+export async function getTurkeyGoogleTrends(): Promise<GoogleTrend[]> {
+  try {
+    return await cachedTurkeyTrends();
+  } catch (error) {
+    const lastGood = lastGoodByRegion.get(TURKEY_REGION.geo);
+    if (lastGood?.length) return lastGood;
     throw error;
   }
 }
