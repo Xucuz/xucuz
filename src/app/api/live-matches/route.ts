@@ -1,4 +1,5 @@
 import {NextResponse} from 'next/server';
+import {apiFootballFailureStatus,logApiFootballFailure} from '@/lib/api-football-diagnostics';
 
 export const dynamic='force-dynamic';
 
@@ -9,8 +10,6 @@ type ApiFixture={
  goals?:{home?:number|null;away?:number|null};
  score?:{halftime?:{home?:number|null;away?:number|null}};
 };
-function failureStatus(errors:Record<string,unknown>|string[]){const message=JSON.stringify(errors).toLowerCase();if(/rate|limit|quota/.test(message))return'rate_limited';if(/subscription|not subscribed|plan|access/.test(message))return'subscription_required';return'provider_error';}
-
 export async function GET(){
  const apiKey=process.env.API_FOOTBALL_KEY;
  if(!apiKey)return NextResponse.json({status:'not_configured',matches:[]},{status:200,headers:{'Cache-Control':'no-store'}});
@@ -19,10 +18,11 @@ export async function GET(){
    headers:{'x-apisports-key':apiKey,accept:'application/json'},
    next:{revalidate:30}
   });
-  if(!response.ok)return NextResponse.json({status:response.status===429?'rate_limited':'provider_error',matches:[]},{status:502,headers:{'Cache-Control':'no-store'}});
+  if(!response.ok){const detail=await response.text().catch(()=> '');logApiFootballFailure('fixtures?live=all',response.status,detail);return NextResponse.json({status:response.status===429?'rate_limited':'provider_error',matches:[]},{status:502,headers:{'Cache-Control':'no-store'}});}
   const payload=await response.json() as {response?:ApiFixture[];errors?:Record<string,unknown>|string[]};
   if(payload.errors&&(Array.isArray(payload.errors)?payload.errors.length>0:Object.keys(payload.errors).length>0)){
-   return NextResponse.json({status:failureStatus(payload.errors),matches:[]},{status:502,headers:{'Cache-Control':'no-store'}});
+   logApiFootballFailure('fixtures?live=all',response.status,payload.errors);
+   return NextResponse.json({status:apiFootballFailureStatus(payload.errors),matches:[]},{status:502,headers:{'Cache-Control':'no-store'}});
   }
   const matches=(Array.isArray(payload.response)?payload.response:[]).flatMap((item)=>{
    const id=item.fixture?.id,home=item.teams?.home?.name,away=item.teams?.away?.name;

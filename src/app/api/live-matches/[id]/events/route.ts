@@ -1,9 +1,8 @@
 import {NextResponse} from 'next/server';
+import {apiFootballFailureStatus,logApiFootballFailure} from '@/lib/api-football-diagnostics';
 
 export const dynamic='force-dynamic';
 type EventRow={time?:{elapsed?:number|null;extra?:number|null};team?:{name?:string|null};player?:{name?:string|null};assist?:{name?:string|null};type?:string;detail?:string;comments?:string|null};
-function failureStatus(errors:Record<string,unknown>|string[]){const message=JSON.stringify(errors).toLowerCase();if(/rate|limit|quota/.test(message))return'rate_limited';if(/subscription|not subscribed|plan|access/.test(message))return'subscription_required';return'provider_error';}
-
 export async function GET(_request:Request,{params}:{params:Promise<{id:string}>}){
  const {id}=await params;
  if(!/^\d{1,12}$/.test(id))return NextResponse.json({status:'invalid_id',events:[]},{status:400});
@@ -11,9 +10,9 @@ export async function GET(_request:Request,{params}:{params:Promise<{id:string}>
  if(!apiKey)return NextResponse.json({status:'not_configured',events:[]});
  try{
   const response=await fetch(`https://v3.football.api-sports.io/fixtures/events?fixture=${id}`,{headers:{'x-apisports-key':apiKey,accept:'application/json'},next:{revalidate:20}});
-  if(!response.ok)return NextResponse.json({status:response.status===429?'rate_limited':'provider_error',events:[]},{status:502});
+  if(!response.ok){const detail=await response.text().catch(()=> '');logApiFootballFailure('fixtures/events',response.status,detail);return NextResponse.json({status:response.status===429?'rate_limited':'provider_error',events:[]},{status:502});}
   const payload=await response.json() as {response?:EventRow[];errors?:Record<string,unknown>|string[]};
-  if(payload.errors&&(Array.isArray(payload.errors)?payload.errors.length>0:Object.keys(payload.errors).length>0))return NextResponse.json({status:failureStatus(payload.errors),events:[]},{status:502});
+  if(payload.errors&&(Array.isArray(payload.errors)?payload.errors.length>0:Object.keys(payload.errors).length>0)){logApiFootballFailure('fixtures/events',response.status,payload.errors);return NextResponse.json({status:apiFootballFailureStatus(payload.errors),events:[]},{status:502});}
   const events=(Array.isArray(payload.response)?payload.response:[]).flatMap((event,index)=>{
    const elapsed=event.time?.elapsed;
    if(typeof elapsed!=='number')return[];
