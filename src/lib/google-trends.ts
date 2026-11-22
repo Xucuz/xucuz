@@ -4,9 +4,14 @@ export type GoogleNewsItem = { title: string; url: string; source: string; summa
 const TRENDS_URL = 'https://trends.google.com/trending/rss?geo=TR';
 const NEWS_URL = 'https://news.google.com/rss/search?hl=tr&gl=TR&ceid=TR:tr&q=';
 
+function decodeCodePoint(raw: string, radix: number): string {
+  const code = parseInt(raw, radix);
+  return Number.isInteger(code) && code >= 0 && code <= 0x10ffff ? String.fromCodePoint(code) : '';
+}
+
 function decodeEntities(value: string): string {
-  return value.replace(/&#(\d+);/g, (_, code: string) => String.fromCodePoint(Number(code)))
-    .replace(/&#x([\da-f]+);/gi, (_, code: string) => String.fromCodePoint(parseInt(code, 16)))
+  return value.replace(/&#(\d+);/g, (_, code: string) => decodeCodePoint(code, 10))
+    .replace(/&#x([\da-f]+);/gi, (_, code: string) => decodeCodePoint(code, 16))
     .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"').replace(/&apos;|&#39;/g, "'");
 }
@@ -27,7 +32,10 @@ export async function getGoogleTrends(): Promise<GoogleTrend[]> {
     next: { revalidate: 300 },
   });
   if (!response.ok) throw new Error(`Google Trends RSS returned ${response.status}`);
-  const xml = await response.text();
+  return parseGoogleTrendsRss(await response.text());
+}
+
+export function parseGoogleTrendsRss(xml: string): GoogleTrend[] {
   return Array.from(xml.matchAll(/<item\b[^>]*>([\s\S]*?)<\/item>/gi), ([, block]) => {
     const term = cleanText(tag(block ?? '', 'title'));
     const traffic = cleanText(tag(block ?? '', 'approx_traffic'));
@@ -41,7 +49,10 @@ export async function getGoogleNews(term: string): Promise<GoogleNewsItem[]> {
     next: { revalidate: 300 },
   });
   if (!response.ok) throw new Error(`Google News RSS returned ${response.status}`);
-  const xml = await response.text();
+  return parseGoogleNewsRss(await response.text());
+}
+
+export function parseGoogleNewsRss(xml: string): GoogleNewsItem[] {
   return Array.from(xml.matchAll(/<item\b[^>]*>([\s\S]*?)<\/item>/gi), ([, rawBlock]) => {
     const block = rawBlock ?? '';
     const title = cleanText(tag(block, 'title'));
