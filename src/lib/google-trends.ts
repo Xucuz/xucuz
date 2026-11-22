@@ -1,3 +1,5 @@
+import { unstable_cache } from 'next/cache';
+
 export type TrendRegion = {
   geo: string;
   locale: string;
@@ -9,6 +11,7 @@ export type GoogleTrend = TrendRegion & {
   traffic?: string;
   imageUrl?: string;
   relatedTitle?: string;
+  publishedAt?: string;
 };
 
 export type GoogleNewsItem = {
@@ -42,6 +45,8 @@ const TREND_REGIONS: TrendRegion[] = [
 const TREND_URL = 'https://trends.google.com/trending/rss?geo=';
 const NEWS_URL = 'https://news.google.com/rss/search?';
 const GOOGLE_IMAGE_HOSTS = ['googleusercontent.com', 'gstatic.com'];
+let lastGoodTrends: GoogleTrend[] = [];
+const lastGoodByRegion = new Map<string, GoogleTrend[]>();
 
 function decodeCodePoint(raw: string, radix: number): string {
   const code = parseInt(raw, radix);
@@ -93,9 +98,16 @@ async function fetchRegion(region: TrendRegion): Promise<GoogleTrend[]> {
 }
 
 /** Combines public Google Trends RSS feeds from 16 markets and native-language locales. */
-export async function getGoogleTrends(): Promise<GoogleTrend[]> {
+async function fetchGlobalTrends(): Promise<GoogleTrend[]> {
   const settled = await Promise.allSettled(TREND_REGIONS.map(fetchRegion));
-  const feeds = settled.map((result) => result.status === 'fulfilled' ? result.value : []);
+  const feeds = settled.map((result, index) => {
+    const region = TREND_REGIONS[index]!;
+    if (result.status === 'fulfilled' && result.value.length > 0) {
+      lastGoodByRegion.set(region.geo, result.value);
+      return result.value;
+    }
+    return lastGoodByRegion.get(region.geo) ?? [];
+  });
   const output: GoogleTrend[] = [];
   const seen = new Set<string>();
   const longestFeed = Math.max(0, ...feeds.map((feed) => feed.length));
@@ -112,8 +124,28 @@ export async function getGoogleTrends(): Promise<GoogleTrend[]> {
     }
   }
 
-  if (output.length === 0) throw new Error('No Google Trends regional feeds are available');
-  return output.slice(0, 96);
+  if (output.length === 0) {
+    if (lastGoodTrends.length > 0) return lastGoodTrends;
+    throw new Error('No Google Trends regional feeds are available');
+  }
+  lastGoodTrends = output.slice(0, 96);
+  return lastGoodTrends;
+}
+
+const cachedGlobalTrends = unstable_cache(fetchGlobalTrends, ['xucuz-global-trends-v1'], {
+  revalidate: 300,
+  tags: ['global-trends'],
+});
+
+export async function getGoogleTrends(): Promise<GoogleTrend[]> {
+  try {
+    return await cachedGlobalTrends();
+  } catch (error) {
+    // Next's data cache keeps the most recent successful value during failed revalidation.
+    // This process-level fallback also covers transient failures within a warm instance.
+    if (lastGoodTrends.length > 0) return lastGoodTrends;
+    throw error;
+  }
 }
 
 export function parseGoogleTrendsRss(xml: string, region: TrendRegion = TREND_REGIONS[0]!): GoogleTrend[] {
@@ -124,7 +156,9 @@ export function parseGoogleTrendsRss(xml: string, region: TrendRegion = TREND_RE
     const term = cleanText(tag(block, 'title'));
     const traffic = cleanText(tag(block, 'approx_traffic'));
     const relatedTitle = cleanText(tag(related, 'news_item_title'));
-    return { ...region, term, ...(traffic ? { traffic } : {}), ...(itemImage ? { imageUrl: itemImage } : {}), ...(relatedTitle ? { relatedTitle } : {}) };
+    const publishedAt = cleanText(tag(block, 'pubDate'));
+    const validPublishedAt = publishedAt && !Number.isNaN(Date.parse(publishedAt)) ? new Date(publishedAt).toISOString() : undefined;
+    return { ...region, term, ...(traffic ? { traffic } : {}), ...(itemImage ? { imageUrl: itemImage } : {}), ...(relatedTitle ? { relatedTitle } : {}), ...(validPublishedAt ? { publishedAt: validPublishedAt } : {}) };
   }).filter(({ term }) => term.length > 0).slice(0, 30);
 }
 
@@ -153,5 +187,8 @@ export function parseGoogleNewsRss(xml: string): GoogleNewsItem[] {
     const imageUrl = rssImage(block);
     const publishedAt = cleanText(tag(block, 'pubDate'));
     return { title, url, source, summary, ...(imageUrl ? { imageUrl } : {}), ...(publishedAt ? { publishedAt } : {}) };
-  }).filter((item) => item.title && /^https:\/\//i.test(item.url)).slice(0, 8);
+  }).filter((item) => {
+    try { return !!item.title && new URL(item.url).protocol === 'https:' && new URL(item.url).hostname === 'news.google.com'; }
+    catch { return false; }
+  }).slice(0, 8);
 }
