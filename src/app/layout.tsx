@@ -5,8 +5,6 @@ import Script from 'next/script';
 import {Analytics} from '@vercel/analytics/next';
 import {GoogleAnalytics} from '@/components/google-analytics';
 import {mode} from '@/lib/providers/engine';
-import {LiveQaRoute} from '@/components/live-qa-route';
-import {LiveChat} from '@/components/live-chat';
 import {LanguageProvider} from '@/components/language-provider';
 import {PwaRegister} from '@/components/pwa-register';
 import {WorldFooter,WorldHeader} from '@/components/world-shell';
@@ -32,6 +30,6 @@ async function RootDocument({children}:{children:React.ReactNode}){const [savedL
   <WorldHeader/>
   <main id="main" tabIndex={-1}>{children}</main>
   <WorldFooter/>
- </div><LiveChat/><LiveQaRoute/><Analytics/><GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}/></LanguageProvider></body></html>;
+ </div><Analytics/><GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}/></LanguageProvider></body></html>;
 }
 
