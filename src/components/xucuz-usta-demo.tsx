@@ -72,7 +72,7 @@ export function XucuzUstaDemo(){
       </div>
     </section>
 
-    <div className="xusta-demo-banner"><ShieldCheck size={16}/><span>Bu bir örnek platformdur. Usta profilleri, işler, yorumlar ve fiyat teklifleri gerçek değildir.</span><span className="xusta-live-dot"/> Canlı hizmet yok
+    <div className="xusta-demo-banner"><ShieldCheck size={16}/><span className="xusta-live-dot"/> Canlı hizmet yok
     </div>
 
     <section className="xusta-section xusta-services-section">
