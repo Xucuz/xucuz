@@ -13,7 +13,7 @@ describe('Neon traffic safeguards', () => {
 
   it('bounds chat history and avoids rapid background polling', () => {
     expect(LIVE_CHAT_INITIAL_HISTORY_LIMIT).toBe(20);
-    expect(LIVE_CHAT_POLL_INTERVAL_MS).toBe(10_000);
+    expect(LIVE_CHAT_POLL_INTERVAL_MS).toBe(5_000);
   });
 
   it('uses a bounded heartbeat interval for approximate online presence', () => {
