@@ -8,7 +8,7 @@ describe('Google Trends RSS parsing',()=>{
  });
 
  it('returns safe HTTPS sources and strips HTML from news summaries',()=>{
-  const xml='<rss><channel><item><title>Başlık &amp; devamı</title><link>https://news.example/story</link><description><![CDATA[<p>Özet <b>metni</b></p>]]></description><source url="https://news.example">Örnek Kaynak</source><pubDate>Sun, 22 Nov 2026 09:00:00 GMT</pubDate></item><item><title>Güvensiz</title><link>http://news.example/nope</link></item></channel></rss>';
+  const xml='<rss><channel><item><title>Başlık &amp; devamı</title><link>https://news.example/story</link><description><![CDATA[&lt;p&gt;Özet &lt;b&gt;metni&lt;/b&gt;&lt;/p&gt;&nbsp;]]></description><source url="https://news.example">Örnek Kaynak</source><pubDate>Sun, 22 Nov 2026 09:00:00 GMT</pubDate></item><item><title>Güvensiz</title><link>http://news.example/nope</link></item></channel></rss>';
   expect(parseGoogleNewsRss(xml)).toEqual([{title:'Başlık & devamı',url:'https://news.example/story',source:'Örnek Kaynak',summary:'Özet metni',publishedAt:'Sun, 22 Nov 2026 09:00:00 GMT'}]);
  });
 });

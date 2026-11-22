@@ -13,7 +13,7 @@ function decodeEntities(value: string): string {
   return value.replace(/&#(\d+);/g, (_, code: string) => decodeCodePoint(code, 10))
     .replace(/&#x([\da-f]+);/gi, (_, code: string) => decodeCodePoint(code, 16))
     .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"').replace(/&apos;|&#39;/g, "'");
+    .replace(/&quot;/g, '"').replace(/&apos;|&#39;/g, "'").replace(/&nbsp;/gi, ' ');
 }
 
 function tag(block: string, name: string): string {
@@ -22,7 +22,8 @@ function tag(block: string, name: string): string {
 }
 
 function cleanText(value: string): string {
-  return decodeEntities(value.replace(/<[^>]*>/g, ' ').replace(/<!\[CDATA\[|\]\]>/g, ''))
+  const decoded = decodeEntities(value.replace(/<!\[CDATA\[|\]\]>/g, ''));
+  return decodeEntities(decoded.replace(/<[^>]*>/g, ' '))
     .replace(/\s+/g, ' ').trim();
 }
 
