@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import {useMemo, useState} from 'react';
+import {FormEvent, useEffect, useMemo, useState} from 'react';
 import {ArrowRight,Camera,Check,ChevronDown,Clock3,MapPin,Plus,Search,ShieldCheck,Sparkles,Star,Wrench,X} from 'lucide-react';
 
 const services=[
@@ -25,13 +25,24 @@ const examples=[
   {service:'Montaj & mobilya',title:'Gardırop kurulumu',place:'Örnek konum · Nilüfer',detail:'3 kapılı demonte ürün, montaj desteği',when:'Örnek tarih · Hafta sonu',tone:'gold'},
 ];
 
-export function XucuzUstaDemo(){
-  const [selected,setSelected]=useState('Tüm hizmetler');
+type Member={id:string;nickname:string};
+
+export function XucuzUstaDemo({initialService='',initialTask=''}:{initialService?:string;initialTask?:string}){
+  const [selected,setSelected]=useState(()=>services.some(item=>item.name===initialService)?initialService:'Tüm hizmetler');
   const [query,setQuery]=useState('');
   const [city,setCity]=useState('');
   const [district,setDistrict]=useState('');
-  const [formOpen,setFormOpen]=useState(false);
+  const [taskDescription,setTaskDescription]=useState(initialTask);
+  const [formOpen,setFormOpen]=useState(()=>Boolean(initialService||initialTask));
   const [sent,setSent]=useState(false);
+  const [member,setMember]=useState<Member|null>(null);
+  const [authStatus,setAuthStatus]=useState<'checking'|'guest'|'member'|'unavailable'>('checking');
+  const [authMode,setAuthMode]=useState<'register'|'login'>('register');
+  const [nickname,setNickname]=useState('');
+  const [password,setPassword]=useState('');
+  const [authBusy,setAuthBusy]=useState(false);
+  const [authError,setAuthError]=useState('');
+  const [requestError,setRequestError]=useState('');
   const visibleExamples=useMemo(()=>examples.filter(item=>{
     const matchesService=selected==='Tüm hizmetler'||item.service===selected;
     const needle=query.trim().toLocaleLowerCase('tr-TR');
@@ -39,9 +50,40 @@ export function XucuzUstaDemo(){
     return matchesService&&matchesText;
   }),[selected,query]);
 
-  function openRequest(service?:string){
+  useEffect(()=>{
+    if(!formOpen)return;
+    let active=true;
+    fetch('/api/live-chat/auth',{cache:'no-store'}).then(async response=>{
+      const body=await response.json() as {member:Member|null;error?:string};
+      if(!active)return;
+      if(response.ok){setMember(body.member);setAuthStatus(body.member?'member':'guest');}
+      else{setMember(null);setAuthStatus('unavailable');setAuthError(body.error??'Üyelik sistemi şu anda kullanılamıyor.');}
+    }).catch(()=>{if(active){setMember(null);setAuthStatus('unavailable');setAuthError('Üyelik sistemine ulaşılamadı.');}});
+    return()=>{active=false;};
+  },[formOpen]);
+
+  function openRequest(service?:string,description=''){
     if(service&&services.some(item=>item.name===service))setSelected(service);
-    setSent(false);setFormOpen(true);
+    setTaskDescription(description);setSent(false);setRequestError('');setAuthStatus('checking');setAuthError('');setFormOpen(true);
+  }
+
+  async function authenticate(event:FormEvent<HTMLFormElement>){
+    event.preventDefault();if(authBusy)return;setAuthBusy(true);setAuthError('');
+    try{
+      const response=await fetch('/api/live-chat/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:authMode,nickname,password})});
+      const body=await response.json() as {member?:Member;error?:string};
+      if(!response.ok||!body.member){setAuthError(body.error??'Üyelik işlemi tamamlanamadı.');return;}
+      setMember(body.member);setAuthStatus('member');setPassword('');
+    }catch{setAuthError('Bağlantı kurulamadı.');}
+    finally{setAuthBusy(false);}
+  }
+
+  function submitRequest(event:FormEvent<HTMLFormElement>){
+    event.preventDefault();
+    if(/(?:[\w.+-]+@[\w.-]+\.[A-Za-z]{2,})|(?:\+?\d[\d\s().-]{8,}\d)/.test(taskDescription)){
+      setRequestError('İş açıklamasına telefon veya e-posta yazma.');return;
+    }
+    setRequestError('');setSent(true);
   }
 
   return <div className="xusta-page">
@@ -93,7 +135,13 @@ export function XucuzUstaDemo(){
 
     <section className="xusta-trust-band"><div><span className="xusta-eyebrow">GÜVENLİ HİZMET PAZARYERİ</span><h2>İyi iş, açık iletişimle başlar.</h2><p>Gerçek platformda doğrulanmış usta profilleri, şeffaf teklifler, güvenli mesajlaşma ve iş tamamlandıktan sonra yorumlar yer alacak.</p></div><div className="xusta-trust-points"><p><ShieldCheck size={18}/> Usta kimlik ve yetkinlik kontrolü</p><p><Check size={18}/> İş başlamadan net teklif</p><p><Star size={18}/> Yalnızca tamamlanan işe yorum</p><p><Camera size={18}/> İş öncesi/sonrası fotoğraf alanı</p></div></section>
 
-    {formOpen&&<div className="xusta-modal-backdrop" onMouseDown={event=>{if(event.target===event.currentTarget)setFormOpen(false);}}><section className="xusta-modal" role="dialog" aria-modal="true" aria-labelledby="xusta-modal-title"><button type="button" className="xusta-modal-close" aria-label="Pencereyi kapat" onClick={()=>setFormOpen(false)}><X size={20}/></button>{sent?<div className="xusta-sent-state"><span><Check size={24}/></span><h2 id="xusta-modal-title">Örnek talebin hazır</h2><p>Bu demo sürümünde talep kaydedilmez ve gerçek ustalara gönderilmez.</p><button type="button" onClick={()=>setFormOpen(false)}>Tamam</button></div>:<><span className="xusta-eyebrow">DEMO · GÖNDERİM KAPALI</span><h2 id="xusta-modal-title">Yapılacak işi anlat</h2><p className="xusta-modal-intro">Formu doldurarak talep akışının örneğini görebilirsin. Bilgiler sunucuya gönderilmez.</p><form onSubmit={event=>{event.preventDefault();setSent(true);}}><label>Hizmet türü<select defaultValue={selected==='Tüm hizmetler'?'':selected} required><option value="" disabled>Hizmet seç</option>{services.map(service=><option key={service.name}>{service.name}</option>)}</select></label><label>İşin kısa açıklaması<input required minLength={8} placeholder="Örn. salondaki duvarları boyatmak istiyorum"/></label><label>İl ve ilçe<input required placeholder="Örn. Ankara, Çankaya" defaultValue={city?`${city}${district?`, ${district}`:''}`:''}/></label><label>Ne zaman yapılmalı?<select defaultValue="Esnek"><option>Esnek</option><option>Bu hafta</option><option>Belirli bir gün</option></select></label><label className="xusta-photo-input"><Camera size={17}/> Fotoğraf ekleme alanı <small>(örnek arayüz)</small><input type="file" accept="image/*" disabled aria-label="Demo sürümünde fotoğraf yükleme kapalı"/></label><button type="submit" className="xusta-submit">Örnek talebi önizle <ArrowRight size={16}/></button><small className="xusta-modal-disclaimer">Gönderim kapalı · hiçbir bilgi kaydedilmez veya ustaya iletilmez.</small></form></>}</section></div>}
+    {formOpen&&<div className="xusta-modal-backdrop" onMouseDown={event=>{if(event.target===event.currentTarget)setFormOpen(false);}}><section className="xusta-modal" role="dialog" aria-modal="true" aria-labelledby="xusta-modal-title"><button type="button" className="xusta-modal-close" aria-label="Pencereyi kapat" onClick={()=>setFormOpen(false)}><X size={20}/></button>
+      {sent?<div className="xusta-sent-state"><span><Check size={24}/></span><h2 id="xusta-modal-title">İş talebi önizlemesi hazır</h2><p>Bu sürümde talep kaydedilmez, yayımlanmaz veya ustalara iletilmez.</p><button type="button" onClick={()=>setFormOpen(false)}>Tamam</button></div>
+      :authStatus==='checking'?<div className="xusta-member-gate"><span className="xusta-eyebrow">ÜYELİK KONTROLÜ</span><h2 id="xusta-modal-title">Üyelik durumu kontrol ediliyor…</h2></div>
+      :authStatus==='unavailable'?<div className="xusta-member-gate"><span className="xusta-eyebrow">ÜYELİK GEREKLİ</span><h2 id="xusta-modal-title">Şu anda devam edilemiyor</h2><p>{authError} Üyelik doğrulanmadan iş talebi formu açılmaz.</p></div>
+      :!member?<div className="xusta-member-gate"><span className="xusta-eyebrow">ÜYELİK GEREKLİ</span><h2 id="xusta-modal-title">İş talebi için üye ol</h2><p>Talep formuna geçmek için rumuzla üye ol veya hesabına giriş yap. E-posta ve telefon istenmez.</p><div className="xusta-member-tabs"><button type="button" className={authMode==='register'?'active':''} onClick={()=>{setAuthMode('register');setAuthError('');}}>Üye ol</button><button type="button" className={authMode==='login'?'active':''} onClick={()=>{setAuthMode('login');setAuthError('');}}>Giriş yap</button></div><form className="xusta-auth-form" onSubmit={authenticate}><label>Rumuz<input value={nickname} onChange={event=>setNickname(event.target.value.slice(0,20))} autoComplete="username" minLength={3} maxLength={20} required placeholder="3–20 karakter"/></label><label>Parola<input type="password" value={password} onChange={event=>setPassword(event.target.value.slice(0,128))} autoComplete={authMode==='register'?'new-password':'current-password'} minLength={10} maxLength={128} required placeholder="En az 10 karakter"/></label><button type="submit" className="xusta-submit" disabled={authBusy}>{authBusy?'Bekle…':authMode==='register'?'Ücretsiz üye ol':'Giriş yap'}</button></form>{authError&&<p className="xusta-auth-error" role="alert">{authError}</p>}</div>
+      :<><span className="xusta-eyebrow">ÜYE: {member.nickname} · ÖNİZLEME</span><h2 id="xusta-modal-title">Yapılacak işi anlat</h2><p className="xusta-modal-intro">Talep herkese açık yayımlanmaz. İletişim bilgilerini açıklamaya ekleme; bu önizlemede hiçbir bilgi kaydedilmez veya ustaya iletilmez.</p><form onSubmit={submitRequest}><label>Hizmet türü<select value={selected==='Tüm hizmetler'?'':selected} onChange={event=>setSelected(event.target.value)} required><option value="" disabled>Hizmet seç</option>{services.map(service=><option key={service.name}>{service.name}</option>)}</select></label><label>İşin açıklaması<textarea value={taskDescription} onChange={event=>setTaskDescription(event.target.value.slice(0,500))} required minLength={8} maxLength={500} rows={4} placeholder="Yapılacak işi ve kapsamını anlat"/></label><label>İl ve ilçe<input required placeholder="Örn. Ankara, Çankaya" defaultValue={city?`${city}${district?`, ${district}`:''}`:''}/></label><label>Ne zaman yapılmalı?<select defaultValue="Esnek"><option>Esnek</option><option>Bu hafta</option><option>Belirli bir gün</option></select></label>{requestError&&<p className="xusta-auth-error" role="alert">{requestError}</p>}<div className="xusta-request-rules"><p>• Telefon veya e-posta bilgisi vermeyin; mesaj herkese açık yayımlanmaz.</p><p>• Usta kimlik ve iletişim bilgileri paylaşılmaz.</p><p>• İş tamamlanmadan ustaya ödeme yapmayın.</p><p>Xucuz.com hiçbir sorumluluk kabul etmemektedir.</p></div><button type="submit" className="xusta-submit">Talep önizlemesini hazırla <ArrowRight size={16}/></button><small className="xusta-modal-disclaimer">Önizleme · Talep saklanmaz veya yayımlanmaz.</small></form></>}
+    </section></div>}
   </div>;
 }
 

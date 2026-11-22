@@ -10,14 +10,14 @@ type Trend = GoogleTrend & {href:string};
 type TrendArticle = { title: string; source: string; summary: string; url: string; imageUrl?: string; publishedAt?: string };
 type Topic = { trend: Trend; articles: TrendArticle[]; featuredImage?: string };
 const workPhotos=[
-  {title:'Boya & badana',alt:'Duvar boyama işi için boya rulosu',src:'/usta-isleri/boya-badana.webp'},
-  {title:'Elektrik tamiri',alt:'Elektrik panosunda bakım yapan teknisyen',src:'/usta-isleri/elektrik-tamiri.webp'},
-  {title:'Su tesisatı',alt:'Duvar önünde görünen su tesisatı boruları',src:'/usta-isleri/su-tesisati.webp'},
-  {title:'Ev temizliği',alt:'Pencereyi temizleyen görevli',src:'/usta-isleri/ev-temizligi.webp'},
-  {title:'Mobilya montajı',alt:'Montaj için kullanılan şarjlı matkap',src:'/usta-isleri/mobilya-montaji.webp'},
-  {title:'Banyo yenileme',alt:'Seramik duvar ve lavabo bataryası',src:'/usta-isleri/banyo-yenileme.webp'},
-  {title:'İç mekân düzenleme',alt:'Düzenlenmiş modern bir oturma odası',src:'/usta-isleri/ic-mekan-duzenleme.webp'},
-  {title:'Konut bakımı',alt:'Bakımlı modern bir konutun dış görünümü',src:'/usta-isleri/konut-bakimi.webp'},
+  {title:'Boya & badana',service:'Boya & badana',prompt:'Boyanacak alanı, yaklaşık metrekareyi ve istediğin tarihi anlat.',alt:'Duvar boyama işi için boya rulosu',src:'/usta-isleri/boya-badana.webp'},
+  {title:'Elektrik tamiri',service:'Elektrik',prompt:'Elektrik arızasını, yapılacak işi ve uygun olduğun zamanı anlat.',alt:'Elektrik panosunda bakım yapan teknisyen',src:'/usta-isleri/elektrik-tamiri.webp'},
+  {title:'Su tesisatı',service:'Su tesisatı',prompt:'Musluk, kaçak veya giderle ilgili sorunu ve yapılacak işi anlat.',alt:'Duvar önünde görünen su tesisatı boruları',src:'/usta-isleri/su-tesisati.webp'},
+  {title:'Ev temizliği',service:'Temizlik',prompt:'Temizlenecek alanı, kapsamı ve istediğin tarihi anlat.',alt:'Pencereyi temizleyen görevli',src:'/usta-isleri/ev-temizligi.webp'},
+  {title:'Mobilya montajı',service:'Montaj & mobilya',prompt:'Kurulacak mobilyayı, adetini ve montaj yerini anlat.',alt:'Montaj için kullanılan şarjlı matkap',src:'/usta-isleri/mobilya-montaji.webp'},
+  {title:'Banyo yenileme',service:'Fayans & parke',prompt:'Yenilenecek banyo bölümünü, yaklaşık ölçüyü ve yapılacak işi anlat.',alt:'Seramik duvar ve lavabo bataryası',src:'/usta-isleri/banyo-yenileme.webp'},
+  {title:'İç mekân düzenleme',service:'Diğer ince işler',prompt:'İç mekânda yapılmasını istediğin işi ve kapsamını anlat.',alt:'Düzenlenmiş modern bir oturma odası',src:'/usta-isleri/ic-mekan-duzenleme.webp'},
+  {title:'Konut bakımı',service:'Kapı & pencere',prompt:'Konutunda bakım veya onarım gereken bölümü ve yapılacak işi anlat.',alt:'Bakımlı modern bir konutun dış görünümü',src:'/usta-isleri/konut-bakimi.webp'},
 ];
 
 function TrendImage({ src, alt, className }: { src: string; alt: string; className?: string }) {
@@ -108,10 +108,10 @@ export function XucuzWorldHome({initialTrends,initialSourceUnavailable}:{initial
 
       <section className="trends-home-work" aria-labelledby="trends-home-work-title">
         <div className="trends-home-work-heading"><div><span>USTA İŞLERİNDEN KARELER</span><h2 id="trends-home-work-title">Evindeki işler için ilham al.</h2><p>Boya, tesisat, montaj ve yenileme hizmetleri</p></div><small>Temsili fotoğraflar · Unsplash</small></div>
-        <div className="trends-home-work-grid">{workPhotos.map(photo=><figure className="trends-home-work-card" key={photo.src}>
+        <div className="trends-home-work-grid">{workPhotos.map(photo=><Link className="trends-home-work-card" key={photo.src} href={{pathname:'/xucuz-usta',query:{service:photo.service,task:photo.prompt}}} aria-label={`${photo.title}: iş talebi oluştur`}>
           <Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 700px) 46vw, (max-width: 1000px) 30vw, 23vw"/>
-          <figcaption>{photo.title}</figcaption>
-        </figure>)}</div>
+          <span className="trends-home-work-caption"><strong>{photo.title}</strong><small>İşini anlat <span aria-hidden="true">→</span></small></span>
+        </Link>)}</div>
       </section>
 
       {displayed.length > 0 ? <section className="trends-home-grid" aria-label="Google Trends Türkiye’de yükselen alışveriş ürünü aramaları">
@@ -123,7 +123,7 @@ export function XucuzWorldHome({initialTrends,initialSourceUnavailable}:{initial
             {trend.traffic && <small>Yaklaşık arama ilgisi: {trend.traffic}</small>}
           </span>
         </Link>)}
-      </section> : <div className="trends-home-status" role="status">{loadingTrends ? 'Türkiye alışveriş trendleri yükleniyor…' : sourceUnavailable ? 'Google Trends Türkiye akışına şu anda ulaşılamıyor; doğrulanmış son akış da bulunamadı.' : 'Türkiye trend akışında şu anda ürün alışverişiyle açıkça ilişkili yükselen arama bulunmuyor.'}</div>}
+      </section> : sourceUnavailable ? <div className="trends-home-status" role="status">Google Trends Türkiye akışına şu anda ulaşılamıyor; doğrulanmış son akış da bulunamadı.</div> : loadingTrends ? <div className="trends-home-status" role="status">Türkiye alışveriş trendleri yükleniyor…</div> : null}
     </div>
 
     {topic && <div className="trends-topic-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) setTopic(null); }}>
