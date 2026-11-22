@@ -9,6 +9,16 @@ import type { GoogleTrend } from '@/lib/google-trends';
 type Trend = GoogleTrend & {href:string};
 type TrendArticle = { title: string; source: string; summary: string; url: string; imageUrl?: string; publishedAt?: string };
 type Topic = { trend: Trend; articles: TrendArticle[]; featuredImage?: string };
+const workPhotos=[
+  {title:'Boya & badana',alt:'Duvar boyama işi için boya rulosu',src:'/usta-isleri/boya-badana.webp'},
+  {title:'Elektrik tamiri',alt:'Elektrik panosunda bakım yapan teknisyen',src:'/usta-isleri/elektrik-tamiri.webp'},
+  {title:'Su tesisatı',alt:'Duvar önünde görünen su tesisatı boruları',src:'/usta-isleri/su-tesisati.webp'},
+  {title:'Ev temizliği',alt:'Pencereyi temizleyen görevli',src:'/usta-isleri/ev-temizligi.webp'},
+  {title:'Mobilya montajı',alt:'Montaj için kullanılan şarjlı matkap',src:'/usta-isleri/mobilya-montaji.webp'},
+  {title:'Banyo yenileme',alt:'Seramik duvar ve lavabo bataryası',src:'/usta-isleri/banyo-yenileme.webp'},
+  {title:'İç mekân düzenleme',alt:'Düzenlenmiş modern bir oturma odası',src:'/usta-isleri/ic-mekan-duzenleme.webp'},
+  {title:'Konut bakımı',alt:'Bakımlı modern bir konutun dış görünümü',src:'/usta-isleri/konut-bakimi.webp'},
+];
 
 function TrendImage({ src, alt, className }: { src: string; alt: string; className?: string }) {
   // Google Trends/News RSS only exposes images served by Google's image hosts.
@@ -95,6 +105,14 @@ export function XucuzWorldHome({initialTrends,initialSourceUnavailable}:{initial
         <Image className="trends-home-mascot" src="/xucuz-genie-globe.webp" alt="Dönen dünyaya dokunan Xucuz cin maskotu" width={745} height={1089} priority sizes="(max-width: 700px) 74vw, 36vw" />
         <div className="trends-home-globe" aria-hidden="true" />
       </div>
+
+      <section className="trends-home-work" aria-labelledby="trends-home-work-title">
+        <div className="trends-home-work-heading"><div><span>USTA İŞLERİNDEN KARELER</span><h2 id="trends-home-work-title">Evindeki işler için ilham al.</h2><p>Boya, tesisat, montaj ve yenileme hizmetleri</p></div><small>Temsili fotoğraflar · Unsplash</small></div>
+        <div className="trends-home-work-grid">{workPhotos.map(photo=><figure className="trends-home-work-card" key={photo.src}>
+          <Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 700px) 46vw, (max-width: 1000px) 30vw, 23vw"/>
+          <figcaption>{photo.title}</figcaption>
+        </figure>)}</div>
+      </section>
 
       {displayed.length > 0 ? <section className="trends-home-grid" aria-label="Google Trends Türkiye’de yükselen alışveriş ürünü aramaları">
         {displayed.map((trend, index) => <Link className="trends-home-card" key={`${trend.geo}:${trend.term}`} href={trend.href} onClick={(event)=>{event.preventDefault();void openTopic(trend);}} aria-label={`${trend.term}, ${trend.geo}; konu bilgisini aç`}>
