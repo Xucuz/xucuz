@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-type Match = { slug: string; home: string; away: string; home_score: number | null; away_score: number | null; status: string; status_text: string; time: string | null };
+type Match = { competition: string; slug: string; home: string; away: string; home_score: number | null; away_score: number | null; status: string; status_text: string; time: string | null };
 
 const events = [
   { minute: 12, label: "Ev sahibi takım atağa çıkıyor." },
@@ -14,6 +14,9 @@ const events = [
 export default function LiveFootballPage() {
   const [seconds, setSeconds] = useState(0);
   const [matches, setMatches] = useState<Match[]>([]);
+  const [query, setQuery] = useState("");
+  const [liveOnly, setLiveOnly] = useState(false);
+  const filteredMatches = matches.filter(m => (!liveOnly || ["live", "inprogress", "in_progress", "1h", "2h", "ht"].includes(m.status.toLowerCase())) && [m.home, m.away, m.competition].some(v => v.toLocaleLowerCase("tr-TR").includes(query.toLocaleLowerCase("tr-TR"))));
   const [loadError, setLoadError] = useState("");
   const [updated, setUpdated] = useState("");
   useEffect(() => {
@@ -58,7 +61,7 @@ export default function LiveFootballPage() {
   return (
     <main className="mx-auto max-w-5xl px-4 py-10 text-slate-900">
       <h1 className="text-3xl font-bold">⚽ Xucuz Canlı Futbol</h1>
-      <section className="mt-5 rounded-xl border bg-white p-4"><h2 className="text-xl font-bold">Gerçek maç skorları — SportScore</h2><p className="text-sm text-slate-600">Veriler yaklaşık 60 saniyede yenilenir. Yalnızca sağlayıcının sunduğu maçlar gösterilir.</p>{loadError && <p role="alert" className="mt-2 text-red-700">{loadError}</p>}{updated && <p className="mt-1 text-xs text-slate-500">Son sorgu: {new Date(updated).toLocaleTimeString("tr-TR")}</p>}<div className="mt-3 grid gap-2">{matches.length ? matches.map((m, i) => <div key={m.slug || i} className="flex items-center justify-between gap-3 rounded-lg bg-slate-100 p-3"><span className="min-w-0 flex-1">{m.home} – {m.away}</span><strong className="whitespace-nowrap">{m.home_score ?? "-"} : {m.away_score ?? "-"}</strong><span className="w-24 text-right text-xs">{m.status_text || m.status}</span></div>) : <p className="text-sm text-slate-600">Şu anda listelenecek maç bulunamadı.</p>}</div><p className="mt-3 text-xs">Powered by <a href="https://sportscore.com/" className="underline">SportScore</a></p></section><p className="mt-5 text-sm text-amber-800">Aşağıdaki saha DEMO simülasyonudur; üstteki gerçek skorlarla bağlantılı değildir.</p>
+      <section className="mt-5 rounded-xl border bg-white p-4"><h2 className="text-xl font-bold">Gerçek maç skorları — SportScore</h2><p className="text-sm text-slate-600">Veriler yaklaşık 60 saniyede yenilenir. Yalnızca sağlayıcının sunduğu maçlar gösterilir.</p>{loadError && <p role="alert" className="mt-2 text-red-700">{loadError}</p>}{updated && <p className="mt-1 text-xs text-slate-500">Son sorgu: {new Date(updated).toLocaleTimeString("tr-TR")}</p>}<div className="mt-3 flex flex-wrap gap-3"><input aria-label="Takım veya lig ara" placeholder="Takım veya lig ara" className="min-w-0 flex-1 rounded-lg border p-2" value={query} onChange={e => setQuery(e.target.value)} /><label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={liveOnly} onChange={e => setLiveOnly(e.target.checked)} /> Yalnızca canlı</label></div><div className="mt-3 grid gap-2">{filteredMatches.length ? filteredMatches.map((m, i) => <div key={m.slug || i} className="flex items-center justify-between gap-3 rounded-lg bg-slate-100 p-3"><span className="min-w-0 flex-1"><span className="block text-xs text-slate-500">{m.competition}</span>{m.home} – {m.away}</span><strong className="whitespace-nowrap">{m.home_score ?? "-"} : {m.away_score ?? "-"}</strong><span className="w-24 text-right text-xs">{m.status_text || m.status}</span></div>) : <p className="text-sm text-slate-600">Şu anda listelenecek maç bulunamadı.</p>}</div><p className="mt-3 text-xs">Powered by <a href="https://sportscore.com/" className="underline">SportScore</a></p></section><p className="mt-5 text-sm text-amber-800">Aşağıdaki saha DEMO simülasyonudur; üstteki gerçek skorlarla bağlantılı değildir.</p>
       <div className="mt-6 rounded-2xl border bg-white p-5 shadow-sm">
         <div className="flex items-center justify-between gap-3 text-center">
           <span className="font-semibold">Ev Sahibi</span>
