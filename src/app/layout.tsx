@@ -11,6 +11,7 @@ import {PwaRegister} from '@/components/pwa-register';
 import {WorldFooter,WorldHeader} from '@/components/world-shell';
 import './xucuz-world.css';
 import './globals.css';
+import './trends-home.css';
 
 const siteUrl=process.env.NEXT_PUBLIC_SITE_URL??'https://xucuz.com';
 export const metadata:Metadata={metadataBase:new URL(siteUrl),title:{default:'Xucuz — Xucin’in Sihirli Dükkânı',template:'%s | Xucuz'},description:'Doğrulanmış fiyatları bul, sepetini hesapla, şehirleri keşfet. Xucin’in Sihirli Dükkânı.',applicationName:'Xucuz',manifest:'/manifest.webmanifest',icons:{icon:[{url:'/xucina-icon-192.png',sizes:'192x192',type:'image/png'},{url:'/xucina-icon-512.png',sizes:'512x512',type:'image/png'}],apple:{url:'/xucina-icon-192.png',sizes:'192x192',type:'image/png'}},other:{'google-adsense-account':'ca-pub-9203233526232260'},openGraph:{type:'website',locale:'tr_TR',url:siteUrl,siteName:'Xucuz',title:'Xucuz — Xucin’in Sihirli Dükkânı',description:'Doğrulanmış fiyatlar, sepet hesabı ve keşif.'},twitter:{card:'summary',title:'Xucuz — Xucin’in Sihirli Dükkânı',description:'Doğrulanmış fiyatlar, sepet hesabı ve keşif.'},robots:mode()==='demo'?{index:false,follow:false}:{index:true,follow:true}};

@@ -1,12 +1,14 @@
 'use client';
 
 import {FormEvent,useCallback,useEffect,useRef,useState} from 'react';
+import {usePathname} from 'next/navigation';
 import {LogOut,MessageCircle,Send,X} from 'lucide-react';
 
 type Member={id:string;nickname:string};
 type ChatMessage={id:string;nickname:string;body:string;createdAt:string};
 
 export function LiveChat(){
+ const pathname=usePathname();
  const [open,setOpen]=useState(false);
  const [member,setMember]=useState<Member|null>(null);
  const [mode,setMode]=useState<'login'|'register'>('register');
@@ -47,6 +49,7 @@ export function LiveChat(){
  }
  async function logout(){setBusy(true);try{await fetch('/api/live-chat/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'logout'})});}finally{setBusy(false);setMember(null);setMessages([]);lastId.current='0';setError('');}}
 
+ if(pathname==='/')return null;
  return <div className="member-chat-root">
   {open&&<section id="member-chat-panel" className="member-chat-panel" role="dialog" aria-modal="false" aria-labelledby="member-chat-title">
    <header className="member-chat-head"><span className="member-chat-icon"><MessageCircle size={19}/></span><div><strong id="member-chat-title">Canlı Sohbet</strong><span>Toplulukla gerçek zamanlı konuş</span></div><button type="button" className="member-chat-close" onClick={()=>setOpen(false)} aria-label="Sohbeti kapat"><X size={19}/></button></header>

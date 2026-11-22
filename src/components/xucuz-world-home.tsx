@@ -1,59 +1,83 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
-import {ArrowRight,Calculator,MapPinned,Search,ShieldCheck,Tag,Utensils} from 'lucide-react';
-import {useLanguage} from './language-provider';
-import {worldText} from '@/lib/xucuz-world-copy';
+import { useCallback, useEffect, useState } from 'react';
+import { X } from 'lucide-react';
 
-export function XucuzWorldHome(){
- const {language}=useLanguage();
- const t=(key:Parameters<typeof worldText>[1])=>worldText(language,key);
+type Trend = { term: string; traffic?: string };
+type TrendArticle = { title: string; source: string; summary: string; url: string; publishedAt?: string };
+type Topic = { term: string; articles: TrendArticle[] };
 
- const portals=[
-  {href:'/fiyatlar',label:'magicPriceTitle' as const,description:'magicPriceBody' as const,Icon:Tag,scene:'price'},
-  {href:'/birim-fiyat',label:'magicBasketTitle' as const,description:'magicBasketBody' as const,Icon:Calculator,scene:'basket'},
-  {href:'/passport',label:'magicDiscoveryTitle' as const,description:'magicDiscoveryBody' as const,Icon:MapPinned,scene:'discovery'}
- ];
+export function XucuzWorldHome() {
+  const [trends, setTrends] = useState<Trend[]>([]);
+  const [active, setActive] = useState(0);
+  const [topic, setTopic] = useState<Topic | null>(null);
+  const [loadingTopic, setLoadingTopic] = useState(false);
 
- return <div className="magic-home">
-  <section className="magic-stage" aria-labelledby="magic-title">
-   <div className="magic-sky" aria-hidden="true"><span className="magic-moon"/><span className="magic-star magic-star-one"/><span className="magic-star magic-star-two"/><span className="magic-star magic-star-three"/><span className="magic-cityline"/><span className="magic-frame magic-frame-left"/><span className="magic-frame magic-frame-right"/></div>
-   <div className="magic-stage-inner">
-    <div className="magic-hero">
-     <div className="magic-mascot-wrap">
-      <span className="magic-mascot-halo" aria-hidden="true"/>
-      <div className="magic-character-art">
-       <Image className="magic-mascot" src="/xucuz-genie-globe.webp" alt={t('genieAlt')} width={745} height={1089} priority sizes="(max-width: 700px) 90vw, 38vw"/>
-       <span className="magic-spinning-globe" aria-hidden="true"/>
-      </div>
-      <span className="magic-mascot-spark magic-spark-a" aria-hidden="true">✦</span><span className="magic-mascot-spark magic-spark-b" aria-hidden="true">✧</span>
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/api/trends', { cache: 'no-store' })
+      .then(async (response) => {
+        if (!response.ok) throw new Error('Trends unavailable');
+        return response.json() as Promise<{ terms?: Trend[] }>;
+      })
+      .then((result) => { if (!cancelled) setTrends(result.terms ?? []); })
+      .catch(() => { if (!cancelled) setTrends([]); });
+    return () => { cancelled = true; };
+  }, []);
 
-     </div>
-     <div className="magic-copy">
-      <p className="magic-kicker"><span className="magic-kicker-gem"/> {t('magicKicker')}</p>
-      <h1 id="magic-title"><span>{t('magicTitleFirst')}</span><em>{t('magicTitleSecond')}</em></h1>
-      <p className="magic-lead">{t('magicLead')}</p>
-      <form className="magic-search" action="/xucuz-ai">
-       <Search size={21} aria-hidden="true"/><label htmlFor="magic-search-input" className="sr-only">{t('searchLabel')}</label>
-       <input id="magic-search-input" name="q" placeholder={t('magicSearchPlaceholder')} autoComplete="off"/>
-       <button type="submit">{t('magicSearchButton')}<ArrowRight size={17}/></button>
-      </form>
-      <p className="magic-search-note"><ShieldCheck size={15}/>{t('magicSearchNote')}</p>
-     </div>
+  useEffect(() => {
+    if (trends.length < 2) return;
+    const timer = window.setInterval(() => setActive((current) => (current + 1) % trends.length), 5000);
+    return () => window.clearInterval(timer);
+  }, [trends.length]);
+
+  const openTopic = useCallback(async (term: string) => {
+    setLoadingTopic(true);
+    setTopic({ term, articles: [] });
+    try {
+      const response = await fetch(`/api/trends/info?term=${encodeURIComponent(term)}`, { cache: 'no-store' });
+      const result = await response.json() as { articles?: TrendArticle[] };
+      if (response.ok) setTopic({ term, articles: result.articles ?? [] });
+    } catch {
+      // The dialog remains open with a truthful no-results state.
+    } finally {
+      setLoadingTopic(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!topic) return;
+    const onKeyDown = (event: KeyboardEvent) => { if (event.key === 'Escape') setTopic(null); };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [topic]);
+
+  const current = trends[active];
+
+  return <div className="trends-home">
+    <h1 className="trends-home-sr-only">Xucuz</h1>
+    <div className="trends-home-art">
+      <Image className="trends-home-mascot" src="/xucuz-genie-globe.webp" alt="Dönen dünyanın üzerinde duran Xucuz cin maskotu" width={745} height={1089} priority sizes="(max-width: 700px) 100vw, 70vh" />
+      <div className="trends-home-globe" aria-hidden="true" />
+      {current && <button className="trends-home-term" key={current.term} type="button" onClick={() => void openTopic(current.term)} aria-label={`${current.term} hakkında bilgi al`}>
+        <span>{current.term}</span>
+      </button>}
     </div>
 
-    <nav className="magic-portals" aria-label={t('magicPortalsLabel')}>
-     {portals.map(({href,label,description,Icon,scene},index)=><Link className={`magic-portal magic-portal-${scene}`} href={href} key={scene}>
-      <span className="magic-portal-number">0{index+1}</span>
-      <span className="magic-portal-art" aria-hidden="true"><span className="magic-portal-rune"/><span className="magic-portal-icon"><Icon size={48} strokeWidth={1.45}/></span>{scene==='basket'&&<span className="magic-portal-subicon"><Calculator size={24}/></span>}{scene==='discovery'&&<span className="magic-portal-subicon"><Utensils size={22}/></span>}</span>
-      <span className="magic-portal-title">{t(label)}</span><span className="magic-portal-description">{t(description)}</span><span className="magic-portal-arrow"><ArrowRight size={17}/></span>
-     </Link>)}
-    </nav>
-
-    <div className="magic-trust-strip"><span><ShieldCheck size={20}/>{t('magicTrustNoGuess')}</span><i aria-hidden="true"/><span><Search size={19}/>{t('magicTrustSource')}</span></div>
-   </div>
-  </section>
-  <section className="magic-afterword" aria-label={t('dataTitle')}><p>{t('magicAfterword')}</p><Link href="/veri-kaynaklari">{t('verified')}<ArrowRight size={14}/></Link></section>
- </div>;
+    {topic && <div className="trends-topic-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) setTopic(null); }}>
+      <section className="trends-topic-dialog" role="dialog" aria-modal="true" aria-labelledby="trends-topic-title">
+        <button type="button" className="trends-topic-close" onClick={() => setTopic(null)} aria-label="Kapat"><X size={21} /></button>
+        <h2 id="trends-topic-title">{topic.term}</h2>
+        {loadingTopic ? <p className="trends-topic-state" role="status">Bilgiler yükleniyor…</p> : topic.articles.length ? <>
+          <p className="trends-topic-caption">Google Haberler kaynaklarından öne çıkanlar</p>
+          <div className="trends-topic-articles">{topic.articles.map((article) => <article key={article.url}>
+            <a href={article.url} target="_blank" rel="noopener noreferrer">{article.title}</a>
+            {article.summary && <p>{article.summary}</p>}
+            <small>{article.source}{article.publishedAt ? ` · ${article.publishedAt}` : ''}</small>
+          </article>)}</div>
+        </> : <p className="trends-topic-state">Bu arama konusu için şu anda haber bilgisi bulunamadı.</p>}
+      </section>
+    </div>}
+  </div>;
 }
