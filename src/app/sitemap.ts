@@ -7,7 +7,7 @@ import {getGoogleTrends} from '@/lib/google-trends';
 import {localizedTrendPath, TREND_LOCALES} from '@/lib/trend-locales';
 
 export default async function sitemap():Promise<MetadataRoute.Sitemap>{
- if(mode()==='demo')return [];
+ if(mode()==='demo'||process.env.VERCEL_ENV==='preview')return [];
  const base=process.env.NEXT_PUBLIC_SITE_URL??'https://xucuz.com';
  const paths=['/','/market-rehberi','/rehberler',...guides.map(g=>`/rehberler/${g.slug}`),...tools.map(t=>`/${t.slug}`),'/hakkimizda','/iletisim','/gizlilik','/kullanim-kosullari','/affiliate'];
  const core=paths.map(path=>({url:`${base}${path}`}));

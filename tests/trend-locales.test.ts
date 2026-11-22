@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { categoryForTrend, filterTrends, hreflangAlternates, localizedTrendPath, trendSlug } from '@/lib/trend-locales';
 import { makeTrendsIndexMetadata } from '@/components/trends-locale-page';
 
@@ -38,5 +38,15 @@ describe('global trends locale and SEO helpers', () => {
     expect(clean.alternates?.languages).toMatchObject({ tr: '/tr', en: '/en', de: '/de', es: '/es' });
     expect(filtered.alternates?.canonical).toBe('/tr');
     expect(filtered.robots).toMatchObject({ index: false, follow: true });
+  });
+
+  it('keeps Vercel Preview pages out of search indexes', async () => {
+    vi.stubEnv('VERCEL_ENV', 'preview');
+    try {
+      const preview = await makeTrendsIndexMetadata('en', Promise.resolve({}));
+      expect(preview.robots).toMatchObject({ index: false, follow: true });
+    } finally {
+      vi.unstubAllEnvs();
+    }
   });
 });

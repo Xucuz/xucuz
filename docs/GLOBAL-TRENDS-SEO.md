@@ -15,6 +15,7 @@
 - Google Trends ve Google News RSS verisi sunucuda alınır. Google Trends birleşik cevabı beş dakika önbelleğe alınır; bölgesel son başarılı veriler sıcak instance içinde korunur ve Next Data Cache hata anında son başarılı yanıtı sunabilir. Haber bağlantıları yalnızca HTTPS `news.google.com` adresleridir. Kaynak görseli veya haber özeti yeni sayfalara kopyalanmaz.
 - Detay sayfası canlı trendi kaynağı, kaynak zamanı, yaklaşık arama ilgisi, Google News başlıkları ve aynı bölgeden ilişkili aramalarla sunar. Fiyat, olay nedeni veya AI tarafından doğrulanmamış bağlam uydurmaz.
 - Trend rotaları SSR'dır. Dört dil için canonical/hreflang/x-default, Open Graph, Article JSON-LD, sitemap girdileri ve filtreli URL'ler için noindex/canonical eklendi. Robots artık filtreli URL'leri taramadan engellemiyor; bot noindex etiketini okuyabilir. `/trends` eski yolu `/tr`'ye kalıcı yönlendirilir.
+- Tüm Vercel Preview dağıtımları `noindex` ve `robots.txt` `Disallow: /` ile korunur; Preview sitemap boş döner. Production indeksleme kuralları bundan etkilenmez.
 - GA4 kodu yalnızca `NEXT_PUBLIC_GA_MEASUREMENT_ID` geçerli olduğunda ve CMP `xucuz_analytics=granted` çerezini yazdığında yüklenir. İzin bileşeni `xucuz:analytics-consent` olayıyla ölçümü başlatabilir. Search Console sahiplik meta etiketi `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` ile açılır.
 
 ## Veri kalıcılığı ve veritabanı güvenliği

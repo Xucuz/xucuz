@@ -36,7 +36,7 @@ export async function makeTrendsIndexMetadata(locale: TrendLocale, searchParams:
   const params = await searchParams;
   const hasFilters = Object.values(params).some((value) => Array.isArray(value) ? value.some(Boolean) : Boolean(value));
   const canonical = `/${locale}`;
-  const index = mode() !== 'demo' && !hasFilters;
+  const index = mode() !== 'demo' && process.env.VERCEL_ENV !== 'preview' && !hasFilters;
   return {
     title: copy.title,
     description: copy.description,
@@ -121,7 +121,7 @@ export async function makeTrendDetailMetadata(locale: TrendLocale, slug: string)
     title, description,
     alternates: { canonical: path, ...hreflangAlternates((target) => localizedTrendPath(target, trend!)) },
     openGraph: { type: 'article', locale: { tr: 'tr_TR', en: 'en_US', de: 'de_DE', es: 'es_ES' }[locale], url: path, title, description, siteName: 'Xucuz' },
-    robots: { index: mode() !== 'demo', follow: true, googleBot: { index: mode() !== 'demo', follow: true, 'max-image-preview': 'large' } },
+    robots: { index: mode() !== 'demo' && process.env.VERCEL_ENV !== 'preview', follow: true, googleBot: { index: mode() !== 'demo' && process.env.VERCEL_ENV !== 'preview', follow: true, 'max-image-preview': 'large' } },
   };
 }
 
