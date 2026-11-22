@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import {useMemo, useState} from 'react';
 import {ArrowRight,Camera,Check,ChevronDown,Clock3,MapPin,Plus,Search,ShieldCheck,Sparkles,Star,Wrench,X} from 'lucide-react';
 
@@ -23,6 +24,17 @@ const examples=[
   {service:'Boya & badana',title:'Salon duvarlarının boyanması',place:'Örnek konum · Çankaya',detail:'Yaklaşık 25 m² salon, boya kullanıcıdan',when:'Örnek tarih · Önümüzdeki hafta',tone:'blue'},
   {service:'Su tesisatı',title:'Mutfak bataryası değişimi',place:'Örnek konum · Kadıköy',detail:'Mevcut batarya sökülecek, yenisi takılacak',when:'Örnek tarih · Esnek',tone:'mint'},
   {service:'Montaj & mobilya',title:'Gardırop kurulumu',place:'Örnek konum · Nilüfer',detail:'3 kapılı demonte ürün, montaj desteği',when:'Örnek tarih · Hafta sonu',tone:'gold'},
+];
+
+const workPhotos=[
+  {title:'Boya & badana',alt:'Duvar boyama işi için boya rulosu',src:'/usta-isleri/boya-badana.webp'},
+  {title:'Elektrik tamiri',alt:'Elektrik panosunda bakım yapan teknisyen',src:'/usta-isleri/elektrik-tamiri.webp'},
+  {title:'Su tesisatı',alt:'Duvar önünde görünen su tesisatı boruları',src:'/usta-isleri/su-tesisati.webp'},
+  {title:'Ev temizliği',alt:'Pencereyi temizleyen görevli',src:'/usta-isleri/ev-temizligi.webp'},
+  {title:'Mobilya montajı',alt:'Montaj için kullanılan şarjlı matkap',src:'/usta-isleri/mobilya-montaji.webp'},
+  {title:'Banyo yenileme',alt:'Yenilenmiş seramik duvar ve lavabo bataryası',src:'/usta-isleri/banyo-yenileme.webp'},
+  {title:'İç mekân düzenleme',alt:'Düzenlenmiş modern bir oturma odası',src:'/usta-isleri/ic-mekan-duzenleme.webp'},
+  {title:'Konut bakımı',alt:'Bakımlı modern bir konutun dış görünümü',src:'/usta-isleri/konut-bakimi.webp'},
 ];
 
 export function XucuzUstaDemo(){
@@ -78,6 +90,14 @@ export function XucuzUstaDemo(){
     <section className="xusta-section xusta-services-section">
       <div className="xusta-section-head"><div><span className="xusta-eyebrow">NEYE İHTİYACIN VAR?</span><h2>Her ince iş için bir kategori.</h2><p>Hizmet seç, işini kısaca anlat; teklifler gelince karşılaştır.</p></div><button type="button" className="xusta-text-link" onClick={()=>openRequest()}>Tüm hizmetler <ArrowRight size={16}/></button></div>
       <div className="xusta-service-grid">{services.map((service,index)=><button type="button" onClick={()=>openRequest(service.name)} className="xusta-service-card" key={service.name}><span className={`xusta-service-icon tone-${index%5}`}>{service.icon}</span><strong>{service.name}</strong><small>{service.count}</small><ArrowRight className="xusta-service-arrow" size={15}/></button>)}</div>
+    </section>
+
+    <section className="xusta-section xusta-photo-section" aria-labelledby="xusta-photo-title">
+      <div className="xusta-section-head"><div><span className="xusta-eyebrow">USTA İŞLERİNDEN KARELER</span><h2 id="xusta-photo-title">Evindeki işler için ilham al.</h2><p>Boya, tesisat, montaj ve yenileme hizmetlerinden fotoğraflar.</p></div><span className="xusta-photo-credit">Temsili fotoğraflar · Unsplash</span></div>
+      <div className="xusta-photo-grid">{workPhotos.map((photo,index)=><figure className="xusta-photo-card" key={photo.src}>
+        <div className="xusta-photo-frame"><Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 600px) 46vw, (max-width: 1000px) 30vw, 23vw" priority={index<2}/></div>
+        <figcaption>{photo.title}</figcaption>
+      </figure>)}</div>
     </section>
 
     <section className="xusta-process-section">
