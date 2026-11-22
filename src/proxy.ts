@@ -10,4 +10,4 @@ export function proxy(request: NextRequest) {
   return NextResponse.next({ request: { headers: requestHeaders } });
 }
 
-export const config = { matcher: ['/tr/:path*', '/en/:path*', '/de/:path*', '/es/:path*'] };
+export const config = { matcher: ['/tr', '/tr/:path*', '/en', '/en/:path*', '/de', '/de/:path*', '/es', '/es/:path*'] };
