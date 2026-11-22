@@ -1,15 +1,16 @@
 'use client';
 import Link from 'next/link';
 import {usePathname} from 'next/navigation';
-import {Lamp,MapPinned,Search,ShoppingBasket,Store} from 'lucide-react';
+import {Lamp,MapPinned,Search,ShoppingBasket,Store,Wrench} from 'lucide-react';
 import {LanguageSelect,useLanguage} from './language-provider';
-import {worldText} from '@/lib/xucuz-world-copy';
+import {worldText,type WorldCopyKey} from '@/lib/xucuz-world-copy';
 
 const nav=[
- {href:'/',key:'magicNavShop',Icon:Store},
- {href:'/fiyatlar',key:'magicNavPrice',Icon:Search},
- {href:'/birim-fiyat',key:'magicNavBasket',Icon:ShoppingBasket},
- {href:'/passport',key:'magicNavDiscover',Icon:MapPinned}
+ {href:'/',key:'magicNavShop',label:undefined,Icon:Store},
+ {href:'/fiyatlar',key:'magicNavPrice',label:undefined,Icon:Search},
+ {href:'/xucuz-usta',key:'xucuzUsta',label:'Xucuz Usta',Icon:Wrench},
+ {href:'/birim-fiyat',key:'magicNavBasket',label:undefined,Icon:ShoppingBasket},
+ {href:'/passport',key:'magicNavDiscover',label:undefined,Icon:MapPinned}
 ] as const;
 
 export function WorldHeader(){
@@ -20,7 +21,7 @@ export function WorldHeader(){
   <div className="world-header-inner">
    <Link href="/" className="world-brand" aria-label="Xucuz ana sayfa"><span className="world-brand-symbol"><Lamp size={22}/></span><span className="world-brand-name">XUCUZ<span>WORLD</span></span></Link>
    <nav className="world-nav" aria-label="Xucuz">
-    {nav.map(({href,key,Icon},index)=><Link href={href} key={key} className={`world-nav-link ${index===0?'world-home-link':''}`}><Icon size={16}/><span>{worldText(language,key)}</span></Link>)}
+    {nav.map(({href,key,Icon,label},index)=><Link href={href} key={key} className={`world-nav-link ${index===0?'world-home-link':''} ${key==='xucuzUsta'?'world-nav-usta':''}`}><Icon size={16}/><span>{label??worldText(language,key as WorldCopyKey)}</span></Link>)}
    </nav>
    <div className="world-controls"><LanguageSelect/></div>
   </div>

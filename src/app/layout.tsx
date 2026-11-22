@@ -14,6 +14,7 @@ import './xucuz-world.css';
 import './globals.css';
 import './trends-home.css';
 import './trend-pages.css';
+import './xucuz-usta.css';
 
 const siteUrl=process.env.NEXT_PUBLIC_SITE_URL??'https://xucuz.com';
 const googleVerification=process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
