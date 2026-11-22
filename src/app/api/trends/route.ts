@@ -1,11 +1,13 @@
 import { NextResponse } from 'next/server';
 import { getGoogleTrends } from '@/lib/google-trends';
+import { localizedTrendPath } from '@/lib/trend-locales';
 
 export const revalidate = 300;
 
 export async function GET() {
   try {
-    return NextResponse.json({ provider: 'Google Trends', terms: await getGoogleTrends() }, {
+    const terms=await getGoogleTrends();
+    return NextResponse.json({ provider: 'Google Trends', terms: terms.map(trend=>({...trend,href:localizedTrendPath('tr',trend)})) }, {
       headers: { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600' },
     });
   } catch {

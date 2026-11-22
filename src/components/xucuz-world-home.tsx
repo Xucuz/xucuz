@@ -1,10 +1,12 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { X } from 'lucide-react';
+import type { GoogleTrend } from '@/lib/google-trends';
 
-type Trend = { term: string; traffic?: string; geo: string; locale: string; language: string; imageUrl?: string; relatedTitle?: string };
+type Trend = GoogleTrend & {href:string};
 type TrendArticle = { title: string; source: string; summary: string; url: string; imageUrl?: string; publishedAt?: string };
 type Topic = { trend: Trend; articles: TrendArticle[]; featuredImage?: string };
 
@@ -13,9 +15,9 @@ function TrendImage({ src, alt, className }: { src: string; alt: string; classNa
   return <Image className={className} src={src} alt={alt} width={640} height={360} unoptimized loading="lazy" referrerPolicy="no-referrer" />;
 }
 
-export function XucuzWorldHome() {
-  const [trends, setTrends] = useState<Trend[]>([]);
-  const [displayed, setDisplayed] = useState<Trend[]>([]);
+export function XucuzWorldHome({initialTrends}:{initialTrends:Trend[]}) {
+  const [trends, setTrends] = useState<Trend[]>(initialTrends);
+  const [displayed, setDisplayed] = useState<Trend[]>(initialTrends.slice(0,12));
   const [topic, setTopic] = useState<Topic | null>(null);
   const [loadingTrends, setLoadingTrends] = useState(true);
   const [loadingTopic, setLoadingTopic] = useState(false);
@@ -40,10 +42,10 @@ export function XucuzWorldHome() {
         if (!cancelled) setLoadingTrends(false);
       }
     };
-    void load();
+    if(initialTrends.length===0)void load();
     const refresh = window.setInterval(() => void load(), 300000);
     return () => { cancelled = true; window.clearInterval(refresh); };
-  }, []);
+  }, [initialTrends.length]);
 
   useEffect(() => {
     if (trends.length <= displayed.length) return;
@@ -93,14 +95,14 @@ export function XucuzWorldHome() {
       </div>
 
       {displayed.length > 0 ? <section className="trends-home-grid" aria-label="Dünyanın farklı bölgelerindeki Google Trends aramaları">
-        {displayed.map((trend, index) => <button className="trends-home-card" key={`${trend.geo}:${trend.term}`} type="button" onClick={() => void openTopic(trend)} aria-label={`${trend.term}, ${trend.geo}; konu bilgisini aç`}>
+        {displayed.map((trend, index) => <Link className="trends-home-card" key={`${trend.geo}:${trend.term}`} href={trend.href} onClick={(event)=>{event.preventDefault();void openTopic(trend);}} aria-label={`${trend.term}, ${trend.geo}; konu bilgisini aç`}>
           {trend.imageUrl ? <TrendImage className="trends-home-card-photo" src={trend.imageUrl} alt="" /> : <span className={`trends-home-card-art trends-home-card-art-${index % 6}`} aria-hidden="true"><span>{trend.geo}</span></span>}
           <span className="trends-home-card-copy">
             <span className="trends-home-card-region">{trend.geo} · {trend.language.toUpperCase()}</span>
             <strong>{trend.term}</strong>
             {trend.traffic && <small>{trend.traffic} arama</small>}
           </span>
-        </button>)}
+        </Link>)}
       </section> : <div className="trends-home-status" role="status">{loadingTrends ? 'Dünya trendleri yükleniyor…' : 'Trend akışı şu anda alınamıyor.'}</div>}
     </div>
 
