@@ -7,6 +7,7 @@ export async function GET() {
     const data: unknown = await response.json();
     if (!data || typeof data !== "object" || !("matches" in data) || !Array.isArray(data.matches)) throw new Error("Invalid response");
     const matches = data.matches.slice(0, 50).map((m: Record<string, unknown>) => ({
+      competition: typeof m.competition === "string" ? m.competition : "",
       slug: typeof m.slug === "string" ? m.slug : "",
       home: typeof m.home === "string" ? m.home : "Ev sahibi",
       away: typeof m.away === "string" ? m.away : "Deplasman",
