@@ -1,8 +1,47 @@
-export type GoogleTrend = { term: string; traffic?: string };
-export type GoogleNewsItem = { title: string; url: string; source: string; summary: string; publishedAt?: string };
+export type TrendRegion = {
+  geo: string;
+  locale: string;
+  language: string;
+};
 
-const TRENDS_URL = 'https://trends.google.com/trending/rss?geo=TR';
-const NEWS_URL = 'https://news.google.com/rss/search?hl=tr&gl=TR&ceid=TR:tr&q=';
+export type GoogleTrend = TrendRegion & {
+  term: string;
+  traffic?: string;
+  imageUrl?: string;
+  relatedTitle?: string;
+};
+
+export type GoogleNewsItem = {
+  title: string;
+  url: string;
+  source: string;
+  summary: string;
+  imageUrl?: string;
+  publishedAt?: string;
+};
+
+const TREND_REGIONS: TrendRegion[] = [
+  { geo: 'US', locale: 'en-US', language: 'en' },
+  { geo: 'IN', locale: 'hi-IN', language: 'hi' },
+  { geo: 'TR', locale: 'tr-TR', language: 'tr' },
+  { geo: 'FR', locale: 'fr-FR', language: 'fr' },
+  { geo: 'DE', locale: 'de-DE', language: 'de' },
+  { geo: 'ES', locale: 'es-ES', language: 'es' },
+  { geo: 'BR', locale: 'pt-BR', language: 'pt' },
+  { geo: 'JP', locale: 'ja-JP', language: 'ja' },
+  { geo: 'KR', locale: 'ko-KR', language: 'ko' },
+  { geo: 'ID', locale: 'id-ID', language: 'id' },
+  { geo: 'SA', locale: 'ar-SA', language: 'ar' },
+  { geo: 'RU', locale: 'ru-RU', language: 'ru' },
+  { geo: 'IT', locale: 'it-IT', language: 'it' },
+  { geo: 'TH', locale: 'th-TH', language: 'th' },
+  { geo: 'NL', locale: 'nl-NL', language: 'nl' },
+  { geo: 'PL', locale: 'pl-PL', language: 'pl' },
+];
+
+const TREND_URL = 'https://trends.google.com/trending/rss?geo=';
+const NEWS_URL = 'https://news.google.com/rss/search?';
+const GOOGLE_IMAGE_HOSTS = ['googleusercontent.com', 'gstatic.com'];
 
 function decodeCodePoint(raw: string, radix: number): string {
   const code = parseInt(raw, radix);
@@ -23,29 +62,79 @@ function tag(block: string, name: string): string {
 
 function cleanText(value: string): string {
   const decoded = decodeEntities(value.replace(/<!\[CDATA\[|\]\]>/g, ''));
-  return decodeEntities(decoded.replace(/<[^>]*>/g, ' '))
-    .replace(/\s+/g, ' ').trim();
+  return decodeEntities(decoded.replace(/<[^>]*>/g, ' ')).replace(/\s+/g, ' ').trim();
 }
 
-export async function getGoogleTrends(): Promise<GoogleTrend[]> {
-  const response = await fetch(TRENDS_URL, {
+function googleImage(candidate: string): string | undefined {
+  try {
+    const url = new URL(decodeEntities(candidate.trim()));
+    const isGoogleImage = GOOGLE_IMAGE_HOSTS.some((host) => url.hostname === host || url.hostname.endsWith(`.${host}`));
+    return url.protocol === 'https:' && isGoogleImage ? url.toString() : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+function rssImage(block: string): string | undefined {
+  const media = block.match(/<(?:media:content|media:thumbnail|enclosure)\b[^>]*\burl=["']([^"']+)["']/i)?.[1];
+  const description = decodeEntities(tag(block, 'description'));
+  const inline = description.match(/<img\b[^>]*\bsrc=["']([^"']+)["']/i)?.[1];
+  const candidate = media ?? inline;
+  return candidate ? googleImage(candidate) : undefined;
+}
+
+async function fetchRegion(region: TrendRegion): Promise<GoogleTrend[]> {
+  const response = await fetch(`${TREND_URL}${region.geo}`, {
     headers: { 'user-agent': 'Xucuz/1.0 (+https://xucuz.com; Google Trends RSS reader)' },
     next: { revalidate: 300 },
   });
-  if (!response.ok) throw new Error(`Google Trends RSS returned ${response.status}`);
-  return parseGoogleTrendsRss(await response.text());
+  if (!response.ok) throw new Error(`Google Trends RSS returned ${response.status} for ${region.geo}`);
+  return parseGoogleTrendsRss(await response.text(), region);
 }
 
-export function parseGoogleTrendsRss(xml: string): GoogleTrend[] {
-  return Array.from(xml.matchAll(/<item\b[^>]*>([\s\S]*?)<\/item>/gi), ([, block]) => {
-    const term = cleanText(tag(block ?? '', 'title'));
-    const traffic = cleanText(tag(block ?? '', 'approx_traffic'));
-    return { term, ...(traffic ? { traffic } : {}) };
+/** Combines public Google Trends RSS feeds from 16 markets and native-language locales. */
+export async function getGoogleTrends(): Promise<GoogleTrend[]> {
+  const settled = await Promise.allSettled(TREND_REGIONS.map(fetchRegion));
+  const feeds = settled.map((result) => result.status === 'fulfilled' ? result.value : []);
+  const output: GoogleTrend[] = [];
+  const seen = new Set<string>();
+  const longestFeed = Math.max(0, ...feeds.map((feed) => feed.length));
+
+  // Interleave locales so the global board does not get dominated by one country.
+  for (let rank = 0; rank < longestFeed; rank += 1) {
+    for (const feed of feeds) {
+      const item = feed[rank];
+      if (!item) continue;
+      const key = item.term.normalize('NFKC').toLocaleLowerCase(item.locale);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      output.push(item);
+    }
+  }
+
+  if (output.length === 0) throw new Error('No Google Trends regional feeds are available');
+  return output.slice(0, 96);
+}
+
+export function parseGoogleTrendsRss(xml: string, region: TrendRegion = TREND_REGIONS[0]!): GoogleTrend[] {
+  return Array.from(xml.matchAll(/<item\b[^>]*>([\s\S]*?)<\/item>/gi), ([, rawBlock]) => {
+    const block = rawBlock ?? '';
+    const related = tag(block, 'news_item');
+    const itemImage = googleImage(tag(related, 'news_item_picture'));
+    const term = cleanText(tag(block, 'title'));
+    const traffic = cleanText(tag(block, 'approx_traffic'));
+    const relatedTitle = cleanText(tag(related, 'news_item_title'));
+    return { ...region, term, ...(traffic ? { traffic } : {}), ...(itemImage ? { imageUrl: itemImage } : {}), ...(relatedTitle ? { relatedTitle } : {}) };
   }).filter(({ term }) => term.length > 0).slice(0, 30);
 }
 
-export async function getGoogleNews(term: string): Promise<GoogleNewsItem[]> {
-  const response = await fetch(`${NEWS_URL}${encodeURIComponent(term)}`, {
+export function getTrendRegion(geo: string): TrendRegion | undefined {
+  return TREND_REGIONS.find((region) => region.geo === geo.toUpperCase());
+}
+
+export async function getGoogleNews(term: string, region: TrendRegion): Promise<GoogleNewsItem[]> {
+  const params = new URLSearchParams({ q: term, hl: region.locale, gl: region.geo, ceid: `${region.geo}:${region.language}` });
+  const response = await fetch(`${NEWS_URL}${params}`, {
     headers: { 'user-agent': 'Xucuz/1.0 (+https://xucuz.com; Google News RSS reader)' },
     next: { revalidate: 300 },
   });
@@ -59,9 +148,10 @@ export function parseGoogleNewsRss(xml: string): GoogleNewsItem[] {
     const title = cleanText(tag(block, 'title'));
     const url = decodeEntities(tag(block, 'link')).trim();
     const sourceMatch = block.match(/<source\b[^>]*>([\s\S]*?)<\/source>/i);
-    const source = sourceMatch ? cleanText(sourceMatch[1] ?? '') : 'Google Haberler';
+    const source = sourceMatch ? cleanText(sourceMatch[1] ?? '') : 'Google News';
     const summary = cleanText(tag(block, 'description'));
+    const imageUrl = rssImage(block);
     const publishedAt = cleanText(tag(block, 'pubDate'));
-    return { title, url, source, summary, ...(publishedAt ? { publishedAt } : {}) };
-  }).filter((item) => item.title && /^https:\/\//i.test(item.url)).slice(0, 6);
+    return { title, url, source, summary, ...(imageUrl ? { imageUrl } : {}), ...(publishedAt ? { publishedAt } : {}) };
+  }).filter((item) => item.title && /^https:\/\//i.test(item.url)).slice(0, 8);
 }
