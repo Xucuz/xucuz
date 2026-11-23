@@ -7,13 +7,11 @@ import {worldText,type WorldCopyKey} from '@/lib/xucuz-world-copy';
 
 const nav=[
  {href:'/',key:'magicNavShop',label:undefined,Icon:Store},
- {href:'/xucuz-usta',key:'xucuzUsta',label:'Xucuz Usta',Icon:Wrench},
+ {href:'/xucuz-usta',key:'xucuzUsta',label:'Usta İşçilik',Icon:Wrench},
 ] as const;
 
 export function WorldHeader(){
- const pathname=usePathname();
  const {language}=useLanguage();
- if(pathname==='/')return null;
  return <header className="world-header">
   <div className="world-header-inner">
    <Link href="/" className="world-brand" aria-label="Xucuz ana sayfa"><span className="world-brand-symbol"><Lamp size={22}/></span><span className="world-brand-name">XUCUZ<span>WORLD</span></span></Link>
