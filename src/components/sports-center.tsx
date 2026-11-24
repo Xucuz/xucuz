@@ -15,7 +15,7 @@ type Match = {
   goals?: { home?: number | null; away?: number | null; halftime?: { home?: number | null; away?: number | null } };
   scores?: { home?: { total?: number | null }; away?: { total?: number | null } };
 };
-type Result = { configured?: boolean; matches?: Match[]; message?: string; updatedAt?: string; refreshSeconds?: number };
+type Result = { configured?: boolean; matches?: Match[]; message?: string; errorCode?: string; updatedAt?: string; refreshSeconds?: number };
 type MatchEvent = { minute: number | null; extraMinute: number | null; team: string | null; player: string | null; assist: string | null; type: string | null; detail: string | null; comments: string | null };
 type EventsResult = { configured?: boolean; events?: MatchEvent[]; unavailable?: boolean; updatedAt?: string };
 type MatchTab = 'overview' | 'events' | 'statistics' | 'lineups' | 'info';
@@ -65,8 +65,8 @@ export function SportsCenter({ embedded = false }: { embedded?: boolean }) {
     try {
       const response = await fetch(`/api/sports/matches?sport=${selected}`, { cache: 'no-store' });
       const result = await response.json() as Result;
-      if (!response.ok) throw new Error('match data unavailable');
       setData((current) => ({ ...current, [selected]: result }));
+      if (!response.ok) throw new Error('match data unavailable');
       setSelectedMatchId((current) => current && result.matches?.some((match) => matchId(match) === current) ? current : matchId(result.matches?.[0] ?? {}));
     } catch {
       setError(true);

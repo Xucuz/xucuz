@@ -60,6 +60,15 @@ describe('sports provider routes', () => {
     expect(JSON.stringify(body)).not.toContain('Invalid API key');
   });
 
+  it('classifies quota errors using only their safe provider field names', async () => {
+    vi.stubEnv('API_SPORTS_KEY', 'test-only-key');
+    const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify({ errors: { requests: 'Limit reached' }, response: [] }), { status: 200 }));
+    vi.stubGlobal('fetch', fetchMock);
+
+    const response = await getMatches(new Request('https://xucuz.test/api/sports/matches?sport=football'));
+    expect(await response.json()).toMatchObject({ configured: true, errorCode: 'quota', errorKeys: ['requests'] });
+  });
+
   it('validates event fixture IDs', async () => {
     const response = await getEvents(new Request('https://xucuz.test/api/sports/events?sport=football&id=not-a-fixture'));
     expect(response.status).toBe(400);

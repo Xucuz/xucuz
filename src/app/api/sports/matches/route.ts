@@ -11,9 +11,13 @@ type ProviderResponse = {
 type ProviderErrorCode = 'invalid_key' | 'plan_access' | 'quota' | 'provider_error';
 
 function classifyProviderError(errors: unknown): ProviderErrorCode {
+  const keys = errors && typeof errors === 'object' ? Object.keys(errors).map((key) => key.toLowerCase()) : [];
+  if (keys.some((key) => ['requests', 'ratelimit', 'rate_limit', 'quota'].includes(key))) return 'quota';
+  if (keys.some((key) => ['plan', 'subscription'].includes(key))) return 'plan_access';
+  if (keys.some((key) => ['token', 'authorization', 'api_key'].includes(key))) return 'invalid_key';
   const text = JSON.stringify(errors).toLowerCase();
-  if (/invalid.{0,20}(key|token)|(?:key|token).{0,20}invalid|unauthori[sz]ed|forbidden/.test(text)) return 'invalid_key';
-  if (/quota|rate.?limit|too many requests|requests.{0,20}(limit|exceeded)/.test(text)) return 'quota';
+  if (/invalid.{0,40}(key|token)|(?:key|token).{0,40}invalid|unauthori[sz]ed|forbidden/.test(text)) return 'invalid_key';
+  if (/quota|rate.?limit|too many requests|request limit|daily limit|limit_day/.test(text)) return 'quota';
   if (/plan|subscription|not subscribed|not available for your/.test(text)) return 'plan_access';
   return 'provider_error';
 }
@@ -21,9 +25,9 @@ function classifyProviderError(errors: unknown): ProviderErrorCode {
 const footballLive = new Set(['1H', 'HT', '2H', 'ET', 'BT', 'P', 'LIVE']);
 const basketballLive = new Set(['Q1', 'Q2', 'Q3', 'Q4', 'OT', 'BT', 'HT']);
 
-function unavailable(message: string, status: number, errorCode?: ProviderErrorCode) {
+function unavailable(message: string, status: number, errorCode?: ProviderErrorCode, errorKeys?: string[]) {
   return NextResponse.json(
-    { configured: true, matches: [], source: 'API-Sports', message, ...(errorCode ? { errorCode } : {}) },
+    { configured: true, matches: [], source: 'API-Sports', message, ...(errorCode ? { errorCode } : {}), ...(errorKeys?.length ? { errorKeys } : {}) },
     { status, headers: { 'Cache-Control': 'no-store' } },
   );
 }
@@ -67,7 +71,8 @@ export async function GET(request: Request) {
 
     const payload = await response.json() as ProviderResponse;
     if (payload.errors && Object.keys(payload.errors as object).length > 0) {
-      return unavailable('Maç sağlayıcısı isteği reddetti.', 503, classifyProviderError(payload.errors));
+      const errorKeys = payload.errors && typeof payload.errors === 'object' ? Object.keys(payload.errors as Record<string, unknown>) : [];
+      return unavailable('Maç sağlayıcısı isteği reddetti.', 503, classifyProviderError(payload.errors), errorKeys);
     }
 
     const matches = Array.isArray(payload.response) ? payload.response.filter((item) => {
