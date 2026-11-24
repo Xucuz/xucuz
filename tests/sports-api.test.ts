@@ -48,6 +48,18 @@ describe('sports provider routes', () => {
     expect(fetchMock).toHaveBeenCalledOnce();
   });
 
+  it('classifies provider credential failures without returning provider error details', async () => {
+    vi.stubEnv('API_SPORTS_KEY', 'test-only-key');
+    const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify({ errors: { token: 'Invalid API key' }, response: [] }), { status: 200 }));
+    vi.stubGlobal('fetch', fetchMock);
+
+    const response = await getMatches(new Request('https://xucuz.test/api/sports/matches?sport=football'));
+    expect(response.status).toBe(503);
+    const body = await response.json();
+    expect(body).toMatchObject({ configured: true, errorCode: 'invalid_key' });
+    expect(JSON.stringify(body)).not.toContain('Invalid API key');
+  });
+
   it('validates event fixture IDs', async () => {
     const response = await getEvents(new Request('https://xucuz.test/api/sports/events?sport=football&id=not-a-fixture'));
     expect(response.status).toBe(400);
