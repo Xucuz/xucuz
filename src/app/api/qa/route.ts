@@ -4,7 +4,7 @@ import {answerQuestion} from '@/lib/qa';
 import {answerVerifiedPriceQuestion} from '@/lib/qa-price-lookup';
 import {boundedBody,rateLimit} from '@/lib/security';
 
-const questionSchema=z.object({question:z.string().trim().min(1).max(300),language:z.enum(['tr','en','ru']).default('tr')}).strict();
+const questionSchema=z.object({question:z.string().trim().min(1).max(300),language:z.enum(['tr','en','de','es','ru','fr','ar','zh']).default('tr')}).strict();
 const headers={'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'};
 
 export async function POST(request:Request){

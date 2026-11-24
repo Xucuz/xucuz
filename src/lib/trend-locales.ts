@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import type { GoogleTrend } from '@/lib/google-trends';
 
-export const TREND_LOCALES = ['tr', 'en', 'de', 'es'] as const;
+export const TREND_LOCALES = ['tr', 'en', 'de', 'es', 'ru', 'fr', 'ar', 'zh'] as const;
 export type TrendLocale = (typeof TREND_LOCALES)[number];
 
 export const TREND_CATEGORIES = ['technology', 'sports', 'entertainment', 'politics', 'business', 'other'] as const;
@@ -36,6 +36,26 @@ export const TREND_COPY = {
     name: 'Español', title: 'Tendencias globales y de Turquía', description: 'Descubre búsquedas destacadas de Google Trends en Turquía y el mundo por país, idioma, tema y fecha.',
     kicker: 'DESCUBRIMIENTO CON FUENTES', intro: 'Sigue las búsquedas de Turquía y del mundo desde su fuente.', country: 'País', language: 'Idioma', category: 'Tema', date: 'Fecha', all: 'Todos', apply: 'Filtrar', source: 'Fuente: Google Trends', updated: 'Publicado por la fuente', volume: 'Interés de búsqueda aproximado', read: 'Abrir detalles de tendencia', back: 'Volver a todas las tendencias', related: 'Búsquedas actuales relacionadas', context: 'Esta búsqueda apareció en el feed regional público de Google Trends. El interés es un valor aproximado de Google, no representa ventas ni cuota de mercado.', news: 'Titulares relacionados', noNews: 'El feed de origen no tiene titulares relacionados en este momento.', empty: 'No hay tendencias actuales con estos filtros.', categoryNote: 'El tema es una clasificación aproximada inferida de la frase de búsqueda.', approx: 'aprox.', home: 'Inicio', geo: 'Región', updatedAt: 'Última actualización de la fuente', trendIndex: 'Explorar tendencias',
     categories: { technology: 'Tecnología', sports: 'Deportes', entertainment: 'Entretenimiento', politics: 'Política', business: 'Negocios y economía', other: 'Otros' },
+  },
+  ru: {
+    name: 'Русский', title: 'Мировые тренды и тренды Турции', description: 'Изучайте популярные запросы Google Trends в Турции и по всему миру, выбирая страну, язык, тему и дату.',
+    kicker: 'ОТКРЫТИЕ С УКАЗАНИЕМ ИСТОЧНИКА', intro: 'Следите за поисковыми запросами в Турции и мире по первоисточнику.', country: 'Страна', language: 'Язык', category: 'Тема', date: 'Дата', all: 'Все', apply: 'Фильтр', source: 'Источник: Google Trends', updated: 'Опубликовано источником', volume: 'Примерный интерес к поиску', read: 'Открыть подробности тренда', back: 'Ко всем трендам', related: 'Похожие актуальные запросы', context: 'Запрос появился в открытой региональной ленте Google Trends. Интерес к поиску — приблизительная оценка Google, а не данные о продажах или доле рынка.', news: 'Связанные новости', noNews: 'В ленте источника сейчас нет связанных заголовков.', empty: 'По этим фильтрам актуальных трендов нет.', categoryNote: 'Тема определена автоматически по поисковой фразе и является приблизительной классификацией.', approx: 'примерно', home: 'Главная', geo: 'Регион', updatedAt: 'Последнее время источника', trendIndex: 'Обзор трендов',
+    categories: { technology: 'Технологии', sports: 'Спорт', entertainment: 'Развлечения', politics: 'Политика', business: 'Бизнес и экономика', other: 'Другое' },
+  },
+  fr: {
+    name: 'Français', title: 'Tendances mondiales et de Turquie', description: 'Explorez les recherches mises en avant par Google Trends en Turquie et dans le monde, par pays, langue, sujet et date.',
+    kicker: 'DÉCOUVERTE AVEC SOURCES', intro: 'Suivez les recherches en Turquie et dans le monde à partir de leur source.', country: 'Pays', language: 'Langue', category: 'Thème', date: 'Date', all: 'Tout', apply: 'Filtrer', source: 'Source : Google Trends', updated: 'Publié par la source', volume: 'Intérêt de recherche approximatif', read: 'Ouvrir les détails de la tendance', back: 'Retour à toutes les tendances', related: 'Recherches récentes associées', context: 'Cette recherche figure dans le flux régional public de Google Trends. L’intérêt indiqué est une estimation de Google, pas une donnée de ventes ou de parts de marché.', news: 'Articles associés', noNews: 'Aucun titre associé n’est disponible dans le flux source pour le moment.', empty: 'Aucune tendance récente ne correspond à ces filtres.', categoryNote: 'Le thème est une classification approximative déduite de la requête.', approx: 'env.', home: 'Accueil', geo: 'Région', updatedAt: 'Dernière mise à jour de la source', trendIndex: 'Explorer les tendances',
+    categories: { technology: 'Technologie', sports: 'Sport', entertainment: 'Divertissement', politics: 'Politique', business: 'Économie et affaires', other: 'Autre' },
+  },
+  ar: {
+    name: 'العربية', title: 'الاتجاهات العالمية واتجاهات تركيا', description: 'استكشف عمليات البحث البارزة في Google Trends في تركيا والعالم حسب البلد واللغة والموضوع والتاريخ.',
+    kicker: 'اكتشاف موثّق بالمصادر', intro: 'تابع عمليات البحث في تركيا والعالم من مصادرها.', country: 'البلد', language: 'اللغة', category: 'الموضوع', date: 'التاريخ', all: 'الكل', apply: 'تصفية', source: 'المصدر: Google Trends', updated: 'تاريخ نشر المصدر', volume: 'اهتمام بحث تقريبي', read: 'افتح تفاصيل الاتجاه', back: 'العودة إلى كل الاتجاهات', related: 'عمليات بحث حالية ذات صلة', context: 'ظهر هذا البحث في موجز Google Trends الإقليمي العام. اهتمام البحث قيمة تقريبية من Google وليس بيانات مبيعات أو حصة سوقية.', news: 'عناوين أخبار ذات صلة', noNews: 'لا توجد عناوين ذات صلة في موجز المصدر حاليًا.', empty: 'لا توجد اتجاهات حالية تطابق عوامل التصفية.', categoryNote: 'تصنيف الموضوع تقريبي ومستنتج تلقائيًا من عبارة البحث.', approx: 'تقريبًا', home: 'الرئيسية', geo: 'المنطقة', updatedAt: 'آخر وقت للمصدر', trendIndex: 'استكشاف الاتجاهات',
+    categories: { technology: 'التكنولوجيا', sports: 'الرياضة', entertainment: 'الترفيه', politics: 'السياسة', business: 'الأعمال والاقتصاد', other: 'أخرى' },
+  },
+  zh: {
+    name: '中文', title: '全球与土耳其趋势', description: '按国家、语言、主题和日期探索 Google Trends 在土耳其及全球的热门搜索。',
+    kicker: '来源可查的发现', intro: '从来源追踪土耳其及全球搜索趋势。', country: '国家', language: '语言', category: '主题', date: '日期', all: '全部', apply: '筛选', source: '来源：Google Trends', updated: '来源发布时间', volume: '大致搜索热度', read: '查看趋势详情', back: '返回全部趋势', related: '相关热门搜索', context: '此搜索出现在 Google Trends 公开地区动态中。搜索热度是 Google 的估算值，不代表销量或市场份额。', news: '相关新闻标题', noNews: '来源动态中暂时没有相关新闻标题。', empty: '没有符合这些筛选条件的当前趋势。', categoryNote: '主题是根据搜索词自动推断的大致分类。', approx: '约', home: '首页', geo: '地区', updatedAt: '来源最近更新时间', trendIndex: '趋势探索',
+    categories: { technology: '科技', sports: '体育', entertainment: '娱乐', politics: '政治', business: '商业与经济', other: '其他' },
   },
 } as const;
 

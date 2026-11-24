@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { categoryForTrend, filterTrends, hreflangAlternates, localizedTrendPath, trendSlug } from '@/lib/trend-locales';
+import { categoryForTrend, filterTrends, hreflangAlternates, localizedTrendPath, TREND_LOCALES, trendSlug } from '@/lib/trend-locales';
 import { makeTrendsIndexMetadata } from '@/components/trends-locale-page';
 
 const rows = [
@@ -25,17 +25,18 @@ describe('global trends locale and SEO helpers', () => {
     expect(categoryForTrend('Galatasaray maçı')).toBe('sports');
   });
 
-  it('emits all four language alternates and x-default', () => {
+  it('emits all eight language alternates and x-default', () => {
     expect(hreflangAlternates((locale) => `/${locale}/trends/example`)).toEqual({ languages: {
-      tr: '/tr/trends/example', en: '/en/trends/example', de: '/de/trends/example', es: '/es/trends/example', 'x-default': '/en/trends/example',
+      tr: '/tr/trends/example', en: '/en/trends/example', de: '/de/trends/example', es: '/es/trends/example', ru: '/ru/trends/example', fr: '/fr/trends/example', ar: '/ar/trends/example', zh: '/zh/trends/example', 'x-default': '/en/trends/example',
     } });
+    expect(TREND_LOCALES).toHaveLength(8);
   });
 
   it('canonicalizes filtered landing pages and marks them noindex', async () => {
     const clean = await makeTrendsIndexMetadata('tr', Promise.resolve({}));
     const filtered = await makeTrendsIndexMetadata('tr', Promise.resolve({ geo: 'TR' }));
     expect(clean.alternates?.canonical).toBe('/tr');
-    expect(clean.alternates?.languages).toMatchObject({ tr: '/tr', en: '/en', de: '/de', es: '/es' });
+    expect(clean.alternates?.languages).toMatchObject({ tr: '/tr', en: '/en', de: '/de', es: '/es', ru: '/ru', fr: '/fr', ar: '/ar', zh: '/zh' });
     expect(filtered.alternates?.canonical).toBe('/tr');
     expect(filtered.robots).toMatchObject({ index: false, follow: true });
   });

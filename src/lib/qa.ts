@@ -9,7 +9,7 @@ const stopWords=new Set(['bir','ve','ile','icin','için','nasil','nasıl','ne','
 
 function terms(value:string){return normalize(value).split(' ').filter(word=>word.length>2&&!stopWords.has(word));}
 
-export function answerQuestion(question:string,language:'tr'|'en'|'ru'='tr'):QaReply{
+export function answerQuestion(question:string,language:'tr'|'en'|'de'|'es'|'ru'|'fr'|'ar'|'zh'='tr'):QaReply{
  if(language==='en'){
   const q=question.toLocaleLowerCase('en-US');
   if(/unit price|per kg|per litre|per liter|gram|quantity/.test(q))return {text:'Divide the total pack price by its net quantity, then convert grams or millilitres to kilograms or litres. Compare like-for-like products and check multipack terms separately. I do not fetch live store prices.',href:'/birim-fiyat',label:'Open unit price calculator'};
@@ -21,6 +21,20 @@ export function answerQuestion(question:string,language:'tr'|'en'|'ru'='tr'):QaR
   if(/цена за|кг|литр|грамм|количеств/.test(q))return {text:'Разделите цену всей упаковки на её массу или объём. Переведите граммы в килограммы, а миллилитры в литры; условия нескольких упаковок учитывайте отдельно. Актуальные цены магазинов я не получаю.',href:'/birim-fiyat',label:'Открыть расчёт цены за единицу'};
   if(/цен|дешев|предложен|магазин|наблюден/.test(q))return {text:'Xucuz показывает только свежие наблюдения сообщества с фото, проверенные модератором. Это не актуальное предложение магазина: проверьте магазин, регион и дату наблюдения. Если результата нет, одобренного наблюдения сейчас нет. Я не придумываю цены.',href:'/fiyatlar',label:'Искать наблюдения цен'};
   return {text:'Я могу помочь с ценой за единицу, полной стоимостью и руководствами по выбору товара. Подробные руководства пока доступны на турецком. Актуальные цены и человеческая поддержка здесь недоступны.',href:'/rehberler',label:'Открыть руководства'};
+ }
+ if(language==='de'||language==='es'||language==='fr'||language==='ar'||language==='zh'){
+  const q=question.toLocaleLowerCase(language==='ar'?'ar':language==='zh'?'zh-CN':language);
+  const unitIntent=/unit price|per kg|per litre|per liter|gram|quantity|einheitspreis|kilopreis|precio por unidad|precio por kilo|prix au kilo|prix unitaire|سعر الوحدة|سعر الكيلو|单位价格|每公斤|每升/i.test(q);
+  const priceIntent=/price|preis|precio|prix|سعر|价格|cheapest|günstig|barato|moins cher|أرخص|便宜|fiyat|цен/i.test(q);
+  const replies={
+   de:{unit:'Teilen Sie den Packungspreis durch die Nettomenge und vergleichen Sie dieselbe Einheit. Ich rufe keine Live-Preise von Geschäften ab.',price:'Xucuz zeigt nur aktuelle, von Moderatoren geprüfte Preisbeobachtungen mit Belegfoto. Das sind keine Live-Angebote. Ohne bestätigten Datenbankeintrag nenne ich keinen Preis.',other:'Ich kann bei Preisbeobachtungen, Stückpreisen und Einkaufsratgebern helfen. Preise werden nicht erfunden.'},
+   es:{unit:'Divide el precio del paquete por su cantidad neta y compara la misma unidad. No consulto precios de tiendas en tiempo real.',price:'Xucuz muestra únicamente observaciones de precios actuales con foto y aprobación de moderación. No son ofertas en tiempo real. Sin un registro verificado no doy un precio.',other:'Puedo ayudar con observaciones de precios, precios por unidad y guías de compra. No invento precios.'},
+   fr:{unit:'Divisez le prix du paquet par sa quantité nette et comparez la même unité. Je ne consulte pas les prix des magasins en direct.',price:'Xucuz affiche uniquement des observations de prix récentes, accompagnées d’une photo et validées par un modérateur. Sans donnée vérifiée, je ne donne pas de prix.',other:'Je peux aider avec les observations de prix, le prix unitaire et les guides d’achat. Je n’invente pas de prix.'},
+   ar:{unit:'اقسم سعر العبوة على الكمية الصافية وقارن الوحدة نفسها. لا أسترجع أسعار المتاجر مباشرة.',price:'تعرض Xucuz ملاحظات الأسعار الحديثة التي تتضمن صورة وتمت مراجعتها من المشرفين فقط. من دون سجل موثّق لن أذكر سعرًا.',other:'يمكنني المساعدة في ملاحظات الأسعار وسعر الوحدة وأدلة التسوق. لا أخمّن الأسعار.'},
+   zh:{unit:'用包装总价除以净含量，并按相同计量单位比较。我不会查询商家的实时价格。',price:'Xucuz 只展示近期、有照片且经管理员审核的价格记录。没有已验证的数据库记录时，我不会提供价格。',other:'我可以帮助查看价格记录、单位价格和购物指南，不会编造价格。'},
+  };
+  const copy=replies[language];
+  return {text:unitIntent?copy.unit:priceIntent?copy.price:copy.other,href:unitIntent?'/birim-fiyat':'/fiyatlar',label:unitIntent?'Open calculator':'View price observations'};
  }
  const q=normalize(question.slice(0,300));
  if(!q)return {text:'Bir soru yazarsan yardımcı olayım. Örneğin: “Birim fiyatı nasıl karşılaştırırım?”'};

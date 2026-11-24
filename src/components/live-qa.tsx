@@ -14,14 +14,14 @@ type SpeechError=Event&{error:string};
 type Recognition={lang:string;interimResults:boolean;onresult:((event:SpeechResult)=>void)|null;onerror:((event:SpeechError)=>void)|null;onend:(()=>void)|null;start:()=>void;stop:()=>void};
 type RecognitionCtor=new()=>Recognition;
 const welcomes={tr:'Merhaba! Ürün seçimi ve alışveriş rehberlerinde yardımcı olabilirim. Fiyat sorularında yalnızca veritabanındaki güncel, yönetici onaylı gözlemleri paylaşırım; fiyat uydurmam.',en:'Hello! I can help with product choices and shopping guides. For price questions, I only share current, moderator-approved database observations; I never invent prices.',ru:'Здравствуйте! Я помогу с выбором товара и руководствами. В ответах о ценах я использую только актуальные записи из базы, проверенные модератором. Я не придумываю цены.'};
-const speechLocale={tr:'tr-TR',en:'en-US',ru:'ru-RU'} as const;
+const speechLocale={tr:'tr-TR',en:'en-US',de:'de-DE',es:'es-ES',ru:'ru-RU',fr:'fr-FR',ar:'ar-SA',zh:'zh-CN'} as const;
 const femaleVoiceHints=/samantha|victoria|karen|zira|susan|female|woman|ava|alloy|jenny|aria|natasha|milena|olga|irina/i;
 
 export function LiveQA(){
  const {language,t}=useLanguage();
  const [open,setOpen]=useState(false);
  const [input,setInput]=useState('');
- const [messages,setMessages]=useState<Message[]>([{id:0,from:'assistant',reply:{text:welcomes[language]}}]);
+ const [messages,setMessages]=useState<Message[]>([{id:0,from:'assistant',reply:{text:welcomes[language as keyof typeof welcomes]??welcomes.en}}]);
  const [busy,setBusy]=useState(false);
  const [listening,setListening]=useState(false);
  const [voiceNotice,setVoiceNotice]=useState('');
@@ -52,7 +52,7 @@ export function LiveQA(){
   if(!('speechSynthesis'in window)||!('SpeechSynthesisUtterance'in window)){setVoiceNotice(t('voiceOutputUnsupported'));return;}
   window.speechSynthesis.cancel();
   const utterance=new SpeechSynthesisUtterance(text);utterance.lang=speechLocale[language];utterance.rate=.96;utterance.pitch=1.04;
-  const prefix=language==='tr'?'tr':language==='ru'?'ru':'en';
+  const prefix=speechLocale[language].slice(0,2);
   const voices=window.speechSynthesis.getVoices().filter(voice=>voice.lang.toLowerCase().startsWith(prefix));
   const preferred=voices.find(voice=>femaleVoiceHints.test(voice.name))??voices.find(voice=>voice.default)??voices[0];
   if(preferred)utterance.voice=preferred;
@@ -77,7 +77,7 @@ export function LiveQA(){
   {open&&<section id="live-qa-panel" className="live-qa-panel" role="dialog" aria-modal="false" aria-label="Xucin">
    <header className="live-qa-head"><div className="xucina-avatar" aria-hidden="true"><Image src="/xucina-icon-192.png" alt="" fill sizes="40px"/></div><div><strong id="live-qa-title">Xucin</strong><span className="live-qa-online-line"><span className="live-qa-online-label">Çevrimiçi</span><span className="live-qa-online-count">{onlineCount===null?'—':onlineCount.toLocaleString('tr-TR')}</span></span></div><button type="button" className="live-qa-close" onClick={()=>{setOnlineCount(null);setOpen(false);}} aria-label="Sohbeti kapat"><X size={20}/></button></header>
    <div className="live-qa-messages" ref={list} aria-live="polite" aria-relevant="additions text">
-    {messages.map(message=><div className={`live-qa-message ${message.from}`} key={message.id}><p>{message.id===0?welcomes[language]:message.reply.text}</p>{message.from==='assistant'&&<button className="xucina-speak" type="button" onClick={()=>speak(message.reply.text)} aria-label={t('speak')}><Volume2 size={14}/>{t('speak')}</button>}{message.reply.href&&message.reply.label&&<Link href={message.reply.href} onClick={()=>setOpen(false)}>{message.reply.label} →</Link>}</div>)}
+    {messages.map(message=><div className={`live-qa-message ${message.from}`} key={message.id}><p>{message.id===0?(welcomes[language as keyof typeof welcomes]??welcomes.en):message.reply.text}</p>{message.from==='assistant'&&<button className="xucina-speak" type="button" onClick={()=>speak(message.reply.text)} aria-label={t('speak')}><Volume2 size={14}/>{t('speak')}</button>}{message.reply.href&&message.reply.label&&<Link href={message.reply.href} onClick={()=>setOpen(false)}>{message.reply.label} →</Link>}</div>)}
     {busy&&<div className="live-qa-message assistant" role="status"><p className="live-qa-typing">•••</p></div>}
    </div>
    <div className="live-qa-prompts"><button type="button" onClick={()=>setInput(t('perUnitPrompt'))}>{t('perUnit')}</button><button type="button" onClick={()=>setInput(t('totalCostPrompt'))}>{t('totalCost')}</button></div>

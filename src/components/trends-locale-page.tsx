@@ -26,6 +26,10 @@ function trendEvidenceDescription(locale: TrendLocale, trend: GoogleTrend) {
   const traffic = trend.traffic;
   const date = localizedDate(trend.publishedAt, locale);
   if (locale === 'tr') return `${country} için “${trend.term}” araması Google Trends’in herkese açık bölgesel akışında listeleniyor. Kaynak yaklaşık arama ilgisini ${traffic ?? 'belirtmiyor'} olarak veriyor; bu değer satış veya pazar payı değildir. Kaynak zamanı: ${date}.`;
+  if (locale === 'ru') return `Запрос «${trend.term}» для региона ${country} указан в открытой региональной ленте Google Trends. Источник сообщает примерный интерес к поиску: ${traffic ?? 'не указано'}; это не данные о продажах или доле рынка. Время источника: ${date}.`;
+  if (locale === 'fr') return `La recherche « ${trend.term} » pour ${country} figure dans le flux régional public de Google Trends. La source indique un intérêt approximatif de ${traffic ?? 'non renseigné'} ; il ne s’agit pas de données de ventes ou de parts de marché. Date de la source : ${date}.`;
+  if (locale === 'ar') return `يظهر البحث «${trend.term}» في ${country} ضمن موجز Google Trends الإقليمي العام. يقدّر المصدر اهتمام البحث بـ ${traffic ?? 'غير متاح'}؛ وهذه ليست بيانات مبيعات أو حصة سوقية. وقت المصدر: ${date}.`;
+  if (locale === 'zh') return `“${trend.term}”这一搜索词出现在 Google Trends 面向${country}的公开地区动态中。来源给出的搜索热度约为 ${traffic ?? '未提供'}；这不是销量或市场份额数据。来源时间：${date}。`;
   if (locale === 'de') return `Die Suche „${trend.term}“ wird für ${country} im öffentlichen Regionalfeed von Google Trends aufgeführt. Die Quelle nennt ein ungefähres Suchinteresse von ${traffic ?? 'keinen Wert'}; dies ist keine Verkaufs- oder Marktanteilsangabe. Quellenzeit: ${date}.`;
   if (locale === 'es') return `La búsqueda «${trend.term}» aparece para ${country} en el feed regional público de Google Trends. La fuente indica un interés aproximado de ${traffic ?? 'sin valor disponible'}; no representa ventas ni cuota de mercado. Hora de la fuente: ${date}.`;
   return `The search “${trend.term}” is listed for ${country} in Google Trends’ public regional feed. The source reports approximate search interest as ${traffic ?? 'not provided'}; this is not sales or market-share data. Source time: ${date}.`;
@@ -42,7 +46,7 @@ export async function makeTrendsIndexMetadata(locale: TrendLocale, searchParams:
     description: copy.description,
     alternates: { canonical, ...hreflangAlternates((target) => `/${target}`) },
     robots: { index, follow: true, googleBot: { index, follow: true, 'max-image-preview': 'large' } },
-    openGraph: { type: 'website', locale: { tr: 'tr_TR', en: 'en_US', de: 'de_DE', es: 'es_ES' }[locale], url: canonical, title: copy.title, description: copy.description, siteName: 'Xucuz' },
+    openGraph: { type: 'website', locale: { tr: 'tr_TR', en: 'en_US', de: 'de_DE', es: 'es_ES', ru: 'ru_RU', fr: 'fr_FR', ar: 'ar_AR', zh: 'zh_CN' }[locale], url: canonical, title: copy.title, description: copy.description, siteName: 'Xucuz' },
   };
 }
 
@@ -69,7 +73,7 @@ export async function TrendsLocalePage({ locale, searchParams }: {
   const countries = [...new Set(trends.map((trend) => trend.geo))].sort();
   const languages = [...new Set(trends.map((trend) => trend.language))].sort();
 
-  return <div className="trend-page wrap">
+  return <div className="trend-page wrap" lang={locale} dir={locale==='ar'?'rtl':'ltr'}>
     <nav className="trend-local-nav" aria-label={copy.home}>
       <Link href="/" className="trend-brand" aria-label="Xucuz">XUCUZ<span> WORLD</span></Link>
       <div className="trend-languages" aria-label="Language">
@@ -89,7 +93,7 @@ export async function TrendsLocalePage({ locale, searchParams }: {
       <button type="submit"><Search size={17} aria-hidden="true" />{copy.apply}</button>
     </form>
     <p className="trend-category-note">{copy.categoryNote}</p>
-    {unavailable && <div className="trend-empty" role="status">{locale === 'tr' ? 'Trend kaynağına şu anda ulaşılamıyor. Son geçerli önbellek de bulunamadı; lütfen daha sonra tekrar deneyin.' : locale === 'de' ? 'Die Trendquelle ist momentan nicht erreichbar und es sind keine gültigen Cache-Daten verfügbar.' : locale === 'es' ? 'La fuente de tendencias no está disponible y no hay datos válidos en caché.' : 'The trend source is temporarily unavailable and no valid cached data is available.'}</div>}
+    {unavailable && <div className="trend-empty" role="status">{locale === 'tr' ? 'Trend kaynağına şu anda ulaşılamıyor. Son geçerli önbellek de bulunamadı; lütfen daha sonra tekrar deneyin.' : locale === 'de' ? 'Die Trendquelle ist momentan nicht erreichbar und es sind keine gültigen Cache-Daten verfügbar.' : locale === 'es' ? 'La fuente de tendencias no está disponible y no hay datos válidos en caché.' : locale === 'ru' ? 'Источник трендов сейчас недоступен, действительных данных в кэше нет.' : locale === 'fr' ? 'La source des tendances est indisponible et aucune donnée valide n’est en cache.' : locale === 'ar' ? 'مصدر الاتجاهات غير متاح حاليًا ولا توجد بيانات صالحة في ذاكرة التخزين المؤقت.' : locale === 'zh' ? '趋势来源暂时不可用，缓存中也没有有效数据。' : 'The trend source is temporarily unavailable and no valid cached data is available.'}</div>}
     {!unavailable && filtered.length === 0 && <div className="trend-empty" role="status">{copy.empty}</div>}
     <section className="trend-grid" aria-label={copy.title}>
       {filtered.map((trend) => {
@@ -105,7 +109,7 @@ export async function TrendsLocalePage({ locale, searchParams }: {
         </article>;
       })}
     </section>
-    <footer className="trend-source-note">{copy.source}. {locale === 'tr' ? 'Google Trends arama ilgisi yaklaşık veridir; Xucuz fiyat, satış veya nedensellik iddiası üretmez.' : locale === 'de' ? 'Das Suchinteresse ist ein Näherungswert; Xucuz leitet daraus keine Preise, Verkäufe oder Ursachen ab.' : locale === 'es' ? 'El interés de búsqueda es aproximado; Xucuz no inventa precios, ventas ni causas.' : 'Search interest is approximate; Xucuz does not infer prices, sales, or causes from it.'}</footer>
+    <footer className="trend-source-note">{copy.source}. {locale === 'tr' ? 'Google Trends arama ilgisi yaklaşık veridir; Xucuz fiyat, satış veya nedensellik iddiası üretmez.' : locale === 'de' ? 'Das Suchinteresse ist ein Näherungswert; Xucuz leitet daraus keine Preise, Verkäufe oder Ursachen ab.' : locale === 'es' ? 'El interés de búsqueda es aproximado; Xucuz no inventa precios, ventas ni causas.' : locale === 'ru' ? 'Интерес к поиску — приблизительный показатель; Xucuz не делает из него выводы о ценах, продажах или причинах.' : locale === 'fr' ? 'L’intérêt de recherche est approximatif ; Xucuz n’en déduit ni prix, ni ventes, ni causalité.' : locale === 'ar' ? 'اهتمام البحث تقريبي؛ ولا تستنتج Xucuz منه الأسعار أو المبيعات أو الأسباب.' : locale === 'zh' ? '搜索热度为估算值；Xucuz 不据此推断价格、销量或因果关系。' : 'Search interest is approximate; Xucuz does not infer prices, sales, or causes from it.'}</footer>
   </div>;
 }
 
@@ -120,7 +124,7 @@ export async function makeTrendDetailMetadata(locale: TrendLocale, slug: string)
   return {
     title, description,
     alternates: { canonical: path, ...hreflangAlternates((target) => localizedTrendPath(target, trend!)) },
-    openGraph: { type: 'article', locale: { tr: 'tr_TR', en: 'en_US', de: 'de_DE', es: 'es_ES' }[locale], url: path, title, description, siteName: 'Xucuz' },
+    openGraph: { type: 'article', locale: { tr: 'tr_TR', en: 'en_US', de: 'de_DE', es: 'es_ES', ru: 'ru_RU', fr: 'fr_FR', ar: 'ar_AR', zh: 'zh_CN' }[locale], url: path, title, description, siteName: 'Xucuz' },
     robots: { index: mode() !== 'demo' && process.env.VERCEL_ENV !== 'preview', follow: true, googleBot: { index: mode() !== 'demo' && process.env.VERCEL_ENV !== 'preview', follow: true, 'max-image-preview': 'large' } },
   };
 }
@@ -152,7 +156,7 @@ export async function TrendDetailPage({ locale, slug }: { locale: TrendLocale; s
   };
   const jsonLd = JSON.stringify(schema).replace(/</g, '\\u003c');
 
-  return <article className="trend-page wrap trend-detail" itemScope itemType="https://schema.org/Article">
+  return <article className="trend-page wrap trend-detail" lang={locale} dir={locale==='ar'?'rtl':'ltr'} itemScope itemType="https://schema.org/Article">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />
     <nav className="trend-local-nav" aria-label={copy.home}><Link href="/" className="trend-brand" aria-label="Xucuz">XUCUZ<span> WORLD</span></Link><div className="trend-languages" aria-label="Language">{TREND_LOCALES.map((target) => <Link key={target} href={`/${target}`} lang={target} aria-current={target === locale ? 'page' : undefined}>{TREND_COPY[target].name}</Link>)}</div></nav>
     <nav className="trend-breadcrumb" aria-label="Breadcrumb"><Link href={`/${locale}`}>{copy.home}</Link><span aria-hidden="true">/</span><span>{copy.trendIndex}</span></nav>

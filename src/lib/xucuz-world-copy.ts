@@ -103,4 +103,4 @@ export const worldCopy={
 } as const;
 
 export type WorldCopyKey=keyof typeof worldCopy.tr;
-export function worldText(language:Language,key:WorldCopyKey){return worldCopy[language][key];}
+export function worldText(language:Language,key:WorldCopyKey){const copy=worldCopy[language as keyof typeof worldCopy]??worldCopy.en;return copy[key];}
