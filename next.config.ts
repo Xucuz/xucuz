@@ -2,6 +2,7 @@ import type { NextConfig } from 'next';
 const config: NextConfig = {
   output: 'standalone', poweredByHeader: false,
   async redirects() { return [
+    { source: '/canli-maclar', destination: '/', permanent: true },
     { source: '/trends', destination: '/tr', permanent: true },
     { source: '/trends/:slug', destination: '/tr/trends/:slug', permanent: true },
   ]; },
