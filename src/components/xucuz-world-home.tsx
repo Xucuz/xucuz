@@ -1,10 +1,13 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { Search, ArrowUpRight } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import type { Category } from '@/lib/categories';
 import { useLanguage, type Language } from './language-provider';
+
+type Deal = { id:string; title:string; category:Category; source:string; item_price:number; shipping_cost:number|null; total_price:number; discount_percent:number|null; url:string; updated_at:string; currency:'TRY'|'EUR'|'USD' };
+type DealsResponse = { items:Deal[]; total_count:number };
 
 const covers: Record<Category, { image: string; alt: string }> = {
   otel: { image: 'hotel.webp', alt: 'Havuzlu otel ve tatil konaklaması' },
@@ -30,17 +33,27 @@ const labels: Record<Language, { placeholder: string; search: string; section: s
 
 const leftCategories: Category[] = ['elektronik', 'beyaz-esya', 'market', 'cicek'];
 const rightCategories: Category[] = ['otel', 'ucak', 'otobus', 'otomobil'];
+const dealMessages:Record<Language,{loading:string;emptyAll:string;emptyCategory:string;unavailable:string;all:string;verified:string}>={
+ tr:{loading:'Doğrulanmış fiyatlar getiriliyor...',emptyAll:'Şu an doğrulanmış güncel fiyat bulunmuyor.',emptyCategory:'Bu kategori için şu an doğrulanmış güncel fiyat bulunmuyor.',unavailable:'Fiyat servisine şu an ulaşılamıyor.',all:'Tüm kategoriler',verified:'Yalnızca doğrulanmış kayıtlar'},
+ en:{loading:'Loading verified prices...',emptyAll:'No current verified prices are available right now.',emptyCategory:'No current verified prices are available for this category.',unavailable:'The price service is temporarily unavailable.',all:'All categories',verified:'Verified records only'},
+ de:{loading:'Geprüfte Preise werden geladen...',emptyAll:'Derzeit sind keine aktuellen geprüften Preise verfügbar.',emptyCategory:'Für diese Kategorie sind derzeit keine aktuellen geprüften Preise verfügbar.',unavailable:'Der Preisservice ist momentan nicht erreichbar.',all:'Alle Kategorien',verified:'Nur geprüfte Einträge'},
+ es:{loading:'Cargando precios verificados...',emptyAll:'Ahora no hay precios verificados y actuales.',emptyCategory:'No hay precios verificados actuales para esta categoría.',unavailable:'El servicio de precios no está disponible temporalmente.',all:'Todas las categorías',verified:'Solo registros verificados'},
+ ru:{loading:'Загружаем проверенные цены...',emptyAll:'Сейчас нет актуальных проверенных цен.',emptyCategory:'Для этой категории сейчас нет актуальных проверенных цен.',unavailable:'Сервис цен временно недоступен.',all:'Все категории',verified:'Только проверенные записи'},
+ fr:{loading:'Chargement des prix vérifiés...',emptyAll:'Aucun prix vérifié et récent n’est disponible pour le moment.',emptyCategory:'Aucun prix vérifié récent pour cette catégorie.',unavailable:'Le service de prix est temporairement indisponible.',all:'Toutes les catégories',verified:'Entrées vérifiées uniquement'},
+ ar:{loading:'جارٍ تحميل الأسعار الموثقة...',emptyAll:'لا توجد أسعار حديثة موثقة حاليًا.',emptyCategory:'لا توجد أسعار حديثة موثقة لهذه الفئة حاليًا.',unavailable:'خدمة الأسعار غير متاحة مؤقتًا.',all:'كل الفئات',verified:'السجلات الموثقة فقط'},
+ zh:{loading:'正在加载已验证价格…',emptyAll:'目前没有可用的最新验证价格。',emptyCategory:'此类别目前没有可用的最新验证价格。',unavailable:'价格服务暂时不可用。',all:'所有类别',verified:'仅显示已验证记录'},
+};
 
-function CategoryTiles({ items, language }: { items: Category[]; language: Language }) {
+function CategoryTiles({ items, language, selected, onSelect }: { items: Category[]; language: Language; selected:Category|null; onSelect:(category:Category)=>void }) {
   const t = labels[language];
   return <div className="home-category-grid">
     {items.map((slug) => {
       const cover = covers[slug];
-      return <Link className="home-category-tile" href={`/${slug}`} key={slug}>
+      return <button className="home-category-tile" type="button" data-category={slug} aria-pressed={selected===slug} key={slug} onClick={()=>onSelect(slug)}>
         <Image src={`/category-tiles/${cover.image}`} alt={cover.alt} fill sizes="(max-width: 600px) 45vw, (max-width: 1100px) 43vw, 20vw" />
         <span className="home-category-shade" />
         <span className="home-category-copy"><strong>{t.names[slug]}</strong><small>{t.compare}<ArrowUpRight size={13} aria-hidden="true" /></small></span>
-      </Link>;
+      </button>;
     })}
   </div>;
 }
@@ -48,6 +61,33 @@ function CategoryTiles({ items, language }: { items: Category[]; language: Langu
 export function XucuzWorldHome() {
   const { language } = useLanguage();
   const t = labels[language];
+  const [selectedCategory,setSelectedCategory]=useState<Category|null>(null);
+  const [deals,setDeals]=useState<Deal[]>([]);
+  const [dealStatus,setDealStatus]=useState(dealMessages[language].loading);
+  const [dealsLoading,setDealsLoading]=useState(true);
+  const messages=dealMessages[language];
+
+  useEffect(()=>{
+    const controller=new AbortController();
+    const params=new URLSearchParams({limit:'8',include_shipping:'true'});
+    if(selectedCategory)params.set('category',selectedCategory);
+    fetch(`/api/v1/deals/today?${params.toString()}`,{signal:controller.signal})
+      .then(async response=>{
+        if(!response.ok)throw new Error('deals unavailable');
+        return await response.json() as DealsResponse;
+      })
+      .then(data=>{
+        const safeItems=(Array.isArray(data.items)?data.items:[]).filter(item=>{try{return typeof item.url==='string'&&new URL(item.url).protocol==='https:';}catch{return false;}});
+        setDeals(safeItems);
+        setDealStatus(safeItems.length?'':selectedCategory?messages.emptyCategory:messages.emptyAll);
+        setDealsLoading(false);
+      })
+      .catch(error=>{if(error instanceof Error&&error.name==='AbortError')return;setDealStatus(messages.unavailable);setDealsLoading(false);});
+    return ()=>controller.abort();
+  },[selectedCategory,messages]);
+
+  function selectCategory(category:Category){setDealsLoading(true);setDealStatus(messages.loading);setDeals([]);setSelectedCategory(category);}
+  function formatPrice(value:number,currency:Deal['currency']){return new Intl.NumberFormat(language==='tr'?'tr-TR':language,{style:'currency',currency,maximumFractionDigits:2}).format(value);}
 
   return <div className="trends-home home-market-home">
     <h1 className="trends-home-sr-only">{t.section} · Xucuz</h1>
@@ -63,12 +103,23 @@ export function XucuzWorldHome() {
     </header>
 
     <div className="home-market-stage">
-      <CategoryTiles items={leftCategories} language={language} />
+      <CategoryTiles items={leftCategories} language={language} selected={selectedCategory} onSelect={selectCategory} />
       <div className="trends-home-art home-genie-art">
         <Image className="trends-home-mascot" src="/xucuz-genie-globe.webp" alt="Dönen dünyayı parmağında çeviren Xucuz mavi cin maskotu" width={745} height={1089} priority sizes="(max-width: 760px) 68vw, 32vw" />
         <div className="trends-home-globe" aria-hidden="true" />
       </div>
-      <CategoryTiles items={rightCategories} language={language} />
+      <CategoryTiles items={rightCategories} language={language} selected={selectedCategory} onSelect={selectCategory} />
     </div>
+
+    <section className="home-deals" aria-live="polite" aria-busy={dealsLoading}>
+      <div className="home-deals-heading"><h2>{t.section}</h2><p>{selectedCategory?t.names[selectedCategory]:messages.all} · {messages.verified}</p></div>
+      {dealStatus&&<p className="home-deals-status" role="status">{dealStatus}</p>}
+      {deals.length>0&&<div className="home-deals-grid">{deals.map(item=><article className="home-deal-card" key={item.id}>
+        <span>{t.names[item.category]}</span><h3>{item.title}</h3><p>Kaynak: {item.source}</p>
+        <strong>{formatPrice(item.total_price,item.currency)}</strong>
+        {item.discount_percent!==null&&item.discount_percent>0&&<small>%{item.discount_percent} indirim</small>}
+        <a href={item.url} target="_blank" rel="noopener noreferrer">İncele <ArrowUpRight size={14} aria-hidden="true"/></a>
+      </article>)}</div>}
+    </section>
   </div>;
 }
