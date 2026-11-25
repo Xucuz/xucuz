@@ -1,57 +1,77 @@
 import { NextResponse } from 'next/server';
 
-export const revalidate = 900;
 export const runtime = 'nodejs';
+export const revalidate = 60;
 
-type ProviderEvent = {
-  time?: { elapsed?: number | null; extra?: number | null };
-  team?: { name?: string | null; logo?: string | null };
-  player?: { name?: string | null };
-  assist?: { name?: string | null };
+type SportScoreIncident = {
+  time?: number | string | null;
   type?: string | null;
-  detail?: string | null;
-  comments?: string | null;
+  side?: string | null;
+  player?: string | null;
+  is_goal?: boolean;
+  home_score?: number | string | null;
+  away_score?: number | string | null;
+};
+type SportScoreStat = {
+  label?: string;
+  home?: number | string | null;
+  away?: number | string | null;
+  home_pct?: number | null;
+  away_pct?: number | null;
+  suffix?: string;
 };
 
 export async function GET(request: Request) {
   const params = new URL(request.url).searchParams;
   const sport = params.get('sport');
-  const fixtureId = params.get('id');
-  if (sport !== 'football' || !fixtureId || !/^\d{1,12}$/.test(fixtureId)) {
+  const slug = params.get('id');
+  if ((sport !== 'football' && sport !== 'basketball') || !slug || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/i.test(slug)) {
     return NextResponse.json({ error: 'Unsupported match.' }, { status: 400 });
   }
 
-  // Accept the existing football-specific Vercel variable as a fallback.
-  const apiKey = process.env.API_SPORTS_KEY || process.env.API_FOOTBALL_KEY;
-  if (!apiKey) return NextResponse.json({ configured: false, events: [] }, { headers: { 'Cache-Control': 'no-store' } });
-
   try {
-    const response = await fetch(`https://v3.football.api-sports.io/fixtures/events?fixture=${fixtureId}`, {
-      headers: { 'x-apisports-key': apiKey },
-      next: { revalidate: 900, tags: [`sports-football-events-${fixtureId}`] },
-      signal: AbortSignal.timeout(8000),
+    const upstream = new URL('https://sportscore.com/api/widget/match/');
+    upstream.searchParams.set('sport', sport);
+    upstream.searchParams.set('slug', slug);
+    upstream.searchParams.set('src', 'xucuz.com');
+    const response = await fetch(upstream, {
+      headers: { Accept: 'application/json' },
+      next: { revalidate: 60, tags: [`sportscore-${sport}-match-${slug}`] },
+      signal: AbortSignal.timeout(10000),
     });
-    if (!response.ok) return NextResponse.json({ configured: true, events: [], unavailable: true }, { status: 503 });
-    const payload = await response.json() as { errors?: unknown; response?: ProviderEvent[] };
-    if (payload.errors && Object.keys(payload.errors as object).length) {
-      return NextResponse.json({ configured: true, events: [], unavailable: true }, { status: 503 });
-    }
+    if (!response.ok) return NextResponse.json({ configured: true, events: [], unavailable: true }, { status: 503, headers: { 'Cache-Control': 'no-store' } });
 
-    const events = (Array.isArray(payload.response) ? payload.response : []).map((event) => ({
-      minute: Number.isFinite(event.time?.elapsed) ? event.time?.elapsed : null,
-      extraMinute: Number.isFinite(event.time?.extra) ? event.time?.extra : null,
-      team: typeof event.team?.name === 'string' ? event.team.name : null,
-      player: typeof event.player?.name === 'string' ? event.player.name : null,
-      assist: typeof event.assist?.name === 'string' ? event.assist.name : null,
-      type: typeof event.type === 'string' ? event.type : null,
-      detail: typeof event.detail === 'string' ? event.detail : null,
-      comments: typeof event.comments === 'string' ? event.comments : null,
+    const payload = await response.json() as {
+      updated?: string;
+      match?: {
+        incidents?: SportScoreIncident[] | null;
+        stats?: SportScoreStat[] | null;
+        lineups?: unknown;
+      };
+    };
+    const match = payload.match;
+    const events = (Array.isArray(match?.incidents) ? match.incidents : []).map((event) => ({
+      minute: event.time === null || event.time === undefined || !Number.isFinite(Number(event.time)) ? null : Number(event.time),
+      extraMinute: null,
+      team: event.side ?? null,
+      player: event.player ?? null,
+      assist: null,
+      type: event.is_goal ? 'Goal' : event.type ?? null,
+      detail: event.type ?? null,
+      comments: [event.home_score, event.away_score].every((value) => value !== null && value !== undefined)
+        ? `${event.home_score}–${event.away_score}` : null,
     }));
+    const stats = (Array.isArray(match?.stats) ? match.stats : []).filter((stat) => typeof stat.label === 'string');
 
-    return NextResponse.json({ configured: true, events, updatedAt: new Date().toISOString(), source: 'API-Sports' }, {
-      headers: { 'Cache-Control': 'public, s-maxage=900, stale-while-revalidate=300' },
-    });
+    return NextResponse.json({
+      configured: true,
+      events,
+      stats,
+      lineups: match?.lineups ?? null,
+      updatedAt: payload.updated ?? new Date().toISOString(),
+      source: 'SportScore',
+    }, { headers: { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=30' } });
   } catch {
-    return NextResponse.json({ configured: true, events: [], unavailable: true }, { status: 503 });
+    return NextResponse.json({ configured: true, events: [], unavailable: true }, { status: 503, headers: { 'Cache-Control': 'no-store' } });
   }
 }
