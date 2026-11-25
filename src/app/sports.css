@@ -122,3 +122,45 @@ body:has(.home-sports-home) #main{min-height:0}
 @media(max-width:1000px){.home-match-stage{width:min(100% - 28px,850px);grid-template-columns:minmax(205px,.9fr) minmax(210px,.9fr);gap:12px}.home-genie-art{grid-column:1/-1;grid-row:1;width:min(38vw,290px);max-height:42dvh}.home-match-list-panel{grid-column:1;grid-row:2}.home-stadium-panel{grid-column:2;grid-row:2}.home-match-panel{min-height:360px;max-height:none;padding:13px}.home-match-stage{min-height:calc(100dvh - 76px);align-content:center}.home-match-list{max-height:270px}.home-stadium-pitch{max-height:165px}}
 @media(max-width:600px){.home-sports-home{min-height:calc(100dvh - 112px);overflow:visible}.home-match-stage{width:calc(100% - 20px);min-height:0;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:9px;padding:8px 0 15px;align-content:start}.home-genie-art{grid-column:1/-1;grid-row:1;width:min(45vw,210px);max-height:29dvh}.home-match-list-panel{grid-column:1;grid-row:2}.home-stadium-panel{grid-column:2;grid-row:2}.home-match-panel{min-height:328px;padding:10px;border-radius:15px}.home-match-panel-heading{gap:5px;margin-bottom:9px;font-size:11px}.home-match-panel-heading>span{gap:5px}.home-match-panel-heading button{width:27px;height:27px}.home-sport-switch{margin-bottom:8px}.home-sport-switch button{font-size:8px}.home-match-list{gap:5px;max-height:440px}.home-match-row{column-gap:5px;row-gap:4px;padding:7px 6px}.home-match-teams b{font-size:8px}.home-match-result{gap:2px;font-size:11px}.home-match-state{font-size:7px}.home-match-league{font-size:7px}.home-match-source{font-size:8px}.home-stadium-teams{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:3px;margin:6px 0 9px}.home-stadium-teams span{font-size:7px}.home-stadium-teams strong{gap:3px;font-size:15px}.home-stadium-pitch{max-height:none}.home-stadium-events{min-height:45px;margin-top:7px;padding-top:7px}.home-stadium-events>div{grid-template-columns:25px minmax(0,1fr);gap:4px;font-size:7px}.home-stadium-events small{font-size:7px}}
 @media(prefers-reduced-motion:reduce){.home-match-panel-heading .spinning{animation:none}}
+
+/* Xucuz Arena — focused, full-screen match home. */
+body:has(.home-sports-home){background:#030a16;color:#f4f8ff}
+body:has(.home-sports-home) .world-header{width:100%;padding-inline:max(24px,calc((100% - 1540px)/2));border-color:#ffffff12;background:linear-gradient(180deg,#08182beF,#071426e8);color:#f4f8ff;backdrop-filter:blur(18px)}
+body:has(.home-sports-home) .world-brand{color:#f4f8ff}
+body:has(.home-sports-home) .world-brand-symbol{border-color:#46c9ff55;background:linear-gradient(145deg,#153a5b,#0c2038);color:#54d4ff;box-shadow:0 0 24px #37bbff20}
+body:has(.home-sports-home) .world-brand-name span{color:#77d9ff}
+body:has(.home-sports-home) .world-nav-link{border:1px solid #ffffff16;border-radius:999px;background:#ffffff08;color:#cfdef0}
+body:has(.home-sports-home) .world-nav-link:hover{border-color:#41c9ff80;background:#123554;color:#fff}
+body:has(.home-sports-home) .world-controls select{border-color:#ffffff25;background:#0b1c31;color:#f4f8ff}
+.home-sports-home{position:relative;isolation:isolate;min-height:calc(100dvh - 76px);overflow:hidden;background:radial-gradient(ellipse at 50% 53%,#12365a 0,#0a1d34 35%,#050e1d 68%,#020713 100%)}
+.home-sports-home:before{position:absolute;z-index:-1;inset:0;background:radial-gradient(ellipse at 50% 48%,#157ec72b 0,transparent 42%),linear-gradient(90deg,transparent 0 49.9%,#ffffff08 50%,transparent 50.1%);content:"";pointer-events:none}
+.home-sports-home:after{position:absolute;z-index:-1;right:0;bottom:-1px;left:0;height:22%;background:linear-gradient(0deg,#020713 0,transparent 100%);content:"";pointer-events:none}
+.home-match-stage{position:relative;width:min(1680px,calc(100% - 64px));min-height:calc(100dvh - 76px);grid-template-columns:minmax(285px,1fr) minmax(350px,1.08fr) minmax(285px,1fr);gap:clamp(22px,3.2vw,54px);padding:24px 0 30px}
+.home-match-stage:before{position:absolute;z-index:-1;top:50%;left:50%;width:min(74vw,1050px);height:min(74vw,1050px);border:1px solid #8bd7ff0c;border-radius:50%;background:radial-gradient(circle,#1c73aa12,transparent 68%);content:"";transform:translate(-50%,-50%);pointer-events:none}
+.home-genie-art{width:min(100%,520px);max-height:calc(100dvh - 116px);filter:drop-shadow(0 24px 48px #0009)}
+.home-genie-art:before{position:absolute;z-index:-1;width:90%;height:72%;border-radius:50%;background:#087bc52b;filter:blur(52px);content:""}
+.home-match-panel{min-height:min(540px,calc(100dvh - 130px));max-height:calc(100dvh - 124px);padding:20px;border-color:#75ccff35;border-radius:22px;background:linear-gradient(148deg,#102d4ce8,#07172cf2 68%,#071224f5);box-shadow:0 28px 80px #0006,inset 0 1px #ffffff16,0 0 32px #20aaff0c;backdrop-filter:blur(18px)}
+.home-match-panel-heading{margin-bottom:15px;font-size:15px;letter-spacing:-.02em}
+.home-match-panel-heading>span{gap:9px}.home-match-panel-heading svg{color:#69d9ff}
+.home-sport-switch{padding:5px;border-color:#ffffff1b;border-radius:12px;background:#020b19a8}
+.home-sport-switch button{min-height:36px;font-size:11px}
+.home-match-list{gap:8px}
+.home-match-row{padding:11px 12px;border-color:#ffffff17;border-radius:13px;background:linear-gradient(110deg,#ffffff0b,#ffffff04);transition:border-color .18s ease,background .18s ease,transform .18s ease}
+.home-match-row:hover{transform:translateY(-1px);border-color:#54cfff70;background:#ffffff0e}
+.home-match-row.selected{border-color:#54cfffaa;background:linear-gradient(100deg,#14517b88,#ffffff0c);box-shadow:0 0 0 2px #42caff17,0 8px 22px #0002}
+.home-match-state{font-size:9px}
+.home-match-teams{gap:5px}.home-match-teams b{font-size:12px}
+.home-match-result{gap:5px;font-size:17px}
+.home-match-league{font-size:9px}
+.home-match-empty{font-size:13px}
+.home-match-source{font-size:10px;color:#a8dff4}
+.home-stadium-teams{margin:7px 0 14px}
+.home-stadium-teams span{font-size:11px}
+.home-stadium-teams strong{font-size:25px}
+.home-stadium-pitch{max-height:250px;border-color:#ffffff35;box-shadow:0 14px 35px #0004,inset 0 0 24px #0005}
+.home-stadium-events{min-height:75px;margin-top:13px;padding-top:12px}
+.home-stadium-events>div{grid-template-columns:36px minmax(0,1fr);font-size:11px}
+.home-stadium-events small{font-size:11px}
+@media(max-width:1100px){.home-match-stage{width:min(100% - 40px,920px);grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}.home-genie-art{grid-column:1/-1;grid-row:1;width:min(36vw,300px);max-height:38dvh}.home-match-list-panel{grid-column:1;grid-row:2}.home-stadium-panel{grid-column:2;grid-row:2}.home-match-panel{min-height:350px;max-height:none}.home-match-list{max-height:245px}.home-stadium-pitch{max-height:185px}}
+@media(max-width:600px){body:has(.home-sports-home) .world-header{padding-inline:14px}.home-sports-home{min-height:calc(100dvh - 108px);overflow:visible}.home-match-stage{width:calc(100% - 20px);min-height:calc(100dvh - 108px);grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:9px;padding:6px 0 14px;align-content:center}.home-genie-art{width:min(48vw,220px);max-height:27dvh}.home-match-panel{min-height:310px;padding:10px 9px;border-radius:15px}.home-match-panel-heading{gap:4px;margin-bottom:9px;font-size:11px}.home-match-panel-heading>span{gap:5px}.home-match-panel-heading svg{width:13px;height:13px}.home-match-panel-heading button{width:26px;height:26px}.home-sport-switch{gap:3px;margin-bottom:8px;padding:3px}.home-sport-switch button{min-height:30px;padding-inline:3px;font-size:8px}.home-match-list{gap:5px;max-height:380px}.home-match-row{column-gap:4px;row-gap:4px;padding:7px 6px;border-radius:10px}.home-match-state{font-size:7px}.home-match-teams{gap:4px}.home-match-teams b{font-size:9px}.home-match-result{gap:2px;font-size:12px}.home-match-result small{font-size:8px}.home-match-league{font-size:7px}.home-match-empty{padding:12px 4px;font-size:10px}.home-match-source{margin-top:8px;font-size:8px}.home-stadium-status{font-size:7px}.home-stadium-teams{gap:2px;margin:5px 0 8px}.home-stadium-teams span{font-size:7px}.home-stadium-teams strong{gap:3px;font-size:16px}.home-stadium-teams strong i{font-size:10px}.home-stadium-pitch{max-height:130px}.home-stadium-events{min-height:45px;gap:4px;margin-top:8px;padding-top:7px}.home-stadium-events>div{grid-template-columns:24px minmax(0,1fr);gap:3px;font-size:7px}.home-stadium-events small{font-size:8px}}
+@media(prefers-reduced-motion:reduce){.home-match-row{transition:none}.home-match-row:hover{transform:none}}
